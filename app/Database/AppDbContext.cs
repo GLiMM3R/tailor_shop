@@ -69,7 +69,7 @@ namespace app.Database
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Customer>().HasData(
-                new Customer { Id = 1, Name = "Esther Lynn", Gender = "male", Phone = "77919430", Address = "tanmixay" });
+                new Customer { Id = 1, Name = "Esther Lynn", Gender = Gender.Male, Phone = "77919430", Address = "tanmixay" });
         }
     }
 }

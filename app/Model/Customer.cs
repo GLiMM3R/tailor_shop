@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace app.Model
 {
+    public enum Gender
+    {
+        Male,
+        Female,
+        Other,
+        PreferNotToSay
+    }
+
     public class Customer
     {
         [Key]
@@ -16,7 +24,7 @@ namespace app.Model
         public string Name { get; set; }
 
         [Required]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
 
         [Required]
         public string Address { get; set; }

@@ -18,7 +18,7 @@ namespace app.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
                 },
@@ -117,7 +117,7 @@ namespace app.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "Address", "Gender", "Name", "Phone" },
-                values: new object[] { 1, "tanmixay", "male", "Esther Lynn", "77919430" });
+                values: new object[] { 1, "tanmixay", 0, "Esther Lynn", "77919430" });
 
             migrationBuilder.InsertData(
                 table: "Users",

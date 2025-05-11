@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using app.Database;
+using app.Model;
 using app.Service;
 
 namespace app.Presentation
@@ -16,18 +17,24 @@ namespace app.Presentation
     {
         private AppDbContext _context;
         private CustomerService _customerService;
-        private List<CustomerUC> _customerList;
+
+        private FilterCustomer _filter;
+        private int _count = 0 ;
 
         public CustomerUC()
         {
             InitializeComponent();
             InitializeService();
+
+            _filter = new FilterCustomer();
+            total_customer_lb.Text = this._count.ToString();
         }
 
         private void InitializeService()
         {
             this._context = new AppDbContext();
             this._customerService = new CustomerService(_context);
+            this._count = _customerService.Count();
         }
 
         private void Customer_Load(object sender, EventArgs e)
@@ -35,10 +42,9 @@ namespace app.Presentation
             LoadCustomers();
         }
 
-        private async void LoadCustomers()
+        public async void LoadCustomers()
         {
-            FilterCustomer filter = new FilterCustomer();
-            var customers = await _customerService.GetAll(filter);
+            var customers = await _customerService.GetAll(this._filter);
 
             customer_dgv.AutoGenerateColumns = false;
             customer_dgv.Columns.Clear();
@@ -49,8 +55,7 @@ namespace app.Presentation
                 CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender"),
                 CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone"),
-                CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address"),
-                CreateTextBoxColumn(dataPropertyName: "Status", headerText: "Status")
+                CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address")
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
@@ -95,8 +100,43 @@ namespace app.Presentation
 
         private void new_customer_btn_Click(object sender, EventArgs e)
         {
-            var customer_form = new CustomerForm();
+            var customer_form = new CustomerForm(this, _customerService, null);
             customer_form.ShowDialog();
+        }
+
+        private void gender_cb_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (gender_cb.SelectedIndex == 0)
+            {
+                _filter.Gender = null;
+                LoadCustomers();
+            }
+            else if (gender_cb.SelectedIndex == 1)
+            {
+                _filter.Gender = Gender.Male;
+                LoadCustomers();
+            }
+            else if (gender_cb.SelectedIndex == 2)
+            {
+                _filter.Gender = Gender.Female;
+                LoadCustomers();
+            }
+            else if (gender_cb.SelectedIndex == 3)
+            {
+                _filter.Gender = Gender.Other;
+                LoadCustomers();
+            }
+            else if (gender_cb.SelectedIndex == 4)
+            {
+                _filter.Gender = Gender.PreferNotToSay;
+                LoadCustomers();
+            }
+        }
+
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            _filter.Name = search_txt.Text.Trim();
+            LoadCustomers();
         }
     }
 }

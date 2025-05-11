@@ -12,7 +12,7 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250510072152_init")]
+    [Migration("20250511053531_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -37,9 +37,8 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -59,7 +58,7 @@ namespace app.Migrations
                         {
                             Id = 1,
                             Address = "tanmixay",
-                            Gender = "male",
+                            Gender = 0,
                             Name = "Esther Lynn",
                             Phone = "77919430"
                         });

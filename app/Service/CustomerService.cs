@@ -13,6 +13,8 @@ namespace app.Service
         public int? Id { get; set; }
         public string? Name { get; set; }
         public string? Phone { get; set; }
+
+        public Gender? Gender { get; set; }
     }
 
     public class CustomerService
@@ -44,15 +46,25 @@ namespace app.Service
                 {
                     query = query.Where(c => c.Phone != null && c.Phone.Contains(filter.Phone));
                 }
+
+                if (filter.Gender.HasValue)
+                {
+                    query = query.Where(c => c.Gender == filter.Gender.Value);
+                }
             }
 
             return await query.ToArrayAsync();
         }
 
-
-        public async void Create(Customer dto)
+        public void Create(Customer dto)
         {
-            await _context.Customers.AddAsync(dto);
+            _context.Customers.Add(dto);
+            _context.SaveChanges();
+        }
+
+        public int Count()
+        {
+            return _context.Customers.Count();
         }
     }
 }

@@ -34,9 +34,8 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,7 +55,7 @@ namespace app.Migrations
                         {
                             Id = 1,
                             Address = "tanmixay",
-                            Gender = "male",
+                            Gender = 0,
                             Name = "Esther Lynn",
                             Phone = "77919430"
                         });
