@@ -34,14 +34,14 @@
             filter_pn = new Panel();
             label1 = new Label();
             panel1 = new Panel();
-            gender_cb = new ComboBox();
+            role_cb = new ComboBox();
             search_pn = new Panel();
             search_txt = new TextBox();
             top_pn = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            total_customer_lb = new Label();
-            label2 = new Label();
             new_user_btn = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            total_users_lb = new Label();
+            label2 = new Label();
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)user_dgv).BeginInit();
@@ -118,28 +118,29 @@
             label1.Name = "label1";
             label1.Size = new Size(72, 47);
             label1.TabIndex = 2;
-            label1.Text = "Gender";
+            label1.Text = "Role";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(gender_cb);
+            panel1.Controls.Add(role_cb);
             panel1.Location = new Point(406, 22);
             panel1.Name = "panel1";
             panel1.Size = new Size(198, 47);
             panel1.TabIndex = 1;
             // 
-            // gender_cb
+            // role_cb
             // 
-            gender_cb.FlatStyle = FlatStyle.Flat;
-            gender_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gender_cb.FormattingEnabled = true;
-            gender_cb.Items.AddRange(new object[] { "All", "Male", "Female", "Other", "PreferNotToSay" });
-            gender_cb.Location = new Point(3, 7);
-            gender_cb.Name = "gender_cb";
-            gender_cb.Size = new Size(190, 31);
-            gender_cb.TabIndex = 1;
+            role_cb.FlatStyle = FlatStyle.Flat;
+            role_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            role_cb.FormattingEnabled = true;
+            role_cb.Items.AddRange(new object[] { "All", "User", "Admin" });
+            role_cb.Location = new Point(3, 7);
+            role_cb.Name = "role_cb";
+            role_cb.Size = new Size(190, 31);
+            role_cb.TabIndex = 1;
+            role_cb.SelectedValueChanged += role_cb_SelectedValueChanged;
             // 
             // search_pn
             // 
@@ -159,6 +160,7 @@
             search_txt.PlaceholderText = "Search...";
             search_txt.Size = new Size(259, 23);
             search_txt.TabIndex = 0;
+            search_txt.TextChanged += search_txt_TextChanged;
             // 
             // top_pn
             // 
@@ -169,45 +171,6 @@
             top_pn.Name = "top_pn";
             top_pn.Size = new Size(1194, 194);
             top_pn.TabIndex = 1;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.BackColor = Color.FromArgb(84, 119, 146);
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(total_customer_lb, 0, 1);
-            tableLayoutPanel1.Controls.Add(label2, 0, 0);
-            tableLayoutPanel1.Location = new Point(42, 35);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(337, 129);
-            tableLayoutPanel1.TabIndex = 1;
-            // 
-            // total_customer_lb
-            // 
-            total_customer_lb.Dock = DockStyle.Fill;
-            total_customer_lb.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_customer_lb.ForeColor = Color.White;
-            total_customer_lb.Location = new Point(3, 64);
-            total_customer_lb.Name = "total_customer_lb";
-            total_customer_lb.Size = new Size(331, 65);
-            total_customer_lb.TabIndex = 2;
-            total_customer_lb.Text = "0";
-            total_customer_lb.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(331, 64);
-            label2.TabIndex = 0;
-            label2.Text = "Total Users";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // new_user_btn
             // 
@@ -223,6 +186,45 @@
             new_user_btn.Text = "New User";
             new_user_btn.UseVisualStyleBackColor = false;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(84, 119, 146);
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(total_users_lb, 0, 1);
+            tableLayoutPanel1.Controls.Add(label2, 0, 0);
+            tableLayoutPanel1.Location = new Point(42, 35);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(337, 129);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // total_users_lb
+            // 
+            total_users_lb.Dock = DockStyle.Fill;
+            total_users_lb.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            total_users_lb.ForeColor = Color.White;
+            total_users_lb.Location = new Point(3, 64);
+            total_users_lb.Name = "total_users_lb";
+            total_users_lb.Size = new Size(331, 65);
+            total_users_lb.TabIndex = 2;
+            total_users_lb.Text = "0";
+            total_users_lb.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            label2.Dock = DockStyle.Fill;
+            label2.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(331, 64);
+            label2.TabIndex = 0;
+            label2.Text = "Total Users";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // UserUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -230,6 +232,7 @@
             Controls.Add(main_layout);
             Name = "UserUC";
             Size = new Size(1200, 768);
+            Load += UserUC_Load;
             main_layout.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)user_dgv).EndInit();
@@ -250,12 +253,12 @@
         private Panel filter_pn;
         private Label label1;
         private Panel panel1;
-        private ComboBox gender_cb;
+        private ComboBox role_cb;
         private Panel search_pn;
         private TextBox search_txt;
         private Panel top_pn;
         private TableLayoutPanel tableLayoutPanel1;
-        private Label total_customer_lb;
+        private Label total_users_lb;
         private Label label2;
         private Button new_user_btn;
     }

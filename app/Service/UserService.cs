@@ -38,7 +38,7 @@ namespace app.Service
             return user;
         }
 
-        public async Task<User[]> GetAll(FilterUser? filter)
+        public async Task<User[]> GetAll(FilterUser filter)
         {
             IQueryable<User> query = _context.Users.AsQueryable();
 
@@ -76,7 +76,7 @@ namespace app.Service
 
         public int Count()
         {
-            return _context.Users.Count();
+            return  _context.Users.Count();
         }
     }
 }

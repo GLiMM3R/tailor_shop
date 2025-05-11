@@ -49,7 +49,8 @@ namespace app.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,6 +63,7 @@ namespace app.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     FabricId = table.Column<int>(type: "int", nullable: false),
                     Qty = table.Column<int>(type: "int", nullable: false),
@@ -85,6 +87,12 @@ namespace app.Migrations
                         name: "FK_Orders_Fabrics_FabricId",
                         column: x => x.FabricId,
                         principalTable: "Fabrics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -121,8 +129,8 @@ namespace app.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Password", "Salt", "Username" },
-                values: new object[] { 1, "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=", "VbQId3K5ZFNKRRSaL8rdvw==", "admin" });
+                columns: new[] { "Id", "Password", "Role", "Salt", "Username" },
+                values: new object[] { 1, "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=", 1, "VbQId3K5ZFNKRRSaL8rdvw==", "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
@@ -133,6 +141,11 @@ namespace app.Migrations
                 name: "IX_Orders_FabricId",
                 table: "Orders",
                 column: "FabricId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_OrderId",
@@ -147,9 +160,6 @@ namespace app.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
@@ -157,6 +167,9 @@ namespace app.Migrations
 
             migrationBuilder.DropTable(
                 name: "Fabrics");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

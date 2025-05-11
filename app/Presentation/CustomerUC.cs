@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using app.Database;
 using app.Model;
 using app.Service;
+using app.Utils;
 
 namespace app.Presentation
 {
@@ -51,11 +52,11 @@ namespace app.Presentation
 
 
             customer_dgv.Columns.AddRange(
-                CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender"),
-                CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone"),
-                CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address")
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
@@ -68,34 +69,6 @@ namespace app.Presentation
             customer_dgv.Columns.Add(actionColumn);
 
             customer_dgv.DataSource = customers;
-        }
-
-        private DataGridViewTextBoxColumn CreateTextBoxColumn(
-        string dataPropertyName,
-        string headerText = null,
-        string name = null,
-        DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.NotSet,
-        float fillWeight = 100,
-        bool readOnly = true)
-        {
-            string actualHeaderText = headerText ?? dataPropertyName;
-            string actualName = name ?? dataPropertyName;
-
-            var column = new DataGridViewTextBoxColumn
-            {
-                Name = actualName,
-                HeaderText = actualHeaderText,
-                DataPropertyName = dataPropertyName,
-                AutoSizeMode = autoSizeMode,
-                ReadOnly = readOnly,
-            };
-
-            if (autoSizeMode == DataGridViewAutoSizeColumnMode.Fill)
-            {
-                column.FillWeight = fillWeight;
-            }
-
-            return column;
         }
 
         private void new_customer_btn_Click(object sender, EventArgs e)

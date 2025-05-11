@@ -117,11 +117,16 @@ namespace app.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("FabricId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -174,6 +179,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -191,6 +199,7 @@ namespace app.Migrations
                         {
                             Id = 1,
                             Password = "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=",
+                            Role = 1,
                             Salt = "VbQId3K5ZFNKRRSaL8rdvw==",
                             Username = "admin"
                         });
@@ -210,9 +219,17 @@ namespace app.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("app.Model.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("Fabric");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("app.Model.Payment", b =>
@@ -239,6 +256,11 @@ namespace app.Migrations
             modelBuilder.Entity("app.Model.Order", b =>
                 {
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("app.Model.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

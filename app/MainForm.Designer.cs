@@ -32,6 +32,8 @@
             sidebar_pn = new Panel();
             logout_btn = new Button();
             sidebar_layout = new TableLayoutPanel();
+            report_btn = new Button();
+            user_btn = new Button();
             customer_btn = new Button();
             order_btn = new Button();
             home_btn = new Button();
@@ -99,18 +101,60 @@
             sidebar_layout.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             sidebar_layout.ColumnCount = 1;
             sidebar_layout.ColumnStyles.Add(new ColumnStyle());
+            sidebar_layout.Controls.Add(report_btn, 0, 4);
+            sidebar_layout.Controls.Add(user_btn, 0, 3);
             sidebar_layout.Controls.Add(customer_btn, 0, 2);
             sidebar_layout.Controls.Add(order_btn, 0, 1);
             sidebar_layout.Controls.Add(home_btn, 0, 0);
             sidebar_layout.Location = new Point(0, 210);
             sidebar_layout.Margin = new Padding(0);
             sidebar_layout.Name = "sidebar_layout";
-            sidebar_layout.RowCount = 3;
-            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            sidebar_layout.Size = new Size(241, 208);
+            sidebar_layout.RowCount = 6;
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            sidebar_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            sidebar_layout.Size = new Size(241, 344);
             sidebar_layout.TabIndex = 1;
+            // 
+            // report_btn
+            // 
+            report_btn.BackColor = Color.Transparent;
+            report_btn.Cursor = Cursors.Hand;
+            report_btn.Dock = DockStyle.Fill;
+            report_btn.FlatAppearance.BorderSize = 0;
+            report_btn.FlatStyle = FlatStyle.Flat;
+            report_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            report_btn.ForeColor = Color.White;
+            report_btn.ImageAlign = ContentAlignment.MiddleLeft;
+            report_btn.Location = new Point(0, 240);
+            report_btn.Margin = new Padding(0);
+            report_btn.Name = "report_btn";
+            report_btn.Size = new Size(281, 60);
+            report_btn.TabIndex = 4;
+            report_btn.Text = "Report";
+            report_btn.UseVisualStyleBackColor = false;
+            // 
+            // user_btn
+            // 
+            user_btn.BackColor = Color.Transparent;
+            user_btn.Cursor = Cursors.Hand;
+            user_btn.Dock = DockStyle.Fill;
+            user_btn.FlatAppearance.BorderSize = 0;
+            user_btn.FlatStyle = FlatStyle.Flat;
+            user_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            user_btn.ForeColor = Color.White;
+            user_btn.ImageAlign = ContentAlignment.MiddleLeft;
+            user_btn.Location = new Point(0, 180);
+            user_btn.Margin = new Padding(0);
+            user_btn.Name = "user_btn";
+            user_btn.Size = new Size(281, 60);
+            user_btn.TabIndex = 3;
+            user_btn.Text = "User";
+            user_btn.UseVisualStyleBackColor = false;
+            user_btn.Click += user_btn_Click;
             // 
             // customer_btn
             // 
@@ -121,10 +165,10 @@
             customer_btn.FlatStyle = FlatStyle.Flat;
             customer_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             customer_btn.ForeColor = Color.White;
-            customer_btn.Location = new Point(0, 138);
+            customer_btn.Location = new Point(0, 120);
             customer_btn.Margin = new Padding(0);
             customer_btn.Name = "customer_btn";
-            customer_btn.Size = new Size(281, 70);
+            customer_btn.Size = new Size(281, 60);
             customer_btn.TabIndex = 2;
             customer_btn.Text = "Customer";
             customer_btn.UseVisualStyleBackColor = false;
@@ -139,10 +183,10 @@
             order_btn.FlatStyle = FlatStyle.Flat;
             order_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             order_btn.ForeColor = Color.White;
-            order_btn.Location = new Point(0, 69);
+            order_btn.Location = new Point(0, 60);
             order_btn.Margin = new Padding(0);
             order_btn.Name = "order_btn";
-            order_btn.Size = new Size(281, 69);
+            order_btn.Size = new Size(281, 60);
             order_btn.TabIndex = 1;
             order_btn.Text = "Order";
             order_btn.UseVisualStyleBackColor = false;
@@ -161,7 +205,7 @@
             home_btn.Location = new Point(0, 0);
             home_btn.Margin = new Padding(0);
             home_btn.Name = "home_btn";
-            home_btn.Size = new Size(281, 69);
+            home_btn.Size = new Size(281, 60);
             home_btn.TabIndex = 0;
             home_btn.Text = "Home";
             home_btn.UseVisualStyleBackColor = false;
@@ -252,5 +296,7 @@
         private Button customer_btn;
         private Panel content_pn;
         private Panel topbar_pn;
+        private Button user_btn;
+        private Button report_btn;
     }
 }

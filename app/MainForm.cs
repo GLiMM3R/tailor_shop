@@ -33,6 +33,8 @@ namespace app
             sidebarButtons.Add(home_btn);
             sidebarButtons.Add(order_btn);
             sidebarButtons.Add(customer_btn);
+            sidebarButtons.Add(user_btn);
+            sidebarButtons.Add(report_btn);
 
             SetupButtonEvents();
         }
@@ -61,16 +63,17 @@ namespace app
                         leftButton.BackColor = inactiveColor;
                     }
                 };
-            };
+            }
+            ;
         }
 
         private void SidebarButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
 
-            if(clickedButton != null)
+            if (clickedButton != null)
             {
-                if(currentActiveButton != null && currentActiveButton != clickedButton)
+                if (currentActiveButton != null && currentActiveButton != clickedButton)
                 {
                     currentActiveButton.BackColor = inactiveColor;
                 }
@@ -98,13 +101,13 @@ namespace app
         }
 
         private void order_btn_Click(object sender, EventArgs e)
-        { 
+        {
             var order = new OrderUC();
             LoadFormIntoPanel(order);
         }
 
         private void home_btn_Click(object sender, EventArgs e)
-        { 
+        {
             var home = new HomeUC();
             LoadFormIntoPanel(home);
         }
@@ -112,6 +115,11 @@ namespace app
         {
             var customer = new CustomerUC();
             LoadFormIntoPanel(customer);
+        }
+        private void user_btn_Click(object sender, EventArgs e)
+        {
+            var user = new UserUC();
+            LoadFormIntoPanel(user);
         }
 
         private void logout_btn_Click(object sender, EventArgs e)
@@ -125,5 +133,6 @@ namespace app
         {
             Application.Exit();
         }
+
     }
 }
