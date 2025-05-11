@@ -14,6 +14,11 @@ namespace app.Model
         public int Id { get; set; }
 
         [Required]
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+
+        [Required]
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; } // Navigation Property

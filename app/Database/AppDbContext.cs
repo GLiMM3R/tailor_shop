@@ -40,15 +40,11 @@ namespace app.Database
             string passwordString = "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=";
             string saltString = "VbQId3K5ZFNKRRSaL8rdvw==";
 
-            //modelBuilder.Entity<User>().HasKey(u => u.Id);
-            modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString }
-            );
-
-            //modelBuilder.Entity<Customer>().HasKey(c => c.Id);
-            //modelBuilder.Entity<Order>().HasKey(o => o.Id);
-            //modelBuilder.Entity<Fabric>().HasKey(f => f.Id);
-            //modelBuilder.Entity<Payment>().HasKey(p => p.Id);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(c => c.Orders)
@@ -67,6 +63,10 @@ namespace app.Database
                 .WithOne(p => p.Order)
                 .HasForeignKey(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<User>().HasData(
+             new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString, Role = Role.Admin });
 
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Id = 1, Name = "Esther Lynn", Gender = Gender.Male, Phone = "77919430", Address = "tanmixay" });

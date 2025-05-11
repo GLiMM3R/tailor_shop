@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace app.Model
 {
+    public enum Role
+    {
+        User,
+        Admin
+    }
+
     public class User
     {
         [Key]
@@ -21,5 +27,9 @@ namespace app.Model
 
         [Required]
         public string Salt { get; set; }
+
+        public Role Role { get; set; } = Role.User;
+
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }
