@@ -62,10 +62,10 @@ namespace app.Service
 
             return await query.ToArrayAsync();
         }
-        public async Task Create(User dto)
+        public void Create(User dto)
         {
             _context.Users.Add(dto);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public async Task Update(User dto)

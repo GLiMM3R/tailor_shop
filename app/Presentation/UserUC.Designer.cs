@@ -185,6 +185,7 @@
             new_user_btn.TabIndex = 2;
             new_user_btn.Text = "New User";
             new_user_btn.UseVisualStyleBackColor = false;
+            new_user_btn.Click += new_user_btn_Click;
             // 
             // tableLayoutPanel1
             // 

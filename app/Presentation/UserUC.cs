@@ -93,5 +93,11 @@ namespace app.Presentation
             this._filter.Username = search_txt.Text.Trim();
             LoadUsers();
         }
+
+        private void new_user_btn_Click(object sender, EventArgs e)
+        {
+            UserForm form = new UserForm(this, _userService, null);
+            form.ShowDialog();
+        }
     }
 }
