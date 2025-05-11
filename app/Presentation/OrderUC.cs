@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace app.Presentation
 {
-    public partial class Order : UserControl
+    public partial class OrderUC : UserControl
     {
-        public Order()
+        public OrderUC()
         {
             InitializeComponent();
         }

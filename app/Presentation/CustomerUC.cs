@@ -12,13 +12,13 @@ using app.Service;
 
 namespace app.Presentation
 {
-    public partial class Customer : UserControl
+    public partial class CustomerUC : UserControl
     {
         private AppDbContext _context;
         private CustomerService _customerService;
-        private List<Customer> _customerList;
+        private List<CustomerUC> _customerList;
 
-        public Customer()
+        public CustomerUC()
         {
             InitializeComponent();
             InitializeService();

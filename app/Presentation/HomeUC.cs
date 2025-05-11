@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace app.Presentation
 {
-    public partial class Home : UserControl
+    public partial class HomeUC : UserControl
     {
-        public Home()
+        public HomeUC()
         {
             InitializeComponent();
         }

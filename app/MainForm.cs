@@ -82,7 +82,7 @@ namespace app
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            var home = new Home();
+            var home = new HomeUC();
             LoadFormIntoPanel(home);
         }
 
@@ -99,24 +99,24 @@ namespace app
 
         private void order_btn_Click(object sender, EventArgs e)
         { 
-            var order = new Order();
+            var order = new OrderUC();
             LoadFormIntoPanel(order);
         }
 
         private void home_btn_Click(object sender, EventArgs e)
         { 
-            var home = new Home();
+            var home = new HomeUC();
             LoadFormIntoPanel(home);
         }
         private void customer_btn_Click(object sender, EventArgs e)
         {
-            var customer = new Customer();
+            var customer = new CustomerUC();
             LoadFormIntoPanel(customer);
         }
 
         private void logout_btn_Click(object sender, EventArgs e)
         {
-            var _login = new Login();
+            var _login = new LoginForm();
             _login.Show();
             this.Hide();
         }

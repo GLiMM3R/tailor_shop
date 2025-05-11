@@ -14,13 +14,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app
 {
-    public partial class Login : Form
+    public partial class LoginForm : Form
     {
         private AppDbContext _context;
         private AuthService _authService;
         private MainForm _dashboard;
 
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
             InitializeService();

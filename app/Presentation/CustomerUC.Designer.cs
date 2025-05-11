@@ -1,6 +1,6 @@
 ﻿namespace app.Presentation
 {
-    partial class Customer
+    partial class CustomerUC
     {
         /// <summary> 
         /// Required designer variable.

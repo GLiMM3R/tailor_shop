@@ -1,6 +1,6 @@
 ﻿namespace app.Presentation
 {
-    partial class Order
+    partial class HomeUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,19 +34,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(431, 287);
+            label1.Location = new Point(481, 280);
             label1.Name = "label1";
-            label1.Size = new Size(47, 20);
+            label1.Size = new Size(50, 20);
             label1.TabIndex = 0;
-            label1.Text = "Order";
+            label1.Text = "Home";
             // 
-            // Order
+            // Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
-            Name = "Order";
-            Size = new Size(1066, 651);
+            Name = "Home";
+            Size = new Size(1079, 638);
             ResumeLayout(false);
             PerformLayout();
         }
