@@ -7,6 +7,7 @@
        string headerText = null,
        string name = null,
        DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.NotSet,
+       DataGridViewContentAlignment dataGridViewContentAlignment = DataGridViewContentAlignment.MiddleCenter,
        float fillWeight = 100,
        bool readOnly = true)
         {
@@ -20,6 +21,10 @@
                 DataPropertyName = dataPropertyName,
                 AutoSizeMode = autoSizeMode,
                 ReadOnly = readOnly,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = dataGridViewContentAlignment
+                }
             };
 
             if (autoSizeMode == DataGridViewAutoSizeColumnMode.Fill)

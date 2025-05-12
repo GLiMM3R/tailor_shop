@@ -17,13 +17,43 @@ namespace app.Presentation
         private readonly CustomerUC _customerUC;
         private readonly CustomerService _customerService;
         private Customer? _customer;
-        public CustomerForm(CustomerUC customerUC,CustomerService customerService, Customer? customer)
+        public CustomerForm(CustomerUC customerUC, CustomerService customerService, Customer? customer)
         {
             InitializeComponent();
 
             this._customerUC = customerUC;
             this._customerService = customerService;
             _customer = customer;
+        }
+
+        private void CustomerForm_Load(object sender, EventArgs e)
+        {
+            if (this._customer != null)
+            {
+                add_btn.Text = "Update Customer";
+
+                name_txt.Text = this._customer.Name;
+                phone_txt.Text = this._customer.Phone;
+                address_txt.Text = this._customer.Address;
+
+                if (this._customer.Gender == Gender.Male)
+                {
+                    gender_male_rb.Checked = true;
+                }
+                else if (this._customer.Gender == Gender.Female)
+                {
+                    gender_female_rb.Checked = true;
+                }
+                else if (this._customer.Gender == Gender.Other)
+                {
+                    gender_other_rb.Checked = true;
+                }
+                else if (this._customer.Gender == Gender.PreferNotToSay)
+                {
+                    gender_prefer_not_to_say_rb.Checked = true;
+                }
+
+            }
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -51,22 +81,33 @@ namespace app.Presentation
             else if (gender_other_rb.Checked)
             {
                 newCustomer.Gender = Gender.Other;
-            }else if (gender_prefer_not_to_say_rb.Checked)
+            }
+            else if (gender_prefer_not_to_say_rb.Checked)
             {
                 newCustomer.Gender = Gender.Other;
             }
 
             try
             {
-                _customerService.Create(newCustomer);
+                if (this._customer != null)
+                {
+                    _customerService.Update(this._customer.Id, newCustomer);
+                    MessageBox.Show("Customer Updated!");
+                }
+                else
+                {
+                    _customerService.Create(newCustomer);
+                    MessageBox.Show("New Customer Created!");
+                }
+
                 _customerUC.LoadCustomers();
-                MessageBox.Show("New Customer Created!");
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error creating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }

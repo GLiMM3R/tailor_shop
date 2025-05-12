@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             main_layout = new TableLayoutPanel();
             bottom_pn = new TableLayoutPanel();
             customer_dgv = new DataGridView();
@@ -90,6 +91,14 @@
             customer_dgv.AllowUserToAddRows = false;
             customer_dgv.AllowUserToDeleteRows = false;
             customer_dgv.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            customer_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             customer_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             customer_dgv.Dock = DockStyle.Fill;
             customer_dgv.Location = new Point(9, 110);
@@ -99,6 +108,7 @@
             customer_dgv.RowHeadersWidth = 51;
             customer_dgv.Size = new Size(1176, 443);
             customer_dgv.TabIndex = 0;
+            customer_dgv.CellContentClick += customer_dgv_CellContentClick;
             // 
             // filter_pn
             // 

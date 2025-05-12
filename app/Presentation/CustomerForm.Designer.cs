@@ -211,7 +211,7 @@
             // gender_prefer_not_to_say_rb
             // 
             gender_prefer_not_to_say_rb.AutoSize = true;
-            gender_prefer_not_to_say_rb.Location = new Point(256, 14);
+            gender_prefer_not_to_say_rb.Location = new Point(268, 14);
             gender_prefer_not_to_say_rb.Name = "gender_prefer_not_to_say_rb";
             gender_prefer_not_to_say_rb.Size = new Size(133, 24);
             gender_prefer_not_to_say_rb.TabIndex = 3;
@@ -222,7 +222,7 @@
             // gender_other_rb
             // 
             gender_other_rb.AutoSize = true;
-            gender_other_rb.Location = new Point(169, 14);
+            gender_other_rb.Location = new Point(175, 14);
             gender_other_rb.Name = "gender_other_rb";
             gender_other_rb.Size = new Size(67, 24);
             gender_other_rb.TabIndex = 2;
@@ -233,7 +233,7 @@
             // gender_female_rb
             // 
             gender_female_rb.AutoSize = true;
-            gender_female_rb.Location = new Point(72, 14);
+            gender_female_rb.Location = new Point(82, 14);
             gender_female_rb.Name = "gender_female_rb";
             gender_female_rb.Size = new Size(78, 24);
             gender_female_rb.TabIndex = 1;
@@ -332,6 +332,7 @@
             Name = "CustomerForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Customer Form";
+            Load += CustomerForm_Load;
             form_layout.ResumeLayout(false);
             address_pn.ResumeLayout(false);
             address_pn.PerformLayout();

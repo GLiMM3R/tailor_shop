@@ -76,7 +76,7 @@ namespace app.Service
 
         public int Count()
         {
-            return  _context.Users.Count();
+            return _context.Users.Count();
         }
     }
 }

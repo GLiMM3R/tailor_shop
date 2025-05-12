@@ -20,7 +20,7 @@ namespace app.Presentation
         private CustomerService _customerService;
 
         private FilterCustomer _filter;
-        private int _count = 0 ;
+        private int _count = 0;
 
         public CustomerUC()
         {
@@ -53,7 +53,7 @@ namespace app.Presentation
 
             customer_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill,dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address")
@@ -61,10 +61,21 @@ namespace app.Presentation
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
-                Name = "Action",
-                HeaderText = "Action",
+                Name = "Edit",
+                HeaderText = "",
                 Text = "Edit",
                 UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Padding = new Padding(2),
+                    BackColor = Color.FromArgb(78, 184, 206),
+                    ForeColor = Color.White,
+                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    SelectionBackColor = Color.FromArgb(60, 140, 160),
+                    SelectionForeColor = Color.White
+                }
             };
             customer_dgv.Columns.Add(actionColumn);
 
@@ -110,6 +121,21 @@ namespace app.Presentation
         {
             _filter.Name = search_txt.Text.Trim();
             LoadCustomers();
+        }
+
+        private void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                if (customer_dgv.Columns[e.ColumnIndex].Name == "Edit")
+                {
+                    if (customer_dgv.Rows[e.RowIndex].DataBoundItem is Customer selectedCustomer)
+                    {
+                        var form = new CustomerForm(this, this._customerService, selectedCustomer);
+                        form.ShowDialog();
+                    }
+                }
+            }
         }
     }
 }
