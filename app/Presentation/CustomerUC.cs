@@ -50,7 +50,6 @@ namespace app.Presentation
             customer_dgv.AutoGenerateColumns = false;
             customer_dgv.Columns.Clear();
 
-
             customer_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill,dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),

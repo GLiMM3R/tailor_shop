@@ -176,7 +176,6 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(admin_rb);
             panel1.Controls.Add(user_rb);
             panel1.Dock = DockStyle.Fill;
@@ -267,6 +266,7 @@
             Name = "UserForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UserForm";
+            Load += UserForm_Load;
             action_layout.ResumeLayout(false);
             form_layout.ResumeLayout(false);
             panel1.ResumeLayout(false);

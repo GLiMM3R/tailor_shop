@@ -52,7 +52,6 @@ namespace app.Presentation
                 {
                     gender_prefer_not_to_say_rb.Checked = true;
                 }
-
             }
         }
 

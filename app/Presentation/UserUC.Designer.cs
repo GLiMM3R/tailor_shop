@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             main_layout = new TableLayoutPanel();
             bottom_pn = new TableLayoutPanel();
             user_dgv = new DataGridView();
@@ -90,6 +91,14 @@
             user_dgv.AllowUserToAddRows = false;
             user_dgv.AllowUserToDeleteRows = false;
             user_dgv.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            user_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             user_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             user_dgv.Dock = DockStyle.Fill;
             user_dgv.Location = new Point(9, 110);
@@ -99,6 +108,7 @@
             user_dgv.RowHeadersWidth = 51;
             user_dgv.Size = new Size(1176, 443);
             user_dgv.TabIndex = 0;
+            user_dgv.CellContentClick += user_dgv_CellContentClick;
             // 
             // filter_pn
             // 

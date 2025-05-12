@@ -59,10 +59,21 @@ namespace app.Presentation
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
-                Name = "Action",
-                HeaderText = "Action",
+                Name = "Edit",
+                HeaderText = "",
                 Text = "Edit",
                 UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Padding = new Padding(2),
+                    BackColor = Color.FromArgb(78, 184, 206),
+                    ForeColor = Color.White,
+                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    SelectionBackColor = Color.FromArgb(60, 140, 160),
+                    SelectionForeColor = Color.White
+                }
             };
             user_dgv.Columns.Add(actionColumn);
 
@@ -98,6 +109,21 @@ namespace app.Presentation
         {
             UserForm form = new UserForm(this, _userService, null);
             form.ShowDialog();
+        }
+
+        private void user_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (user_dgv.Columns[e.ColumnIndex].Name == "Edit")
+                {
+                    if (user_dgv.Rows[e.RowIndex].DataBoundItem is User selectedUser)
+                    {
+                        var form = new UserForm(this, this._userService, selectedUser);
+                        form.ShowDialog();
+                    }
+                }
+            }
         }
     }
 }

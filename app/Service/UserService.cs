@@ -26,9 +26,9 @@ namespace app.Service
             this._context = context;
         }
 
-        public async Task<User?> GetByID(int id)
+        public User? GetByID(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user =  _context.Users.FirstOrDefault(x => x.Id == id);
 
             if (user == null)
             {
@@ -68,10 +68,10 @@ namespace app.Service
              _context.SaveChanges();
         }
 
-        public async Task Update(User dto)
+        public void Update(User dto)
         {
             _context.Users.Update(dto);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public int Count()
