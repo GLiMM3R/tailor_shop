@@ -67,35 +67,8 @@ namespace app.Service
             _context.SaveChanges();
         }
 
-        public void Update(int id,Customer dto)
+        public void Update(Customer customer)
         {
-            var customer = this.GetByID(id);
-
-            if (customer == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            if(dto.Name != null && customer.Name != dto.Name)
-            {
-                customer.Name = dto.Name;
-            }
-
-            if (dto.Phone != null && customer.Phone != dto.Phone)
-            {
-                customer.Phone = dto.Phone;
-            }
-
-            if (dto.Address != null && customer.Address != dto.Address)
-            {
-                customer.Address = dto.Address;
-            }
-
-            if (customer.Gender != dto.Gender)
-            {
-                customer.Gender = dto.Gender;
-            }
-
             _context.Customers.Update(customer);
             _context.SaveChanges();
         }

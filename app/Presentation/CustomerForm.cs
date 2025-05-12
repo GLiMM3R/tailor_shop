@@ -61,53 +61,102 @@ namespace app.Presentation
             this.Close();
         }
 
+        private Gender GetSelectedGender()
+        {
+            if (gender_male_rb.Checked) return Gender.Male;
+            if (gender_female_rb.Checked) return Gender.Female;
+            if (gender_other_rb.Checked) return Gender.Other;
+            if (gender_prefer_not_to_say_rb.Checked) return Gender.PreferNotToSay;
+
+            return Gender.Other; // No gender selected
+        }
+
         private void add_btn_Click(object sender, EventArgs e)
+        {
+            bool isSuccess = false;
+
+            if (this._customer != null)
+            {
+                isSuccess = this.UpdateCustomer();
+            }
+            else
+            {
+                isSuccess = this.CreateCustomer();
+            }
+
+            if (isSuccess)
+            {
+                _customerUC.LoadCustomers();
+                this.Close();
+            }
+        }
+
+        private bool CreateCustomer()
         {
             var newCustomer = new Customer
             {
                 Name = name_txt.Text.Trim(),
                 Phone = phone_txt.Text.Trim(),
                 Address = address_txt.Text.Trim(),
+                Gender = this.GetSelectedGender()
             };
 
-            if (gender_male_rb.Checked)
+            try
             {
-                newCustomer.Gender = Gender.Male;
+                _customerService.Create(newCustomer);
+
+                MessageBox.Show("New Customer Created!");
+                return true;
             }
-            else if (gender_female_rb.Checked)
+            catch (Exception ex)
             {
-                newCustomer.Gender = Gender.Female;
+                MessageBox.Show($"Error creating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            else if (gender_other_rb.Checked)
+        }
+
+        private bool UpdateCustomer()
+        {
+            var customer = this._customerService.GetByID(this._customer!.Id);
+            var gender = this.GetSelectedGender();
+
+            if (customer == null)
             {
-                newCustomer.Gender = Gender.Other;
+                return false;
             }
-            else if (gender_prefer_not_to_say_rb.Checked)
+
+            if (customer.Name != name_txt.Text)
             {
-                newCustomer.Gender = Gender.Other;
+                customer.Name = name_txt.Text;
+            }
+
+            if (customer.Phone != phone_txt.Text)
+            {
+                customer.Phone = phone_txt.Text;
+            }
+
+            if (customer.Address != address_txt.Text)
+            {
+                customer.Address = address_txt.Text;
+            }
+
+            if (customer.Gender != gender)
+            {
+                customer.Gender = gender;
             }
 
             try
             {
-                if (this._customer != null)
-                {
-                    _customerService.Update(this._customer.Id, newCustomer);
-                    MessageBox.Show("Customer Updated!");
-                }
-                else
-                {
-                    _customerService.Create(newCustomer);
-                    MessageBox.Show("New Customer Created!");
-                }
+                _customerService.Update(customer);
 
-                _customerUC.LoadCustomers();
-                this.Close();
+                MessageBox.Show("Customer Updated!");
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
-
     }
 }
