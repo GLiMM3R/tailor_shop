@@ -247,6 +247,7 @@
             // 
             root_layout.BackColor = Color.White;
             root_layout.BorderStyle = BorderStyle.FixedSingle;
+            root_layout.Controls.Add(form_layout);
             root_layout.Controls.Add(action_layout);
             root_layout.Controls.Add(header_lb);
             root_layout.Dock = DockStyle.Fill;
@@ -260,7 +261,6 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(573, 414);
-            Controls.Add(form_layout);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "UserForm";

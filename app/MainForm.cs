@@ -123,6 +123,12 @@ namespace app
             LoadFormIntoPanel(user);
         }
 
+        private void fabric_btn_Click(object sender, EventArgs e)
+        {
+            var fabric = new FabricUC();
+            LoadFormIntoPanel(fabric);
+        }
+
         private void logout_btn_Click(object sender, EventArgs e)
         {
             var _login = new LoginForm();
@@ -134,6 +140,5 @@ namespace app
         {
             Application.Exit();
         }
-
     }
 }

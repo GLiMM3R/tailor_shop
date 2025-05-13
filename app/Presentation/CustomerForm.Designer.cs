@@ -312,6 +312,8 @@
             // 
             root_layout.BackColor = Color.White;
             root_layout.BorderStyle = BorderStyle.FixedSingle;
+            root_layout.Controls.Add(action_layout);
+            root_layout.Controls.Add(form_layout);
             root_layout.Controls.Add(header_lb);
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
@@ -325,8 +327,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(571, 494);
-            Controls.Add(action_layout);
-            Controls.Add(form_layout);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "CustomerForm";

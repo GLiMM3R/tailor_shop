@@ -13,7 +13,7 @@ namespace app.Model
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Type { get; set; }
 
         [Required]
         public string Color { get; set; }

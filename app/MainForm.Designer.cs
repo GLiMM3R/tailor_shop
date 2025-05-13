@@ -97,6 +97,7 @@
             // 
             home_btn.AutoSize = true;
             home_btn.BackColor = Color.Transparent;
+            home_btn.BackgroundImageLayout = ImageLayout.None;
             home_btn.Cursor = Cursors.Hand;
             home_btn.Dock = DockStyle.Top;
             home_btn.FlatAppearance.BorderSize = 0;
@@ -185,6 +186,7 @@
             fabric_btn.TabIndex = 4;
             fabric_btn.Text = "Fabric";
             fabric_btn.UseVisualStyleBackColor = false;
+            fabric_btn.Click += fabric_btn_Click;
             // 
             // report_btn
             // 
