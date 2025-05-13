@@ -44,17 +44,17 @@ namespace app.Presentation
             }
         }
 
-        private void add_btn_Click(object sender, EventArgs e)
+        private async void add_btn_Click(object sender, EventArgs e)
         {
             bool isSuccess = false;
 
             if (this._user != null)
             {
-                isSuccess = this.UpdateUser();
+                isSuccess = await this.UpdateUser();
             }
             else
             {
-                isSuccess = this.CreateUser();
+                isSuccess = await this.CreateUser();
             }
 
             if (isSuccess)
@@ -75,7 +75,7 @@ namespace app.Presentation
             return Role.User; // No gender selected
         }
 
-        private bool CreateUser()
+        private async Task<bool> CreateUser()
         {
             var newUser = new User
             {
@@ -89,7 +89,7 @@ namespace app.Presentation
 
             try
             {
-                _userService.Create(newUser);
+                await _userService.Create(newUser);
 
                 MessageBox.Show("New User Created!");
                 return true;
@@ -101,9 +101,9 @@ namespace app.Presentation
             }
         }
 
-        private bool UpdateUser()
+        private async Task<bool> UpdateUser()
         {
-            var user = this._userService.GetByID(this._user!.Id);
+            var user = await this._userService.GetByID(this._user!.Id);
             var role = this.GetSelectedRole();
 
             if (user == null)
@@ -130,7 +130,7 @@ namespace app.Presentation
 
             try
             {
-                _userService.Update(user);
+                await _userService.Update(user);
 
                 MessageBox.Show("User Updated!");
                 return true;

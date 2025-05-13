@@ -135,9 +135,10 @@
             // 
             // color_pn
             // 
-            color_pn.Location = new Point(-3, 0);
+            color_pn.BorderStyle = BorderStyle.FixedSingle;
+            color_pn.Location = new Point(0, 0);
             color_pn.Name = "color_pn";
-            color_pn.Size = new Size(261, 57);
+            color_pn.Size = new Size(258, 57);
             color_pn.TabIndex = 9;
             // 
             // choose_color_btn

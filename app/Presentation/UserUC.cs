@@ -30,7 +30,7 @@ namespace app.Presentation
             total_users_lb.Text = this._count.ToString();
         }
 
-        public async void InitializeUserService()
+        public void InitializeUserService()
         {
             this._dbContext = new AppDbContext();
             this._userService = new UserService(_dbContext);

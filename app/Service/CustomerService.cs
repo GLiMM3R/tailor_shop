@@ -61,16 +61,16 @@ namespace app.Service
             return await query.ToArrayAsync();
         }
 
-        public void Create(Customer dto)
+        public async Task Create(Customer dto)
         {
             _context.Customers.Add(dto);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Customer customer)
+        public async Task Update(Customer customer)
         {
             _context.Customers.Update(customer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public int Count()

@@ -70,17 +70,17 @@ namespace app.Presentation
             return Gender.Other; // No gender selected
         }
 
-        private void add_btn_Click(object sender, EventArgs e)
+        private async void add_btn_Click(object sender, EventArgs e)
         {
             bool isSuccess = false;
 
             if (this._customer != null)
             {
-                isSuccess = this.UpdateCustomer();
+                isSuccess = await this.UpdateCustomer();
             }
             else
             {
-                isSuccess = this.CreateCustomer();
+                isSuccess = await this.CreateCustomer();
             }
 
             if (isSuccess)
@@ -90,7 +90,7 @@ namespace app.Presentation
             }
         }
 
-        private bool CreateCustomer()
+        private async Task<bool> CreateCustomer()
         {
             var newCustomer = new Customer
             {
@@ -102,7 +102,7 @@ namespace app.Presentation
 
             try
             {
-                _customerService.Create(newCustomer);
+                await _customerService.Create(newCustomer);
 
                 MessageBox.Show("New Customer Created!");
                 return true;
@@ -114,7 +114,7 @@ namespace app.Presentation
             }
         }
 
-        private bool UpdateCustomer()
+        private async Task<bool> UpdateCustomer()
         {
             var customer = this._customerService.GetByID(this._customer!.Id);
             var gender = this.GetSelectedGender();
@@ -146,7 +146,7 @@ namespace app.Presentation
 
             try
             {
-                _customerService.Update(customer);
+                await _customerService.Update(customer);
 
                 MessageBox.Show("Customer Updated!");
                 return true;
