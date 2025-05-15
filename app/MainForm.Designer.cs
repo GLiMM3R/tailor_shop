@@ -266,7 +266,7 @@
             // 
             // topbar_pn
             // 
-            topbar_pn.BackColor = Color.FromArgb(84, 119, 146);
+            topbar_pn.BackColor = Color.Bisque;
             topbar_pn.Dock = DockStyle.Top;
             topbar_pn.Location = new Point(0, 0);
             topbar_pn.Margin = new Padding(0);
