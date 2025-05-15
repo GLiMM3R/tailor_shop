@@ -283,7 +283,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Trailorinng Shop";
+            Text = "Tailor Shop";
             WindowState = FormWindowState.Maximized;
             FormClosed += Dashboard_FormClosed;
             Load += Dashboard_Load;

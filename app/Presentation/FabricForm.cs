@@ -29,6 +29,21 @@ namespace app.Presentation
             this._fabric = fabric;
         }
 
+        private void FabricForm_Load(object sender, EventArgs e)
+        {
+            if (this._fabric != null)
+            {
+                type_txt.Text = this._fabric.Type;
+                color_name_txt.Text = this._fabric.ColorName;
+                if (this._fabric.Color != null)
+                {
+                    this._hexColor = this._fabric.Color;
+                    Color fabricColor = System.Drawing.ColorTranslator.FromHtml(this._hexColor);
+                    color_pn.BackColor = fabricColor;
+                }
+            }
+        }
+
         private void choose_color_btn_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();

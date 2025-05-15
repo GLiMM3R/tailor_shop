@@ -264,6 +264,7 @@
             Name = "FabricForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FabricForm";
+            Load += FabricForm_Load;
             root_layout.ResumeLayout(false);
             root_layout.PerformLayout();
             form_layout.ResumeLayout(false);

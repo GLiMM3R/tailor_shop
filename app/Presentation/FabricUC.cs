@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using app.Database;
+using app.Model;
 using app.Service;
 using app.Utils;
 
@@ -71,6 +72,7 @@ namespace app.Presentation
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             fabric_dgv.CellFormatting += this.fabric_dgv_CellFormatting;
+            fabric_dgv.CellContentClick += this.fabric_dgv_CellContentClick;
         }
 
         public async void LoadFabrics()
@@ -83,6 +85,21 @@ namespace app.Presentation
         {
             var frm = new FabricForm(this, this._fabricService, null);
             frm.ShowDialog();
+        }
+
+        private void fabric_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (fabric_dgv.Columns[e.ColumnIndex].Name == "Edit")
+                {
+                    if (fabric_dgv.Rows[e.RowIndex].DataBoundItem is Fabric selectedFabric)
+                    {
+                        var form = new FabricForm(this, this._fabricService, selectedFabric);
+                        form.ShowDialog();
+                    }
+                }
+            }
         }
 
         private void fabric_dgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

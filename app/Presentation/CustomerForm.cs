@@ -23,7 +23,7 @@ namespace app.Presentation
 
             this._customerUC = customerUC;
             this._customerService = customerService;
-            _customer = customer;
+            this._customer = customer;
         }
 
         private void CustomerForm_Load(object sender, EventArgs e)
