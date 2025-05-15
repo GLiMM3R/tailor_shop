@@ -30,14 +30,16 @@ namespace app.Presentation
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            if (this._user != null) {
+            if (this._user != null)
+            {
                 add_btn.Text = "Update User";
                 username_txt.Text = this._user.Username;
 
                 if (this._user.Role == Role.User)
                 {
                     user_rb.Checked = true;
-                } else
+                }
+                else
                 {
                     admin_rb.Checked = true;
                 }
@@ -46,22 +48,16 @@ namespace app.Presentation
 
         private async void add_btn_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
-
             if (this._user != null)
             {
-                isSuccess = await this.UpdateUser();
+                await this.UpdateUser();
             }
             else
             {
-                isSuccess = await this.CreateUser();
+                await this.CreateUser();
             }
-
-            if (isSuccess)
-            {
-                _userUC.LoadUsers();
-                this.Close();
-            }
+            this._userUC.LoadUsers();
+            this.Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -75,70 +71,71 @@ namespace app.Presentation
             return Role.User; // No gender selected
         }
 
-        private async Task<bool> CreateUser()
+        private async Task CreateUser()
         {
-            var newUser = new User
+            if (string.IsNullOrWhiteSpace(username_txt.Text) || string.IsNullOrWhiteSpace(password_txt.Text))
             {
-               Username = username_txt.Text.Trim(),
-               Role = GetSelectedRole(),
-            };
-
-            var (hashedPwd, salt) = PasswordHasher.HashPassword(password_txt.Text.Trim());
-            newUser.Password = hashedPwd;
-            newUser.Salt = salt;
+                MessageBox.Show("Please enter valid user details.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {
-                await _userService.Create(newUser);
+                var newUser = new User
+                {
+                    Username = username_txt.Text.Trim(),
+                    Role = GetSelectedRole(),
+                };
 
-                MessageBox.Show("New User Created!");
-                return true;
+                var (hashedPwd, salt) = PasswordHasher.HashPassword(password_txt.Text.Trim());
+                newUser.Password = hashedPwd;
+                newUser.Salt = salt;
+
+                await _userService.Create(newUser);
+                MessageBox.Show("New User Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
 
-        private async Task<bool> UpdateUser()
+        private async Task UpdateUser()
         {
-            var user = await this._userService.GetByID(this._user!.Id);
-            var role = this.GetSelectedRole();
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            if (user.Username != username_txt.Text.Trim())
-            {
-                user.Username = username_txt.Text.Trim();
-            }
-
-            if(password_txt.Text != null)
-            {
-                var (hashedPwd, salt) = PasswordHasher.HashPassword(password_txt.Text.Trim());
-                user.Password = hashedPwd;
-                user.Salt = salt;
-            }
-
-            if (user.Role != role)
-            {
-                user.Role = role;
-            }
-
             try
             {
-                await _userService.Update(user);
+                var user = await this._userService.GetByID(this._user!.Id);
+                var role = this.GetSelectedRole();
 
-                MessageBox.Show("User Updated!");
-                return true;
+                if (user == null)
+                {
+                    MessageBox.Show("User not found!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (user.Username != username_txt.Text.Trim() && !string.IsNullOrWhiteSpace(username_txt.Text))
+                {
+                    user.Username = username_txt.Text.Trim();
+                }
+
+                if (password_txt.Text != null && !string.IsNullOrWhiteSpace(password_txt.Text))
+                {
+                    var (hashedPwd, salt) = PasswordHasher.HashPassword(password_txt.Text.Trim());
+                    user.Password = hashedPwd;
+                    user.Salt = salt;
+                }
+
+                if (user.Role != role)
+                {
+                    user.Role = role;
+                }
+
+                await _userService.Update(user);
+                MessageBox.Show("New User Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
     }

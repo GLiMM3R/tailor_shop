@@ -12,7 +12,7 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250513153842_init")]
+    [Migration("20250515125350_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -73,6 +73,10 @@ namespace app.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

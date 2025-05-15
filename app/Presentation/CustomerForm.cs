@@ -72,89 +72,87 @@ namespace app.Presentation
 
         private async void add_btn_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
-
             if (this._customer != null)
             {
-                isSuccess = await this.UpdateCustomer();
+                await this.UpdateCustomer();
             }
             else
             {
-                isSuccess = await this.CreateCustomer();
+                await this.CreateCustomer();
             }
 
-            if (isSuccess)
-            {
-                _customerUC.LoadCustomers();
-                this.Close();
-            }
+            this._customerUC.LoadCustomers();
+            this.Close();
+
         }
 
-        private async Task<bool> CreateCustomer()
+        private async Task CreateCustomer()
         {
-            var newCustomer = new Customer
+            if (string.IsNullOrWhiteSpace(name_txt.Text) || string.IsNullOrWhiteSpace(phone_txt.Text) || string.IsNullOrWhiteSpace(address_txt.Text))
             {
-                Name = name_txt.Text.Trim(),
-                Phone = phone_txt.Text.Trim(),
-                Address = address_txt.Text.Trim(),
-                Gender = this.GetSelectedGender()
-            };
+                MessageBox.Show("Please enter valid customer details.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {
-                await _customerService.Create(newCustomer);
+                var newCustomer = new Customer
+                {
+                    Name = name_txt.Text.Trim(),
+                    Phone = phone_txt.Text.Trim(),
+                    Address = address_txt.Text.Trim(),
+                    Gender = this.GetSelectedGender()
+                };
 
-                MessageBox.Show("New Customer Created!");
-                return true;
+                await _customerService.Create(newCustomer);
+                MessageBox.Show("New Customer Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
 
-        private async Task<bool> UpdateCustomer()
+        private async Task UpdateCustomer()
         {
-            var customer = this._customerService.GetByID(this._customer!.Id);
-            var gender = this.GetSelectedGender();
-
-            if (customer == null)
-            {
-                return false;
-            }
-
-            if (customer.Name != name_txt.Text)
-            {
-                customer.Name = name_txt.Text;
-            }
-
-            if (customer.Phone != phone_txt.Text)
-            {
-                customer.Phone = phone_txt.Text;
-            }
-
-            if (customer.Address != address_txt.Text)
-            {
-                customer.Address = address_txt.Text;
-            }
-
-            if (customer.Gender != gender)
-            {
-                customer.Gender = gender;
-            }
 
             try
             {
-                await _customerService.Update(customer);
+                var customer = this._customerService.GetByID(this._customer!.Id);
+                var gender = this.GetSelectedGender();
 
-                MessageBox.Show("Customer Updated!");
-                return true;
+                if (customer == null)
+                {
+                    MessageBox.Show("User not found!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (customer.Name != name_txt.Text && !string.IsNullOrWhiteSpace(name_txt.Text))
+                {
+                    customer.Name = name_txt.Text;
+                }
+
+                if (customer.Phone != phone_txt.Text && !string.IsNullOrWhiteSpace(phone_txt.Text))
+                {
+                    customer.Phone = phone_txt.Text;
+                }
+
+                if (customer.Address != address_txt.Text && !string.IsNullOrWhiteSpace(address_txt.Text))
+                {
+                    customer.Address = address_txt.Text;
+                }
+
+                if (customer.Gender != gender)
+                {
+                    customer.Gender = gender;
+                }
+
+                await _customerService.Update(customer);
+                MessageBox.Show("Customer Update!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
     }

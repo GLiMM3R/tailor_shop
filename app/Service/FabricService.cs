@@ -12,6 +12,7 @@ namespace app.Service
     public class FilterFabric
     {
         public string Type { get; set; }
+        public string ColorName { get; set; }
     }
 
     public class FabricService
@@ -32,6 +33,11 @@ namespace app.Service
                 if (!string.IsNullOrEmpty(filter.Type))
                 {
                     query = query.Where(c => c.Type != null && c.Type.ToLower().Contains(filter.Type.ToLower()));
+                }
+
+                if (!string.IsNullOrEmpty(filter.ColorName))
+                {
+                    query = query.Where(c => c.ColorName.ToLower().Contains(filter.ColorName.ToLower()));
                 }
             }
 

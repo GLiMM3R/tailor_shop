@@ -23,6 +23,7 @@ namespace app.Presentation
         {
             InitializeComponent();
             InitializeService();
+            InitializeDataGridView();
 
             LoadFabrics();
         }
@@ -34,26 +35,18 @@ namespace app.Presentation
             this._filter = new FilterFabric();
         }
 
-        public async void LoadFabrics()
+        private void InitializeDataGridView()
         {
-            var fabrics = await _fabricService.GetAll(this._filter);
-
             fabric_dgv.AutoGenerateColumns = false;
             fabric_dgv.Columns.Clear();
 
             fabric_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Type", headerText: "Type", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "Color")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ColorName", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "Color"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "ValueToColor")
                 );
-
-            DataGridViewTextBoxColumn colorDisplay = new DataGridViewTextBoxColumn
-            {
-                Name = "ValueToColor",
-                HeaderText = "ValueToColor"
-            };
-
-            fabric_dgv.Columns.Add(colorDisplay);
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
@@ -76,8 +69,13 @@ namespace app.Presentation
 
             fabric_dgv.Columns.Add(actionColumn);
 
-            // Subscribe to the CellFormatting event
-            //this.fabric_dgv.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.fabric_dgv_CellFormatting);
+            //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            fabric_dgv.CellFormatting += this.fabric_dgv_CellFormatting;
+        }
+
+        public async void LoadFabrics()
+        {
+            var fabrics = await _fabricService.GetAll(this._filter);
             fabric_dgv.DataSource = fabrics;
         }
 
@@ -89,95 +87,54 @@ namespace app.Presentation
 
         private void fabric_dgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Ensure we are not on a header row or a new row
-            if (e.RowIndex < 0 || e.RowIndex == this.fabric_dgv.NewRowIndex)
-                return;
-
-            // Scenario 1: Color a specific cell ('ValueToColor' column) based on 'ColorName' column
-            // Let's say "ValueToColor" is at columnIndex 4
-            int valueToColorColumnIndex = fabric_dgv.Columns["ValueToColor"]?.Index ?? -1; // Get column index by name
-            int colorNameColumnIndex = fabric_dgv.Columns["Color"]?.Index ?? -1;
-
-            if (valueToColorColumnIndex != -1 && e.ColumnIndex == valueToColorColumnIndex && colorNameColumnIndex != -1)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                // Get the color name or HEX string from the 'ColorName' column for the current row
-                string colorStr = fabric_dgv.Rows[e.RowIndex].Cells[colorNameColumnIndex].Value?.ToString();
+                string colorColumnName = "Color"; // Column with hex codes
+                int colorColumnIndex = -1;
 
-                if (!string.IsNullOrEmpty(colorStr))
+                for (int i = 0; i < fabric_dgv.Columns.Count; i++)
                 {
-                    try
+                    if (fabric_dgv.Columns[i].Name == colorColumnName)
                     {
-                        Color cellColor;
-                        if (colorStr.StartsWith("#"))
+                        colorColumnIndex = i;
+                        break;
+                    }
+                }
+
+                if (colorColumnIndex != -1)
+                {
+                    object hexColorValueObject = fabric_dgv.Rows[e.RowIndex].Cells[colorColumnIndex].Value;
+
+                    if (hexColorValueObject != null)
+                    {
+                        string hexColorString = hexColorValueObject.ToString();
+                        Color backgroundColor = Color.White; // Default
+
+                        try
                         {
-                            cellColor = ColorTranslator.FromHtml(colorStr); // For HEX codes
+                            // Ensure the hex string starts with '#' for ColorTranslator
+                            if (!hexColorString.StartsWith("#"))
+                            {
+                                hexColorString = "#" + hexColorString;
+                            }
+                            backgroundColor = System.Drawing.ColorTranslator.FromHtml(hexColorString);
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            cellColor = Color.FromName(colorStr); // For named colors
+                            Console.WriteLine($"Warning: Could not parse hex color '{hexColorString}'. Error: {ex.Message}");
+                            backgroundColor = Color.LightGray; // Fallback color
                         }
 
-                        // If the color is known (not Transparent, which is default for invalid names)
-                        if (cellColor != Color.Transparent || colorStr.Equals("Transparent", StringComparison.OrdinalIgnoreCase))
+                        // Apply to a target column, e.g., "ValueColumn"
+                        string targetColumnToColorName = "ValueToColor";
+                        if (fabric_dgv.Columns[e.ColumnIndex].Name == targetColumnToColorName)
                         {
-                            // Check if the color is actually known, Color.FromName returns 0 for unknown names
-                            if (cellColor.A == 0 && cellColor.R == 0 && cellColor.G == 0 && cellColor.B == 0 && !colorStr.Equals("Black", StringComparison.OrdinalIgnoreCase) && !colorStr.Equals("Transparent", StringComparison.OrdinalIgnoreCase))
-                            {
-                                // It's an unknown color name if it resolved to ARGB(0,0,0,0) unless it was "Black" or "Transparent"
-                                // (Color.FromName for "Black" returns a non-zero A value, so this check is slightly complex for fully robust unknown name detection)
-                                // For simplicity, we'll assume valid names or hex for now.
-                                // A more robust way for FromName is to check cellColor.IsKnownColor
-                            }
-                            else
-                            {
-                                e.CellStyle.BackColor = cellColor;
-                                e.CellStyle.SelectionBackColor = cellColor; // Optional: keep color on selection
-                                e.FormattingApplied = true; // Important!
-                            }
+                            e.CellStyle.BackColor = backgroundColor;
+                            e.CellStyle.ForeColor = (backgroundColor.GetBrightness() < 0.5) ? Color.White : Color.Black;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle invalid color string format if necessary
-                        Console.WriteLine($"Error parsing color string '{colorStr}': {ex.Message}");
                     }
                 }
             }
-
-            // Scenario 2: Color the 'Status' cell based on its own content
-            // Let's say "Status" is at columnIndex 2
-            //int statusColumnIndex = fabric_dgv.Columns["Status"]?.Index ?? -1; // Get column index by name
-
-            //if (statusColumnIndex != -1 && e.ColumnIndex == statusColumnIndex)
-            //{
-            //    string statusValue = e.Value?.ToString(); // e.Value is the formatted value of the current cell
-
-            //    if (!string.IsNullOrEmpty(statusValue))
-            //    {
-            //        switch (statusValue.ToLower())
-            //        {
-            //            case "ok":
-            //                e.CellStyle.BackColor = Color.LightGreen;
-            //                e.CellStyle.ForeColor = Color.DarkGreen; // Optional: Change text color too
-            //                break;
-            //            case "warning":
-            //                e.CellStyle.BackColor = Color.LightYellow;
-            //                e.CellStyle.ForeColor = Color.DarkGoldenrod;
-            //                break;
-            //            case "error":
-            //            case "critical":
-            //                e.CellStyle.BackColor = Color.LightCoral;
-            //                e.CellStyle.ForeColor = Color.DarkRed;
-            //                break;
-            //            default:
-            //                // Use default cell style (or set a specific default)
-            //                // e.CellStyle.BackColor = dataGridView1.DefaultCellStyle.BackColor;
-            //                // e.CellStyle.ForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-            //                break;
-            //        }
-            //        e.FormattingApplied = true; // Important!
-            //    }
         }
-
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using app.Model;
 using app.Service;
 using Microsoft.IdentityModel.Tokens;
@@ -42,16 +43,10 @@ namespace app.Presentation
 
         private async void add_btn_Click(object sender, EventArgs e)
         {
-            bool isSuccess = false;
-
             if (this._fabric != null) { }
             else
             {
-               isSuccess = await this.CreateFabric();
-            }
-
-            if (isSuccess)
-            {
+                await this.CreateFabric();
                 this._fabricUC!.LoadFabrics();
                 this.Close();
             }
@@ -62,32 +57,34 @@ namespace app.Presentation
             this.Close();
         }
 
-        private async Task<bool> CreateFabric()
+        private async Task CreateFabric()
         {
-            if(this._hexColor.IsNullOrEmpty())
-            {
-                MessageBox.Show("Color is empty");
-                return false;
-            }
 
-            var newFabric = new Fabric
+            if (string.IsNullOrWhiteSpace(type_txt.Text) || string.IsNullOrWhiteSpace(color_name_txt.Text) ||
+           string.IsNullOrWhiteSpace(this._hexColor))
             {
-                Type = type_txt.Text.Trim(),
-                Color = this._hexColor,
-            };
+                MessageBox.Show("Please enter valid fabric details.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {
+                var newFabric = new Fabric
+                {
+                    Type = type_txt.Text.Trim(),
+                    ColorName = color_name_txt.Text.Trim(),
+                    Color = this._hexColor,
+                };
+
+
                 await this._fabricService.Create(newFabric);
                 this._hexColor = string.Empty;
-                MessageBox.Show("New Fabric Created!");
-                return true;
 
+                MessageBox.Show("New Fabric Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating fabric: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
     }

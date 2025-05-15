@@ -14,6 +14,9 @@ namespace app.Model
 
         [Required]
         public string Type { get; set; }
+        
+        [Required]
+        public string ColorName { get; set; }
 
         [Required]
         public string Color { get; set; }

@@ -30,21 +30,25 @@
         {
             root_layout = new Panel();
             form_layout = new TableLayoutPanel();
+            panel1 = new Panel();
+            color_name_txt = new TextBox();
+            label1 = new Label();
             type_pn = new Panel();
             type_txt = new TextBox();
             name_lb = new Label();
-            phone_lb = new Label();
-            panel1 = new Panel();
+            choose_color_pn = new Panel();
             color_pn = new Panel();
             choose_color_btn = new Button();
+            phone_lb = new Label();
             action_layout = new TableLayoutPanel();
             cancel_btn = new Button();
             add_btn = new Button();
             header_lb = new Label();
             root_layout.SuspendLayout();
             form_layout.SuspendLayout();
-            type_pn.SuspendLayout();
             panel1.SuspendLayout();
+            type_pn.SuspendLayout();
+            choose_color_pn.SuspendLayout();
             action_layout.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,17 +71,54 @@
             form_layout.ColumnCount = 2;
             form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+            form_layout.Controls.Add(panel1, 1, 1);
+            form_layout.Controls.Add(label1, 0, 1);
             form_layout.Controls.Add(type_pn, 1, 0);
             form_layout.Controls.Add(name_lb, 0, 0);
-            form_layout.Controls.Add(phone_lb, 0, 1);
-            form_layout.Controls.Add(panel1, 1, 1);
+            form_layout.Controls.Add(choose_color_pn, 1, 2);
+            form_layout.Controls.Add(phone_lb, 0, 2);
             form_layout.Location = new Point(32, 100);
             form_layout.Name = "form_layout";
-            form_layout.RowCount = 2;
-            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            form_layout.Size = new Size(506, 147);
+            form_layout.RowCount = 3;
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            form_layout.Size = new Size(506, 213);
             form_layout.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(color_name_txt);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(101, 70);
+            panel1.Margin = new Padding(0, 0, 0, 16);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(405, 54);
+            panel1.TabIndex = 7;
+            // 
+            // color_name_txt
+            // 
+            color_name_txt.BorderStyle = BorderStyle.None;
+            color_name_txt.Cursor = Cursors.IBeam;
+            color_name_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            color_name_txt.Location = new Point(16, 12);
+            color_name_txt.MaxLength = 100;
+            color_name_txt.Name = "color_name_txt";
+            color_name_txt.Size = new Size(372, 27);
+            color_name_txt.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(3, 70);
+            label1.Margin = new Padding(3, 0, 3, 16);
+            label1.Name = "label1";
+            label1.Size = new Size(95, 54);
+            label1.TabIndex = 6;
+            label1.Text = "Color Name";
+            label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // type_pn
             // 
@@ -88,7 +129,7 @@
             type_pn.Location = new Point(101, 0);
             type_pn.Margin = new Padding(0, 0, 0, 16);
             type_pn.Name = "type_pn";
-            type_pn.Size = new Size(405, 57);
+            type_pn.Size = new Size(405, 54);
             type_pn.TabIndex = 0;
             // 
             // type_txt
@@ -111,27 +152,16 @@
             name_lb.Size = new Size(95, 52);
             name_lb.TabIndex = 1;
             name_lb.Text = "Type";
-            name_lb.TextAlign = ContentAlignment.MiddleCenter;
+            name_lb.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // phone_lb
+            // choose_color_pn
             // 
-            phone_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            phone_lb.Location = new Point(3, 73);
-            phone_lb.Margin = new Padding(3, 0, 3, 16);
-            phone_lb.Name = "phone_lb";
-            phone_lb.Size = new Size(95, 52);
-            phone_lb.TabIndex = 4;
-            phone_lb.Text = "Color";
-            phone_lb.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(color_pn);
-            panel1.Controls.Add(choose_color_btn);
-            panel1.Location = new Point(104, 76);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(399, 57);
-            panel1.TabIndex = 5;
+            choose_color_pn.Controls.Add(color_pn);
+            choose_color_pn.Controls.Add(choose_color_btn);
+            choose_color_pn.Location = new Point(104, 143);
+            choose_color_pn.Name = "choose_color_pn";
+            choose_color_pn.Size = new Size(399, 57);
+            choose_color_pn.TabIndex = 5;
             // 
             // color_pn
             // 
@@ -157,6 +187,17 @@
             choose_color_btn.UseVisualStyleBackColor = false;
             choose_color_btn.Click += choose_color_btn_Click;
             // 
+            // phone_lb
+            // 
+            phone_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            phone_lb.Location = new Point(3, 140);
+            phone_lb.Margin = new Padding(3, 0, 3, 16);
+            phone_lb.Name = "phone_lb";
+            phone_lb.Size = new Size(95, 52);
+            phone_lb.TabIndex = 4;
+            phone_lb.Text = "Color";
+            phone_lb.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // action_layout
             // 
             action_layout.BackColor = Color.White;
@@ -165,7 +206,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(add_btn, 1, 0);
-            action_layout.Location = new Point(31, 319);
+            action_layout.Location = new Point(32, 339);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
             action_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -226,9 +267,11 @@
             root_layout.ResumeLayout(false);
             root_layout.PerformLayout();
             form_layout.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             type_pn.ResumeLayout(false);
             type_pn.PerformLayout();
-            panel1.ResumeLayout(false);
+            choose_color_pn.ResumeLayout(false);
             action_layout.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -245,8 +288,11 @@
         private Button cancel_btn;
         private Button add_btn;
         private Label header_lb;
-        private Panel panel1;
+        private Panel choose_color_pn;
         private Panel color_pn;
         private Button choose_color_btn;
+        private Panel panel1;
+        private TextBox color_name_txt;
+        private Label label1;
     }
 }
