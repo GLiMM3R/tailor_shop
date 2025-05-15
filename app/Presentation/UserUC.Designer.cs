@@ -186,10 +186,11 @@
             // 
             new_user_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             new_user_btn.BackColor = Color.FromArgb(33, 52, 72);
+            new_user_btn.Cursor = Cursors.Hand;
             new_user_btn.FlatStyle = FlatStyle.Flat;
             new_user_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             new_user_btn.ForeColor = Color.White;
-            new_user_btn.Location = new Point(972, 67);
+            new_user_btn.Location = new Point(985, 64);
             new_user_btn.Name = "new_user_btn";
             new_user_btn.Size = new Size(178, 66);
             new_user_btn.TabIndex = 2;

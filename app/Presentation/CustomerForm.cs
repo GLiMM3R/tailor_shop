@@ -115,7 +115,6 @@ namespace app.Presentation
 
         private async Task UpdateCustomer()
         {
-
             try
             {
                 var customer = this._customerService.GetByID(this._customer!.Id);

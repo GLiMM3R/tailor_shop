@@ -26,6 +26,7 @@ namespace app.Presentation
         {
             InitializeComponent();
             InitializeService();
+            InitializeDataGridView();
 
             _filter = new FilterCustomer();
             total_customer_lb.Text = this._count.ToString();
@@ -43,19 +44,17 @@ namespace app.Presentation
             LoadCustomers();
         }
 
-        public async void LoadCustomers()
+        private void InitializeDataGridView()
         {
-            var customers = await _customerService.GetAll(this._filter);
-
             customer_dgv.AutoGenerateColumns = false;
             customer_dgv.Columns.Clear();
 
             customer_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill,dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
@@ -76,8 +75,13 @@ namespace app.Presentation
                     SelectionForeColor = Color.White
                 }
             };
-            customer_dgv.Columns.Add(actionColumn);
 
+            customer_dgv.Columns.Add(actionColumn);
+        }
+
+        public async void LoadCustomers()
+        {
+            var customers = await _customerService.GetAll(this._filter);
             customer_dgv.DataSource = customers;
         }
 
@@ -124,7 +128,7 @@ namespace app.Presentation
 
         private void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 if (customer_dgv.Columns[e.ColumnIndex].Name == "Edit")
                 {

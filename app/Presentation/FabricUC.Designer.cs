@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             fabric_dgv = new DataGridView();
             main_layout = new TableLayoutPanel();
             bottom_pn = new TableLayoutPanel();
@@ -58,14 +58,14 @@
             fabric_dgv.AllowUserToAddRows = false;
             fabric_dgv.AllowUserToDeleteRows = false;
             fabric_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            fabric_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            fabric_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             fabric_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             fabric_dgv.Dock = DockStyle.Fill;
             fabric_dgv.Location = new Point(9, 110);
@@ -183,10 +183,11 @@
             // 
             new_customer_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             new_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
+            new_customer_btn.Cursor = Cursors.Hand;
             new_customer_btn.FlatStyle = FlatStyle.Flat;
             new_customer_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             new_customer_btn.ForeColor = Color.White;
-            new_customer_btn.Location = new Point(956, 70);
+            new_customer_btn.Location = new Point(985, 64);
             new_customer_btn.Name = "new_customer_btn";
             new_customer_btn.Size = new Size(178, 66);
             new_customer_btn.TabIndex = 2;

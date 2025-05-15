@@ -25,6 +25,7 @@ namespace app.Presentation
         {
             InitializeComponent();
             InitializeUserService();
+            InitializeDataGridView();
 
             this._filter = new FilterUser();
             total_users_lb.Text = this._count.ToString();
@@ -43,18 +44,15 @@ namespace app.Presentation
             LoadUsers();
         }
 
-        public async void LoadUsers()
+        private void InitializeDataGridView()
         {
-            var users = await _userService.GetAll(this._filter);
-
             user_dgv.AutoGenerateColumns = false;
             user_dgv.Columns.Clear();
-
 
             user_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "Username", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Role", headerText: "Role")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Role", headerText: "Role", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
@@ -75,8 +73,13 @@ namespace app.Presentation
                     SelectionForeColor = Color.White
                 }
             };
-            user_dgv.Columns.Add(actionColumn);
 
+            user_dgv.Columns.Add(actionColumn);
+        }
+
+        public async void LoadUsers()
+        {
+            var users = await _userService.GetAll(this._filter);
             user_dgv.DataSource = users;
         }
 

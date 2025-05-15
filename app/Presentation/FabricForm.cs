@@ -33,6 +33,8 @@ namespace app.Presentation
         {
             if (this._fabric != null)
             {
+                add_btn.Text = "Update Fabric";
+
                 type_txt.Text = this._fabric.Type;
                 color_name_txt.Text = this._fabric.ColorName;
                 if (this._fabric.Color != null)
@@ -58,13 +60,17 @@ namespace app.Presentation
 
         private async void add_btn_Click(object sender, EventArgs e)
         {
-            if (this._fabric != null) { }
+            if (this._fabric != null)
+            {
+                await this.UpdateFabric();
+            }
             else
             {
                 await this.CreateFabric();
-                this._fabricUC!.LoadFabrics();
-                this.Close();
             }
+
+            this._fabricUC!.LoadFabrics();
+            this.Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -100,6 +106,42 @@ namespace app.Presentation
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating fabric: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task UpdateFabric()
+        {
+            try
+            {
+                var fabric = await this._fabricService.GetByID(this._fabric!.Id);
+
+                if (fabric == null)
+                {
+                    MessageBox.Show("Fabric not found!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (fabric.Type != type_txt.Text && !string.IsNullOrWhiteSpace(type_txt.Text))
+                {
+                    fabric.Type = type_txt.Text;
+                }
+
+                if (fabric.ColorName != color_name_txt.Text && !string.IsNullOrWhiteSpace(color_name_txt.Text))
+                {
+                    fabric.ColorName = color_name_txt.Text;
+                }
+
+                if (fabric.Color != this._hexColor && !string.IsNullOrWhiteSpace(this._hexColor))
+                {
+                    fabric.Color = this._hexColor;
+                }
+
+                await _fabricService.Update(fabric);
+                MessageBox.Show("Fabric Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

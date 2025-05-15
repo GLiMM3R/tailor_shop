@@ -225,6 +225,7 @@
             // 
             new_customer_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             new_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
+            new_customer_btn.Cursor = Cursors.Hand;
             new_customer_btn.FlatStyle = FlatStyle.Flat;
             new_customer_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             new_customer_btn.ForeColor = Color.White;
