@@ -10,17 +10,21 @@ using System.Windows.Forms;
 
 namespace app.Presentation
 {
-    public partial class OrderUC : UserControl
+    public partial class OrderForm : Form
     {
-        public OrderUC()
+        public OrderForm()
         {
             InitializeComponent();
         }
 
-        private void new_order_btn_Click(object sender, EventArgs e)
+        private void OrderForm_Load(object sender, EventArgs e)
         {
-            var form = new OrderForm();
-            form.ShowDialog();
+
+        }
+
+        private void cancel_btn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace app.Presentation
             {
                 add_btn.Text = "Update Fabric";
 
-                type_txt.Text = this._fabric.Type;
+                type_txt.Text = this._fabric.MaterialType;
                 color_name_txt.Text = this._fabric.ColorName;
                 if (this._fabric.Color != null)
                 {
@@ -92,9 +92,10 @@ namespace app.Presentation
             {
                 var newFabric = new Fabric
                 {
-                    Type = type_txt.Text.Trim(),
+                    MaterialType = type_txt.Text.Trim(),
                     ColorName = color_name_txt.Text.Trim(),
                     Color = this._hexColor,
+                    UnitPrice = unit_price_txt.Value
                 };
 
 
@@ -121,9 +122,9 @@ namespace app.Presentation
                     return;
                 }
 
-                if (fabric.Type != type_txt.Text && !string.IsNullOrWhiteSpace(type_txt.Text))
+                if (fabric.MaterialType != type_txt.Text && !string.IsNullOrWhiteSpace(type_txt.Text))
                 {
-                    fabric.Type = type_txt.Text;
+                    fabric.MaterialType = type_txt.Text;
                 }
 
                 if (fabric.ColorName != color_name_txt.Text && !string.IsNullOrWhiteSpace(color_name_txt.Text))
@@ -134,6 +135,11 @@ namespace app.Presentation
                 if (fabric.Color != this._hexColor && !string.IsNullOrWhiteSpace(this._hexColor))
                 {
                     fabric.Color = this._hexColor;
+                }
+
+                if (fabric.UnitPrice != this._fabric.UnitPrice && unit_price_txt.Value != 0)
+                {
+                    fabric.UnitPrice = unit_price_txt.Value;
                 }
 
                 await _fabricService.Update(fabric);

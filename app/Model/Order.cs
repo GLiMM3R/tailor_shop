@@ -43,6 +43,8 @@ namespace app.Model
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+        public virtual ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
+
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
 }

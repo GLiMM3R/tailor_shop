@@ -30,6 +30,9 @@
         {
             root_layout = new Panel();
             form_layout = new TableLayoutPanel();
+            panel2 = new Panel();
+            unit_price_txt = new NumericUpDown();
+            label2 = new Label();
             panel1 = new Panel();
             color_name_txt = new TextBox();
             label1 = new Label();
@@ -46,6 +49,8 @@
             header_lb = new Label();
             root_layout.SuspendLayout();
             form_layout.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)unit_price_txt).BeginInit();
             panel1.SuspendLayout();
             type_pn.SuspendLayout();
             choose_color_pn.SuspendLayout();
@@ -62,15 +67,17 @@
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
             root_layout.Name = "root_layout";
-            root_layout.Size = new Size(565, 424);
+            root_layout.Size = new Size(573, 496);
             root_layout.TabIndex = 7;
             // 
             // form_layout
             // 
             form_layout.BackColor = Color.White;
             form_layout.ColumnCount = 2;
-            form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+            form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            form_layout.Controls.Add(panel2, 1, 3);
+            form_layout.Controls.Add(label2, 0, 3);
             form_layout.Controls.Add(panel1, 1, 1);
             form_layout.Controls.Add(label1, 0, 1);
             form_layout.Controls.Add(type_pn, 1, 0);
@@ -79,12 +86,48 @@
             form_layout.Controls.Add(phone_lb, 0, 2);
             form_layout.Location = new Point(32, 100);
             form_layout.Name = "form_layout";
-            form_layout.RowCount = 3;
-            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            form_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            form_layout.Size = new Size(506, 213);
+            form_layout.RowCount = 4;
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            form_layout.Size = new Size(506, 269);
             form_layout.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.White;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(unit_price_txt);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(120, 204);
+            panel2.Margin = new Padding(0, 0, 0, 16);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(386, 52);
+            panel2.TabIndex = 9;
+            // 
+            // unit_price_txt
+            // 
+            unit_price_txt.BorderStyle = BorderStyle.None;
+            unit_price_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            unit_price_txt.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
+            unit_price_txt.Location = new Point(15, 11);
+            unit_price_txt.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            unit_price_txt.Name = "unit_price_txt";
+            unit_price_txt.Size = new Size(357, 30);
+            unit_price_txt.TabIndex = 0;
+            unit_price_txt.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 204);
+            label2.Margin = new Padding(3, 0, 3, 16);
+            label2.Name = "label2";
+            label2.Size = new Size(114, 52);
+            label2.TabIndex = 8;
+            label2.Text = "Unit Price";
+            label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel1
             // 
@@ -92,10 +135,10 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(color_name_txt);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(101, 70);
+            panel1.Location = new Point(120, 68);
             panel1.Margin = new Padding(0, 0, 0, 16);
             panel1.Name = "panel1";
-            panel1.Size = new Size(405, 54);
+            panel1.Size = new Size(386, 52);
             panel1.TabIndex = 7;
             // 
             // color_name_txt
@@ -106,16 +149,16 @@
             color_name_txt.Location = new Point(16, 12);
             color_name_txt.MaxLength = 100;
             color_name_txt.Name = "color_name_txt";
-            color_name_txt.Size = new Size(372, 27);
+            color_name_txt.Size = new Size(356, 27);
             color_name_txt.TabIndex = 0;
             // 
             // label1
             // 
             label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 70);
+            label1.Location = new Point(3, 68);
             label1.Margin = new Padding(3, 0, 3, 16);
             label1.Name = "label1";
-            label1.Size = new Size(95, 54);
+            label1.Size = new Size(114, 52);
             label1.TabIndex = 6;
             label1.Text = "Color Name";
             label1.TextAlign = ContentAlignment.MiddleRight;
@@ -126,10 +169,10 @@
             type_pn.BorderStyle = BorderStyle.FixedSingle;
             type_pn.Controls.Add(type_txt);
             type_pn.Dock = DockStyle.Fill;
-            type_pn.Location = new Point(101, 0);
+            type_pn.Location = new Point(120, 0);
             type_pn.Margin = new Padding(0, 0, 0, 16);
             type_pn.Name = "type_pn";
-            type_pn.Size = new Size(405, 54);
+            type_pn.Size = new Size(386, 52);
             type_pn.TabIndex = 0;
             // 
             // type_txt
@@ -140,7 +183,7 @@
             type_txt.Location = new Point(16, 12);
             type_txt.MaxLength = 100;
             type_txt.Name = "type_txt";
-            type_txt.Size = new Size(372, 27);
+            type_txt.Size = new Size(356, 27);
             type_txt.TabIndex = 0;
             // 
             // name_lb
@@ -149,26 +192,26 @@
             name_lb.Location = new Point(3, 0);
             name_lb.Margin = new Padding(3, 0, 3, 16);
             name_lb.Name = "name_lb";
-            name_lb.Size = new Size(95, 52);
+            name_lb.Size = new Size(114, 52);
             name_lb.TabIndex = 1;
-            name_lb.Text = "Type";
+            name_lb.Text = "Material Type";
             name_lb.TextAlign = ContentAlignment.MiddleRight;
             // 
             // choose_color_pn
             // 
             choose_color_pn.Controls.Add(color_pn);
             choose_color_pn.Controls.Add(choose_color_btn);
-            choose_color_pn.Location = new Point(104, 143);
+            choose_color_pn.Location = new Point(123, 139);
             choose_color_pn.Name = "choose_color_pn";
-            choose_color_pn.Size = new Size(399, 57);
+            choose_color_pn.Size = new Size(380, 57);
             choose_color_pn.TabIndex = 5;
             // 
             // color_pn
             // 
             color_pn.BorderStyle = BorderStyle.FixedSingle;
-            color_pn.Location = new Point(0, 0);
+            color_pn.Location = new Point(0, -1);
             color_pn.Name = "color_pn";
-            color_pn.Size = new Size(258, 57);
+            color_pn.Size = new Size(243, 57);
             color_pn.TabIndex = 9;
             // 
             // choose_color_btn
@@ -179,7 +222,7 @@
             choose_color_btn.FlatStyle = FlatStyle.Flat;
             choose_color_btn.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             choose_color_btn.ForeColor = Color.White;
-            choose_color_btn.Location = new Point(264, -3);
+            choose_color_btn.Location = new Point(245, -3);
             choose_color_btn.Name = "choose_color_btn";
             choose_color_btn.Size = new Size(135, 60);
             choose_color_btn.TabIndex = 8;
@@ -190,10 +233,10 @@
             // phone_lb
             // 
             phone_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            phone_lb.Location = new Point(3, 140);
+            phone_lb.Location = new Point(3, 136);
             phone_lb.Margin = new Padding(3, 0, 3, 16);
             phone_lb.Name = "phone_lb";
-            phone_lb.Size = new Size(95, 52);
+            phone_lb.Size = new Size(114, 52);
             phone_lb.TabIndex = 4;
             phone_lb.Text = "Color";
             phone_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -206,7 +249,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(add_btn, 1, 0);
-            action_layout.Location = new Point(32, 339);
+            action_layout.Location = new Point(29, 403);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
             action_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -258,7 +301,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(565, 424);
+            ClientSize = new Size(573, 496);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FabricForm";
@@ -268,6 +311,8 @@
             root_layout.ResumeLayout(false);
             root_layout.PerformLayout();
             form_layout.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)unit_price_txt).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             type_pn.ResumeLayout(false);
@@ -295,5 +340,8 @@
         private Panel panel1;
         private TextBox color_name_txt;
         private Label label1;
+        private Label label2;
+        private Panel panel2;
+        private NumericUpDown unit_price_txt;
     }
 }

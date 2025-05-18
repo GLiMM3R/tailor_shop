@@ -46,7 +46,8 @@ namespace app.Presentation
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Type", headerText: "Type", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ColorName", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "Color"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "ValueToColor")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "ValueToColor"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "UnitPrice")
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
