@@ -23,7 +23,7 @@ namespace app.Model
         public decimal TotalPaid { get; set; }
 
         [Required]
-        public decimal Amount { get; set; }
+        public decimal PaidAmount { get; set; }
 
         [Required]
         public int Status { get; set; } = 0;

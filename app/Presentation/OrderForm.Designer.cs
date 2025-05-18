@@ -34,15 +34,15 @@
             label8 = new Label();
             label7 = new Label();
             panel2 = new Panel();
-            numericUpDown2 = new NumericUpDown();
-            label6 = new Label();
+            discount_num = new NumericUpDown();
+            total_amount_lb = new Label();
             label5 = new Label();
             line = new Panel();
             label4 = new Label();
-            label3 = new Label();
+            subtotal_lb = new Label();
             subtotal_title_lb = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
+            notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             middle_pn = new Panel();
             measurements_title_lb = new Label();
@@ -119,13 +119,13 @@
             footer_pn = new Panel();
             action_layout = new TableLayoutPanel();
             cancel_btn = new Button();
-            add_btn = new Button();
+            create_order_btn = new Button();
             root_pn = new Panel();
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)discount_num).BeginInit();
             middle_pn.SuspendLayout();
             lower_body_form_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)hem_num).BeginInit();
@@ -188,7 +188,7 @@
             // 
             bottom_pn.Controls.Add(panel1);
             bottom_pn.Controls.Add(label2);
-            bottom_pn.Controls.Add(textBox1);
+            bottom_pn.Controls.Add(notes_txt);
             bottom_pn.Controls.Add(summary_and_note_lb);
             bottom_pn.Dock = DockStyle.Fill;
             bottom_pn.Location = new Point(0, 500);
@@ -202,11 +202,11 @@
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(label6);
+            panel1.Controls.Add(total_amount_lb);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(line);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(label3);
+            panel1.Controls.Add(subtotal_lb);
             panel1.Controls.Add(subtotal_title_lb);
             panel1.Location = new Point(597, 50);
             panel1.Name = "panel1";
@@ -237,34 +237,34 @@
             // panel2
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(numericUpDown2);
+            panel2.Controls.Add(discount_num);
             panel2.Location = new Point(10, 83);
             panel2.Name = "panel2";
             panel2.Size = new Size(280, 38);
             panel2.TabIndex = 15;
             // 
-            // numericUpDown2
+            // discount_num
             // 
-            numericUpDown2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            numericUpDown2.BorderStyle = BorderStyle.None;
-            numericUpDown2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numericUpDown2.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            numericUpDown2.Location = new Point(12, 7);
-            numericUpDown2.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(263, 23);
-            numericUpDown2.TabIndex = 10;
+            discount_num.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            discount_num.BorderStyle = BorderStyle.None;
+            discount_num.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            discount_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
+            discount_num.Location = new Point(12, 7);
+            discount_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            discount_num.Name = "discount_num";
+            discount_num.Size = new Size(263, 23);
+            discount_num.TabIndex = 10;
             // 
-            // label6
+            // total_amount_lb
             // 
-            label6.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.RoyalBlue;
-            label6.Location = new Point(191, 146);
-            label6.Name = "label6";
-            label6.Size = new Size(259, 44);
-            label6.TabIndex = 14;
-            label6.Text = "0";
-            label6.TextAlign = ContentAlignment.MiddleRight;
+            total_amount_lb.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            total_amount_lb.ForeColor = Color.RoyalBlue;
+            total_amount_lb.Location = new Point(191, 146);
+            total_amount_lb.Name = "total_amount_lb";
+            total_amount_lb.Size = new Size(259, 44);
+            total_amount_lb.TabIndex = 14;
+            total_amount_lb.Text = "0";
+            total_amount_lb.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label5
             // 
@@ -296,15 +296,15 @@
             label4.Text = "Discount (LAK):";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label3
+            // subtotal_lb
             // 
-            label3.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(138, 12);
-            label3.Name = "label3";
-            label3.Size = new Size(312, 44);
-            label3.TabIndex = 1;
-            label3.Text = "0";
-            label3.TextAlign = ContentAlignment.MiddleRight;
+            subtotal_lb.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            subtotal_lb.Location = new Point(138, 12);
+            subtotal_lb.Name = "subtotal_lb";
+            subtotal_lb.Size = new Size(312, 44);
+            subtotal_lb.TabIndex = 1;
+            subtotal_lb.Text = "0";
+            subtotal_lb.TextAlign = ContentAlignment.MiddleRight;
             // 
             // subtotal_title_lb
             // 
@@ -319,21 +319,21 @@
             // label2
             // 
             label2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(37, 60);
+            label2.Location = new Point(37, 50);
             label2.Name = "label2";
             label2.Size = new Size(114, 31);
             label2.TabIndex = 9;
             label2.Text = "Order Notes";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // textBox1
+            // notes_txt
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(37, 94);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(345, 159);
-            textBox1.TabIndex = 0;
+            notes_txt.BorderStyle = BorderStyle.FixedSingle;
+            notes_txt.Location = new Point(37, 84);
+            notes_txt.Multiline = true;
+            notes_txt.Name = "notes_txt";
+            notes_txt.Size = new Size(402, 166);
+            notes_txt.TabIndex = 0;
             // 
             // summary_and_note_lb
             // 
@@ -1200,7 +1200,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
-            action_layout.Controls.Add(add_btn, 1, 0);
+            action_layout.Controls.Add(create_order_btn, 1, 0);
             action_layout.Location = new Point(735, 13);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
@@ -1222,20 +1222,20 @@
             cancel_btn.UseVisualStyleBackColor = false;
             cancel_btn.Click += cancel_btn_Click;
             // 
-            // add_btn
+            // create_order_btn
             // 
-            add_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            add_btn.BackColor = Color.FromArgb(33, 52, 72);
-            add_btn.Cursor = Cursors.Hand;
-            add_btn.FlatStyle = FlatStyle.Flat;
-            add_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            add_btn.ForeColor = Color.White;
-            add_btn.Location = new Point(223, 3);
-            add_btn.Name = "add_btn";
-            add_btn.Size = new Size(156, 49);
-            add_btn.TabIndex = 1;
-            add_btn.Text = "Create Order";
-            add_btn.UseVisualStyleBackColor = false;
+            create_order_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            create_order_btn.BackColor = Color.FromArgb(33, 52, 72);
+            create_order_btn.Cursor = Cursors.Hand;
+            create_order_btn.FlatStyle = FlatStyle.Flat;
+            create_order_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            create_order_btn.ForeColor = Color.White;
+            create_order_btn.Location = new Point(223, 3);
+            create_order_btn.Name = "create_order_btn";
+            create_order_btn.Size = new Size(156, 49);
+            create_order_btn.TabIndex = 1;
+            create_order_btn.Text = "Create Order";
+            create_order_btn.UseVisualStyleBackColor = false;
             // 
             // root_pn
             // 
@@ -1265,7 +1265,7 @@
             bottom_pn.PerformLayout();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)discount_num).EndInit();
             middle_pn.ResumeLayout(false);
             middle_pn.PerformLayout();
             lower_body_form_layout.ResumeLayout(false);
@@ -1387,7 +1387,7 @@
         private NumericUpDown numericUpDown9;
         private NumericUpDown numericUpDown8;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox notes_txt;
         private Label summary_and_note_lb;
         private ComboBox fabric_cb;
         private Label garment_lb;
@@ -1395,9 +1395,9 @@
         private Panel panel1;
         private Label subtotal_title_lb;
         private Label label4;
-        private NumericUpDown numericUpDown2;
-        private Label label3;
-        private Label label6;
+        private NumericUpDown discount_num;
+        private Label subtotal_lb;
+        private Label total_amount_lb;
         private Label label5;
         private Panel line;
         private Panel panel2;
@@ -1406,7 +1406,7 @@
         private Panel footer_pn;
         private TableLayoutPanel action_layout;
         private Button cancel_btn;
-        private Button add_btn;
+        private Button create_order_btn;
         private Panel root_pn;
     }
 }

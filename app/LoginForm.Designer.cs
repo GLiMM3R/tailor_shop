@@ -97,8 +97,8 @@
             form_layout_pn.RowCount = 3;
             form_layout_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             form_layout_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            form_layout_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
-            form_layout_pn.Size = new Size(358, 244);
+            form_layout_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            form_layout_pn.Size = new Size(358, 248);
             form_layout_pn.TabIndex = 0;
             // 
             // password_pn
@@ -106,9 +106,9 @@
             password_pn.BackColor = Color.White;
             password_pn.Controls.Add(password_txt);
             password_pn.Dock = DockStyle.Fill;
-            password_pn.Location = new Point(3, 75);
+            password_pn.Location = new Point(3, 82);
             password_pn.Name = "password_pn";
-            password_pn.Size = new Size(352, 66);
+            password_pn.Size = new Size(352, 73);
             password_pn.TabIndex = 1;
             // 
             // password_txt
@@ -135,7 +135,7 @@
             login_btn.ForeColor = Color.White;
             login_btn.Location = new Point(3, 172);
             login_btn.Name = "login_btn";
-            login_btn.Size = new Size(352, 69);
+            login_btn.Size = new Size(352, 73);
             login_btn.TabIndex = 2;
             login_btn.Text = "Login";
             login_btn.UseVisualStyleBackColor = false;
@@ -149,7 +149,7 @@
             username_pn.Location = new Point(3, 3);
             username_pn.Name = "username_pn";
             username_pn.Padding = new Padding(4);
-            username_pn.Size = new Size(352, 66);
+            username_pn.Size = new Size(352, 73);
             username_pn.TabIndex = 0;
             // 
             // username_txt

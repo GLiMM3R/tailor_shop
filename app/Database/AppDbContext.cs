@@ -12,9 +12,12 @@ namespace app.Database
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<DailySequence> DailySequences { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Fabric> Fabrics { get; set; }
+        public DbSet<Garment> Garments { get; set; }
+        public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
@@ -56,14 +59,23 @@ namespace app.Database
                 .HasMany(f => f.Orders)
                 .WithOne(o => o.Fabric)
                 .HasForeignKey(o => o.FabricId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);   
+            
+            modelBuilder.Entity<Garment>()
+                .HasMany(f => f.Orders)
+                .WithOne(o => o.Garment)
+                .HasForeignKey(o => o.GarmentId)
+                .OnDelete(DeleteBehavior.Restrict);   
+
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => o.OrderNumber)
+                .IsUnique();
 
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.Payments)
                 .WithOne(p => p.Order)
                 .HasForeignKey(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
-
 
             modelBuilder.Entity<User>().HasData(
              new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString, Role = Role.Admin });

@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 
 namespace app.Model
 {
-    public class Garment
+    public class DailySequence
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string DatePrefix { get; set; }
 
-        public string? Description { get; set; }
+        [Required]
+        public int LastNumber { get; set; } = 0;
 
-        public decimal? BasePrice{ get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

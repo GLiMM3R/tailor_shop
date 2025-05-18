@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using app.Database;
+using app.Model;
+using Microsoft.EntityFrameworkCore;
+
+namespace app.Service
+{
+    public class FilterOrder
+    {
+        public string? Search { get; set; }
+        public int? Status { get; set; }
+    }
+    public class OrderService
+    {
+        private AppDbContext _context;
+        public OrderService(AppDbContext context)
+        {
+            this._context = context;
+        }
+
+        public async Task<Order[]> GetAll(FilterOrder filter)
+        {
+            IQueryable<Order> query = _context.Orders.AsQueryable();
+
+            if (filter != null)
+            {
+                if (!string.IsNullOrEmpty(filter.Search))
+                {
+                    query = query.Where(
+                        c => c.OrderNumber.ToLower().Contains(filter.Search.ToLower())
+                        || c.Customer.Name.ToLower().Contains(filter.Search.ToLower())
+                        || c.Customer.Phone.ToLower().Contains(filter.Search.ToLower())
+                    );
+                }
+
+                if (filter.Search != null)
+                {
+                    {
+                        query = query.Where(c => c.Status == filter.Status);
+                    }
+                }
+            }
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Order?> GetByID(int id)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (order == null)
+            {
+                return null;
+            }
+            return order;
+        }
+
+        public async Task Create(Order order)
+        {
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Order order)
+        {
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+    }
+}
