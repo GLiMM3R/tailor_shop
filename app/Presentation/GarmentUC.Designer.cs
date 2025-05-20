@@ -1,6 +1,6 @@
 ﻿namespace app.Presentation
 {
-    partial class FabricUC
+    partial class GarmentUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            fabric_dgv = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            garment_dvg = new DataGridView();
             main_layout = new TableLayoutPanel();
             bottom_pn = new TableLayoutPanel();
             filter_pn = new Panel();
             search_pn = new Panel();
             search_txt = new TextBox();
             top_pn = new Panel();
-            new_customer_btn = new Button();
+            new_garment_btn = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
-            total_fabric_lb = new Label();
+            total_garment_lb = new Label();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)fabric_dgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)garment_dvg).BeginInit();
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             filter_pn.SuspendLayout();
@@ -49,28 +49,28 @@
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // fabric_dgv
+            // garment_dvg
             // 
-            fabric_dgv.AllowUserToAddRows = false;
-            fabric_dgv.AllowUserToDeleteRows = false;
-            fabric_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            fabric_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            fabric_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            fabric_dgv.Dock = DockStyle.Fill;
-            fabric_dgv.Location = new Point(9, 110);
-            fabric_dgv.Margin = new Padding(8);
-            fabric_dgv.Name = "fabric_dgv";
-            fabric_dgv.ReadOnly = true;
-            fabric_dgv.RowHeadersWidth = 51;
-            fabric_dgv.Size = new Size(1176, 443);
-            fabric_dgv.TabIndex = 0;
+            garment_dvg.AllowUserToAddRows = false;
+            garment_dvg.AllowUserToDeleteRows = false;
+            garment_dvg.BackgroundColor = Color.White;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            garment_dvg.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            garment_dvg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            garment_dvg.Dock = DockStyle.Fill;
+            garment_dvg.Location = new Point(9, 110);
+            garment_dvg.Margin = new Padding(8);
+            garment_dvg.Name = "garment_dvg";
+            garment_dvg.ReadOnly = true;
+            garment_dvg.RowHeadersWidth = 51;
+            garment_dvg.Size = new Size(1176, 443);
+            garment_dvg.TabIndex = 0;
             // 
             // main_layout
             // 
@@ -87,14 +87,14 @@
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 0F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             main_layout.Size = new Size(1200, 768);
-            main_layout.TabIndex = 2;
+            main_layout.TabIndex = 3;
             // 
             // bottom_pn
             // 
             bottom_pn.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             bottom_pn.ColumnCount = 1;
             bottom_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            bottom_pn.Controls.Add(fabric_dgv, 0, 1);
+            bottom_pn.Controls.Add(garment_dvg, 0, 1);
             bottom_pn.Controls.Add(filter_pn, 0, 0);
             bottom_pn.Dock = DockStyle.Fill;
             bottom_pn.Location = new Point(3, 203);
@@ -132,11 +132,10 @@
             search_txt.PlaceholderText = "Search...";
             search_txt.Size = new Size(259, 23);
             search_txt.TabIndex = 0;
-            search_txt.TextChanged += search_txt_TextChanged;
             // 
             // top_pn
             // 
-            top_pn.Controls.Add(new_customer_btn);
+            top_pn.Controls.Add(new_garment_btn);
             top_pn.Controls.Add(tableLayoutPanel1);
             top_pn.Dock = DockStyle.Fill;
             top_pn.Location = new Point(3, 3);
@@ -144,28 +143,28 @@
             top_pn.Size = new Size(1194, 194);
             top_pn.TabIndex = 1;
             // 
-            // new_customer_btn
+            // new_garment_btn
             // 
-            new_customer_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            new_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
-            new_customer_btn.Cursor = Cursors.Hand;
-            new_customer_btn.FlatStyle = FlatStyle.Flat;
-            new_customer_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            new_customer_btn.ForeColor = Color.White;
-            new_customer_btn.Location = new Point(985, 64);
-            new_customer_btn.Name = "new_customer_btn";
-            new_customer_btn.Size = new Size(178, 66);
-            new_customer_btn.TabIndex = 2;
-            new_customer_btn.Text = "New Fabric";
-            new_customer_btn.UseVisualStyleBackColor = false;
-            new_customer_btn.Click += new_fabric_btn_Click;
+            new_garment_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            new_garment_btn.BackColor = Color.FromArgb(33, 52, 72);
+            new_garment_btn.Cursor = Cursors.Hand;
+            new_garment_btn.FlatStyle = FlatStyle.Flat;
+            new_garment_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            new_garment_btn.ForeColor = Color.White;
+            new_garment_btn.Location = new Point(983, 64);
+            new_garment_btn.Name = "new_garment_btn";
+            new_garment_btn.Size = new Size(178, 66);
+            new_garment_btn.TabIndex = 3;
+            new_garment_btn.Text = "New Garment";
+            new_garment_btn.UseVisualStyleBackColor = false;
+            new_garment_btn.Click += new_garment_btn_Click;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.BackColor = Color.FromArgb(84, 119, 146);
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(total_fabric_lb, 0, 1);
+            tableLayoutPanel1.Controls.Add(total_garment_lb, 0, 1);
             tableLayoutPanel1.Controls.Add(label2, 0, 0);
             tableLayoutPanel1.Location = new Point(42, 35);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -175,17 +174,17 @@
             tableLayoutPanel1.Size = new Size(337, 129);
             tableLayoutPanel1.TabIndex = 1;
             // 
-            // total_fabric_lb
+            // total_garment_lb
             // 
-            total_fabric_lb.Dock = DockStyle.Fill;
-            total_fabric_lb.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_fabric_lb.ForeColor = Color.White;
-            total_fabric_lb.Location = new Point(3, 64);
-            total_fabric_lb.Name = "total_fabric_lb";
-            total_fabric_lb.Size = new Size(331, 65);
-            total_fabric_lb.TabIndex = 2;
-            total_fabric_lb.Text = "0";
-            total_fabric_lb.TextAlign = ContentAlignment.MiddleCenter;
+            total_garment_lb.Dock = DockStyle.Fill;
+            total_garment_lb.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            total_garment_lb.ForeColor = Color.White;
+            total_garment_lb.Location = new Point(3, 64);
+            total_garment_lb.Name = "total_garment_lb";
+            total_garment_lb.Size = new Size(331, 65);
+            total_garment_lb.TabIndex = 2;
+            total_garment_lb.Text = "0";
+            total_garment_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -196,17 +195,18 @@
             label2.Name = "label2";
             label2.Size = new Size(331, 64);
             label2.TabIndex = 0;
-            label2.Text = "Total Fabric";
+            label2.Text = "Total Garment";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // FabricUC
+            // GarmentUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(main_layout);
-            Name = "FabricUC";
+            Name = "GarmentUC";
             Size = new Size(1200, 768);
-            ((System.ComponentModel.ISupportInitialize)fabric_dgv).EndInit();
+            Load += GarmentUC_Load;
+            ((System.ComponentModel.ISupportInitialize)garment_dvg).EndInit();
             main_layout.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             filter_pn.ResumeLayout(false);
@@ -219,7 +219,7 @@
 
         #endregion
 
-        private DataGridView fabric_dgv;
+        private DataGridView garment_dvg;
         private TableLayoutPanel main_layout;
         private TableLayoutPanel bottom_pn;
         private Panel filter_pn;
@@ -227,8 +227,8 @@
         private TextBox search_txt;
         private Panel top_pn;
         private TableLayoutPanel tableLayoutPanel1;
-        private Label total_fabric_lb;
+        private Label total_garment_lb;
         private Label label2;
-        private Button new_customer_btn;
+        private Button new_garment_btn;
     }
 }

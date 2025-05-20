@@ -54,6 +54,8 @@ namespace app.Model
 
         public DateTime? PickUpDate { get; set; }
 
+        //public string? Notes { get; set; }
+
         public int Status { get; set; } = 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -43,6 +43,7 @@
             main_pn = new Panel();
             content_pn = new Panel();
             topbar_pn = new Panel();
+            garment_btn = new Button();
             root_layout.SuspendLayout();
             sidebar_pn.SuspendLayout();
             sidebar_buttons_layout.SuspendLayout();
@@ -63,7 +64,7 @@
             root_layout.Name = "root_layout";
             root_layout.RowCount = 1;
             root_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            root_layout.Size = new Size(1292, 616);
+            root_layout.Size = new Size(1292, 683);
             root_layout.TabIndex = 0;
             // 
             // sidebar_pn
@@ -76,7 +77,7 @@
             sidebar_pn.Location = new Point(0, 0);
             sidebar_pn.Margin = new Padding(0);
             sidebar_pn.Name = "sidebar_pn";
-            sidebar_pn.Size = new Size(280, 616);
+            sidebar_pn.Size = new Size(280, 683);
             sidebar_pn.TabIndex = 0;
             // 
             // sidebar_buttons_layout
@@ -86,11 +87,12 @@
             sidebar_buttons_layout.Controls.Add(customer_btn);
             sidebar_buttons_layout.Controls.Add(user_btn);
             sidebar_buttons_layout.Controls.Add(fabric_btn);
+            sidebar_buttons_layout.Controls.Add(garment_btn);
             sidebar_buttons_layout.Controls.Add(report_btn);
             sidebar_buttons_layout.Dock = DockStyle.Fill;
             sidebar_buttons_layout.Location = new Point(0, 201);
             sidebar_buttons_layout.Name = "sidebar_buttons_layout";
-            sidebar_buttons_layout.Size = new Size(280, 353);
+            sidebar_buttons_layout.Size = new Size(280, 420);
             sidebar_buttons_layout.TabIndex = 3;
             // 
             // home_btn
@@ -198,7 +200,7 @@
             report_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             report_btn.ForeColor = Color.White;
             report_btn.ImageAlign = ContentAlignment.MiddleLeft;
-            report_btn.Location = new Point(0, 300);
+            report_btn.Location = new Point(0, 360);
             report_btn.Margin = new Padding(0);
             report_btn.Name = "report_btn";
             report_btn.Size = new Size(280, 60);
@@ -215,7 +217,7 @@
             logout_btn.FlatStyle = FlatStyle.Flat;
             logout_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             logout_btn.ForeColor = Color.White;
-            logout_btn.Location = new Point(0, 554);
+            logout_btn.Location = new Point(0, 621);
             logout_btn.Margin = new Padding(0);
             logout_btn.Name = "logout_btn";
             logout_btn.Size = new Size(280, 62);
@@ -253,7 +255,7 @@
             main_pn.Location = new Point(280, 0);
             main_pn.Margin = new Padding(0);
             main_pn.Name = "main_pn";
-            main_pn.Size = new Size(1012, 616);
+            main_pn.Size = new Size(1012, 683);
             main_pn.TabIndex = 1;
             // 
             // content_pn
@@ -261,7 +263,7 @@
             content_pn.Dock = DockStyle.Fill;
             content_pn.Location = new Point(0, 72);
             content_pn.Name = "content_pn";
-            content_pn.Size = new Size(1012, 544);
+            content_pn.Size = new Size(1012, 611);
             content_pn.TabIndex = 1;
             // 
             // topbar_pn
@@ -274,11 +276,30 @@
             topbar_pn.Size = new Size(1012, 72);
             topbar_pn.TabIndex = 0;
             // 
+            // garment_btn
+            // 
+            garment_btn.BackColor = Color.Transparent;
+            garment_btn.Cursor = Cursors.Hand;
+            garment_btn.Dock = DockStyle.Top;
+            garment_btn.FlatAppearance.BorderSize = 0;
+            garment_btn.FlatStyle = FlatStyle.Flat;
+            garment_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            garment_btn.ForeColor = Color.White;
+            garment_btn.ImageAlign = ContentAlignment.MiddleLeft;
+            garment_btn.Location = new Point(0, 300);
+            garment_btn.Margin = new Padding(0);
+            garment_btn.Name = "garment_btn";
+            garment_btn.Size = new Size(280, 60);
+            garment_btn.TabIndex = 6;
+            garment_btn.Text = "Garment";
+            garment_btn.UseVisualStyleBackColor = false;
+            garment_btn.Click += garment_btn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1292, 616);
+            ClientSize = new Size(1292, 683);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "MainForm";
@@ -313,5 +334,6 @@
         private FlowLayoutPanel sidebar_buttons_layout;
         private Button fabric_btn;
         private Button report_btn;
+        private Button garment_btn;
     }
 }

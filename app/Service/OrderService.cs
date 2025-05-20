@@ -22,26 +22,29 @@ namespace app.Service
             this._context = context;
         }
 
-        public async Task<Order[]> GetAll(FilterOrder filter)
+        public async Task<Order[]> GetAll(FilterOrder? filter)
         {
-            IQueryable<Order> query = _context.Orders.AsQueryable();
+            IQueryable<Order> query = _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Garment)
+                .Include(o => o.Fabric)
+                .Include(o => o.User);
 
             if (filter != null)
             {
                 if (!string.IsNullOrEmpty(filter.Search))
                 {
+                    string searchLower = filter.Search.ToLower();
                     query = query.Where(
-                        c => c.OrderNumber.ToLower().Contains(filter.Search.ToLower())
-                        || c.Customer.Name.ToLower().Contains(filter.Search.ToLower())
-                        || c.Customer.Phone.ToLower().Contains(filter.Search.ToLower())
+                        c => c.OrderNumber.ToLower().Contains(searchLower)
+                        || c.Customer.Name.ToLower().Contains(searchLower)
+                        || c.Customer.Phone.ToLower().Contains(searchLower)
                     );
                 }
 
-                if (filter.Search != null)
+                if (filter.Status != null)
                 {
-                    {
-                        query = query.Where(c => c.Status == filter.Status);
-                    }
+                    query = query.Where(c => c.Status == filter.Status);
                 }
             }
 

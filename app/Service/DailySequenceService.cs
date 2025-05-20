@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using app.Database;
 using app.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace app.Service
 {
@@ -16,11 +17,11 @@ namespace app.Service
             this._context = context;
         }
 
-        public int GetNextSequence(DateTime date)
+        public async Task<string> GetNextSequence(DateTime date)
         {
             string datePrefix = date.ToString("ddMMyyyy");
-            var dailySequence = _context.DailySequences
-                .FirstOrDefault(ds => ds.DatePrefix == datePrefix);
+            var dailySequence = await _context.DailySequences
+                .FirstOrDefaultAsync(ds => ds.DatePrefix == datePrefix);
 
             if (dailySequence == null)
             {
@@ -31,7 +32,7 @@ namespace app.Service
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
-                _context.DailySequences.Add(dailySequence);
+                await _context.DailySequences.AddAsync(dailySequence);
             }
             else
             {
@@ -39,8 +40,8 @@ namespace app.Service
                 dailySequence.UpdatedAt = DateTime.Now;
             }
 
-            _context.SaveChanges();
-            return dailySequence.LastNumber;
+            await _context.SaveChangesAsync();
+            return $"{datePrefix}-{dailySequence.LastNumber.ToString("D4")}";
         }
 
 

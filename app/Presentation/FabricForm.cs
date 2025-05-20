@@ -37,6 +37,7 @@ namespace app.Presentation
 
                 type_txt.Text = this._fabric.MaterialType;
                 color_name_txt.Text = this._fabric.ColorName;
+                unit_price_txt.Value = this._fabric.UnitPrice;
                 if (this._fabric.Color != null)
                 {
                     this._hexColor = this._fabric.Color;
@@ -137,7 +138,7 @@ namespace app.Presentation
                     fabric.Color = this._hexColor;
                 }
 
-                if (fabric.UnitPrice != this._fabric.UnitPrice && unit_price_txt.Value != 0)
+                if (fabric.UnitPrice != unit_price_txt.Value && unit_price_txt.Value != 0)
                 {
                     fabric.UnitPrice = unit_price_txt.Value;
                 }

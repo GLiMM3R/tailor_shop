@@ -23,7 +23,7 @@ namespace app.Service
             this._context = dbContext;
         }
 
-        public async Task<Garment[]> GetAll(FilterGarment filter)
+        public async Task<Garment[]> GetAll(FilterGarment? filter)
         {
             IQueryable<Garment> query = _context.Garments.AsQueryable();
 

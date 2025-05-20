@@ -24,7 +24,7 @@ namespace app.Service
             this._dbContext = dbContext;
         }
 
-        public async Task<Fabric[]> GetAll(FilterFabric filter)
+        public async Task<Fabric[]> GetAll(FilterFabric? filter)
         {
             IQueryable<Fabric> query = _dbContext.Fabrics.AsQueryable();
 

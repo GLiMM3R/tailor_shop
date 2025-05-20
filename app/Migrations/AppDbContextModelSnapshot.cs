@@ -61,6 +61,32 @@ namespace app.Migrations
                         });
                 });
 
+            modelBuilder.Entity("app.Model.DailySequence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DatePrefix")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LastNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailySequences");
+                });
+
             modelBuilder.Entity("app.Model.Fabric", b =>
                 {
                     b.Property<int>("Id")
@@ -77,13 +103,75 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
+                    b.Property<string>("MaterialType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fabrics");
+                });
+
+            modelBuilder.Entity("app.Model.Garment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("BasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fabrics");
+                    b.ToTable("Garments");
+                });
+
+            modelBuilder.Entity("app.Model.Measurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BodyPart")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MeasurementDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("app.Model.Order", b =>
@@ -100,22 +188,41 @@ namespace app.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("DepositAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("FabricId")
                         .HasColumnType("int");
+
+                    b.Property<int>("FabricUsedQty")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GarmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("PickUpDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Qty")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Total")
+                    b.Property<decimal>("Subtotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalPaid")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -130,6 +237,11 @@ namespace app.Migrations
 
                     b.HasIndex("FabricId");
 
+                    b.HasIndex("GarmentId");
+
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
@@ -143,14 +255,14 @@ namespace app.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -209,6 +321,15 @@ namespace app.Migrations
                         });
                 });
 
+            modelBuilder.Entity("app.Model.Measurement", b =>
+                {
+                    b.HasOne("app.Model.Order", null)
+                        .WithMany("Measurements")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("app.Model.Order", b =>
                 {
                     b.HasOne("app.Model.Customer", "Customer")
@@ -223,6 +344,12 @@ namespace app.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("app.Model.Garment", "Garment")
+                        .WithMany("Orders")
+                        .HasForeignKey("GarmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("app.Model.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -232,6 +359,8 @@ namespace app.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Fabric");
+
+                    b.Navigation("Garment");
 
                     b.Navigation("User");
                 });
@@ -257,8 +386,15 @@ namespace app.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("app.Model.Garment", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("app.Model.Order", b =>
                 {
+                    b.Navigation("Measurements");
+
                     b.Navigation("Payments");
                 });
 

@@ -25,9 +25,6 @@ namespace app.Model
         [Required]
         public string Unit {  get; set; }
 
-        [MaxLength(500)]
-        public string? Notes { get; set; }
-
         public DateTime MeasurementDate { get; set; } = DateTime.Now;
     }
 }

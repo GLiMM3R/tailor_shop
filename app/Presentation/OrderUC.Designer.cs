@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            fabric_dgv = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            order_dgv = new DataGridView();
             filter_pn = new Panel();
             label1 = new Label();
             panel1 = new Panel();
@@ -39,11 +39,11 @@
             main_layout = new TableLayoutPanel();
             bottom_pn = new TableLayoutPanel();
             top_pn = new Panel();
+            new_order_btn = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             total_fabric_lb = new Label();
             label2 = new Label();
-            new_order_btn = new Button();
-            ((System.ComponentModel.ISupportInitialize)fabric_dgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             filter_pn.SuspendLayout();
             panel1.SuspendLayout();
             search_pn.SuspendLayout();
@@ -53,28 +53,28 @@
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // fabric_dgv
+            // order_dgv
             // 
-            fabric_dgv.AllowUserToAddRows = false;
-            fabric_dgv.AllowUserToDeleteRows = false;
-            fabric_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            fabric_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            fabric_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            fabric_dgv.Dock = DockStyle.Fill;
-            fabric_dgv.Location = new Point(9, 110);
-            fabric_dgv.Margin = new Padding(8);
-            fabric_dgv.Name = "fabric_dgv";
-            fabric_dgv.ReadOnly = true;
-            fabric_dgv.RowHeadersWidth = 51;
-            fabric_dgv.Size = new Size(1042, 326);
-            fabric_dgv.TabIndex = 0;
+            order_dgv.AllowUserToAddRows = false;
+            order_dgv.AllowUserToDeleteRows = false;
+            order_dgv.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            order_dgv.Dock = DockStyle.Fill;
+            order_dgv.Location = new Point(9, 110);
+            order_dgv.Margin = new Padding(8);
+            order_dgv.Name = "order_dgv";
+            order_dgv.ReadOnly = true;
+            order_dgv.RowHeadersWidth = 51;
+            order_dgv.Size = new Size(1042, 326);
+            order_dgv.TabIndex = 0;
             // 
             // filter_pn
             // 
@@ -158,7 +158,7 @@
             bottom_pn.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             bottom_pn.ColumnCount = 1;
             bottom_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            bottom_pn.Controls.Add(fabric_dgv, 0, 1);
+            bottom_pn.Controls.Add(order_dgv, 0, 1);
             bottom_pn.Controls.Add(filter_pn, 0, 0);
             bottom_pn.Dock = DockStyle.Fill;
             bottom_pn.Location = new Point(3, 203);
@@ -178,6 +178,22 @@
             top_pn.Name = "top_pn";
             top_pn.Size = new Size(1060, 194);
             top_pn.TabIndex = 1;
+            // 
+            // new_order_btn
+            // 
+            new_order_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            new_order_btn.BackColor = Color.FromArgb(33, 52, 72);
+            new_order_btn.Cursor = Cursors.Hand;
+            new_order_btn.FlatStyle = FlatStyle.Flat;
+            new_order_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            new_order_btn.ForeColor = Color.White;
+            new_order_btn.Location = new Point(850, 64);
+            new_order_btn.Name = "new_order_btn";
+            new_order_btn.Size = new Size(178, 66);
+            new_order_btn.TabIndex = 3;
+            new_order_btn.Text = "New Order";
+            new_order_btn.UseVisualStyleBackColor = false;
+            new_order_btn.Click += new_order_btn_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -218,22 +234,6 @@
             label2.Text = "Total Order";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // new_order_btn
-            // 
-            new_order_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            new_order_btn.BackColor = Color.FromArgb(33, 52, 72);
-            new_order_btn.Cursor = Cursors.Hand;
-            new_order_btn.FlatStyle = FlatStyle.Flat;
-            new_order_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            new_order_btn.ForeColor = Color.White;
-            new_order_btn.Location = new Point(850, 64);
-            new_order_btn.Name = "new_order_btn";
-            new_order_btn.Size = new Size(178, 66);
-            new_order_btn.TabIndex = 3;
-            new_order_btn.Text = "New Order";
-            new_order_btn.UseVisualStyleBackColor = false;
-            new_order_btn.Click += new_order_btn_Click;
-            // 
             // OrderUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -241,7 +241,8 @@
             Controls.Add(main_layout);
             Name = "OrderUC";
             Size = new Size(1066, 651);
-            ((System.ComponentModel.ISupportInitialize)fabric_dgv).EndInit();
+            Load += OrderUC_Load;
+            ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             filter_pn.ResumeLayout(false);
             panel1.ResumeLayout(false);
             search_pn.ResumeLayout(false);
@@ -255,7 +256,7 @@
 
         #endregion
 
-        private DataGridView fabric_dgv;
+        private DataGridView order_dgv;
         private Panel filter_pn;
         private Label label1;
         private Panel panel1;

@@ -35,7 +35,7 @@ namespace app.Presentation
         private void InitializeService()
         {
             this._context = new AppDbContext();
-            this._customerService = new CustomerService(_context);
+            this._customerService = new CustomerService(this._context);
             this._count = _customerService.Count();
         }
 

@@ -18,7 +18,6 @@ namespace app
     {
         private AppDbContext _context;
         private AuthService _authService;
-        private MainForm _dashboard;
 
         public LoginForm()
         {
@@ -30,7 +29,11 @@ namespace app
         {
             this._context = new AppDbContext();
             this._authService = new AuthService(this._context);
-            this._dashboard = new MainForm();
+        }
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            username_txt.KeyDown += LoginTextBox_KeyDown;
+            password_txt.KeyDown += LoginTextBox_KeyDown;
         }
 
         private void exit_btn_Click(object sender, EventArgs e)
@@ -42,15 +45,15 @@ namespace app
         {
             try
             {
-                var isAuthenticated = await _authService.Login(username_txt.Text, password_txt.Text);
+                var user = await _authService.Login(username_txt.Text, password_txt.Text);
 
-                if (!isAuthenticated)
+                if (user == null)
                 {
                     MessageBox.Show("Username or password is incorrect!");
                     return;
                 }
-
-                _dashboard.Show();
+                var form = new MainForm(user);
+                form.Show();
                 this.Hide();
             }
             catch (Exception)
@@ -59,6 +62,16 @@ namespace app
                 throw;
             }
 
+        }
+
+        private void LoginTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Optionally prevent the ding sound
+                e.SuppressKeyPress = true;
+                login_btn.PerformClick();
+            }
         }
     }
 }

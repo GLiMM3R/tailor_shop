@@ -19,6 +19,8 @@ namespace app.Presentation
         private AppDbContext _dbContext;
         private FabricService _fabricService;
         private FilterFabric _filter;
+        private System.Windows.Forms.Timer _debounceTimer;
+        private const int DebounceInterval = 400; // milliseconds
 
         public FabricUC()
         {
@@ -27,6 +29,11 @@ namespace app.Presentation
             InitializeDataGridView();
 
             LoadFabrics();
+
+            // Debounce timer setup
+            _debounceTimer = new System.Windows.Forms.Timer();
+            _debounceTimer.Interval = DebounceInterval;
+            _debounceTimer.Tick += DebounceTimer_Tick;
         }
 
         private void InitializeService()
@@ -43,7 +50,7 @@ namespace app.Presentation
 
             fabric_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Type", headerText: "Type", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "MaterialType", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ColorName", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "Color"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "ValueToColor"),
@@ -80,6 +87,12 @@ namespace app.Presentation
         {
             var fabrics = await _fabricService.GetAll(this._filter);
             fabric_dgv.DataSource = fabrics;
+        }
+
+        private void DebounceTimer_Tick(object sender, EventArgs e)
+        {
+            _debounceTimer.Stop();
+            LoadFabrics();
         }
 
         private void new_fabric_btn_Click(object sender, EventArgs e)
@@ -153,6 +166,12 @@ namespace app.Presentation
                     }
                 }
             }
+        }
+
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            _debounceTimer.Stop();
+            _debounceTimer.Start();
         }
     }
 }

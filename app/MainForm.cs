@@ -1,9 +1,13 @@
+using app.Database;
+using app.Model;
 using app.Presentation;
 
 namespace app
 {
     public partial class MainForm : Form
     {
+        // User
+        private User _user;
         // Color
         private Color activeColor = Color.FromArgb(84, 119, 146);
         private Color inactiveColor = Color.Transparent;
@@ -15,17 +19,17 @@ namespace app
         // active button
         private Button currentActiveButton = null;
 
-        public MainForm()
+        public MainForm(User user)
         {
             InitializeComponent();
             InitializeService();
             InitializeSidebarButtons();
 
+            this._user = user;
         }
 
         private void InitializeService()
         {
-
         }
 
         private void InitializeSidebarButtons()
@@ -103,7 +107,7 @@ namespace app
 
         private void order_btn_Click(object sender, EventArgs e)
         {
-            var order = new OrderUC();
+            var order = new OrderUC(this._user);
             LoadFormIntoPanel(order);
         }
 
@@ -128,6 +132,11 @@ namespace app
             var fabric = new FabricUC();
             LoadFormIntoPanel(fabric);
         }
+        private void garment_btn_Click(object sender, EventArgs e)
+        {
+            var garment = new GarmentUC();
+            LoadFormIntoPanel(garment);
+        }
 
         private void logout_btn_Click(object sender, EventArgs e)
         {
@@ -140,5 +149,6 @@ namespace app
         {
             Application.Exit();
         }
+
     }
 }
