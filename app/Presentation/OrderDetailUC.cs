@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace app.Presentation
 {
-    public partial class PaymentForm : Form
+    public partial class OrderDetailUC : UserControl
     {
-        public PaymentForm()
+        private OrderUC _orderUC;
+        public OrderDetailUC(OrderUC orderUC)
         {
             InitializeComponent();
+            _orderUC = orderUC;
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            //_orderUC._mainForm.LoadFormIntoPanel(_orderUC);
         }
     }
 }

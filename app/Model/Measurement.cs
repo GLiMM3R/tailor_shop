@@ -15,6 +15,8 @@ namespace app.Model
 
         [Required]
         public int OrderId { get; set; }
+        [ForeignKey("OrderId")]
+        public virtual Order Order { get; set; } // Navigation Property
 
         [Required]
         public string BodyPart { get; set; }

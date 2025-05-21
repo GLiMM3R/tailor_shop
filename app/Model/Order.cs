@@ -9,6 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Model
 {
+    public enum OrderStatus
+    {
+        New = 0,
+        InProgress = 1,
+        Completed = 2,
+        Canceled = 3
+    }
+
     public class Order
     {
         [Key]
@@ -54,16 +62,14 @@ namespace app.Model
 
         public DateTime? PickUpDate { get; set; }
 
-        //public string? Notes { get; set; }
+        public string? Notes { get; set; }
 
-        public int Status { get; set; } = 0;
+        public int Status { get; set; } = 0; // 0 = New, 1 = In Progress, 2 = Completed, 3 = Canceled
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public virtual ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
-
-        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
 }

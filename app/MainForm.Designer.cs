@@ -36,6 +36,7 @@
             customer_btn = new Button();
             user_btn = new Button();
             fabric_btn = new Button();
+            garment_btn = new Button();
             report_btn = new Button();
             logout_btn = new Button();
             logoPn = new Panel();
@@ -43,7 +44,6 @@
             main_pn = new Panel();
             content_pn = new Panel();
             topbar_pn = new Panel();
-            garment_btn = new Button();
             root_layout.SuspendLayout();
             sidebar_pn.SuspendLayout();
             sidebar_buttons_layout.SuspendLayout();
@@ -190,6 +190,25 @@
             fabric_btn.UseVisualStyleBackColor = false;
             fabric_btn.Click += fabric_btn_Click;
             // 
+            // garment_btn
+            // 
+            garment_btn.BackColor = Color.Transparent;
+            garment_btn.Cursor = Cursors.Hand;
+            garment_btn.Dock = DockStyle.Top;
+            garment_btn.FlatAppearance.BorderSize = 0;
+            garment_btn.FlatStyle = FlatStyle.Flat;
+            garment_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            garment_btn.ForeColor = Color.White;
+            garment_btn.ImageAlign = ContentAlignment.MiddleLeft;
+            garment_btn.Location = new Point(0, 300);
+            garment_btn.Margin = new Padding(0);
+            garment_btn.Name = "garment_btn";
+            garment_btn.Size = new Size(280, 60);
+            garment_btn.TabIndex = 6;
+            garment_btn.Text = "Garment";
+            garment_btn.UseVisualStyleBackColor = false;
+            garment_btn.Click += garment_btn_Click;
+            // 
             // report_btn
             // 
             report_btn.BackColor = Color.Transparent;
@@ -268,32 +287,13 @@
             // 
             // topbar_pn
             // 
-            topbar_pn.BackColor = Color.Bisque;
+            topbar_pn.BackColor = Color.Black;
             topbar_pn.Dock = DockStyle.Top;
             topbar_pn.Location = new Point(0, 0);
             topbar_pn.Margin = new Padding(0);
             topbar_pn.Name = "topbar_pn";
             topbar_pn.Size = new Size(1012, 72);
             topbar_pn.TabIndex = 0;
-            // 
-            // garment_btn
-            // 
-            garment_btn.BackColor = Color.Transparent;
-            garment_btn.Cursor = Cursors.Hand;
-            garment_btn.Dock = DockStyle.Top;
-            garment_btn.FlatAppearance.BorderSize = 0;
-            garment_btn.FlatStyle = FlatStyle.Flat;
-            garment_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            garment_btn.ForeColor = Color.White;
-            garment_btn.ImageAlign = ContentAlignment.MiddleLeft;
-            garment_btn.Location = new Point(0, 300);
-            garment_btn.Margin = new Padding(0);
-            garment_btn.Name = "garment_btn";
-            garment_btn.Size = new Size(280, 60);
-            garment_btn.TabIndex = 6;
-            garment_btn.Text = "Garment";
-            garment_btn.UseVisualStyleBackColor = false;
-            garment_btn.Click += garment_btn_Click;
             // 
             // MainForm
             // 

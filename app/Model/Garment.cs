@@ -18,7 +18,5 @@ namespace app.Model
         public string? Description { get; set; }
 
         public decimal? BasePrice{ get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

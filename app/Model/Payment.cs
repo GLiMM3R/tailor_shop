@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +15,14 @@ namespace app.Model
 
         [Required]
         public int OrderId { get; set; }
+        [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
 
         [Required]
         public decimal TotalPrice { get; set; }
 
         [Required]
-        public decimal TotalPaid { get; set; }
-
-        [Required]
         public decimal PaidAmount { get; set; }
-
-        [Required]
-        public int Status { get; set; } = 0;
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

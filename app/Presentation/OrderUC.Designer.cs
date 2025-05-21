@@ -31,9 +31,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             order_dgv = new DataGridView();
             filter_pn = new Panel();
-            label1 = new Label();
-            panel1 = new Panel();
-            gender_cb = new ComboBox();
             search_pn = new Panel();
             search_txt = new TextBox();
             main_layout = new TableLayoutPanel();
@@ -43,14 +40,17 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             total_fabric_lb = new Label();
             label2 = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            status_cbb = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             filter_pn.SuspendLayout();
-            panel1.SuspendLayout();
             search_pn.SuspendLayout();
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             top_pn.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // order_dgv
@@ -87,36 +87,6 @@
             filter_pn.Size = new Size(1052, 90);
             filter_pn.TabIndex = 1;
             // 
-            // label1
-            // 
-            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(332, 22);
-            label1.Name = "label1";
-            label1.Size = new Size(72, 47);
-            label1.TabIndex = 2;
-            label1.Text = "Gender";
-            label1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // panel1
-            // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(gender_cb);
-            panel1.Location = new Point(406, 22);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(198, 47);
-            panel1.TabIndex = 1;
-            // 
-            // gender_cb
-            // 
-            gender_cb.FlatStyle = FlatStyle.Flat;
-            gender_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gender_cb.FormattingEnabled = true;
-            gender_cb.Items.AddRange(new object[] { "All", "Male", "Female", "Other", "PreferNotToSay" });
-            gender_cb.Location = new Point(3, 7);
-            gender_cb.Name = "gender_cb";
-            gender_cb.Size = new Size(190, 31);
-            gender_cb.TabIndex = 1;
-            // 
             // search_pn
             // 
             search_pn.BorderStyle = BorderStyle.FixedSingle;
@@ -135,6 +105,7 @@
             search_txt.PlaceholderText = "Search...";
             search_txt.Size = new Size(259, 23);
             search_txt.TabIndex = 0;
+            search_txt.TextChanged += search_txt_TextChanged;
             // 
             // main_layout
             // 
@@ -234,6 +205,36 @@
             label2.Text = "Total Order";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(350, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(72, 47);
+            label1.TabIndex = 4;
+            label1.Text = "Status";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(status_cbb);
+            panel1.Location = new Point(424, 22);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(198, 47);
+            panel1.TabIndex = 3;
+            // 
+            // status_cbb
+            // 
+            status_cbb.FlatStyle = FlatStyle.Flat;
+            status_cbb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            status_cbb.FormattingEnabled = true;
+            status_cbb.Items.AddRange(new object[] { "All", "User", "Admin" });
+            status_cbb.Location = new Point(3, 7);
+            status_cbb.Name = "status_cbb";
+            status_cbb.Size = new Size(190, 31);
+            status_cbb.TabIndex = 1;
+            // 
             // OrderUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -244,13 +245,13 @@
             Load += OrderUC_Load;
             ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             filter_pn.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             search_pn.ResumeLayout(false);
             search_pn.PerformLayout();
             main_layout.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             top_pn.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -258,9 +259,6 @@
 
         private DataGridView order_dgv;
         private Panel filter_pn;
-        private Label label1;
-        private Panel panel1;
-        private ComboBox gender_cb;
         private Panel search_pn;
         private TextBox search_txt;
         private TableLayoutPanel main_layout;
@@ -270,5 +268,8 @@
         private Label total_fabric_lb;
         private Label label2;
         private Button new_order_btn;
+        private Label label1;
+        private Panel panel1;
+        private ComboBox status_cbb;
     }
 }

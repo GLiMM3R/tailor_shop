@@ -11,7 +11,7 @@ namespace app.Service
 {
     public class FilterGarment
     {
-        public string? Name { get; set; }
+        public string? Search { get; set; }
     }
 
     public class GarmentService
@@ -29,9 +29,9 @@ namespace app.Service
 
             if (filter != null)
             {
-                if (!string.IsNullOrEmpty(filter.Name))
+                if (!string.IsNullOrEmpty(filter.Search))
                 {
-                    query = query.Where(c => c.Name != null && c.Name.ToLower().Contains(filter.Name.ToLower()));
+                    query = query.Where(c => c.Name != null && c.Name.ToLower().Contains(filter.Search.ToLower()));
                 }
             }
 

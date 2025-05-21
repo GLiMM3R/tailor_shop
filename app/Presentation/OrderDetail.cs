@@ -9,28 +9,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using app.Database;
 using app.Model;
+using app.Service;
 using app.Utils;
 
 namespace app.Presentation
 {
     public partial class OrderDetail : Form
     {
+        private AppDbContext _context;
+        private OrderService _orderService;
+        private string _orderNumber;
         private Order _order;
         private List<Measurement> _measurements;
-        public OrderDetail(Order order)
+        public bool IsChanged { get; set; } = false;
+
+        public OrderDetail(string orderNumber)
         {
             InitializeComponent();
             InitializeDataGridView();
+            InitializeServices();
 
-            this._order = order;
+            _orderNumber = orderNumber;
         }
 
-        private void OrderDetail_Load(object sender, EventArgs e)
+        private void InitializeServices()
         {
-            LoadMeasurements();
+            _context = new AppDbContext();
+            _orderService = new OrderService(_context);
+        }
+
+        private async void OrderDetail_Load(object sender, EventArgs e)
+        {
+            await LoadOrder();
 
             if (_order != null)
             {
+                LoadMeasurements();
+
                 order_number_val_lb.Text = _order.OrderNumber;
                 customer_name_val_lb.Text = _order.Customer.Name;
                 customer_phone_val_lb.Text = _order.Customer.Phone;
@@ -44,7 +59,20 @@ namespace app.Presentation
                 discount_val_lb.Text = (-_order.Discount).ToString("N2");
                 deposit_amount_val_lb.Text = _order.DepositAmount.ToString("N2");
                 total_amount_lb.Text = _order.TotalAmount.ToString("N2");
-                //notes_txt.Text = _order.Notes;
+                notes_txt.Text = _order.Notes;
+
+                if (_order.Status == 2)
+                {
+                    pay_btn.Enabled = false;
+                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
+                    pay_btn.Text = "Paid";
+                }
+                else
+                {
+                    pay_btn.Enabled = true;
+                    pay_btn.BackColor = Color.FromArgb(33, 52, 72);
+                    pay_btn.Text = "Pay";
+                }
             }
         }
 
@@ -59,6 +87,16 @@ namespace app.Presentation
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Value", headerText: "Value", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Unit", headerText: "Unit", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50)
             );
+        }
+
+        public async Task LoadOrder()
+        {
+            var order = await _orderService.GetByOrderNumber(_orderNumber);
+
+            if (order != null)
+            {
+                _order = order;
+            }
         }
 
         private void LoadMeasurements()
@@ -76,14 +114,14 @@ namespace app.Presentation
             }
         }
 
-        private void exit_btn_Click(object sender, EventArgs e)
+        private async void exit_btn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private void pay_btn_Click(object sender, EventArgs e)
         {
-            var form = new PaymentForm();
+            var form = new PaymentModal(this, _order);
             form.ShowDialog();
         }
     }

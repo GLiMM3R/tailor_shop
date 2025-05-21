@@ -22,6 +22,8 @@ namespace app.Presentation
         private FilterCustomer _filter;
         private int _count = 0;
 
+        private Debouncer searchDebouncer;
+
         public CustomerUC()
         {
             InitializeComponent();
@@ -30,6 +32,8 @@ namespace app.Presentation
 
             _filter = new FilterCustomer();
             total_customer_lb.Text = this._count.ToString();
+
+            searchDebouncer = new Debouncer(300, () => LoadCustomers());
         }
 
         private void InitializeService()
@@ -123,7 +127,7 @@ namespace app.Presentation
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
             _filter.Name = search_txt.Text.Trim();
-            LoadCustomers();
+            searchDebouncer.Trigger();
         }
 
         private void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)

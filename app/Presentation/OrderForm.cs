@@ -152,7 +152,7 @@ namespace app.Presentation
             }
         }
 
-        private void cancel_btn_Click(object sender, EventArgs e)
+        private async void cancel_btn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -199,8 +199,8 @@ namespace app.Presentation
             {
                 MessageBox.Show("Invalid subtotal.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            } 
-            
+            }
+
             if (!decimal.TryParse(discount_num.Text, out decimal discount))
             {
                 MessageBox.Show("Invalid discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -216,6 +216,12 @@ namespace app.Presentation
             if (deposit_amount < (subtotal - discount) / 2)
             {
                 MessageBox.Show("Deposit amount must be at least half of the subtotal after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if(deposit_amount > subtotal - discount)
+            {
+                MessageBox.Show("Deposit amount cannot exceed the total amount after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -238,7 +244,8 @@ namespace app.Presentation
                 DepositAmount = deposit_amount_num.Value,
                 TotalAmount = totalAmount,
                 Status = 0,
-                Quantity = 1,
+                Quantity = (int)quantity_num.Value,
+                Notes = notes_txt.Text,
                 UserId = this._user.Id,
             };
 
@@ -281,7 +288,7 @@ namespace app.Presentation
             var fabricUnitPrice = _fabric?.UnitPrice ?? 0m; // Use 'm' for decimal literals
             var garmentBasePrice = _garment?.BasePrice ?? 0m;
 
-            var subtotal = (fabricUsedQty * fabricUnitPrice) + garmentBasePrice;
+            var subtotal = ((fabricUsedQty * fabricUnitPrice) + garmentBasePrice) * quantity_num.Value;
             var totalAmount = subtotal - discount_num.Value; // discount_num.Value is already decimal
 
             subtotal_lb.Text = $"{subtotal:N2}"; // "N2" for number with 2 decimal places
@@ -427,6 +434,11 @@ namespace app.Presentation
             };
 
             return measurements;
+        }
+
+        private void quantity_num_ValueChanged(object sender, EventArgs e)
+        {
+            this.CalculateTotal();
         }
     }
 }

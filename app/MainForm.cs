@@ -7,7 +7,7 @@ namespace app
     public partial class MainForm : Form
     {
         // User
-        private User _user;
+        public User _user;
         // Color
         private Color activeColor = Color.FromArgb(84, 119, 146);
         private Color inactiveColor = Color.Transparent;
@@ -94,7 +94,7 @@ namespace app
             LoadFormIntoPanel(home);
         }
 
-        private void LoadFormIntoPanel(UserControl child)
+        public void LoadFormIntoPanel(UserControl child)
         {
             content_pn.Controls.Clear();
 
@@ -107,7 +107,7 @@ namespace app
 
         private void order_btn_Click(object sender, EventArgs e)
         {
-            var order = new OrderUC(this._user);
+            var order = new OrderUC(_user);
             LoadFormIntoPanel(order);
         }
 

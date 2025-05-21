@@ -21,6 +21,8 @@ namespace app.Presentation
         private FilterUser _filter;
         private int _count;
 
+        private Debouncer searchDebouncer;
+
         public UserUC()
         {
             InitializeComponent();
@@ -29,6 +31,8 @@ namespace app.Presentation
 
             this._filter = new FilterUser();
             total_users_lb.Text = this._count.ToString();
+
+            searchDebouncer = new Debouncer(300, () => LoadUsers());
         }
 
         public void InitializeUserService()
@@ -105,7 +109,7 @@ namespace app.Presentation
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
             this._filter.Username = search_txt.Text.Trim();
-            LoadUsers();
+            searchDebouncer.Trigger();
         }
 
         private void new_user_btn_Click(object sender, EventArgs e)

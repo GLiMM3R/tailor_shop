@@ -622,7 +622,7 @@
             notes_txt.Location = new Point(17, 50);
             notes_txt.Multiline = true;
             notes_txt.Name = "notes_txt";
-            notes_txt.Size = new Size(402, 166);
+            notes_txt.Size = new Size(402, 182);
             notes_txt.TabIndex = 0;
             // 
             // summary_and_note_lb
@@ -653,9 +653,9 @@
             pay_btn.FlatStyle = FlatStyle.Flat;
             pay_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             pay_btn.ForeColor = Color.White;
-            pay_btn.Location = new Point(951, 9);
+            pay_btn.Location = new Point(953, 3);
             pay_btn.Name = "pay_btn";
-            pay_btn.Size = new Size(178, 70);
+            pay_btn.Size = new Size(178, 63);
             pay_btn.TabIndex = 4;
             pay_btn.Text = "Pay";
             pay_btn.UseVisualStyleBackColor = false;

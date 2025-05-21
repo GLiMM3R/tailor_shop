@@ -23,6 +23,8 @@ namespace app.Presentation
         private GarmentService _garmentService;
         private DailySequenceService _dailySequenceService;
         private User _user;
+        private FilterOrder _filter = new FilterOrder();
+        private Debouncer searchDebouncer;
 
         public OrderUC(User user)
         {
@@ -34,6 +36,8 @@ namespace app.Presentation
             this._garmentService = new GarmentService(this._dbContext);
             this._dailySequenceService = new DailySequenceService(this._dbContext);
             this._user = user;
+
+            searchDebouncer = new Debouncer(300, async () => await LoadOrders());
         }
 
         private async void OrderUC_Load(object sender, EventArgs e)
@@ -48,7 +52,7 @@ namespace app.Presentation
             order_dgv.Columns.Clear();
 
             order_dgv.Columns.AddRange(
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID",autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "OrderNumber", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 38),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "Garment", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "Customer", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
@@ -122,13 +126,13 @@ namespace app.Presentation
             //    var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
             //    if (order != null && order.Status != null)
             //    {
-            //        e.Value = order.Garment.Name;
+            //        e.Value = order.Status;
             //        e.FormattingApplied = true;
             //    }
             //}
         }
 
-        private void order_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void order_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -136,8 +140,14 @@ namespace app.Presentation
                 {
                     if (order_dgv.Rows[e.RowIndex].DataBoundItem is Order selectedOrder)
                     {
-                        var form = new OrderDetail(selectedOrder);
+                        var form = new OrderDetail(selectedOrder.OrderNumber);
                         form.ShowDialog();
+                        if (form.IsChanged)
+                        {
+                            await LoadOrders();
+                        }
+                        //var order = new OrderDetailUC(this);
+                        //_mainForm.LoadFormIntoPanel(order);
                     }
                 }
             }
@@ -145,9 +155,15 @@ namespace app.Presentation
 
         public async Task LoadOrders()
         {
-            var orders = await this._orderService.GetAll(null);
-            order_dgv.DataSource = orders;
-            order_dgv.ClearSelection();
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var orderService = new OrderService(dbContext);
+                var orders = await orderService.GetAll(_filter);
+                order_dgv.DataSource = null;
+                order_dgv.DataSource = orders.ToList();
+                order_dgv.ClearSelection();
+            }
         }
 
         private async void new_order_btn_Click(object sender, EventArgs e)
@@ -156,5 +172,10 @@ namespace app.Presentation
             form.ShowDialog();
         }
 
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            _filter.Search = search_txt.Text;
+            searchDebouncer.Trigger();
+        }
     }
 }

@@ -206,6 +206,7 @@
             Controls.Add(main_layout);
             Name = "FabricUC";
             Size = new Size(1200, 768);
+            Load += FabricUC_Load;
             ((System.ComponentModel.ISupportInitialize)fabric_dgv).EndInit();
             main_layout.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);

@@ -29,7 +29,5 @@ namespace app.Model
         public string Salt { get; set; }
 
         public Role Role { get; set; } = Role.User;
-
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

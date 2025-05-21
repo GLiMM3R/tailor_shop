@@ -47,7 +47,7 @@ namespace app.Presentation
                 await CreateGarment();
             }
 
-            await this._garmentUC.LoadGarments();
+            this._garmentUC.LoadGarments();
             this.Close();
         }
 

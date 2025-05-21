@@ -86,6 +86,9 @@
             sleeve_length_num = new NumericUpDown();
             upper_hip_num = new NumericUpDown();
             top_pn = new Panel();
+            panel7 = new Panel();
+            quantity_num = new NumericUpDown();
+            label10 = new Label();
             fabric_qty_pn = new Panel();
             fabric_qty_num = new NumericUpDown();
             due_date_dpk = new DateTimePicker();
@@ -135,6 +138,8 @@
             ((System.ComponentModel.ISupportInitialize)sleeve_length_num).BeginInit();
             ((System.ComponentModel.ISupportInitialize)upper_hip_num).BeginInit();
             top_pn.SuspendLayout();
+            panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)quantity_num).BeginInit();
             fabric_qty_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fabric_qty_num).BeginInit();
             panel5.SuspendLayout();
@@ -162,7 +167,7 @@
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 180F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
-            main_layout.Size = new Size(1166, 739);
+            main_layout.Size = new Size(1166, 724);
             main_layout.TabIndex = 0;
             // 
             // bottom_pn
@@ -175,7 +180,7 @@
             bottom_pn.Location = new Point(0, 460);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
-            bottom_pn.Size = new Size(1166, 279);
+            bottom_pn.Size = new Size(1166, 264);
             bottom_pn.TabIndex = 2;
             // 
             // panel1
@@ -193,7 +198,7 @@
             panel1.Controls.Add(label4);
             panel1.Controls.Add(subtotal_lb);
             panel1.Controls.Add(subtotal_title_lb);
-            panel1.Location = new Point(611, 50);
+            panel1.Location = new Point(611, 51);
             panel1.Name = "panel1";
             panel1.Size = new Size(520, 203);
             panel1.TabIndex = 10;
@@ -235,9 +240,9 @@
             // 
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(deposit_amount_num);
-            panel6.Location = new Point(237, 94);
+            panel6.Location = new Point(237, 93);
             panel6.Name = "panel6";
-            panel6.Size = new Size(230, 38);
+            panel6.Size = new Size(231, 38);
             panel6.TabIndex = 18;
             // 
             // deposit_amount_num
@@ -246,7 +251,7 @@
             deposit_amount_num.BorderStyle = BorderStyle.None;
             deposit_amount_num.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             deposit_amount_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            deposit_amount_num.Location = new Point(12, 7);
+            deposit_amount_num.Location = new Point(11, 7);
             deposit_amount_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             deposit_amount_num.Name = "deposit_amount_num";
             deposit_amount_num.Size = new Size(213, 23);
@@ -280,7 +285,7 @@
             panel2.Controls.Add(discount_num);
             panel2.Location = new Point(237, 47);
             panel2.Name = "panel2";
-            panel2.Size = new Size(230, 38);
+            panel2.Size = new Size(231, 38);
             panel2.TabIndex = 15;
             // 
             // discount_num
@@ -289,7 +294,7 @@
             discount_num.BorderStyle = BorderStyle.None;
             discount_num.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             discount_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            discount_num.Location = new Point(12, 7);
+            discount_num.Location = new Point(11, 7);
             discount_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             discount_num.Name = "discount_num";
             discount_num.Size = new Size(213, 23);
@@ -301,7 +306,7 @@
             // 
             total_amount_lb.Font = new Font("Arial", 12F, FontStyle.Bold);
             total_amount_lb.ForeColor = Color.RoyalBlue;
-            total_amount_lb.Location = new Point(191, 146);
+            total_amount_lb.Location = new Point(191, 147);
             total_amount_lb.Name = "total_amount_lb";
             total_amount_lb.Size = new Size(259, 44);
             total_amount_lb.TabIndex = 14;
@@ -312,7 +317,7 @@
             // 
             label5.Font = new Font("Arial", 12F, FontStyle.Bold);
             label5.ForeColor = Color.RoyalBlue;
-            label5.Location = new Point(0, 146);
+            label5.Location = new Point(0, 147);
             label5.Name = "label5";
             label5.Size = new Size(207, 44);
             label5.TabIndex = 13;
@@ -324,7 +329,7 @@
             line.BackColor = Color.LightGray;
             line.Location = new Point(0, 136);
             line.Name = "line";
-            line.Size = new Size(519, 2);
+            line.Size = new Size(519, 3);
             line.TabIndex = 12;
             // 
             // label4
@@ -361,7 +366,7 @@
             // label2
             // 
             label2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(37, 50);
+            label2.Location = new Point(37, 51);
             label2.Name = "label2";
             label2.Size = new Size(114, 31);
             label2.TabIndex = 9;
@@ -429,7 +434,7 @@
             // 
             measurements_title_lb.AutoSize = true;
             measurements_title_lb.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            measurements_title_lb.Location = new Point(12, 12);
+            measurements_title_lb.Location = new Point(11, 12);
             measurements_title_lb.Name = "measurements_title_lb";
             measurements_title_lb.Size = new Size(282, 33);
             measurements_title_lb.TabIndex = 7;
@@ -456,7 +461,7 @@
             lower_body_form_layout.Controls.Add(knee_lb, 2, 0);
             lower_body_form_layout.Controls.Add(thigh_lb, 0, 3);
             lower_body_form_layout.Controls.Add(thigh_num, 1, 3);
-            lower_body_form_layout.Location = new Point(611, 98);
+            lower_body_form_layout.Location = new Point(611, 99);
             lower_body_form_layout.Name = "lower_body_form_layout";
             lower_body_form_layout.RowCount = 4;
             lower_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
@@ -527,7 +532,7 @@
             top_thigh_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             top_thigh_lb.Location = new Point(3, 80);
             top_thigh_lb.Name = "top_thigh_lb";
-            top_thigh_lb.Size = new Size(124, 30);
+            top_thigh_lb.Size = new Size(124, 29);
             top_thigh_lb.TabIndex = 18;
             top_thigh_lb.Text = "Top Thigh";
             top_thigh_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -538,7 +543,7 @@
             lower_hip_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lower_hip_lb.Location = new Point(3, 40);
             lower_hip_lb.Name = "lower_hip_lb";
-            lower_hip_lb.Size = new Size(124, 30);
+            lower_hip_lb.Size = new Size(124, 29);
             lower_hip_lb.TabIndex = 0;
             lower_hip_lb.Text = "Lower Hip";
             lower_hip_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -593,7 +598,7 @@
             knee_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             knee_lb.Location = new Point(263, 0);
             knee_lb.Name = "knee_lb";
-            knee_lb.Size = new Size(124, 30);
+            knee_lb.Size = new Size(124, 29);
             knee_lb.TabIndex = 6;
             knee_lb.Text = "Knee";
             knee_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -604,7 +609,7 @@
             thigh_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             thigh_lb.Location = new Point(3, 120);
             thigh_lb.Name = "thigh_lb";
-            thigh_lb.Size = new Size(124, 30);
+            thigh_lb.Size = new Size(124, 29);
             thigh_lb.TabIndex = 27;
             thigh_lb.Text = "Thigh";
             thigh_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -643,7 +648,7 @@
             upper_body_form_layout.Controls.Add(sleeve_opening_num, 3, 2);
             upper_body_form_layout.Controls.Add(sleeve_length_num, 3, 1);
             upper_body_form_layout.Controls.Add(upper_hip_num, 3, 0);
-            upper_body_form_layout.Location = new Point(39, 98);
+            upper_body_form_layout.Location = new Point(39, 99);
             upper_body_form_layout.Name = "upper_body_form_layout";
             upper_body_form_layout.RowCount = 4;
             upper_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
@@ -659,7 +664,7 @@
             shirt_length_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             shirt_length_lb.Location = new Point(263, 120);
             shirt_length_lb.Name = "shirt_length_lb";
-            shirt_length_lb.Size = new Size(124, 30);
+            shirt_length_lb.Size = new Size(124, 29);
             shirt_length_lb.TabIndex = 19;
             shirt_length_lb.Text = "Shirt Length";
             shirt_length_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -670,7 +675,7 @@
             sleeve_opening_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             sleeve_opening_lb.Location = new Point(263, 80);
             sleeve_opening_lb.Name = "sleeve_opening_lb";
-            sleeve_opening_lb.Size = new Size(124, 30);
+            sleeve_opening_lb.Size = new Size(124, 29);
             sleeve_opening_lb.TabIndex = 18;
             sleeve_opening_lb.Text = "Sleeve Opening";
             sleeve_opening_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -681,7 +686,7 @@
             sleeve_length_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             sleeve_length_lb.Location = new Point(263, 40);
             sleeve_length_lb.Name = "sleeve_length_lb";
-            sleeve_length_lb.Size = new Size(124, 30);
+            sleeve_length_lb.Size = new Size(124, 29);
             sleeve_length_lb.TabIndex = 17;
             sleeve_length_lb.Text = "Sleeve Length";
             sleeve_length_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -692,7 +697,7 @@
             upper_hip_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             upper_hip_lb.Location = new Point(263, 0);
             upper_hip_lb.Name = "upper_hip_lb";
-            upper_hip_lb.Size = new Size(124, 30);
+            upper_hip_lb.Size = new Size(124, 29);
             upper_hip_lb.TabIndex = 16;
             upper_hip_lb.Text = "Upper Hip";
             upper_hip_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -703,7 +708,7 @@
             upper_waist_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             upper_waist_lb.Location = new Point(3, 120);
             upper_waist_lb.Name = "upper_waist_lb";
-            upper_waist_lb.Size = new Size(124, 30);
+            upper_waist_lb.Size = new Size(124, 29);
             upper_waist_lb.TabIndex = 4;
             upper_waist_lb.Text = "Upper Waist";
             upper_waist_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -725,7 +730,7 @@
             chest_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             chest_lb.Location = new Point(3, 80);
             chest_lb.Name = "chest_lb";
-            chest_lb.Size = new Size(124, 30);
+            chest_lb.Size = new Size(124, 29);
             chest_lb.TabIndex = 2;
             chest_lb.Text = "Chest";
             chest_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -747,7 +752,7 @@
             shoulder_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             shoulder_lb.Location = new Point(3, 40);
             shoulder_lb.Name = "shoulder_lb";
-            shoulder_lb.Size = new Size(124, 30);
+            shoulder_lb.Size = new Size(124, 29);
             shoulder_lb.TabIndex = 0;
             shoulder_lb.Text = "Shoulder";
             shoulder_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -831,6 +836,8 @@
             // 
             // top_pn
             // 
+            top_pn.Controls.Add(panel7);
+            top_pn.Controls.Add(label10);
             top_pn.Controls.Add(fabric_qty_pn);
             top_pn.Controls.Add(due_date_dpk);
             top_pn.Controls.Add(panel5);
@@ -848,6 +855,37 @@
             top_pn.Name = "top_pn";
             top_pn.Size = new Size(1166, 180);
             top_pn.TabIndex = 0;
+            // 
+            // panel7
+            // 
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(quantity_num);
+            panel7.Location = new Point(582, 121);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(290, 46);
+            panel7.TabIndex = 19;
+            // 
+            // quantity_num
+            // 
+            quantity_num.BorderStyle = BorderStyle.None;
+            quantity_num.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            quantity_num.Location = new Point(5, 9);
+            quantity_num.Name = "quantity_num";
+            quantity_num.Size = new Size(278, 26);
+            quantity_num.TabIndex = 9;
+            quantity_num.TextAlign = HorizontalAlignment.Center;
+            quantity_num.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            quantity_num.ValueChanged += quantity_num_ValueChanged;
+            // 
+            // label10
+            // 
+            label10.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(582, 87);
+            label10.Name = "label10";
+            label10.Size = new Size(127, 31);
+            label10.TabIndex = 18;
+            label10.Text = "Quanity";
+            label10.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fabric_qty_pn
             // 
@@ -875,7 +913,7 @@
             due_date_dpk.CustomFormat = "dd/mm/yyyy";
             due_date_dpk.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             due_date_dpk.Format = DateTimePickerFormat.Short;
-            due_date_dpk.Location = new Point(949, 42);
+            due_date_dpk.Location = new Point(949, 43);
             due_date_dpk.MinDate = new DateTime(2025, 5, 18, 0, 0, 0, 0);
             due_date_dpk.Name = "due_date_dpk";
             due_date_dpk.Size = new Size(182, 34);
@@ -895,7 +933,7 @@
             fabric_cb.FlatStyle = FlatStyle.Flat;
             fabric_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             fabric_cb.FormattingEnabled = true;
-            fabric_cb.Location = new Point(10, 6);
+            fabric_cb.Location = new Point(10, 5);
             fabric_cb.Name = "fabric_cb";
             fabric_cb.Size = new Size(269, 31);
             fabric_cb.TabIndex = 12;
@@ -916,7 +954,7 @@
             garment_cb.FlatStyle = FlatStyle.Flat;
             garment_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             garment_cb.FormattingEnabled = true;
-            garment_cb.Location = new Point(12, 6);
+            garment_cb.Location = new Point(11, 5);
             garment_cb.Name = "garment_cb";
             garment_cb.Size = new Size(266, 31);
             garment_cb.TabIndex = 2;
@@ -939,7 +977,7 @@
             customer_cb.FlatStyle = FlatStyle.Flat;
             customer_cb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             customer_cb.FormattingEnabled = true;
-            customer_cb.Location = new Point(9, 6);
+            customer_cb.Location = new Point(9, 5);
             customer_cb.Name = "customer_cb";
             customer_cb.Size = new Size(271, 31);
             customer_cb.TabIndex = 0;
@@ -955,7 +993,7 @@
             new_customer_btn.Location = new Point(325, 35);
             new_customer_btn.Margin = new Padding(0);
             new_customer_btn.Name = "new_customer_btn";
-            new_customer_btn.Size = new Size(175, 46);
+            new_customer_btn.Size = new Size(175, 45);
             new_customer_btn.TabIndex = 13;
             new_customer_btn.Text = "New Customer";
             new_customer_btn.UseVisualStyleBackColor = false;
@@ -985,9 +1023,9 @@
             fabric_qty_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             fabric_qty_lb.Location = new Point(325, 87);
             fabric_qty_lb.Name = "fabric_qty_lb";
-            fabric_qty_lb.Size = new Size(127, 31);
+            fabric_qty_lb.Size = new Size(168, 31);
             fabric_qty_lb.TabIndex = 10;
-            fabric_qty_lb.Text = "Fabric Quanity";
+            fabric_qty_lb.Text = "Fabric Use Quantity";
             fabric_qty_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fabric_lb
@@ -1014,9 +1052,9 @@
             // 
             order_number_lb.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             order_number_lb.ForeColor = Color.White;
-            order_number_lb.Location = new Point(222, 14);
+            order_number_lb.Location = new Point(222, 13);
             order_number_lb.Name = "order_number_lb";
-            order_number_lb.Size = new Size(284, 33);
+            order_number_lb.Size = new Size(283, 33);
             order_number_lb.TabIndex = 3;
             order_number_lb.Text = "0";
             order_number_lb.TextAlign = ContentAlignment.MiddleLeft;
@@ -1026,7 +1064,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 14);
+            label1.Location = new Point(11, 13);
             label1.Name = "label1";
             label1.Size = new Size(216, 33);
             label1.TabIndex = 2;
@@ -1049,7 +1087,7 @@
             footer_pn.BackColor = Color.White;
             footer_pn.Controls.Add(action_layout);
             footer_pn.Dock = DockStyle.Bottom;
-            footer_pn.Location = new Point(0, 800);
+            footer_pn.Location = new Point(0, 785);
             footer_pn.Name = "footer_pn";
             footer_pn.Size = new Size(1166, 80);
             footer_pn.TabIndex = 4;
@@ -1062,7 +1100,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(create_order_btn, 1, 0);
-            action_layout.Location = new Point(749, 14);
+            action_layout.Location = new Point(749, 3);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
             action_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -1091,9 +1129,9 @@
             create_order_btn.FlatStyle = FlatStyle.Flat;
             create_order_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             create_order_btn.ForeColor = Color.White;
-            create_order_btn.Location = new Point(223, 3);
+            create_order_btn.Location = new Point(224, 3);
             create_order_btn.Name = "create_order_btn";
-            create_order_btn.Size = new Size(156, 49);
+            create_order_btn.Size = new Size(155, 49);
             create_order_btn.TabIndex = 1;
             create_order_btn.Text = "Create Order";
             create_order_btn.UseVisualStyleBackColor = false;
@@ -1108,14 +1146,14 @@
             root_pn.Dock = DockStyle.Fill;
             root_pn.Location = new Point(0, 0);
             root_pn.Name = "root_pn";
-            root_pn.Size = new Size(1168, 882);
+            root_pn.Size = new Size(1168, 867);
             root_pn.TabIndex = 7;
             // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1168, 882);
+            ClientSize = new Size(1168, 867);
             Controls.Add(root_pn);
             FormBorderStyle = FormBorderStyle.None;
             Name = "OrderForm";
@@ -1150,6 +1188,8 @@
             ((System.ComponentModel.ISupportInitialize)sleeve_length_num).EndInit();
             ((System.ComponentModel.ISupportInitialize)upper_hip_num).EndInit();
             top_pn.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)quantity_num).EndInit();
             fabric_qty_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)fabric_qty_num).EndInit();
             panel5.ResumeLayout(false);
@@ -1251,5 +1291,8 @@
         private Label label3;
         private Label label9;
         private Label label6;
+        private Panel panel7;
+        private NumericUpDown quantity_num;
+        private Label label10;
     }
 }

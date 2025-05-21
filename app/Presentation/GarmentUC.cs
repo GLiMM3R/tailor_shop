@@ -18,16 +18,24 @@ namespace app.Presentation
     {
         private AppDbContext _dbContext;
         private GarmentService _garmentService;
+        private FilterGarment _filter;
+        private Debouncer searchDebouncer;
+
         public GarmentUC()
         {
             InitializeComponent();
+            InitializeDataGridView();
+
             this._dbContext = new AppDbContext();
             this._garmentService = new GarmentService(this._dbContext);
+            this._filter = new FilterGarment();
+
+            searchDebouncer = new Debouncer(300, () => LoadGarments());
         }
+
         private void GarmentUC_Load(object sender, EventArgs e)
         {
-            InitializeDataGridView();
-            _ = LoadGarments();
+            LoadGarments();
         }
 
         private void new_garment_btn_Click(object sender, EventArgs e)
@@ -90,10 +98,16 @@ namespace app.Presentation
             }
         }
 
-        public async Task LoadGarments()
+        public async void LoadGarments()
         {
-            var garments = await _garmentService.GetAll(null);
+            var garments = await _garmentService.GetAll(_filter);
             garment_dvg.DataSource = garments;
+        }
+
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            _filter.Search = search_txt.Text;
+            searchDebouncer.Trigger();
         }
     }
 }

@@ -153,10 +153,6 @@ namespace app.Migrations
                     b.Property<DateTime>("MeasurementDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -205,6 +201,9 @@ namespace app.Migrations
 
                     b.Property<int>("GarmentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -264,12 +263,6 @@ namespace app.Migrations
                     b.Property<decimal>("PaidAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPaid")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -323,11 +316,13 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Model.Measurement", b =>
                 {
-                    b.HasOne("app.Model.Order", null)
+                    b.HasOne("app.Model.Order", "Order")
                         .WithMany("Measurements")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("app.Model.Order", b =>
@@ -339,21 +334,21 @@ namespace app.Migrations
                         .IsRequired();
 
                     b.HasOne("app.Model.Fabric", "Fabric")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("FabricId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("app.Model.Garment", "Garment")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("GarmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("app.Model.User", "User")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -368,9 +363,9 @@ namespace app.Migrations
             modelBuilder.Entity("app.Model.Payment", b =>
                 {
                     b.HasOne("app.Model.Order", "Order")
-                        .WithMany("Payments")
+                        .WithMany()
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -381,26 +376,9 @@ namespace app.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("app.Model.Fabric", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("app.Model.Garment", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("app.Model.Order", b =>
                 {
                     b.Navigation("Measurements");
-
-                    b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("app.Model.User", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,8 +19,8 @@ namespace app.Presentation
         private AppDbContext _dbContext;
         private FabricService _fabricService;
         private FilterFabric _filter;
-        private System.Windows.Forms.Timer _debounceTimer;
-        private const int DebounceInterval = 400; // milliseconds
+
+        private Debouncer searchDebouncer;
 
         public FabricUC()
         {
@@ -28,12 +28,7 @@ namespace app.Presentation
             InitializeService();
             InitializeDataGridView();
 
-            LoadFabrics();
-
-            // Debounce timer setup
-            _debounceTimer = new System.Windows.Forms.Timer();
-            _debounceTimer.Interval = DebounceInterval;
-            _debounceTimer.Tick += DebounceTimer_Tick;
+            searchDebouncer = new Debouncer(300, () => LoadFabrics());
         }
 
         private void InitializeService()
@@ -41,6 +36,11 @@ namespace app.Presentation
             this._dbContext = new AppDbContext();
             this._fabricService = new FabricService(this._dbContext);
             this._filter = new FilterFabric();
+        }
+
+        private void FabricUC_Load(object sender, EventArgs e)
+        {
+            LoadFabrics();
         }
 
         private void InitializeDataGridView()
@@ -87,12 +87,6 @@ namespace app.Presentation
         {
             var fabrics = await _fabricService.GetAll(this._filter);
             fabric_dgv.DataSource = fabrics;
-        }
-
-        private void DebounceTimer_Tick(object sender, EventArgs e)
-        {
-            _debounceTimer.Stop();
-            LoadFabrics();
         }
 
         private void new_fabric_btn_Click(object sender, EventArgs e)
@@ -170,8 +164,10 @@ namespace app.Presentation
 
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
-            _debounceTimer.Stop();
-            _debounceTimer.Start();
+            _filter.Search = search_txt.Text;
+            searchDebouncer.Trigger();
         }
+
+
     }
 }

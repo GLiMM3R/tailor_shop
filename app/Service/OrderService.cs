@@ -53,7 +53,23 @@ namespace app.Service
 
         public async Task<Order?> GetByID(int id)
         {
-            var order = await _context.Orders.FirstOrDefaultAsync(c => c.Id == id);
+            var order = await _context.Orders.Include(o => o.Customer).FirstOrDefaultAsync(c => c.Id == id);
+
+            if (order == null)
+            {
+                return null;
+            }
+            return order;
+        }
+
+        public async Task<Order?> GetByOrderNumber(string orderNumber)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Garment)
+                .Include(o => o.Fabric)
+                .Include(o => o.User)
+                .FirstOrDefaultAsync(c => c.OrderNumber == orderNumber);
 
             if (order == null)
             {
