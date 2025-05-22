@@ -107,7 +107,7 @@ namespace app
 
         private void order_btn_Click(object sender, EventArgs e)
         {
-            var order = new OrderUC(_user);
+            var order = new OrderUC(_user, this);
             LoadFormIntoPanel(order);
         }
 

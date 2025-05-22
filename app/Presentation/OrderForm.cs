@@ -219,7 +219,7 @@ namespace app.Presentation
                 return;
             }
 
-            if(deposit_amount > subtotal - discount)
+            if (deposit_amount > subtotal - discount)
             {
                 MessageBox.Show("Deposit amount cannot exceed the total amount after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -439,6 +439,11 @@ namespace app.Presentation
         private void quantity_num_ValueChanged(object sender, EventArgs e)
         {
             this.CalculateTotal();
+        }
+
+        private void close_btn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

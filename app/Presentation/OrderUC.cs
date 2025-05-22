@@ -16,6 +16,7 @@ namespace app.Presentation
 {
     public partial class OrderUC : UserControl
     {
+        public MainForm _mainForm;
         private AppDbContext _dbContext;
         private OrderService _orderService;
         private FabricService _fabricService;
@@ -26,7 +27,7 @@ namespace app.Presentation
         private FilterOrder _filter = new FilterOrder();
         private Debouncer searchDebouncer;
 
-        public OrderUC(User user)
+        public OrderUC(User user, MainForm mainForm )
         {
             InitializeComponent();
             this._dbContext = new AppDbContext();
@@ -38,6 +39,7 @@ namespace app.Presentation
             this._user = user;
 
             searchDebouncer = new Debouncer(300, async () => await LoadOrders());
+            _mainForm = mainForm;
         }
 
         private async void OrderUC_Load(object sender, EventArgs e)
@@ -141,13 +143,13 @@ namespace app.Presentation
                     if (order_dgv.Rows[e.RowIndex].DataBoundItem is Order selectedOrder)
                     {
                         var form = new OrderDetail(selectedOrder.OrderNumber);
-                        form.ShowDialog();
+                        //form.ShowDialog();
                         if (form.IsChanged)
                         {
                             await LoadOrders();
                         }
-                        //var order = new OrderDetailUC(this);
-                        //_mainForm.LoadFormIntoPanel(order);
+                        var order = new OrderDetailUC(this, selectedOrder.OrderNumber);
+                        _mainForm.LoadFormIntoPanel(order);
                     }
                 }
             }

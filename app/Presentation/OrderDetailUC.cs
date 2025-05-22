@@ -7,21 +7,131 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using app.Database;
+using app.Model;
+using app.Service;
+using app.Utils;
 
 namespace app.Presentation
 {
     public partial class OrderDetailUC : UserControl
     {
         private OrderUC _orderUC;
-        public OrderDetailUC(OrderUC orderUC)
+        private AppDbContext _context;
+        public OrderService _orderService;
+        public Order _order;
+        private string _orderNumber;
+        private List<Measurement> _measurements;
+        public bool IsChanged { get; set; } = false;
+        public OrderDetailUC(OrderUC orderUC, string orderNumber)
         {
             InitializeComponent();
             _orderUC = orderUC;
+            InitializeDataGridView();
+            InitializeServices();
+
+            _orderNumber = orderNumber;
         }
 
         private void back_btn_Click(object sender, EventArgs e)
         {
-            //_orderUC._mainForm.LoadFormIntoPanel(_orderUC);
+            _orderUC._mainForm.LoadFormIntoPanel(_orderUC);
+        }
+        private void InitializeServices()
+        {
+            _context = new AppDbContext();
+            _orderService = new OrderService(_context);
+        }
+
+        private void InitializeDataGridView()
+        {
+            measurement_dgv.AutoGenerateColumns = false;
+            measurement_dgv.Columns.Clear();
+
+            measurement_dgv.Columns.AddRange(
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "BodyPart", headerText: "BodyPart", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Value", headerText: "Value", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Unit", headerText: "Unit", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50)
+            );
+        }
+
+        public async Task LoadOrder()
+        {
+            var order = await _orderService.GetByOrderNumber(_orderNumber);
+
+            if (order != null)
+            {
+                _order = order;
+            }
+        }
+        private void LoadMeasurements()
+        {
+            using (var context = new AppDbContext())
+            {
+                _measurements = context.Measurements
+                    .Where(m => m.OrderId == _order.Id)
+                    .ToList();
+            }
+
+            if (_measurements.Count > 0)
+            {
+                measurement_dgv.DataSource = _measurements;
+            }
+        }
+
+        private async void OrderDetailUC_Load(object sender, EventArgs e)
+        {
+            await LoadOrder();
+
+            if (_order != null)
+            {
+                LoadMeasurements();
+
+                order_number_lbl.Text = _order.OrderNumber;
+                customer_name_lbl.Text = _order.Customer.Name;
+                customer_phone_lbl.Text = _order.Customer.Phone;
+                garment_lbl.Text = _order.Garment.Name;
+                fabric_lbl.Text = $"{_order.Fabric.MaterialType} {_order.Fabric.ColorName}";
+                fabric_used_qty_lbl.Text = _order.FabricUsedQty.ToString();
+                order_date_lbl.Text = _order.CreatedAt.ToString("dd/MM/yyyy");
+                due_date_lbl.Text = _order.DueDate?.ToString("dd/MM/yyyy") ?? "-";
+                pick_up_date_lbl.Text = _order.PickUpDate?.ToString("dd/MM/yyyy") ?? "-";
+                subtotal_val_lb.Text = _order.Subtotal.ToString("N2");
+                discount_val_lb.Text = (-_order.Discount).ToString("N2");
+                deposit_amount_val_lb.Text = _order.DepositAmount.ToString("N2");
+                total_amount_lb.Text = _order.TotalAmount.ToString("N2");
+                notes_txt.Text = _order.Notes;
+
+                if (_order.Status == 2)
+                {
+                    pay_btn.Enabled = false;
+                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
+                    pay_btn.Text = "Paid";
+                }
+                else
+                {
+                    pay_btn.Enabled = true;
+                    pay_btn.BackColor = Color.FromArgb(33, 52, 72);
+                    pay_btn.Text = "Pay";
+                }
+            }
+        }
+
+        private async void pay_btn_Click(object sender, EventArgs e)
+        {
+            var form = new PaymentForm(this);
+            form.ShowDialog();
+            if (IsChanged == true)
+            {
+                await _orderUC.LoadOrders();
+                IsChanged = false;
+            }
+        }
+
+        private void measurement_pn_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

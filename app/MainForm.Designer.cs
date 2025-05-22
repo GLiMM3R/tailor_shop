@@ -43,7 +43,6 @@
             logoLb = new Label();
             main_pn = new Panel();
             content_pn = new Panel();
-            topbar_pn = new Panel();
             root_layout.SuspendLayout();
             sidebar_pn.SuspendLayout();
             sidebar_buttons_layout.SuspendLayout();
@@ -269,7 +268,6 @@
             // main_pn
             // 
             main_pn.Controls.Add(content_pn);
-            main_pn.Controls.Add(topbar_pn);
             main_pn.Dock = DockStyle.Fill;
             main_pn.Location = new Point(280, 0);
             main_pn.Margin = new Padding(0);
@@ -280,20 +278,10 @@
             // content_pn
             // 
             content_pn.Dock = DockStyle.Fill;
-            content_pn.Location = new Point(0, 72);
+            content_pn.Location = new Point(0, 0);
             content_pn.Name = "content_pn";
-            content_pn.Size = new Size(1012, 611);
+            content_pn.Size = new Size(1012, 683);
             content_pn.TabIndex = 1;
-            // 
-            // topbar_pn
-            // 
-            topbar_pn.BackColor = Color.Black;
-            topbar_pn.Dock = DockStyle.Top;
-            topbar_pn.Location = new Point(0, 0);
-            topbar_pn.Margin = new Padding(0);
-            topbar_pn.Name = "topbar_pn";
-            topbar_pn.Size = new Size(1012, 72);
-            topbar_pn.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -329,7 +317,6 @@
         private Button logout_btn;
         private Button customer_btn;
         private Panel content_pn;
-        private Panel topbar_pn;
         private Button user_btn;
         private FlowLayoutPanel sidebar_buttons_layout;
         private Button fabric_btn;

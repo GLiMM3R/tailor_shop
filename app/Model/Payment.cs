@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace app.Model
 {
+    public enum TransactionType
+    {
+        Cash = 0,
+        Bank = 1
+    }
+
     public class Payment
     {
         [Key]
@@ -23,6 +29,8 @@ namespace app.Model
 
         [Required]
         public decimal PaidAmount { get; set; }
+
+        public TransactionType TransactionType { get; set; } = TransactionType.Cash;
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

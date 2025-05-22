@@ -48,7 +48,7 @@ namespace app.Service
                 }
             }
 
-            return await query.ToArrayAsync();
+            return await query.OrderByDescending(o => o.CreatedAt).ToArrayAsync();
         }
 
         public async Task<Order?> GetByID(int id)
