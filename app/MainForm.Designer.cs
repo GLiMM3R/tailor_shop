@@ -225,6 +225,7 @@
             report_btn.TabIndex = 5;
             report_btn.Text = "Report";
             report_btn.UseVisualStyleBackColor = false;
+            report_btn.Click += report_btn_Click;
             // 
             // logout_btn
             // 

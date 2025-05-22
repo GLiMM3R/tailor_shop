@@ -258,6 +258,18 @@ namespace app.Presentation
                 newOrder.Measurements = getLowerBodyMeasurements();
             }
 
+            if (deposit_amount > 0)
+            {
+                newOrder.Payments = [
+                    new Payment
+                    {
+                        TotalPrice = totalAmount,
+                        PaidAmount = deposit_amount,
+                        TransactionType = TransactionType.Deposit,
+                    }
+                ];
+            }
+
             try
             {
                 await _orderService.Create(newOrder);

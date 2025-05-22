@@ -12,7 +12,7 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250521064307_init")]
+    [Migration("20250522142239_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -269,6 +269,9 @@ namespace app.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -365,13 +368,11 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Model.Payment", b =>
                 {
-                    b.HasOne("app.Model.Order", "Order")
-                        .WithMany()
+                    b.HasOne("app.Model.Order", null)
+                        .WithMany("Payments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("app.Model.Customer", b =>
@@ -382,6 +383,8 @@ namespace app.Migrations
             modelBuilder.Entity("app.Model.Order", b =>
                 {
                     b.Navigation("Measurements");
+
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

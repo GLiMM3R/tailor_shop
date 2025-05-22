@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             layout_pn = new Panel();
             label1 = new Label();
             exit_btn = new Button();
@@ -77,11 +78,11 @@
             exit_btn.FlatAppearance.BorderSize = 0;
             exit_btn.FlatStyle = FlatStyle.Flat;
             exit_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            exit_btn.Image = (Image)resources.GetObject("exit_btn.Image");
             exit_btn.Location = new Point(338, 12);
             exit_btn.Name = "exit_btn";
-            exit_btn.Size = new Size(50, 43);
+            exit_btn.Size = new Size(50, 49);
             exit_btn.TabIndex = 1;
-            exit_btn.Text = "X";
             exit_btn.UseVisualStyleBackColor = false;
             exit_btn.Click += exit_btn_Click;
             // 

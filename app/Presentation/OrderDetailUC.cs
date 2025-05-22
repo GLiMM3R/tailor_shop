@@ -23,13 +23,14 @@ namespace app.Presentation
         private string _orderNumber;
         private List<Measurement> _measurements;
         public bool IsChanged { get; set; } = false;
+
         public OrderDetailUC(OrderUC orderUC, string orderNumber)
         {
             InitializeComponent();
-            _orderUC = orderUC;
             InitializeDataGridView();
             InitializeServices();
 
+            _orderUC = orderUC;
             _orderNumber = orderNumber;
         }
 
@@ -63,6 +64,39 @@ namespace app.Presentation
             if (order != null)
             {
                 _order = order;
+
+                order_number_lbl.Text = _order.OrderNumber;
+                customer_name_lbl.Text = _order.Customer.Name;
+                customer_phone_lbl.Text = _order.Customer.Phone;
+                garment_lbl.Text = _order.Garment.Name;
+                fabric_lbl.Text = $"{_order.Fabric.MaterialType} {_order.Fabric.ColorName}";
+                fabric_used_qty_lbl.Text = _order.FabricUsedQty.ToString();
+                order_date_lbl.Text = _order.CreatedAt.ToString("dd/MM/yyyy");
+                due_date_lbl.Text = _order.DueDate?.ToString("dd/MM/yyyy") ?? "-";
+                pick_up_date_lbl.Text = _order.PickUpDate?.ToString("dd/MM/yyyy") ?? "-";
+                subtotal_val_lb.Text = _order.Subtotal.ToString("N2");
+                discount_val_lb.Text = (-_order.Discount).ToString("N2");
+                deposit_amount_val_lb.Text = _order.DepositAmount.ToString("N2");
+                total_amount_lb.Text = _order.TotalAmount.ToString("N2");
+                notes_txt.Text = _order.Notes;
+                status_lbl.Text = _order.Status.ToString();
+
+                if (_order.Status == OrderStatus.Completed)
+                {
+                    pay_btn.Enabled = false;
+                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
+                    pay_btn.Text = "Paid";
+
+                    status_lbl.BackColor = Color.FromArgb(0, 200, 0);
+                }
+                else if(_order.Status == OrderStatus.Pending)
+                {
+                    pay_btn.Enabled = true;
+                    pay_btn.BackColor = Color.FromArgb(33, 52, 72);
+                    pay_btn.Text = "Pay";
+
+                    status_lbl.BackColor = Color.FromArgb(255, 200, 0);
+                }
             }
         }
         private void LoadMeasurements()
@@ -82,39 +116,12 @@ namespace app.Presentation
 
         private async void OrderDetailUC_Load(object sender, EventArgs e)
         {
+            // Load the order details
             await LoadOrder();
 
             if (_order != null)
             {
-                LoadMeasurements();
-
-                order_number_lbl.Text = _order.OrderNumber;
-                customer_name_lbl.Text = _order.Customer.Name;
-                customer_phone_lbl.Text = _order.Customer.Phone;
-                garment_lbl.Text = _order.Garment.Name;
-                fabric_lbl.Text = $"{_order.Fabric.MaterialType} {_order.Fabric.ColorName}";
-                fabric_used_qty_lbl.Text = _order.FabricUsedQty.ToString();
-                order_date_lbl.Text = _order.CreatedAt.ToString("dd/MM/yyyy");
-                due_date_lbl.Text = _order.DueDate?.ToString("dd/MM/yyyy") ?? "-";
-                pick_up_date_lbl.Text = _order.PickUpDate?.ToString("dd/MM/yyyy") ?? "-";
-                subtotal_val_lb.Text = _order.Subtotal.ToString("N2");
-                discount_val_lb.Text = (-_order.Discount).ToString("N2");
-                deposit_amount_val_lb.Text = _order.DepositAmount.ToString("N2");
-                total_amount_lb.Text = _order.TotalAmount.ToString("N2");
-                notes_txt.Text = _order.Notes;
-
-                if (_order.Status == 2)
-                {
-                    pay_btn.Enabled = false;
-                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
-                    pay_btn.Text = "Paid";
-                }
-                else
-                {
-                    pay_btn.Enabled = true;
-                    pay_btn.BackColor = Color.FromArgb(33, 52, 72);
-                    pay_btn.Text = "Pay";
-                }
+                LoadMeasurements(); 
             }
         }
 
@@ -122,16 +129,11 @@ namespace app.Presentation
         {
             var form = new PaymentForm(this);
             form.ShowDialog();
-            if (IsChanged == true)
+            if (form.IsChanged == true)
             {
-                await _orderUC.LoadOrders();
+                await LoadOrder();
                 IsChanged = false;
             }
-        }
-
-        private void measurement_pn_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

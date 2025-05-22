@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             order_dgv = new DataGridView();
             filter_pn = new Panel();
+            clear_btn = new Button();
+            label1 = new Label();
+            panel1 = new Panel();
+            status_cbb = new ComboBox();
             search_pn = new Panel();
             search_txt = new TextBox();
             main_layout = new TableLayoutPanel();
@@ -38,19 +42,16 @@
             top_pn = new Panel();
             new_order_btn = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
-            total_fabric_lb = new Label();
+            total_order_lbl = new Label();
             label2 = new Label();
-            label1 = new Label();
-            panel1 = new Panel();
-            status_cbb = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             filter_pn.SuspendLayout();
+            panel1.SuspendLayout();
             search_pn.SuspendLayout();
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             top_pn.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // order_dgv
@@ -58,14 +59,14 @@
             order_dgv.AllowUserToAddRows = false;
             order_dgv.AllowUserToDeleteRows = false;
             order_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             order_dgv.Dock = DockStyle.Fill;
             order_dgv.Location = new Point(9, 110);
@@ -78,6 +79,7 @@
             // 
             // filter_pn
             // 
+            filter_pn.Controls.Add(clear_btn);
             filter_pn.Controls.Add(label1);
             filter_pn.Controls.Add(panel1);
             filter_pn.Controls.Add(search_pn);
@@ -86,6 +88,51 @@
             filter_pn.Name = "filter_pn";
             filter_pn.Size = new Size(1052, 90);
             filter_pn.TabIndex = 1;
+            // 
+            // clear_btn
+            // 
+            clear_btn.BackColor = Color.LightGray;
+            clear_btn.Cursor = Cursors.Hand;
+            clear_btn.FlatStyle = FlatStyle.Flat;
+            clear_btn.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clear_btn.Location = new Point(666, 23);
+            clear_btn.Name = "clear_btn";
+            clear_btn.Size = new Size(94, 47);
+            clear_btn.TabIndex = 5;
+            clear_btn.Text = "Clear";
+            clear_btn.UseVisualStyleBackColor = false;
+            clear_btn.Click += clear_btn_Click;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(350, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(72, 47);
+            label1.TabIndex = 4;
+            label1.Text = "Status";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(status_cbb);
+            panel1.Location = new Point(424, 22);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(204, 47);
+            panel1.TabIndex = 3;
+            // 
+            // status_cbb
+            // 
+            status_cbb.FlatStyle = FlatStyle.Flat;
+            status_cbb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            status_cbb.FormattingEnabled = true;
+            status_cbb.Items.AddRange(new object[] { "All", "User", "Admin" });
+            status_cbb.Location = new Point(3, 7);
+            status_cbb.Name = "status_cbb";
+            status_cbb.Size = new Size(190, 31);
+            status_cbb.TabIndex = 1;
+            status_cbb.SelectedIndexChanged += status_cbb_SelectedIndexChanged;
             // 
             // search_pn
             // 
@@ -171,7 +218,7 @@
             tableLayoutPanel1.BackColor = Color.FromArgb(84, 119, 146);
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(total_fabric_lb, 0, 1);
+            tableLayoutPanel1.Controls.Add(total_order_lbl, 0, 1);
             tableLayoutPanel1.Controls.Add(label2, 0, 0);
             tableLayoutPanel1.Location = new Point(42, 35);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -181,17 +228,17 @@
             tableLayoutPanel1.Size = new Size(337, 129);
             tableLayoutPanel1.TabIndex = 1;
             // 
-            // total_fabric_lb
+            // total_order_lbl
             // 
-            total_fabric_lb.Dock = DockStyle.Fill;
-            total_fabric_lb.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_fabric_lb.ForeColor = Color.White;
-            total_fabric_lb.Location = new Point(3, 64);
-            total_fabric_lb.Name = "total_fabric_lb";
-            total_fabric_lb.Size = new Size(331, 65);
-            total_fabric_lb.TabIndex = 2;
-            total_fabric_lb.Text = "0";
-            total_fabric_lb.TextAlign = ContentAlignment.MiddleCenter;
+            total_order_lbl.Dock = DockStyle.Fill;
+            total_order_lbl.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            total_order_lbl.ForeColor = Color.White;
+            total_order_lbl.Location = new Point(3, 64);
+            total_order_lbl.Name = "total_order_lbl";
+            total_order_lbl.Size = new Size(331, 65);
+            total_order_lbl.TabIndex = 2;
+            total_order_lbl.Text = "0";
+            total_order_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -205,36 +252,6 @@
             label2.Text = "Total Order";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(350, 22);
-            label1.Name = "label1";
-            label1.Size = new Size(72, 47);
-            label1.TabIndex = 4;
-            label1.Text = "Status";
-            label1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // panel1
-            // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(status_cbb);
-            panel1.Location = new Point(424, 22);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(198, 47);
-            panel1.TabIndex = 3;
-            // 
-            // status_cbb
-            // 
-            status_cbb.FlatStyle = FlatStyle.Flat;
-            status_cbb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            status_cbb.FormattingEnabled = true;
-            status_cbb.Items.AddRange(new object[] { "All", "User", "Admin" });
-            status_cbb.Location = new Point(3, 7);
-            status_cbb.Name = "status_cbb";
-            status_cbb.Size = new Size(190, 31);
-            status_cbb.TabIndex = 1;
-            // 
             // OrderUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -245,13 +262,13 @@
             Load += OrderUC_Load;
             ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             filter_pn.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             search_pn.ResumeLayout(false);
             search_pn.PerformLayout();
             main_layout.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             top_pn.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -265,11 +282,12 @@
         private TableLayoutPanel bottom_pn;
         private Panel top_pn;
         private TableLayoutPanel tableLayoutPanel1;
-        private Label total_fabric_lb;
+        private Label total_order_lbl;
         private Label label2;
         private Button new_order_btn;
         private Label label1;
         private Panel panel1;
         private ComboBox status_cbb;
+        private Button clear_btn;
     }
 }

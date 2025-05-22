@@ -70,7 +70,7 @@ namespace app.Presentation
 
                 await _paymentService.Create(newPayment);
 
-                _order.Status = 2;
+                _order.Status = OrderStatus.Completed;
                 _order.UpdatedAt = DateTime.Now;
 
                 await _orderService.Update(_order);

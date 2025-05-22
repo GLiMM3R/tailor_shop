@@ -55,8 +55,7 @@
             root_layout = new Panel();
             order_detail_pn = new Panel();
             information_gb = new GroupBox();
-            panel4 = new Panel();
-            status_cbb = new ComboBox();
+            status_lbl = new Label();
             garment_lb = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             label21 = new Label();
@@ -80,6 +79,7 @@
             label2 = new Label();
             customer_phone_lbl = new Label();
             header_pn = new Panel();
+            button1 = new Button();
             back_btn = new Button();
             measurement_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)measurement_dgv).BeginInit();
@@ -89,7 +89,6 @@
             root_layout.SuspendLayout();
             order_detail_pn.SuspendLayout();
             information_gb.SuspendLayout();
-            panel4.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -108,7 +107,6 @@
             measurement_pn.Padding = new Padding(8, 16, 8, 4);
             measurement_pn.Size = new Size(1506, 308);
             measurement_pn.TabIndex = 2;
-            measurement_pn.Paint += measurement_pn_Paint;
             // 
             // label4
             // 
@@ -395,7 +393,7 @@
             // 
             // information_gb
             // 
-            information_gb.Controls.Add(panel4);
+            information_gb.Controls.Add(status_lbl);
             information_gb.Controls.Add(garment_lb);
             information_gb.Controls.Add(tableLayoutPanel3);
             information_gb.Controls.Add(tableLayoutPanel2);
@@ -409,32 +407,26 @@
             information_gb.TabStop = false;
             information_gb.Text = "Infomation";
             // 
-            // panel4
+            // status_lbl
             // 
-            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(status_cbb);
-            panel4.Location = new Point(1259, 58);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(210, 46);
-            panel4.TabIndex = 17;
-            // 
-            // status_cbb
-            // 
-            status_cbb.FlatStyle = FlatStyle.Flat;
-            status_cbb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            status_cbb.FormattingEnabled = true;
-            status_cbb.Location = new Point(7, 7);
-            status_cbb.Name = "status_cbb";
-            status_cbb.Size = new Size(194, 31);
-            status_cbb.TabIndex = 2;
-            status_cbb.Text = "Pending";
+            status_lbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            status_lbl.BackColor = Color.FromArgb(247, 155, 114);
+            status_lbl.BorderStyle = BorderStyle.FixedSingle;
+            status_lbl.FlatStyle = FlatStyle.Flat;
+            status_lbl.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            status_lbl.ForeColor = Color.Black;
+            status_lbl.Location = new Point(1251, 58);
+            status_lbl.Name = "status_lbl";
+            status_lbl.Size = new Size(210, 63);
+            status_lbl.TabIndex = 18;
+            status_lbl.Text = "Pending";
+            status_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // garment_lb
             // 
             garment_lb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             garment_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            garment_lb.Location = new Point(1259, 26);
+            garment_lb.Location = new Point(1251, 26);
             garment_lb.Name = "garment_lb";
             garment_lb.Size = new Size(114, 31);
             garment_lb.TabIndex = 16;
@@ -702,12 +694,28 @@
             // header_pn
             // 
             header_pn.BackColor = Color.White;
+            header_pn.Controls.Add(button1);
             header_pn.Controls.Add(back_btn);
             header_pn.Dock = DockStyle.Top;
             header_pn.Location = new Point(0, 0);
             header_pn.Name = "header_pn";
             header_pn.Size = new Size(1506, 61);
             header_pn.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.BackColor = Color.Red;
+            button1.Cursor = Cursors.Hand;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(1394, 13);
+            button1.Name = "button1";
+            button1.Size = new Size(101, 45);
+            button1.TabIndex = 18;
+            button1.Text = "Cancel";
+            button1.UseVisualStyleBackColor = false;
             // 
             // back_btn
             // 
@@ -738,7 +746,6 @@
             root_layout.ResumeLayout(false);
             order_detail_pn.ResumeLayout(false);
             information_gb.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
@@ -796,8 +803,9 @@
         private Label label19;
         private Label fabric_used_qty_lbl;
         private Panel panel4;
-        private ComboBox status_cbb;
         private Label garment_lb;
         private Button back_btn;
+        private Button button1;
+        private Label status_lbl;
     }
 }

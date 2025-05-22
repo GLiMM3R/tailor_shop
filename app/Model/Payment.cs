@@ -11,7 +11,8 @@ namespace app.Model
     public enum TransactionType
     {
         Cash = 0,
-        Bank = 1
+        Bank = 1,
+        Deposit = 2,
     }
 
     public class Payment
@@ -21,9 +22,7 @@ namespace app.Model
 
         [Required]
         public int OrderId { get; set; }
-        [ForeignKey("OrderId")]
-        public virtual Order Order { get; set; }
-
+      
         [Required]
         public decimal TotalPrice { get; set; }
 

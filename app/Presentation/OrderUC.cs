@@ -14,27 +14,30 @@ using app.Utils;
 
 namespace app.Presentation
 {
+    public enum OrderStatusType
+    {
+        All,
+        Pending,
+        InProgress,
+        Completed,
+        PickedUp,
+        Canceled
+    }
     public partial class OrderUC : UserControl
     {
         public MainForm _mainForm;
         private AppDbContext _dbContext;
         private OrderService _orderService;
-        private FabricService _fabricService;
-        private CustomerService _customerService;
-        private GarmentService _garmentService;
         private DailySequenceService _dailySequenceService;
         private User _user;
         private FilterOrder _filter = new FilterOrder();
         private Debouncer searchDebouncer;
 
-        public OrderUC(User user, MainForm mainForm )
+        public OrderUC(User user, MainForm mainForm)
         {
             InitializeComponent();
             this._dbContext = new AppDbContext();
             this._orderService = new OrderService(this._dbContext);
-            this._fabricService = new FabricService(this._dbContext);
-            this._customerService = new CustomerService(this._dbContext);
-            this._garmentService = new GarmentService(this._dbContext);
             this._dailySequenceService = new DailySequenceService(this._dbContext);
             this._user = user;
 
@@ -46,6 +49,13 @@ namespace app.Presentation
         {
             InitializeDataGridView();
             await LoadOrders();
+
+            // Add "All" option to the status ComboBox
+            var statusList = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().ToList();
+            //statusList.Insert(0, "All"); // Insert a default value at the top (e.g., 0)
+            status_cbb.DataSource = statusList;
+            status_cbb.DisplayMember = "ToString";
+            status_cbb.SelectedIndex = -1;
         }
 
         private void InitializeDataGridView()
@@ -161,10 +171,12 @@ namespace app.Presentation
             using (var dbContext = new AppDbContext())
             {
                 var orderService = new OrderService(dbContext);
-                var orders = await orderService.GetAll(_filter);
+                var result = await orderService.GetAll(_filter);
                 order_dgv.DataSource = null;
-                order_dgv.DataSource = orders.ToList();
+                order_dgv.DataSource = result.Orders.ToList();
                 order_dgv.ClearSelection();
+
+                total_order_lbl.Text = result.Total.ToString();
             }
         }
 
@@ -177,6 +189,28 @@ namespace app.Presentation
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
             _filter.Search = search_txt.Text;
+            searchDebouncer.Trigger();
+        }
+
+        private void status_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (status_cbb.SelectedItem is OrderStatus selectedStatus)
+            {
+                _filter.Status = selectedStatus;
+            }
+            else
+            {
+                _filter.Status = null; // Handle the case where SelectedItem is null or not an OrderStatus
+            }
+
+            searchDebouncer.Trigger();
+        }
+
+        private void clear_btn_Click(object sender, EventArgs e)
+        {
+            status_cbb.SelectedIndex = -1;
+            search_txt.Text = string.Empty;
+            _filter = new FilterOrder();
             searchDebouncer.Trigger();
         }
     }

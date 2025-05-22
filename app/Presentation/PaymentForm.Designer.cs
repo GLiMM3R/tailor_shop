@@ -29,10 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentForm));
-            panel1 = new Panel();
-            panel4 = new Panel();
-            bank_btn = new Button();
-            cash_btn = new Button();
+            panel2 = new Panel();
             summary_pn = new Panel();
             label2 = new Label();
             amount_to_be_paid_lbl = new Label();
@@ -50,73 +47,35 @@
             line = new Panel();
             subtotal_val_lb = new Label();
             subtotal_title_lb = new Label();
-            items_lsv = new ListView();
-            panel2 = new Panel();
+            bank_btn = new Button();
+            cash_btn = new Button();
             close_btn = new Button();
             label1 = new Label();
             panel6 = new Panel();
             total_paying_num = new NumericUpDown();
-            panel1.SuspendLayout();
-            panel4.SuspendLayout();
-            summary_pn.SuspendLayout();
+            items_lsv = new ListView();
             panel2.SuspendLayout();
+            summary_pn.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)total_paying_num).BeginInit();
             SuspendLayout();
             // 
-            // panel1
+            // panel2
             // 
-            panel1.BackColor = Color.White;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(543, 723);
-            panel1.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(bank_btn);
-            panel4.Controls.Add(cash_btn);
-            panel4.Controls.Add(summary_pn);
-            panel4.Controls.Add(items_lsv);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(0, 213);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(541, 508);
-            panel4.TabIndex = 1;
-            // 
-            // bank_btn
-            // 
-            bank_btn.BackColor = Color.FromArgb(33, 52, 72);
-            bank_btn.Cursor = Cursors.Hand;
-            bank_btn.FlatStyle = FlatStyle.Flat;
-            bank_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bank_btn.ForeColor = Color.White;
-            bank_btn.Location = new Point(279, 417);
-            bank_btn.Name = "bank_btn";
-            bank_btn.Size = new Size(233, 66);
-            bank_btn.TabIndex = 24;
-            bank_btn.Text = "Bank";
-            bank_btn.UseVisualStyleBackColor = false;
-            bank_btn.Click += bank_btn_Click;
-            // 
-            // cash_btn
-            // 
-            cash_btn.BackColor = Color.FromArgb(33, 52, 72);
-            cash_btn.Cursor = Cursors.Hand;
-            cash_btn.FlatStyle = FlatStyle.Flat;
-            cash_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cash_btn.ForeColor = Color.White;
-            cash_btn.Location = new Point(30, 417);
-            cash_btn.Name = "cash_btn";
-            cash_btn.Size = new Size(233, 66);
-            cash_btn.TabIndex = 23;
-            cash_btn.Text = "Cash";
-            cash_btn.UseVisualStyleBackColor = false;
-            cash_btn.Click += cash_btn_Click;
+            panel2.BackColor = Color.White;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(summary_pn);
+            panel2.Controls.Add(bank_btn);
+            panel2.Controls.Add(cash_btn);
+            panel2.Controls.Add(close_btn);
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(panel6);
+            panel2.Controls.Add(items_lsv);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(522, 723);
+            panel2.TabIndex = 1;
             // 
             // summary_pn
             // 
@@ -137,7 +96,7 @@
             summary_pn.Controls.Add(line);
             summary_pn.Controls.Add(subtotal_val_lb);
             summary_pn.Controls.Add(subtotal_title_lb);
-            summary_pn.Location = new Point(30, 239);
+            summary_pn.Location = new Point(19, 451);
             summary_pn.Name = "summary_pn";
             summary_pn.Size = new Size(482, 172);
             summary_pn.TabIndex = 11;
@@ -312,33 +271,41 @@
             subtotal_title_lb.Text = "Subtotal:";
             subtotal_title_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // items_lsv
+            // bank_btn
             // 
-            items_lsv.BackColor = Color.White;
-            items_lsv.Location = new Point(30, 6);
-            items_lsv.Name = "items_lsv";
-            items_lsv.Size = new Size(482, 223);
-            items_lsv.TabIndex = 0;
-            items_lsv.UseCompatibleStateImageBehavior = false;
-            items_lsv.View = View.Details;
+            bank_btn.BackColor = Color.FromArgb(33, 52, 72);
+            bank_btn.Cursor = Cursors.Hand;
+            bank_btn.FlatStyle = FlatStyle.Flat;
+            bank_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bank_btn.ForeColor = Color.White;
+            bank_btn.Location = new Point(268, 644);
+            bank_btn.Name = "bank_btn";
+            bank_btn.Size = new Size(233, 66);
+            bank_btn.TabIndex = 24;
+            bank_btn.Text = "Bank";
+            bank_btn.UseVisualStyleBackColor = false;
+            bank_btn.Click += bank_btn_Click;
             // 
-            // panel2
+            // cash_btn
             // 
-            panel2.BackColor = Color.White;
-            panel2.Controls.Add(close_btn);
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(panel6);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(541, 213);
-            panel2.TabIndex = 0;
+            cash_btn.BackColor = Color.FromArgb(33, 52, 72);
+            cash_btn.Cursor = Cursors.Hand;
+            cash_btn.FlatStyle = FlatStyle.Flat;
+            cash_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cash_btn.ForeColor = Color.White;
+            cash_btn.Location = new Point(19, 644);
+            cash_btn.Name = "cash_btn";
+            cash_btn.Size = new Size(233, 66);
+            cash_btn.TabIndex = 23;
+            cash_btn.Text = "Cash";
+            cash_btn.UseVisualStyleBackColor = false;
+            cash_btn.Click += cash_btn_Click;
             // 
             // close_btn
             // 
             close_btn.Cursor = Cursors.Hand;
             close_btn.Image = (Image)resources.GetObject("close_btn.Image");
-            close_btn.Location = new Point(484, 11);
+            close_btn.Location = new Point(464, 12);
             close_btn.Name = "close_btn";
             close_btn.Size = new Size(46, 45);
             close_btn.TabIndex = 21;
@@ -349,7 +316,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(30, 73);
+            label1.Location = new Point(19, 74);
             label1.Name = "label1";
             label1.Size = new Size(189, 35);
             label1.TabIndex = 20;
@@ -361,7 +328,7 @@
             panel6.BackColor = Color.White;
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(total_paying_num);
-            panel6.Location = new Point(30, 122);
+            panel6.Location = new Point(19, 124);
             panel6.Name = "panel6";
             panel6.Size = new Size(482, 79);
             panel6.TabIndex = 19;
@@ -376,27 +343,35 @@
             total_paying_num.Location = new Point(13, 14);
             total_paying_num.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
             total_paying_num.Name = "total_paying_num";
-            total_paying_num.Size = new Size(453, 49);
+            total_paying_num.Size = new Size(449, 49);
             total_paying_num.TabIndex = 10;
             total_paying_num.ThousandsSeparator = true;
+            // 
+            // items_lsv
+            // 
+            items_lsv.BackColor = Color.White;
+            items_lsv.Location = new Point(19, 224);
+            items_lsv.Name = "items_lsv";
+            items_lsv.Size = new Size(482, 223);
+            items_lsv.TabIndex = 0;
+            items_lsv.UseCompatibleStateImageBehavior = false;
+            items_lsv.View = View.Details;
             // 
             // PaymentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(543, 723);
-            Controls.Add(panel1);
+            ClientSize = new Size(522, 723);
+            Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "PaymentForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Payment Form";
             Load += PaymentForm_Load;
-            panel1.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            summary_pn.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            summary_pn.ResumeLayout(false);
             panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)total_paying_num).EndInit();
             ResumeLayout(false);
@@ -404,14 +379,11 @@
 
         #endregion
 
-        private Panel panel1;
         private Panel panel2;
-        private Panel panel6;
-        private NumericUpDown total_paying_num;
-        private Label label1;
-        private Panel panel4;
-        private ListView items_lsv;
         private Panel summary_pn;
+        private Label label2;
+        private Label amount_to_be_paid_lbl;
+        private Label label4;
         private Label label16;
         private Label discount_val_lb;
         private Label discount_lb;
@@ -427,9 +399,10 @@
         private Label subtotal_title_lb;
         private Button bank_btn;
         private Button cash_btn;
-        private Label label2;
-        private Label amount_to_be_paid_lbl;
-        private Label label4;
         private Button close_btn;
+        private Label label1;
+        private Panel panel6;
+        private NumericUpDown total_paying_num;
+        private ListView items_lsv;
     }
 }

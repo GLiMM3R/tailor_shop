@@ -11,6 +11,7 @@ using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace app.Presentation
 {

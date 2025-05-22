@@ -59,6 +59,12 @@ namespace app.Database
                 .HasForeignKey(o => o.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Payments)
+                .WithOne()
+                .HasForeignKey(o => o.OrderId)
+                .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
+
             modelBuilder.Entity<User>().HasData(
                  new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString, Role = Role.Admin });
 

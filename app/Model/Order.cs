@@ -11,10 +11,11 @@ namespace app.Model
 {
     public enum OrderStatus
     {
-        New = 0,
+        Pending = 0,
         InProgress = 1,
         Completed = 2,
-        Canceled = 3
+        PickedUp = 3,
+        Canceled = 4
     }
 
     public class Order
@@ -64,12 +65,14 @@ namespace app.Model
 
         public string? Notes { get; set; }
 
-        public int Status { get; set; } = 0; // 0 = New, 1 = In Progress, 2 = Completed, 3 = Canceled
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public virtual ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
+
+        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
 }

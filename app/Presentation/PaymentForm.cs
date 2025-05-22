@@ -19,6 +19,8 @@ namespace app.Presentation
         private PaymentService _paymentService;
         private AppDbContext _context;
         private Order _order;
+        public bool IsChanged { get; set; } = false;
+
 
         public PaymentForm(OrderDetailUC orderDetailUC)
         {
@@ -115,12 +117,12 @@ namespace app.Presentation
 
                 await _paymentService.Create(newPayment);
 
-                _order.Status = 2;
+                _order.Status = OrderStatus.Completed;
                 _order.UpdatedAt = DateTime.Now;
 
                 await _orderDetailUC._orderService.Update(_order);
                 MessageBox.Show("Payment successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _orderDetailUC.IsChanged = true;
+                IsChanged = true;
                 this.Close();
             }
             catch (Exception ex)

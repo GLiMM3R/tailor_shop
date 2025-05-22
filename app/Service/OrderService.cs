@@ -12,7 +12,7 @@ namespace app.Service
     public class FilterOrder
     {
         public string? Search { get; set; }
-        public int? Status { get; set; }
+        public OrderStatus? Status { get; set; }
     }
     public class OrderService
     {
@@ -22,7 +22,13 @@ namespace app.Service
             this._context = context;
         }
 
-        public async Task<Order[]> GetAll(FilterOrder? filter)
+        public class OrderListResult
+        {
+            public Order[] Orders { get; set; } = Array.Empty<Order>();
+            public int Total { get; set; }
+        }
+
+        public async Task<OrderListResult> GetAll(FilterOrder? filter)
         {
             IQueryable<Order> query = _context.Orders
                 .Include(o => o.Customer)
@@ -48,7 +54,14 @@ namespace app.Service
                 }
             }
 
-            return await query.OrderByDescending(o => o.CreatedAt).ToArrayAsync();
+            var total = await query.CountAsync();
+            var orders = await query.OrderByDescending(o => o.CreatedAt).ToArrayAsync();
+
+            return new OrderListResult
+            {
+                Orders = orders,
+                Total = total
+            };
         }
 
         public async Task<Order?> GetByID(int id)
@@ -69,6 +82,7 @@ namespace app.Service
                 .Include(o => o.Garment)
                 .Include(o => o.Fabric)
                 .Include(o => o.User)
+                //.Include(o => o.Payments)
                 .FirstOrDefaultAsync(c => c.OrderNumber == orderNumber);
 
             if (order == null)

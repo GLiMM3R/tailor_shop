@@ -1113,10 +1113,11 @@
             create_order_btn.ForeColor = Color.White;
             create_order_btn.Location = new Point(1232, 3);
             create_order_btn.Name = "create_order_btn";
-            create_order_btn.Size = new Size(155, 49);
+            create_order_btn.Size = new Size(155, 66);
             create_order_btn.TabIndex = 2;
             create_order_btn.Text = "Create Order";
             create_order_btn.UseVisualStyleBackColor = false;
+            create_order_btn.Click += create_order_btn_Click;
             // 
             // root_pn
             // 

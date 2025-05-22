@@ -137,6 +137,11 @@ namespace app
             var garment = new GarmentUC();
             LoadFormIntoPanel(garment);
         }
+        private void report_btn_Click(object sender, EventArgs e)
+        {
+            var garment = new ReportUC(this);
+            LoadFormIntoPanel(garment);
+        }
 
         private void logout_btn_Click(object sender, EventArgs e)
         {
@@ -149,6 +154,5 @@ namespace app
         {
             Application.Exit();
         }
-
     }
 }

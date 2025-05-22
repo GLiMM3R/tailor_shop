@@ -61,7 +61,7 @@ namespace app.Presentation
                 total_amount_lb.Text = _order.TotalAmount.ToString("N2");
                 notes_txt.Text = _order.Notes;
 
-                if (_order.Status == 2)
+                if (_order.Status == OrderStatus.Completed)
                 {
                     pay_btn.Enabled = false;
                     pay_btn.BackColor = Color.FromArgb(200, 200, 200);
