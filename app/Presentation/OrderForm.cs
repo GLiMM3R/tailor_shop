@@ -11,6 +11,7 @@ using app.Database;
 using app.Model;
 using app.Service;
 using Microsoft.EntityFrameworkCore;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace app.Presentation
 {
@@ -243,7 +244,6 @@ namespace app.Presentation
                 Discount = discount,
                 DepositAmount = deposit_amount_num.Value,
                 TotalAmount = totalAmount,
-                Status = 0,
                 Quantity = (int)quantity_num.Value,
                 Notes = notes_txt.Text,
                 UserId = this._user.Id,
@@ -260,6 +260,7 @@ namespace app.Presentation
 
             if (deposit_amount > 0)
             {
+                newOrder.Status = OrderStatus.InProgress;
                 newOrder.Payments = [
                     new Payment
                     {
@@ -283,7 +284,7 @@ namespace app.Presentation
             }
         }
 
-        private async void fabric_qty_num_ValueChanged(object sender, EventArgs e)
+        private void fabric_qty_num_ValueChanged(object sender, EventArgs e)
         {
             this.CalculateTotal();
         }
@@ -307,7 +308,7 @@ namespace app.Presentation
             total_amount_lb.Text = $"{totalAmount:N2}";
         }
 
-        private async void garment_cb_SelectedValueChanged(object sender, EventArgs e)
+        private void garment_cb_SelectedValueChanged(object sender, EventArgs e)
         {
             if (garment_cb.SelectedItem is Garment selectedGarment)
             {
@@ -326,7 +327,7 @@ namespace app.Presentation
             CalculateTotal();
         }
 
-        private async void fabric_cb_SelectedValueChanged(object sender, EventArgs e)
+        private void fabric_cb_SelectedValueChanged(object sender, EventArgs e)
         {
             if (fabric_cb.SelectedItem is Fabric selectedFabric)
             {

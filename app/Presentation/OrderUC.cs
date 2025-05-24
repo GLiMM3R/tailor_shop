@@ -30,7 +30,7 @@ namespace app.Presentation
         private OrderService _orderService;
         private DailySequenceService _dailySequenceService;
         private User _user;
-        private FilterOrder _filter = new FilterOrder();
+        private FilterOrder _filter = new FilterOrder(1,10);
         private Debouncer searchDebouncer;
 
         public OrderUC(User user, MainForm mainForm)
@@ -69,10 +69,10 @@ namespace app.Presentation
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "Garment", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "Customer", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "User", headerText: "User", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "SubTotal", headerText: "SubTotal", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "Discount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "TotalAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DepositAmount", headerText: "DepositAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "SubTotal", headerText: "SubTotal", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "Discount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "TotalAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DepositAmount", headerText: "DepositAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "Status", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 30),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "CreatedAt", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
             );
@@ -210,7 +210,7 @@ namespace app.Presentation
         {
             status_cbb.SelectedIndex = -1;
             search_txt.Text = string.Empty;
-            _filter = new FilterOrder();
+            _filter = new FilterOrder(1, 10);
             searchDebouncer.Trigger();
         }
     }

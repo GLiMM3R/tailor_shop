@@ -25,10 +25,15 @@ namespace app.Presentation
 
         }
 
-        private void order_report_btn_Click(object sender, EventArgs e)
+        private void overall_sale_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new OrderReportUC();
+            var report = new OverallSaleReportUC();
             _mainForm.LoadFormIntoPanel(report);
+        }
+
+        private void customer_report_btn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

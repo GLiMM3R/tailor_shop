@@ -29,7 +29,7 @@
                     Style = new DataGridViewCellStyle
                     {
                         Alignment = DataGridViewContentAlignment.MiddleCenter,
-                        Font = new Font("Arial", 10, FontStyle.Bold)
+                        Font = new Font("Noto Sans Lao", 10, FontStyle.Bold)
                     }
                 }
             };

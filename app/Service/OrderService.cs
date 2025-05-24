@@ -9,8 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Service
 {
-    public class FilterOrder
+    public class FilterOrder : Pagination
     {
+        public FilterOrder(int page, int pageSize) : base(page, pageSize)
+        {
+            this.Page = page;
+            this.PageSize = pageSize;
+        }
+
         public string? Search { get; set; }
         public OrderStatus? Status { get; set; }
     }
@@ -30,6 +36,9 @@ namespace app.Service
 
         public async Task<OrderListResult> GetAll(FilterOrder? filter)
         {
+            var skip = (filter?.Page - 1 ?? 0) * (filter?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+
             IQueryable<Order> query = _context.Orders
                 .Include(o => o.Customer)
                 .Include(o => o.Garment)
@@ -55,7 +64,10 @@ namespace app.Service
             }
 
             var total = await query.CountAsync();
-            var orders = await query.OrderByDescending(o => o.CreatedAt).ToArrayAsync();
+            var orders = await query
+                .Skip(skip)
+                .Take(filter?.PageSize ?? 10)
+                .OrderByDescending(o => o.CreatedAt).ToArrayAsync();
 
             return new OrderListResult
             {
