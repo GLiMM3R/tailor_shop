@@ -338,11 +338,13 @@
             // 
             // label1
             // 
+            label1.BackColor = Color.FromArgb(33, 52, 72);
             label1.Dock = DockStyle.Top;
             label1.Font = new Font("Noto Sans Lao", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1453, 83);
+            label1.Size = new Size(1453, 94);
             label1.TabIndex = 0;
             label1.Text = "ລາຍງານຍອດຂາຍລວມ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
