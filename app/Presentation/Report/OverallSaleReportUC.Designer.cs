@@ -55,14 +55,13 @@
             label3 = new Label();
             from_date_dpk = new DateTimePicker();
             panel3 = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            pagination_pn = new TableLayoutPanel();
+            pagesize_cbb = new ComboBox();
             last_page_btn = new Button();
             next_page_btn = new Button();
             prev_page_btn = new Button();
             first_page_btn = new Button();
             page_lbl = new Label();
-            panel4 = new Panel();
-            pagesize_cbb = new ComboBox();
             bottom_pn = new TableLayoutPanel();
             order_dgv = new DataGridView();
             filter_pn = new Panel();
@@ -78,8 +77,7 @@
             gross_sales_pn.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            panel4.SuspendLayout();
+            pagination_pn.SuspendLayout();
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             filter_pn.SuspendLayout();
@@ -407,36 +405,46 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(tableLayoutPanel1);
+            panel3.Controls.Add(pagination_pn);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 829);
             panel3.Name = "panel3";
             panel3.Size = new Size(1453, 75);
             panel3.TabIndex = 0;
             // 
-            // tableLayoutPanel1
+            // pagination_pn
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.ColumnCount = 6;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel1.Controls.Add(last_page_btn, 5, 0);
-            tableLayoutPanel1.Controls.Add(next_page_btn, 4, 0);
-            tableLayoutPanel1.Controls.Add(prev_page_btn, 1, 0);
-            tableLayoutPanel1.Controls.Add(first_page_btn, 0, 0);
-            tableLayoutPanel1.Controls.Add(page_lbl, 2, 0);
-            tableLayoutPanel1.Controls.Add(panel4, 3, 0);
-            tableLayoutPanel1.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tableLayoutPanel1.Location = new Point(419, 13);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(614, 49);
-            tableLayoutPanel1.TabIndex = 1;
+            pagination_pn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pagination_pn.ColumnCount = 6;
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.Controls.Add(pagesize_cbb, 3, 0);
+            pagination_pn.Controls.Add(last_page_btn, 5, 0);
+            pagination_pn.Controls.Add(next_page_btn, 4, 0);
+            pagination_pn.Controls.Add(prev_page_btn, 1, 0);
+            pagination_pn.Controls.Add(first_page_btn, 0, 0);
+            pagination_pn.Controls.Add(page_lbl, 2, 0);
+            pagination_pn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pagination_pn.Location = new Point(419, 17);
+            pagination_pn.Name = "pagination_pn";
+            pagination_pn.RowCount = 1;
+            pagination_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            pagination_pn.Size = new Size(614, 41);
+            pagination_pn.TabIndex = 1;
+            // 
+            // pagesize_cbb
+            // 
+            pagesize_cbb.Dock = DockStyle.Fill;
+            pagesize_cbb.FormattingEnabled = true;
+            pagesize_cbb.Items.AddRange(new object[] { "10", "20", "30", "50", "100" });
+            pagesize_cbb.Location = new Point(309, 3);
+            pagesize_cbb.Name = "pagesize_cbb";
+            pagesize_cbb.Size = new Size(96, 36);
+            pagesize_cbb.TabIndex = 7;
             // 
             // last_page_btn
             // 
@@ -447,9 +455,9 @@
             last_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
             last_page_btn.Location = new Point(513, 3);
             last_page_btn.Name = "last_page_btn";
-            last_page_btn.Size = new Size(98, 43);
+            last_page_btn.Size = new Size(98, 35);
             last_page_btn.TabIndex = 4;
-            last_page_btn.Text = "Last >>";
+            last_page_btn.Text = "ສຸດທ້າຍ >>";
             last_page_btn.UseVisualStyleBackColor = false;
             last_page_btn.Click += last_page_btn_Click;
             // 
@@ -462,9 +470,9 @@
             next_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
             next_page_btn.Location = new Point(411, 3);
             next_page_btn.Name = "next_page_btn";
-            next_page_btn.Size = new Size(96, 43);
+            next_page_btn.Size = new Size(96, 35);
             next_page_btn.TabIndex = 3;
-            next_page_btn.Text = "Next >";
+            next_page_btn.Text = "ຖັດໄປ >";
             next_page_btn.UseVisualStyleBackColor = false;
             next_page_btn.Click += next_page_btn_Click;
             // 
@@ -477,9 +485,9 @@
             prev_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
             prev_page_btn.Location = new Point(105, 3);
             prev_page_btn.Name = "prev_page_btn";
-            prev_page_btn.Size = new Size(96, 43);
+            prev_page_btn.Size = new Size(96, 35);
             prev_page_btn.TabIndex = 1;
-            prev_page_btn.Text = "< Previous";
+            prev_page_btn.Text = "< ກັບຄືນ";
             prev_page_btn.UseVisualStyleBackColor = false;
             prev_page_btn.Click += prev_page_btn_Click;
             // 
@@ -492,44 +500,22 @@
             first_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
             first_page_btn.Location = new Point(3, 3);
             first_page_btn.Name = "first_page_btn";
-            first_page_btn.Size = new Size(96, 43);
+            first_page_btn.Size = new Size(96, 35);
             first_page_btn.TabIndex = 0;
-            first_page_btn.Text = "<< First";
+            first_page_btn.Text = "<< ທໍາອິດ";
             first_page_btn.UseVisualStyleBackColor = false;
             first_page_btn.Click += first_page_btn_Click;
             // 
             // page_lbl
             // 
             page_lbl.Dock = DockStyle.Fill;
-            page_lbl.Font = new Font("Noto Sans Lao", 7.79999971F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            page_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             page_lbl.Location = new Point(207, 0);
             page_lbl.Name = "page_lbl";
-            page_lbl.Size = new Size(96, 49);
+            page_lbl.Size = new Size(96, 41);
             page_lbl.TabIndex = 2;
             page_lbl.Text = "1/1";
             page_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel4
-            // 
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(pagesize_cbb);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(309, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(96, 43);
-            panel4.TabIndex = 5;
-            // 
-            // pagesize_cbb
-            // 
-            pagesize_cbb.Dock = DockStyle.Fill;
-            pagesize_cbb.FlatStyle = FlatStyle.Flat;
-            pagesize_cbb.FormattingEnabled = true;
-            pagesize_cbb.Items.AddRange(new object[] { "10", "20", "30", "50", "100" });
-            pagesize_cbb.Location = new Point(0, 0);
-            pagesize_cbb.Name = "pagesize_cbb";
-            pagesize_cbb.Size = new Size(94, 36);
-            pagesize_cbb.TabIndex = 6;
-            pagesize_cbb.SelectedIndexChanged += pagesize_cbb_SelectedIndexChanged;
             // 
             // bottom_pn
             // 
@@ -635,8 +621,7 @@
             gross_sales_pn.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            panel4.ResumeLayout(false);
+            pagination_pn.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             filter_pn.ResumeLayout(false);
@@ -649,7 +634,7 @@
         private Panel panel1;
         private Label label1;
         private Panel panel3;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel pagination_pn;
         private Button first_page_btn;
         private Button last_page_btn;
         private Button next_page_btn;
@@ -663,8 +648,6 @@
         private TableLayoutPanel bottom_pn;
         private DataGridView order_dgv;
         private Panel filter_pn;
-        private Panel panel4;
-        private ComboBox pagesize_cbb;
         private TableLayoutPanel total_orders_pn;
         private Label total_orders_lbl;
         private Label label6;
@@ -686,5 +669,6 @@
         private Label label4;
         private Panel panel5;
         private ComboBox period_cbb;
+        private ComboBox pagesize_cbb;
     }
 }
