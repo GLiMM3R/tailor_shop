@@ -10,9 +10,8 @@ namespace app.Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TotalOrdered { get; set; }
-        public int TotalQuantity { get; set; }
+        public int TotalOrders { get; set; }
         public int TotalCustomers { get; set; }
-        public decimal TotalSpending { get; set; }
+        public decimal TotalValue { get; set; }
     }
 }

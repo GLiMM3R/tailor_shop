@@ -39,6 +39,7 @@ namespace app
             sidebarButtons.Add(customer_btn);
             sidebarButtons.Add(user_btn);
             sidebarButtons.Add(fabric_btn);
+            sidebarButtons.Add(garment_btn);
             sidebarButtons.Add(report_btn);
 
             SetupButtonEvents();

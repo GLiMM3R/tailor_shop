@@ -176,10 +176,10 @@ namespace app.Service
                     .Sum(o => o.FabricUsedQty),
                 TotalValue = c.UnitPrice * c.Orders
                     .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                    .Sum(o => o.FabricUsedQty)     
+                    .Sum(o => o.FabricUsedQty)
             });
 
-           if (reportType == FabricReportType.MostUsedQuantity)
+            if (reportType == FabricReportType.MostUsedQuantity)
             {
                 // Fabrics with the highest total used quantity
                 grouped = grouped.OrderByDescending(r => r.TotalUsedQuantity);
@@ -274,13 +274,9 @@ namespace app.Service
             [Display(Name = "ທັງໝົດ")]
             All,
             [Display(Name = "ລູກຄ້າສັ່ງຊື້ຫຼາຍ")]
-            MostCustomer,
-            [Display(Name = "ລູກຄ້າໃຊ້ຈ່າຍສູງ")]
-            TopSpending,
-            [Display(Name = "ສັ່ງຊື້ຫຼາຍ")]
-            TopOrder,
-            [Display(Name = "ຈຳນວນ")]
-            TopQuantity
+            TopOrders,
+            [Display(Name = "ມູນຄ່າສູງ")]
+            TopValue
         }
 
         public async Task<ListResult<GarmentReport>> GetGarmentReport(DateTime fromDate, DateTime toDate, Pagination pagination, GarmentReportType reportType)
@@ -298,28 +294,25 @@ namespace app.Service
                 {
                     Id = g.Id,
                     Name = g.Name, // Fix: Access the Name property of the Garment entity
-                    TotalOrdered = g.Orders.Count(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate),
-                    TotalQuantity = g.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.Quantity),
-                    TotalCustomers = g.Orders.Select(o => o.CustomerId).Distinct().Count(),
-                    TotalSpending = g.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.TotalAmount),
+                    TotalCustomers = g.Orders
+                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                        .Select(o => o.CustomerId).Distinct().Count(),
+                    TotalOrders = g.Orders
+                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                        .Count(),
+                    TotalValue = (g.BasePrice ?? 0) * g.Orders
+                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                        .Sum(o => o.Quantity) // Fix: Handle nullable BasePrice with a null-coalescing operator
                 });
 
             // Apply ordering for TopSpendingCustomer and TopOrderCustomer
-            if (reportType == GarmentReportType.TopSpending)
+            if (reportType == GarmentReportType.TopOrders)
             {
-                grouped = grouped.OrderByDescending(r => r.TotalSpending);
+                grouped = grouped.OrderByDescending(r => r.TotalOrders);
             }
-            else if (reportType == GarmentReportType.MostCustomer)
+            else if (reportType == GarmentReportType.TopValue)
             {
-                grouped = grouped.OrderByDescending(r => r.TotalCustomers);
-            }
-            else if (reportType == GarmentReportType.TopOrder)
-            {
-                grouped = grouped.OrderByDescending(r => r.TotalOrdered);
-            }
-            else if (reportType == GarmentReportType.TopQuantity)
-            {
-                grouped = grouped.OrderByDescending(r => r.TotalQuantity);
+                grouped = grouped.OrderByDescending(r => r.TotalValue);
             }
             else
             {
@@ -334,6 +327,44 @@ namespace app.Service
                 .ToArrayAsync();
 
             return new ListResult<GarmentReport>
+            {
+                Data = data,
+                Total = total
+            };
+        }
+
+        public async Task<ListResult<PaymentTransactionReport>> GetPaymentTransactionReport(DateTime fromDate, DateTime toDate, Pagination pagination)
+        {
+            var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+
+            // Only include completed orders in the date range
+            IQueryable<Payment> query = _context.Payments
+                .Include(o => o.Order)
+                .Where(p => p.CreatedAt >= fromDate && p.CreatedAt <= toDate);
+
+            // Group by FabricId
+            var grouped = query
+                .Select(g => new PaymentTransactionReport
+                {
+                    Id = g.Id,
+                    OrderNumber = g.Order.OrderNumber,
+                    OrderDate = g.Order.CreatedAt,
+                    CustomerName = g.Order.Customer.Name ?? "",
+                    TotalAmount = g.Order.TotalAmount,
+                    PaidAmount = g.PaidAmount,
+                    TransactionType = g.TransactionType,
+                    CreatedAt = g.CreatedAt,
+                    UpdatedAt = g.UpdatedAt
+                });
+
+            var total = await grouped.CountAsync();
+            var data = await grouped
+                .Skip(skip)
+                .Take(pagination?.PageSize ?? 10)
+                .ToArrayAsync();
+
+            return new ListResult<PaymentTransactionReport>
             {
                 Data = data,
                 Total = total

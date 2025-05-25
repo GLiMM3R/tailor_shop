@@ -42,5 +42,17 @@ namespace app.Presentation
             var report = new FabricReportUC();
             _mainForm.LoadFormIntoPanel(report);
         }
+
+        private void garment_report_btn_Click(object sender, EventArgs e)
+        {
+            var report = new GarmentReportUC();
+            _mainForm.LoadFormIntoPanel(report);
+        }
+
+        private void payment_transaction_report_btn_Click(object sender, EventArgs e)
+        {
+            var report = new PaymentTransactionReportUC();
+            _mainForm.LoadFormIntoPanel(report);
+        }
     }
 }

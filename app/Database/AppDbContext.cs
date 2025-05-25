@@ -61,7 +61,7 @@ namespace app.Database
 
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.Payments)
-                .WithOne()
+                .WithOne(p => p.Order)
                 .HasForeignKey(o => o.OrderId)
                 .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
 
