@@ -31,6 +31,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             customer_report_btn = new Button();
             overall_sale_report_btn = new Button();
+            fabric_report_btn = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -38,6 +39,7 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(fabric_report_btn, 0, 2);
             tableLayoutPanel1.Controls.Add(customer_report_btn, 0, 1);
             tableLayoutPanel1.Controls.Add(overall_sale_report_btn, 0, 0);
             tableLayoutPanel1.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -84,6 +86,22 @@
             overall_sale_report_btn.UseVisualStyleBackColor = false;
             overall_sale_report_btn.Click += overall_sale_report_btn_Click;
             // 
+            // fabric_report_btn
+            // 
+            fabric_report_btn.BackColor = Color.FromArgb(33, 52, 72);
+            fabric_report_btn.Cursor = Cursors.Hand;
+            fabric_report_btn.Dock = DockStyle.Fill;
+            fabric_report_btn.FlatStyle = FlatStyle.Flat;
+            fabric_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            fabric_report_btn.ForeColor = Color.White;
+            fabric_report_btn.Location = new Point(3, 123);
+            fabric_report_btn.Name = "fabric_report_btn";
+            fabric_report_btn.Size = new Size(244, 54);
+            fabric_report_btn.TabIndex = 27;
+            fabric_report_btn.Text = "ລາຍງານປະເພດຜ້າ";
+            fabric_report_btn.UseVisualStyleBackColor = false;
+            fabric_report_btn.Click += fabric_report_btn_Click;
+            // 
             // ReportUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -101,5 +119,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Button overall_sale_report_btn;
         private Button customer_report_btn;
+        private Button fabric_report_btn;
     }
 }

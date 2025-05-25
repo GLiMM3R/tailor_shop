@@ -34,6 +34,10 @@ namespace app.Model
         [MaxLength(12)]
         public string Phone { get; set; }
 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

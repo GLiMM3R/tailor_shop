@@ -34,6 +34,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
@@ -46,19 +49,12 @@ namespace app.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "tanmixay",
-                            Gender = 0,
-                            Name = "Esther Lynn",
-                            Phone = "77919430"
-                        });
                 });
 
             modelBuilder.Entity("app.Model.DailySequence", b =>

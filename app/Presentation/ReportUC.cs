@@ -33,7 +33,14 @@ namespace app.Presentation
 
         private void customer_report_btn_Click(object sender, EventArgs e)
         {
+            var report = new CustomerReportUC();
+            _mainForm.LoadFormIntoPanel(report);
+        }
 
+        private void fabric_report_btn_Click(object sender, EventArgs e)
+        {
+            var report = new FabricReportUC();
+            _mainForm.LoadFormIntoPanel(report);
         }
     }
 }

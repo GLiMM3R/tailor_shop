@@ -65,83 +65,20 @@ namespace app.Database
                 .HasForeignKey(o => o.OrderId)
                 .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
 
+            modelBuilder.Entity<Fabric>()
+               .HasMany(u => u.Orders)
+               .WithOne(o => o.Fabric)
+               .HasForeignKey(o => o.FabricId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Garment>()
+               .HasMany(u => u.Orders)
+               .WithOne(o => o.Garment)
+               .HasForeignKey(o => o.GarmentId)
+               .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<User>().HasData(
                  new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString, Role = Role.Admin });
-
-            modelBuilder.Entity<Customer>().HasData(
-                new Customer { Id = 1, Name = "Esther Lynn", Gender = Gender.Male, Phone = "77919430", Address = "tanmixay" });
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    string passwordString = "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=";
-        //    string saltString = "VbQId3K5ZFNKRRSaL8rdvw==";
-
-        //    modelBuilder.Entity<User>()
-        //        .HasMany(u => u.Orders)
-        //        .WithOne(o => o.User)
-        //        .HasForeignKey(o => o.UserId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    modelBuilder.Entity<Customer>()
-        //        .HasMany(c => c.Orders)
-        //        .WithOne(o => o.Customer)
-        //        .HasForeignKey(o => o.CustomerId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasOne(o => o.Fabric)
-        //        .WithMany(f => f.Orders)
-        //        .HasForeignKey(o => o.FabricId)
-        //        .OnDelete(DeleteBehavior.Restrict); // or Cascade, SetNull, etc.
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasOne(o => o.Garment)
-        //        .WithMany(f => f.Orders)
-        //        .HasForeignKey(o => o.GarmentId)
-        //        .OnDelete(DeleteBehavior.Restrict); // or Cascade, SetNull, etc.
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasMany(o => o.Measurements)
-        //        .WithOne(f => f.Order)
-        //        .HasForeignKey(o => o.OrderId)
-        //        .OnDelete(DeleteBehavior.Restrict); // or Cascade, SetNull, etc.
-
-        //    modelBuilder.Entity<Fabric>()
-        //        .HasMany(f => f.Orders)
-        //        .WithOne(o => o.Fabric)
-        //        .HasForeignKey(o => o.FabricId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    modelBuilder.Entity<Garment>()
-        //        .HasMany(g => g.Orders)
-        //        .WithOne(o => o.Garment)
-        //        .HasForeignKey(o => o.GarmentId)
-        //        .OnDelete(DeleteBehavior.Restrict);
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasIndex(o => o.OrderNumber)
-        //        .IsUnique();
-
-        //    modelBuilder.Entity<Payment>()
-        //        .HasOne(m => m.Order)
-        //        .WithMany(o => o.Payments)
-        //        .HasForeignKey(m => m.OrderId)
-        //        .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
-
-        //    modelBuilder.Entity<Measurement>()
-        //        .HasOne(m => m.Order)
-        //        .WithMany(o => o.Measurements)
-        //        .HasForeignKey(m => m.OrderId)
-        //        .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
-
-
-        //    modelBuilder.Entity<User>().HasData(
-        //         new User { Id = 1, Username = "admin", Password = passwordString, Salt = saltString, Role = Role.Admin });
-
-        //    modelBuilder.Entity<Customer>().HasData(
-        //        new Customer { Id = 1, Name = "Esther Lynn", Gender = Gender.Male, Phone = "77919430", Address = "tanmixay" });
-        //}
     }
 }

@@ -20,7 +20,9 @@ namespace app.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,11 +191,6 @@ namespace app.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "Address", "Gender", "Name", "Phone" },
-                values: new object[] { 1, "tanmixay", 0, "Esther Lynn", "77919430" });
 
             migrationBuilder.InsertData(
                 table: "Users",

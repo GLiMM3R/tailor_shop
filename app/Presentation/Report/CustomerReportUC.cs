@@ -1,35 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using app.Constant;
 using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
-using app.Constant;
-
+using static app.Service.ReportService;
 
 namespace app.Presentation.Report
 {
-    public partial class OverallSaleReportUC : UserControl
+    public partial class CustomerReportUC : UserControl
     {
         private Pagination _pagination;
-        public OverallSaleReportUC()
+
+        public CustomerReportUC()
         {
             InitializeComponent();
-            _pagination = new Pagination(1, 10);
-        }
-
-        private async void OrderReportUC_Load(object sender, EventArgs e)
-        {
             InitializeDataGridView();
-            await LoadOrders();
 
+            _pagination = new Pagination(1, 10);
+
+        }
+        private async void CustomerReportUC_Load(object sender, EventArgs e)
+        {
+            await LoadCustomerReport();
+
+            // Usage:
+            var reportTypes = Enum.GetValues(typeof(CustomerReportType))
+                .Cast<CustomerReportType>()
+                .Select(pt => new { Value = pt, Display = Period.GetEnumDisplayName(pt) })
+                .ToList();
+
+            report_type_cbb.DataSource = reportTypes;
+            report_type_cbb.DisplayMember = "Display";
+            report_type_cbb.ValueMember = "Value";
+            report_type_cbb.SelectedIndex = 0;
 
             // Usage:
             var periodItems = Enum.GetValues(typeof(Period.PeriodType))
@@ -45,42 +58,7 @@ namespace app.Presentation.Report
             pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
-
-        private void InitializeDataGridView()
-        {
-            order_dgv.AutoGenerateColumns = false;
-            order_dgv.Columns.Clear();
-
-            order_dgv.Columns.AddRange(
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderDate", headerText: "ວັນທີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalOrders", headerText: "ຈຳນວນອໍເດີ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalCustomers", headerText: "ຈຳນວນລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນຕັດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "SubTotal", headerText: "ຍອດລວມຂາຍ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "ສ່ວນຫຼຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DepositAmount", headerText: "ຍອດລວມມັດຈຳ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalPaid", headerText: "ຍອດຊຳລະແລ້ວ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "ຍອດລວມສຸດທິ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
-            );
-
-            order_dgv.CellFormatting += OrderReportDgv_CellFormatting;
-        }
-
-        private void OrderReportDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
-        {
-            var columnName = order_dgv.Columns[e.ColumnIndex].DataPropertyName;
-            if (columnName == "SubTotal" || columnName == "Discount" || columnName == "DepositAmount" ||
-                columnName == "TotalPaid" || columnName == "TotalAmount")
-            {
-                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
-                {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
-                    e.FormattingApplied = true;
-                }
-            }
-        }
-
-        public async Task LoadOrders()
+        public async Task LoadCustomerReport()
         {
             // Always create a new DbContext and OrderService to avoid caching
             using (var dbContext = new AppDbContext())
@@ -89,17 +67,52 @@ namespace app.Presentation.Report
 
                 var startOfDay = from_date_dpk.Value.Date;
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+                var reportType = report_type_cbb.SelectedValue is ReportService.CustomerReportType type ? type : ReportService.CustomerReportType.All;
 
-                var result = await report.GetOverallSaleReport(startOfDay, endOfDay, _pagination);
+                var result = await report.GetCustomerReport(startOfDay, endOfDay, _pagination, reportType);
                 _pagination.TotalItems = result.Total;
-                order_dgv.DataSource = null;
-                order_dgv.DataSource = result.Data.ToList();
-                order_dgv.ClearSelection();
+                customer_report_dgv.DataSource = null;
+                customer_report_dgv.DataSource = result.Data.ToList();
+                customer_report_dgv.ClearSelection();
                 UpdatePageNumber();
 
                 // Update chart
                 //InitializeLineChart();
                 //BindLineChart(result.Data);
+            }
+        }
+
+        private void InitializeDataGridView()
+        {
+            customer_report_dgv.AutoGenerateColumns = false;
+            customer_report_dgv.Columns.Clear();
+
+            customer_report_dgv.Columns.AddRange(
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "ເພດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "ເບີໂທ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderCount", headerText: "ຈຳນວນອໍເດີ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນສິນຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalSpent", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "LastOrderDate", headerText: "ອໍເດີ້ລ່າສຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "ວັນທີສ້າງ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Updated", headerText: "ວັນທີແກ້ໄຂ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
+            );
+
+            customer_report_dgv.CellFormatting += CustomerReportDgv_CellFormatting;
+        }
+
+        private void CustomerReportDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var columnName = customer_report_dgv.Columns[e.ColumnIndex].DataPropertyName;
+            if (columnName == "TotalSpent")
+            {
+                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
+                {
+                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.FormattingApplied = true;
+                }
             }
         }
 
@@ -120,7 +133,7 @@ namespace app.Presentation.Report
             if (_pagination.HasNextPage)
             {
                 _pagination.Page++;
-                await LoadOrders();
+                await LoadCustomerReport();
             }
         }
 
@@ -129,14 +142,14 @@ namespace app.Presentation.Report
             if (_pagination.TotalPages > 0)
             {
                 _pagination.Page = _pagination.TotalPages;
-                await LoadOrders();
+                await LoadCustomerReport();
             }
         }
 
         private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
-            await LoadOrders();
+            await LoadCustomerReport();
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -144,7 +157,7 @@ namespace app.Presentation.Report
             if (_pagination.HasPreviousPage)
             {
                 _pagination.Page--;
-                await LoadOrders();
+                await LoadCustomerReport();
             }
         }
 
@@ -153,59 +166,32 @@ namespace app.Presentation.Report
             if (_pagination.Page > 1)
             {
                 _pagination.Page = 1;
-                await LoadOrders();
+                await LoadCustomerReport();
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
-            await LoadOrders();
+            await LoadCustomerReport();
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
-            await LoadOrders();
+            await LoadCustomerReport();
         }
 
-        //private void InitializeLineChart()
-        //{
-        //    overallSaleChart.Series.Clear();
-        //    overallSaleChart.ChartAreas.Clear();
-
-        //    // Create chart area
-        //    var chartArea = new ChartArea("MainArea");
-        //    overallSaleChart.ChartAreas.Add(chartArea);
-
-        //    // Create line series
-        //    var series = new Series("Total Sales")
-        //    {
-        //        ChartType = SeriesChartType.Line,
-        //        XValueType = ChartValueType.Date,
-        //        BorderWidth = 2
-        //    };
-        //    overallSaleChart.Series.Add(series);
-
-        //    // Optional: Set axis format
-        //    overallSaleChart.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM";
-        //}
-
-        //private void BindLineChart(IEnumerable<OverallSaleReport> data)
-        //{
-        //    var series = overallSaleChart.Series["Total Sales"];
-        //    series.Points.Clear();
-
-        //    foreach (var item in data)
-        //    {
-        //        // X: OrderDate, Y: TotalAmount
-        //        series.Points.AddXY(item.OrderDate, item.TotalAmount);
-        //    }
-        //}
-
-
-        private void button5_Click(object sender, EventArgs e)
+        private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Update the report type based on the selected value
+            if (report_type_cbb.SelectedValue is CustomerReportType selectedReportType)
+            {
+                // You can use this value to filter or change the report logic if needed
+                // For now, we just reload the report with the new type
+                _pagination.Page = 1; // Reset to first page when changing report type
+                await LoadCustomerReport();
+            }
         }
+
         private void period_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
             var today = DateTime.Now.Date; // Declare 'today' at the beginning of the method
@@ -214,7 +200,7 @@ namespace app.Presentation.Report
                 case Period.PeriodType.Today:
                     from_date_dpk.Value = today;
                     to_date_dpk.Value = today.AddDays(1).AddTicks(-1); // Set to end of today
-                    break; 
+                    break;
                 case Period.PeriodType.Yesterday:
                     from_date_dpk.Value = today.AddDays(-1); // Set to yesterday
                     to_date_dpk.Value = today.AddTicks(-1); // Set to end of yesterday
