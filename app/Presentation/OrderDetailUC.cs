@@ -50,10 +50,10 @@ namespace app.Presentation
             measurement_dgv.Columns.Clear();
 
             measurement_dgv.Columns.AddRange(
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "BodyPart", headerText: "BodyPart", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Value", headerText: "Value", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Unit", headerText: "Unit", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50)
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "BodyPart", headerText: "ສ່ວນຮ່າງກາຍ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Value", headerText: "ຄ່າວັດແທກ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Unit", headerText: "ຫົວໜ່ວຍ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50)
             );
         }
 
@@ -85,7 +85,7 @@ namespace app.Presentation
                 {
                     pay_btn.Enabled = false;
                     pay_btn.BackColor = Color.FromArgb(200, 200, 200);
-                    pay_btn.Text = "Paid";
+                    pay_btn.Text = "ຈ່າຍແລ້ວ";
 
                     status_lbl.BackColor = Color.FromArgb(0, 200, 0);
                 }
@@ -93,7 +93,7 @@ namespace app.Presentation
                 {
                     pay_btn.Enabled = true;
                     pay_btn.BackColor = Color.FromArgb(33, 52, 72);
-                    pay_btn.Text = "Pay";
+                    pay_btn.Text = "ຊຳລະເງິນ";
 
                     status_lbl.BackColor = Color.FromArgb(255, 200, 0);
                 }

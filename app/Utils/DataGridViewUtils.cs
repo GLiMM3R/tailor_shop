@@ -23,7 +23,8 @@
                 ReadOnly = readOnly,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
-                    Alignment = dataGridViewContentAlignment
+                    Alignment = dataGridViewContentAlignment,
+                    Font = new Font("Noto Sans Lao", 10),
                 },
                 HeaderCell = {
                     Style = new DataGridViewCellStyle

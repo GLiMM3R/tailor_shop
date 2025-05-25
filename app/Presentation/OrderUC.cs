@@ -65,23 +65,20 @@ namespace app.Presentation
 
             order_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "OrderNumber", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 38),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "Garment", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "Customer", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "User", headerText: "User", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
-                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "SubTotal", headerText: "SubTotal", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "Discount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "TotalAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 40),
-                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DepositAmount", headerText: "DepositAmount", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "Status", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 30),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "CreatedAt", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "ເລກທີສັ່ງຕັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 38),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "ປະເພດເສື້ອຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "ຊື່ລູກຄ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "User", headerText: "ຊື່ຜູ້ໃຊ້ລະບົບ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 30),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "ວັນທີສ້າງ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UpdatedAt", headerText: "ວັນທີແກ້ໄຂ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
             );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
                 Name = "View",
                 HeaderText = "",
-                Text = "View",
+                Text = "ເບິ່ງ",
                 UseColumnTextForButtonValue = true,
                 FlatStyle = FlatStyle.Flat,
                 DefaultCellStyle = new DataGridViewCellStyle
@@ -89,7 +86,7 @@ namespace app.Presentation
                     Padding = new Padding(2),
                     BackColor = Color.FromArgb(78, 184, 206),
                     ForeColor = Color.White,
-                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
                     Alignment = DataGridViewContentAlignment.MiddleCenter,
                     SelectionBackColor = Color.FromArgb(60, 140, 160),
                     SelectionForeColor = Color.White

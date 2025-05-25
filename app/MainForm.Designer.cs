@@ -103,7 +103,7 @@
             home_btn.Dock = DockStyle.Top;
             home_btn.FlatAppearance.BorderSize = 0;
             home_btn.FlatStyle = FlatStyle.Flat;
-            home_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            home_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             home_btn.ForeColor = Color.White;
             home_btn.ImageAlign = ContentAlignment.MiddleLeft;
             home_btn.Location = new Point(0, 0);
@@ -111,7 +111,7 @@
             home_btn.Name = "home_btn";
             home_btn.Size = new Size(280, 60);
             home_btn.TabIndex = 0;
-            home_btn.Text = "Home";
+            home_btn.Text = "ໜ້າຫຼັກ";
             home_btn.UseVisualStyleBackColor = false;
             home_btn.Click += home_btn_Click;
             // 
@@ -122,14 +122,14 @@
             order_btn.Dock = DockStyle.Top;
             order_btn.FlatAppearance.BorderSize = 0;
             order_btn.FlatStyle = FlatStyle.Flat;
-            order_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            order_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             order_btn.ForeColor = Color.White;
             order_btn.Location = new Point(0, 60);
             order_btn.Margin = new Padding(0);
             order_btn.Name = "order_btn";
             order_btn.Size = new Size(280, 60);
             order_btn.TabIndex = 1;
-            order_btn.Text = "Order";
+            order_btn.Text = "ການສັ່ງຕັດເສື້ອຜ້າ";
             order_btn.UseVisualStyleBackColor = false;
             order_btn.Click += order_btn_Click;
             // 
@@ -140,14 +140,14 @@
             customer_btn.Dock = DockStyle.Top;
             customer_btn.FlatAppearance.BorderSize = 0;
             customer_btn.FlatStyle = FlatStyle.Flat;
-            customer_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            customer_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             customer_btn.ForeColor = Color.White;
             customer_btn.Location = new Point(0, 120);
             customer_btn.Margin = new Padding(0);
             customer_btn.Name = "customer_btn";
             customer_btn.Size = new Size(280, 60);
             customer_btn.TabIndex = 2;
-            customer_btn.Text = "Customer";
+            customer_btn.Text = "ຈັດການຂໍ້ມູນລູກຄ້າ";
             customer_btn.UseVisualStyleBackColor = false;
             customer_btn.Click += customer_btn_Click;
             // 
@@ -158,7 +158,7 @@
             user_btn.Dock = DockStyle.Top;
             user_btn.FlatAppearance.BorderSize = 0;
             user_btn.FlatStyle = FlatStyle.Flat;
-            user_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            user_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             user_btn.ForeColor = Color.White;
             user_btn.ImageAlign = ContentAlignment.MiddleLeft;
             user_btn.Location = new Point(0, 180);
@@ -166,7 +166,7 @@
             user_btn.Name = "user_btn";
             user_btn.Size = new Size(280, 60);
             user_btn.TabIndex = 3;
-            user_btn.Text = "User";
+            user_btn.Text = "ຈັດການຂໍ້ມູນຜູ້ໃຊ້ລະບົບ";
             user_btn.UseVisualStyleBackColor = false;
             user_btn.Click += user_btn_Click;
             // 
@@ -177,7 +177,7 @@
             fabric_btn.Dock = DockStyle.Top;
             fabric_btn.FlatAppearance.BorderSize = 0;
             fabric_btn.FlatStyle = FlatStyle.Flat;
-            fabric_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            fabric_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             fabric_btn.ForeColor = Color.White;
             fabric_btn.ImageAlign = ContentAlignment.MiddleLeft;
             fabric_btn.Location = new Point(0, 240);
@@ -185,7 +185,7 @@
             fabric_btn.Name = "fabric_btn";
             fabric_btn.Size = new Size(280, 60);
             fabric_btn.TabIndex = 4;
-            fabric_btn.Text = "Fabric";
+            fabric_btn.Text = "ຈັດການຂໍ້ມູນຜ້າ";
             fabric_btn.UseVisualStyleBackColor = false;
             fabric_btn.Click += fabric_btn_Click;
             // 
@@ -196,7 +196,7 @@
             garment_btn.Dock = DockStyle.Top;
             garment_btn.FlatAppearance.BorderSize = 0;
             garment_btn.FlatStyle = FlatStyle.Flat;
-            garment_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            garment_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             garment_btn.ForeColor = Color.White;
             garment_btn.ImageAlign = ContentAlignment.MiddleLeft;
             garment_btn.Location = new Point(0, 300);
@@ -204,7 +204,7 @@
             garment_btn.Name = "garment_btn";
             garment_btn.Size = new Size(280, 60);
             garment_btn.TabIndex = 6;
-            garment_btn.Text = "Garment";
+            garment_btn.Text = "ຈັດການຂໍ້ມູນເສື້ອຜ້າ";
             garment_btn.UseVisualStyleBackColor = false;
             garment_btn.Click += garment_btn_Click;
             // 
@@ -215,7 +215,7 @@
             report_btn.Dock = DockStyle.Top;
             report_btn.FlatAppearance.BorderSize = 0;
             report_btn.FlatStyle = FlatStyle.Flat;
-            report_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            report_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             report_btn.ForeColor = Color.White;
             report_btn.ImageAlign = ContentAlignment.MiddleLeft;
             report_btn.Location = new Point(0, 360);
@@ -223,7 +223,7 @@
             report_btn.Name = "report_btn";
             report_btn.Size = new Size(280, 60);
             report_btn.TabIndex = 5;
-            report_btn.Text = "Report";
+            report_btn.Text = "ລາຍງານ";
             report_btn.UseVisualStyleBackColor = false;
             report_btn.Click += report_btn_Click;
             // 
@@ -234,14 +234,14 @@
             logout_btn.Dock = DockStyle.Bottom;
             logout_btn.FlatAppearance.BorderSize = 0;
             logout_btn.FlatStyle = FlatStyle.Flat;
-            logout_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            logout_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
             logout_btn.ForeColor = Color.White;
             logout_btn.Location = new Point(0, 621);
             logout_btn.Margin = new Padding(0);
             logout_btn.Name = "logout_btn";
             logout_btn.Size = new Size(280, 62);
             logout_btn.TabIndex = 2;
-            logout_btn.Text = "Logout";
+            logout_btn.Text = "ອອກຈາກລະບົບ";
             logout_btn.UseVisualStyleBackColor = false;
             logout_btn.Click += logout_btn_Click;
             // 

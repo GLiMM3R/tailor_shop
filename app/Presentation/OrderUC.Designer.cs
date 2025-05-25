@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             order_dgv = new DataGridView();
             filter_pn = new Panel();
             clear_btn = new Button();
@@ -59,14 +59,14 @@
             order_dgv.AllowUserToAddRows = false;
             order_dgv.AllowUserToDeleteRows = false;
             order_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             order_dgv.Dock = DockStyle.Fill;
             order_dgv.Location = new Point(9, 110);
@@ -94,23 +94,23 @@
             clear_btn.BackColor = Color.LightGray;
             clear_btn.Cursor = Cursors.Hand;
             clear_btn.FlatStyle = FlatStyle.Flat;
-            clear_btn.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clear_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             clear_btn.Location = new Point(666, 23);
             clear_btn.Name = "clear_btn";
             clear_btn.Size = new Size(94, 47);
             clear_btn.TabIndex = 5;
-            clear_btn.Text = "Clear";
+            clear_btn.Text = "ລຶບ";
             clear_btn.UseVisualStyleBackColor = false;
             clear_btn.Click += clear_btn_Click;
             // 
             // label1
             // 
-            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(350, 22);
             label1.Name = "label1";
             label1.Size = new Size(72, 47);
             label1.TabIndex = 4;
-            label1.Text = "Status";
+            label1.Text = "ສະຖານະ";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel1
@@ -146,11 +146,11 @@
             // search_txt
             // 
             search_txt.BorderStyle = BorderStyle.None;
-            search_txt.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            search_txt.Location = new Point(7, 11);
+            search_txt.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            search_txt.Location = new Point(7, 6);
             search_txt.Name = "search_txt";
-            search_txt.PlaceholderText = "Search...";
-            search_txt.Size = new Size(259, 23);
+            search_txt.PlaceholderText = "ຄົ້ນຫາ...";
+            search_txt.Size = new Size(259, 33);
             search_txt.TabIndex = 0;
             search_txt.TextChanged += search_txt_TextChanged;
             // 
@@ -203,13 +203,13 @@
             new_order_btn.BackColor = Color.FromArgb(33, 52, 72);
             new_order_btn.Cursor = Cursors.Hand;
             new_order_btn.FlatStyle = FlatStyle.Flat;
-            new_order_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            new_order_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             new_order_btn.ForeColor = Color.White;
             new_order_btn.Location = new Point(850, 64);
             new_order_btn.Name = "new_order_btn";
             new_order_btn.Size = new Size(178, 66);
             new_order_btn.TabIndex = 3;
-            new_order_btn.Text = "New Order";
+            new_order_btn.Text = "ສ້າງອໍເດີໃໝ່";
             new_order_btn.UseVisualStyleBackColor = false;
             new_order_btn.Click += new_order_btn_Click;
             // 
@@ -231,7 +231,7 @@
             // total_order_lbl
             // 
             total_order_lbl.Dock = DockStyle.Fill;
-            total_order_lbl.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            total_order_lbl.Font = new Font("Noto Sans Lao", 23.9999981F, FontStyle.Bold, GraphicsUnit.Point, 0);
             total_order_lbl.ForeColor = Color.White;
             total_order_lbl.Location = new Point(3, 64);
             total_order_lbl.Name = "total_order_lbl";
@@ -243,13 +243,13 @@
             // label2
             // 
             label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Noto Sans Lao", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
             label2.Size = new Size(331, 64);
             label2.TabIndex = 0;
-            label2.Text = "Total Order";
+            label2.Text = "ຈຳນວນການສັ່ງຕັດ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // OrderUC

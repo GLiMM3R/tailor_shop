@@ -105,18 +105,18 @@
             measurement_pn.Margin = new Padding(0);
             measurement_pn.Name = "measurement_pn";
             measurement_pn.Padding = new Padding(8, 16, 8, 4);
-            measurement_pn.Size = new Size(1506, 308);
+            measurement_pn.Size = new Size(1506, 311);
             measurement_pn.TabIndex = 2;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(17, 16);
             label4.Name = "label4";
-            label4.Size = new Size(149, 24);
+            label4.Size = new Size(160, 33);
             label4.TabIndex = 2;
-            label4.Text = "Measurements";
+            label4.Text = "ການວັດແທກ (cm)";
             // 
             // measurement_dgv
             // 
@@ -134,7 +134,7 @@
             measurement_dgv.Location = new Point(17, 52);
             measurement_dgv.Name = "measurement_dgv";
             measurement_dgv.RowHeadersWidth = 51;
-            measurement_dgv.Size = new Size(1478, 246);
+            measurement_dgv.Size = new Size(1478, 249);
             measurement_dgv.TabIndex = 1;
             // 
             // bottom_pn
@@ -145,7 +145,7 @@
             bottom_pn.Controls.Add(notes_txt);
             bottom_pn.Controls.Add(summary_and_note_lb);
             bottom_pn.Dock = DockStyle.Bottom;
-            bottom_pn.Location = new Point(0, 585);
+            bottom_pn.Location = new Point(0, 588);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
             bottom_pn.Size = new Size(1506, 206);
@@ -155,12 +155,12 @@
             // 
             label13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.Location = new Point(957, 19);
             label13.Name = "label13";
-            label13.Size = new Size(99, 24);
+            label13.Size = new Size(62, 33);
             label13.TabIndex = 11;
-            label13.Text = "Summary";
+            label13.Text = "ສະຫຼຸບ";
             // 
             // summary_pn
             // 
@@ -185,7 +185,7 @@
             // 
             // label16
             // 
-            label16.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            label16.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label16.ForeColor = Color.Gray;
             label16.Location = new Point(448, 28);
             label16.Name = "label16";
@@ -196,7 +196,7 @@
             // 
             // discount_val_lb
             // 
-            discount_val_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            discount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             discount_val_lb.ForeColor = Color.Gray;
             discount_val_lb.Location = new Point(194, 28);
             discount_val_lb.Name = "discount_val_lb";
@@ -207,18 +207,18 @@
             // 
             // discount_lb
             // 
-            discount_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            discount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             discount_lb.ForeColor = Color.Gray;
             discount_lb.Location = new Point(0, 28);
             discount_lb.Name = "discount_lb";
             discount_lb.Size = new Size(200, 28);
             discount_lb.TabIndex = 21;
-            discount_lb.Text = "Discount:";
+            discount_lb.Text = "ສ່ວນຫຼຸດ:";
             discount_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label12
             // 
-            label12.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            label12.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label12.ForeColor = Color.Gray;
             label12.Location = new Point(448, 56);
             label12.Name = "label12";
@@ -229,7 +229,7 @@
             // 
             // deposit_amount_val_lb
             // 
-            deposit_amount_val_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            deposit_amount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_val_lb.ForeColor = Color.Gray;
             deposit_amount_val_lb.Location = new Point(194, 56);
             deposit_amount_val_lb.Name = "deposit_amount_val_lb";
@@ -240,18 +240,18 @@
             // 
             // deposit_amount_lb
             // 
-            deposit_amount_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            deposit_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_lb.ForeColor = Color.Gray;
             deposit_amount_lb.Location = new Point(0, 56);
             deposit_amount_lb.Name = "deposit_amount_lb";
             deposit_amount_lb.Size = new Size(200, 28);
             deposit_amount_lb.TabIndex = 18;
-            deposit_amount_lb.Text = "Deposit Amount:";
+            deposit_amount_lb.Text = "ມັດຈຳ:";
             deposit_amount_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
-            label7.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            label7.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label7.ForeColor = Color.RoyalBlue;
             label7.Location = new Point(448, 92);
             label7.Name = "label7";
@@ -262,7 +262,7 @@
             // 
             // label9
             // 
-            label9.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            label9.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label9.Location = new Point(448, 0);
             label9.Name = "label9";
             label9.Size = new Size(64, 28);
@@ -272,7 +272,7 @@
             // 
             // total_amount_lb
             // 
-            total_amount_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            total_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             total_amount_lb.ForeColor = Color.RoyalBlue;
             total_amount_lb.Location = new Point(194, 92);
             total_amount_lb.Name = "total_amount_lb";
@@ -283,13 +283,13 @@
             // 
             // label11
             // 
-            label11.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            label11.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label11.ForeColor = Color.RoyalBlue;
             label11.Location = new Point(0, 92);
             label11.Name = "label11";
             label11.Size = new Size(200, 28);
             label11.TabIndex = 13;
-            label11.Text = "Total Amount:";
+            label11.Text = "ຍອດລວມສຸດທິ:";
             label11.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // line
@@ -302,7 +302,7 @@
             // 
             // subtotal_val_lb
             // 
-            subtotal_val_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            subtotal_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             subtotal_val_lb.Location = new Point(194, 0);
             subtotal_val_lb.Name = "subtotal_val_lb";
             subtotal_val_lb.Size = new Size(256, 28);
@@ -312,41 +312,42 @@
             // 
             // subtotal_title_lb
             // 
-            subtotal_title_lb.Font = new Font("Arial", 10.2F, FontStyle.Bold);
+            subtotal_title_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             subtotal_title_lb.Location = new Point(0, 0);
             subtotal_title_lb.Name = "subtotal_title_lb";
             subtotal_title_lb.Size = new Size(200, 28);
             subtotal_title_lb.TabIndex = 0;
-            subtotal_title_lb.Text = "Subtotal:";
+            subtotal_title_lb.Text = "ຍອດຂາຍລວມ:";
             subtotal_title_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // notes_txt
             // 
             notes_txt.BorderStyle = BorderStyle.FixedSingle;
+            notes_txt.Font = new Font("Noto Sans Lao", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             notes_txt.Location = new Point(17, 50);
             notes_txt.Multiline = true;
             notes_txt.Name = "notes_txt";
-            notes_txt.Size = new Size(505, 156);
+            notes_txt.Size = new Size(505, 153);
             notes_txt.TabIndex = 0;
             // 
             // summary_and_note_lb
             // 
             summary_and_note_lb.AutoSize = true;
-            summary_and_note_lb.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            summary_and_note_lb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             summary_and_note_lb.Location = new Point(21, 11);
             summary_and_note_lb.Name = "summary_and_note_lb";
-            summary_and_note_lb.Size = new Size(65, 24);
+            summary_and_note_lb.Size = new Size(104, 33);
             summary_and_note_lb.TabIndex = 8;
-            summary_and_note_lb.Text = "Notes";
+            summary_and_note_lb.Text = "ລາຍລະອຽດ";
             // 
             // action_pn
             // 
             action_pn.BackColor = Color.White;
             action_pn.Controls.Add(pay_btn);
             action_pn.Dock = DockStyle.Bottom;
-            action_pn.Location = new Point(0, 791);
+            action_pn.Location = new Point(0, 794);
             action_pn.Name = "action_pn";
-            action_pn.Size = new Size(1506, 94);
+            action_pn.Size = new Size(1506, 91);
             action_pn.TabIndex = 12;
             // 
             // pay_btn
@@ -355,13 +356,13 @@
             pay_btn.BackColor = Color.FromArgb(33, 52, 72);
             pay_btn.Cursor = Cursors.Hand;
             pay_btn.FlatStyle = FlatStyle.Flat;
-            pay_btn.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            pay_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             pay_btn.ForeColor = Color.White;
             pay_btn.Location = new Point(1296, 3);
             pay_btn.Name = "pay_btn";
             pay_btn.Size = new Size(178, 68);
             pay_btn.TabIndex = 4;
-            pay_btn.Text = "Pay";
+            pay_btn.Text = "ຊຳລະເງິນ";
             pay_btn.UseVisualStyleBackColor = false;
             pay_btn.Click += pay_btn_Click;
             // 
@@ -399,13 +400,13 @@
             information_gb.Controls.Add(tableLayoutPanel2);
             information_gb.Controls.Add(tableLayoutPanel1);
             information_gb.Dock = DockStyle.Fill;
-            information_gb.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            information_gb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             information_gb.Location = new Point(8, 16);
             information_gb.Name = "information_gb";
             information_gb.Size = new Size(1490, 196);
             information_gb.TabIndex = 0;
             information_gb.TabStop = false;
-            information_gb.Text = "Infomation";
+            information_gb.Text = "ຂໍ້ມູນການສັ່ງຊື້";
             // 
             // status_lbl
             // 
@@ -425,12 +426,12 @@
             // garment_lb
             // 
             garment_lb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            garment_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            garment_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
             garment_lb.Location = new Point(1251, 26);
             garment_lb.Name = "garment_lb";
             garment_lb.Size = new Size(114, 31);
             garment_lb.TabIndex = 16;
-            garment_lb.Text = "Status";
+            garment_lb.Text = "ສະຖານະ";
             garment_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel3
@@ -456,18 +457,18 @@
             // label21
             // 
             label21.Dock = DockStyle.Fill;
-            label21.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label21.Font = new Font("Noto Sans Lao", 10.1999989F);
             label21.Location = new Point(3, 0);
             label21.Name = "label21";
             label21.Size = new Size(154, 40);
             label21.TabIndex = 6;
-            label21.Text = "Order Date:";
+            label21.Text = "ວັນທີສັ່ງຊື້:";
             label21.TextAlign = ContentAlignment.MiddleRight;
             // 
             // order_date_lbl
             // 
             order_date_lbl.Dock = DockStyle.Fill;
-            order_date_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            order_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             order_date_lbl.Location = new Point(163, 0);
             order_date_lbl.Name = "order_date_lbl";
             order_date_lbl.Size = new Size(234, 40);
@@ -478,18 +479,18 @@
             // label23
             // 
             label23.Dock = DockStyle.Fill;
-            label23.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Font = new Font("Noto Sans Lao", 10.1999989F);
             label23.Location = new Point(3, 40);
             label23.Name = "label23";
             label23.Size = new Size(154, 40);
             label23.TabIndex = 8;
-            label23.Text = "Due Date:";
+            label23.Text = "ກຳໜົດວັນທີ:";
             label23.TextAlign = ContentAlignment.MiddleRight;
             // 
             // due_date_lbl
             // 
             due_date_lbl.Dock = DockStyle.Fill;
-            due_date_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            due_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             due_date_lbl.Location = new Point(163, 40);
             due_date_lbl.Name = "due_date_lbl";
             due_date_lbl.Size = new Size(234, 40);
@@ -500,18 +501,18 @@
             // label25
             // 
             label25.Dock = DockStyle.Fill;
-            label25.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label25.Font = new Font("Noto Sans Lao", 10.1999989F);
             label25.Location = new Point(3, 80);
             label25.Name = "label25";
             label25.Size = new Size(154, 47);
             label25.TabIndex = 10;
-            label25.Text = "PickUp Date:";
+            label25.Text = "ວັນທີຮັບເຄື່ອງ:";
             label25.TextAlign = ContentAlignment.MiddleRight;
             // 
             // pick_up_date_lbl
             // 
             pick_up_date_lbl.Dock = DockStyle.Fill;
-            pick_up_date_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pick_up_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             pick_up_date_lbl.Location = new Point(163, 80);
             pick_up_date_lbl.Name = "pick_up_date_lbl";
             pick_up_date_lbl.Size = new Size(234, 47);
@@ -542,18 +543,18 @@
             // label14
             // 
             label14.Dock = DockStyle.Fill;
-            label14.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label14.Font = new Font("Noto Sans Lao", 10.1999989F);
             label14.Location = new Point(3, 0);
             label14.Name = "label14";
             label14.Size = new Size(154, 40);
             label14.TabIndex = 6;
-            label14.Text = "Garment:";
+            label14.Text = "ປະເພດເສື້ອຜ້າ:";
             label14.TextAlign = ContentAlignment.MiddleRight;
             // 
             // garment_lbl
             // 
             garment_lbl.Dock = DockStyle.Fill;
-            garment_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            garment_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             garment_lbl.Location = new Point(163, 0);
             garment_lbl.Name = "garment_lbl";
             garment_lbl.Size = new Size(234, 40);
@@ -564,18 +565,18 @@
             // label17
             // 
             label17.Dock = DockStyle.Fill;
-            label17.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label17.Font = new Font("Noto Sans Lao", 10.1999989F);
             label17.Location = new Point(3, 40);
             label17.Name = "label17";
             label17.Size = new Size(154, 40);
             label17.TabIndex = 8;
-            label17.Text = "Fabric:";
+            label17.Text = "ປະເພດຜ້າ:";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
             // fabric_lbl
             // 
             fabric_lbl.Dock = DockStyle.Fill;
-            fabric_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fabric_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             fabric_lbl.Location = new Point(163, 40);
             fabric_lbl.Name = "fabric_lbl";
             fabric_lbl.Size = new Size(234, 40);
@@ -586,18 +587,18 @@
             // label19
             // 
             label19.Dock = DockStyle.Fill;
-            label19.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label19.Font = new Font("Noto Sans Lao", 10.1999989F);
             label19.Location = new Point(3, 80);
             label19.Name = "label19";
             label19.Size = new Size(154, 47);
             label19.TabIndex = 10;
-            label19.Text = "Fabric Used Qty:";
+            label19.Text = "ຈຳນວນຜ້າທີ່ໃຊ້:";
             label19.TextAlign = ContentAlignment.MiddleRight;
             // 
             // fabric_used_qty_lbl
             // 
             fabric_used_qty_lbl.Dock = DockStyle.Fill;
-            fabric_used_qty_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fabric_used_qty_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             fabric_used_qty_lbl.Location = new Point(163, 80);
             fabric_used_qty_lbl.Name = "fabric_used_qty_lbl";
             fabric_used_qty_lbl.Size = new Size(234, 47);
@@ -628,18 +629,18 @@
             // label5
             // 
             label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Noto Sans Lao", 10.1999989F);
             label5.Location = new Point(3, 80);
             label5.Name = "label5";
             label5.Size = new Size(154, 47);
             label5.TabIndex = 5;
-            label5.Text = "Customer Phone:";
+            label5.Text = "ເບີໂທລູກຄ້າ:";
             label5.TextAlign = ContentAlignment.MiddleRight;
             // 
             // customer_name_lbl
             // 
             customer_name_lbl.Dock = DockStyle.Fill;
-            customer_name_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            customer_name_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             customer_name_lbl.Location = new Point(163, 40);
             customer_name_lbl.Name = "customer_name_lbl";
             customer_name_lbl.Size = new Size(215, 40);
@@ -650,18 +651,18 @@
             // label3
             // 
             label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Noto Sans Lao", 10.1999989F);
             label3.Location = new Point(3, 40);
             label3.Name = "label3";
             label3.Size = new Size(154, 40);
             label3.TabIndex = 3;
-            label3.Text = "Customer Name:";
+            label3.Text = "ຊື່ລູກຄ້າ:";
             label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // order_number_lbl
             // 
             order_number_lbl.Dock = DockStyle.Fill;
-            order_number_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            order_number_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             order_number_lbl.Location = new Point(163, 0);
             order_number_lbl.Name = "order_number_lbl";
             order_number_lbl.Size = new Size(215, 40);
@@ -672,18 +673,18 @@
             // label2
             // 
             label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Noto Sans Lao", 10.1999989F);
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
             label2.Size = new Size(154, 40);
             label2.TabIndex = 1;
-            label2.Text = "Order Number:";
+            label2.Text = "ເລກທີສັ່ງຊື້:";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // customer_phone_lbl
             // 
             customer_phone_lbl.Dock = DockStyle.Fill;
-            customer_phone_lbl.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            customer_phone_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             customer_phone_lbl.Location = new Point(163, 80);
             customer_phone_lbl.Name = "customer_phone_lbl";
             customer_phone_lbl.Size = new Size(215, 47);
@@ -719,12 +720,12 @@
             // 
             // back_btn
             // 
-            back_btn.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            back_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             back_btn.Location = new Point(17, 13);
             back_btn.Name = "back_btn";
             back_btn.Size = new Size(94, 45);
             back_btn.TabIndex = 0;
-            back_btn.Text = "BACK";
+            back_btn.Text = "ກັບຄືນ";
             back_btn.UseVisualStyleBackColor = true;
             back_btn.Click += back_btn_Click;
             // 
