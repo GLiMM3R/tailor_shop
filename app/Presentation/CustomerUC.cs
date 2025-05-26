@@ -20,7 +20,7 @@ namespace app.Presentation
         private AppDbContext _context;
         private CustomerService _customerService;
 
-        private FilterCustomer _filter;
+        private FilterCustomer _filter = new FilterCustomer(1,10);
         private int _count = 0;
 
         private Debouncer searchDebouncer;
@@ -31,10 +31,9 @@ namespace app.Presentation
             InitializeService();
             InitializeDataGridView();
 
-            _filter = new FilterCustomer();
             total_customer_lb.Text = this._count.ToString();
 
-            searchDebouncer = new Debouncer(300, () => LoadCustomers());
+            searchDebouncer = new Debouncer(300, async () => await LoadCustomers());
         }
 
         private void InitializeService()
@@ -44,9 +43,12 @@ namespace app.Presentation
             this._count = _customerService.Count();
         }
 
-        private void Customer_Load(object sender, EventArgs e)
+        private async void Customer_Load(object sender, EventArgs e)
         {
-            LoadCustomers();
+            await LoadCustomers();
+
+            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
         private void InitializeDataGridView()
@@ -56,17 +58,17 @@ namespace app.Presentation
 
             customer_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "Name", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "Gender", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "Phone", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "Address", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "ເພດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "ເບີໂທ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "ທີ່ຢູ່", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
                 Name = "Edit",
                 HeaderText = "",
-                Text = "Edit",
+                Text = "ແກ້ໄຂ",
                 UseColumnTextForButtonValue = true,
                 FlatStyle = FlatStyle.Flat,
                 DefaultCellStyle = new DataGridViewCellStyle
@@ -74,7 +76,7 @@ namespace app.Presentation
                     Padding = new Padding(2),
                     BackColor = Color.FromArgb(78, 184, 206),
                     ForeColor = Color.White,
-                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
                     Alignment = DataGridViewContentAlignment.MiddleCenter,
                     SelectionBackColor = Color.FromArgb(60, 140, 160),
                     SelectionForeColor = Color.White
@@ -84,10 +86,12 @@ namespace app.Presentation
             customer_dgv.Columns.Add(actionColumn);
         }
 
-        public async void LoadCustomers()
+        public async Task LoadCustomers()
         {
-            var customers = await _customerService.GetAll(this._filter);
-            customer_dgv.DataSource = customers;
+            var result = await _customerService.GetAll(this._filter);
+            customer_dgv.DataSource = result.Data;
+            _filter.TotalItems = result.Total;
+            UpdatePageNumber();
         }
 
         private void new_customer_btn_Click(object sender, EventArgs e)
@@ -96,32 +100,32 @@ namespace app.Presentation
             customer_form.ShowDialog();
         }
 
-        private void gender_cb_SelectedValueChanged(object sender, EventArgs e)
+        private async void gender_cb_SelectedValueChanged(object sender, EventArgs e)
         {
             if (gender_cb.SelectedIndex == 0)
             {
                 _filter.Gender = null;
-                LoadCustomers();
+                await LoadCustomers();
             }
             else if (gender_cb.SelectedIndex == 1)
             {
                 _filter.Gender = Gender.Male;
-                LoadCustomers();
+                await LoadCustomers();
             }
             else if (gender_cb.SelectedIndex == 2)
             {
                 _filter.Gender = Gender.Female;
-                LoadCustomers();
+                await LoadCustomers();
             }
             else if (gender_cb.SelectedIndex == 3)
             {
                 _filter.Gender = Gender.Other;
-                LoadCustomers();
+                await LoadCustomers();
             }
             else if (gender_cb.SelectedIndex == 4)
             {
                 _filter.Gender = Gender.PreferNotToSay;
-                LoadCustomers();
+                await LoadCustomers();
             }
         }
 
@@ -143,6 +147,61 @@ namespace app.Presentation
                         form.ShowDialog();
                     }
                 }
+            }
+        }
+
+
+        private void UpdatePageNumber()
+        {
+            if (_filter.TotalItems > 0)
+            {
+                page_lbl.Text = $"{_filter.Page}/{_filter.TotalPages}";
+            }
+            else
+            {
+                page_lbl.Text = "0/0";
+            }
+        }
+
+        private async void next_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasNextPage)
+            {
+                _filter.Page++;
+                await LoadCustomers();
+            }
+        }
+
+        private async void last_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.TotalPages > 0)
+            {
+                _filter.Page = _filter.TotalPages;
+                await LoadCustomers();
+            }
+        }
+
+        private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
+            await LoadCustomers();
+        }
+
+        private async void prev_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasPreviousPage)
+            {
+                _filter.Page--;
+                await LoadCustomers();
+            }
+        }
+
+        private async void first_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.Page > 1)
+            {
+                _filter.Page = 1;
+                await LoadCustomers();
             }
         }
     }

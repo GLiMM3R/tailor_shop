@@ -31,9 +31,13 @@ namespace app.Presentation
 
         private void FabricForm_Load(object sender, EventArgs e)
         {
+            type_txt.KeyDown += FormTextBox_KeyDown;
+            color_name_txt.KeyDown += FormTextBox_KeyDown;
+            unit_price_txt.KeyDown += FormTextBox_KeyDown;
+
             if (this._fabric != null)
             {
-                add_btn.Text = "Update Fabric";
+                add_btn.Text = "ແກ້ໄຂ";
 
                 type_txt.Text = this._fabric.MaterialType;
                 color_name_txt.Text = this._fabric.ColorName;
@@ -69,9 +73,6 @@ namespace app.Presentation
             {
                 await this.CreateFabric();
             }
-
-            this._fabricUC!.LoadFabrics();
-            this.Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -104,6 +105,9 @@ namespace app.Presentation
                 this._hexColor = string.Empty;
 
                 MessageBox.Show("New Fabric Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await this._fabricUC.LoadFabrics();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -145,10 +149,23 @@ namespace app.Presentation
 
                 await _fabricService.Update(fabric);
                 MessageBox.Show("Fabric Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await this._fabricUC.LoadFabrics();
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Optionally prevent the ding sound
+                e.SuppressKeyPress = true;
+                add_btn.PerformClick();
             }
         }
     }

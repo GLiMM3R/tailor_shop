@@ -30,9 +30,13 @@ namespace app.Presentation
 
         private void UserForm_Load(object sender, EventArgs e)
         {
+            username_txt.KeyDown += FormTextBox_KeyDown;
+            password_txt.KeyDown += FormTextBox_KeyDown;
+            user_rb.Checked = true; // Default to User role
+
             if (this._user != null)
             {
-                add_btn.Text = "Update User";
+                add_btn.Text = "ແກ້ໄຂ";
                 username_txt.Text = this._user.Username;
 
                 if (this._user.Role == Role.User)
@@ -56,8 +60,6 @@ namespace app.Presentation
             {
                 await this.CreateUser();
             }
-            this._userUC.LoadUsers();
-            this.Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -93,6 +95,8 @@ namespace app.Presentation
 
                 await _userService.Create(newUser);
                 MessageBox.Show("New User Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await this._userUC.LoadUsers();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -132,10 +136,22 @@ namespace app.Presentation
 
                 await _userService.Update(user);
                 MessageBox.Show("New User Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await this._userUC.LoadUsers();
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Optionally prevent the ding sound
+                e.SuppressKeyPress = true;
+                add_btn.PerformClick();
             }
         }
     }

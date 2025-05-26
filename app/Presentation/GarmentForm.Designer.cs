@@ -62,7 +62,7 @@
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
             root_layout.Name = "root_layout";
-            root_layout.Size = new Size(570, 498);
+            root_layout.Size = new Size(570, 476);
             root_layout.TabIndex = 8;
             // 
             // form_layout
@@ -102,7 +102,7 @@
             // 
             description_txt.BorderStyle = BorderStyle.None;
             description_txt.Cursor = Cursors.IBeam;
-            description_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            description_txt.Font = new Font("Noto Sans Lao", 13.8F);
             description_txt.Location = new Point(16, 2);
             description_txt.MaxLength = 200;
             description_txt.Multiline = true;
@@ -112,13 +112,13 @@
             // 
             // label1
             // 
-            label1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Noto Sans Lao", 10.1999989F);
             label1.Location = new Point(3, 136);
             label1.Margin = new Padding(3, 0, 3, 16);
             label1.Name = "label1";
             label1.Size = new Size(114, 52);
             label1.TabIndex = 11;
-            label1.Text = "Description";
+            label1.Text = "ລາຍລະອຽດ";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel2
@@ -136,12 +136,12 @@
             // base_price_num
             // 
             base_price_num.BorderStyle = BorderStyle.None;
-            base_price_num.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            base_price_num.Font = new Font("Noto Sans Lao", 13.8F);
             base_price_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            base_price_num.Location = new Point(15, 11);
+            base_price_num.Location = new Point(15, 5);
             base_price_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             base_price_num.Name = "base_price_num";
-            base_price_num.Size = new Size(357, 30);
+            base_price_num.Size = new Size(357, 41);
             base_price_num.TabIndex = 0;
             base_price_num.TextAlign = HorizontalAlignment.Center;
             base_price_num.ThousandsSeparator = true;
@@ -162,33 +162,33 @@
             // 
             name_txt.BorderStyle = BorderStyle.None;
             name_txt.Cursor = Cursors.IBeam;
-            name_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            name_txt.Location = new Point(16, 12);
+            name_txt.Font = new Font("Noto Sans Lao", 13.8F);
+            name_txt.Location = new Point(16, 6);
             name_txt.MaxLength = 100;
             name_txt.Name = "name_txt";
-            name_txt.Size = new Size(356, 27);
+            name_txt.Size = new Size(356, 38);
             name_txt.TabIndex = 0;
             // 
             // name_lb
             // 
-            name_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            name_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             name_lb.Location = new Point(3, 0);
             name_lb.Margin = new Padding(3, 0, 3, 16);
             name_lb.Name = "name_lb";
             name_lb.Size = new Size(114, 52);
             name_lb.TabIndex = 1;
-            name_lb.Text = "Name";
+            name_lb.Text = "ຊື່";
             name_lb.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            label2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Noto Sans Lao", 10.1999989F);
             label2.Location = new Point(3, 68);
             label2.Margin = new Padding(3, 0, 3, 16);
             label2.Name = "label2";
             label2.Size = new Size(114, 52);
             label2.TabIndex = 8;
-            label2.Text = "Base Price";
+            label2.Text = "ລາຄາ";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // action_layout
@@ -199,7 +199,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(add_btn, 1, 0);
-            action_layout.Location = new Point(32, 403);
+            action_layout.Location = new Point(32, 386);
             action_layout.Margin = new Padding(0);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
@@ -212,13 +212,13 @@
             cancel_btn.BackColor = Color.LightGray;
             cancel_btn.Cursor = Cursors.Hand;
             cancel_btn.FlatStyle = FlatStyle.Flat;
-            cancel_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancel_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             cancel_btn.Location = new Point(0, 0);
             cancel_btn.Margin = new Padding(0);
             cancel_btn.Name = "cancel_btn";
             cancel_btn.Size = new Size(141, 61);
             cancel_btn.TabIndex = 0;
-            cancel_btn.Text = "Cancel";
+            cancel_btn.Text = "ຍົກເລີກ";
             cancel_btn.UseVisualStyleBackColor = false;
             cancel_btn.Click += cancel_btn_Click;
             // 
@@ -228,33 +228,35 @@
             add_btn.BackColor = Color.FromArgb(33, 52, 72);
             add_btn.Cursor = Cursors.Hand;
             add_btn.FlatStyle = FlatStyle.Flat;
-            add_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            add_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             add_btn.ForeColor = Color.White;
-            add_btn.Location = new Point(310, 0);
+            add_btn.Location = new Point(363, 0);
             add_btn.Margin = new Padding(0);
             add_btn.Name = "add_btn";
-            add_btn.Size = new Size(196, 61);
+            add_btn.Size = new Size(143, 61);
             add_btn.TabIndex = 1;
-            add_btn.Text = "Add Garment";
+            add_btn.Text = "ເພີ່ມ";
             add_btn.UseVisualStyleBackColor = false;
             add_btn.Click += add_btn_Click;
             // 
             // header_lb
             // 
-            header_lb.AutoSize = true;
-            header_lb.BackColor = Color.White;
-            header_lb.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            header_lb.Location = new Point(179, 31);
+            header_lb.BackColor = Color.FromArgb(33, 52, 72);
+            header_lb.Dock = DockStyle.Top;
+            header_lb.Font = new Font("Noto Sans Lao", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            header_lb.ForeColor = Color.White;
+            header_lb.Location = new Point(0, 0);
             header_lb.Name = "header_lb";
-            header_lb.Size = new Size(220, 35);
+            header_lb.Size = new Size(568, 60);
             header_lb.TabIndex = 2;
-            header_lb.Text = "Garment Form";
+            header_lb.Text = "ຟອມເສື້ອຜ້າ";
+            header_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // GarmentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(570, 498);
+            ClientSize = new Size(570, 476);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "GarmentForm";
@@ -262,7 +264,6 @@
             Text = "GarmentForm";
             Load += GarmentForm_Load;
             root_layout.ResumeLayout(false);
-            root_layout.PerformLayout();
             form_layout.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

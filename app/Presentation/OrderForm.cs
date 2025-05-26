@@ -347,49 +347,49 @@ namespace app.Presentation
             {
                 new Measurement
                 {
-                    BodyPart = "neck",
+                    BodyPart = "ຄໍ",
                     Value = neck_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "shoulder",
+                    BodyPart = "ບ່າໄຫຼ່",
                     Value = shoulder_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "chest",
+                    BodyPart = "ເອິກ",
                     Value = chest_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "upper waist",
+                    BodyPart = "ແອວ",
                     Value = upper_waist_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "upper hip",
+                    BodyPart = "ສະໂພກ",
                     Value = upper_hip_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "sleeve length",
+                    BodyPart = "ຄວາມຍາວແຂນ",
                     Value = sleeve_length_num.Value,
                     Unit = _MeasurementUnit,
                 },
                  new Measurement
                 {
-                    BodyPart = "sleeve opening",
+                    BodyPart = "ຄວາມຍາວປາຍແຂນ",
                     Value = sleeve_opening_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "shirt length",
+                    BodyPart = "ຄວາມຍາວເສື້ອ",
                     Value = shirt_length_num.Value,
                     Unit = _MeasurementUnit,
                 },
@@ -404,43 +404,43 @@ namespace app.Presentation
             {
                 new Measurement
                 {
-                    BodyPart = "lower waist",
+                    BodyPart = "ແອວ",
                     Value = lower_waist_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "lower hip",
+                    BodyPart = "ສະໂພກ",
                     Value = lower_hip_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "top thigh",
+                    BodyPart = "ອ້ອງ",
                     Value = top_thigh_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "thigh",
+                    BodyPart = "ກົກຂາ",
                     Value = thigh_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "knee",
+                    BodyPart = "ເຂົ່າ",
                     Value = knee_num.Value,
                     Unit = _MeasurementUnit,
                 },
                 new Measurement
                 {
-                    BodyPart = "ankle",
+                    BodyPart = "ປາຍຂາ",
                     Value = ankle_num.Value,
                     Unit = _MeasurementUnit,
                 },
                  new Measurement
                 {
-                    BodyPart = "length",
+                    BodyPart = "ຄວາມຍາວ",
                     Value = length_num.Value,
                     Unit = _MeasurementUnit,
                 }

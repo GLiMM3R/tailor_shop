@@ -46,9 +46,9 @@ namespace app.Presentation
             items_lsv.Columns.Clear();
 
             // Add columns: Name, Quantity, Price
-            items_lsv.Columns.Add("Name", 240, HorizontalAlignment.Left);
-            items_lsv.Columns.Add("Quantity", 80, HorizontalAlignment.Center);
-            items_lsv.Columns.Add("Price", 140, HorizontalAlignment.Right);
+            items_lsv.Columns.Add("ຊື່", 240, HorizontalAlignment.Left);
+            items_lsv.Columns.Add("ຈຳນວນ", 80, HorizontalAlignment.Center);
+            items_lsv.Columns.Add("ລາຄາ", 140, HorizontalAlignment.Right);
 
             // Add the order's garment as a single row
             var garment = new ListViewItem(_order.Garment.Name);

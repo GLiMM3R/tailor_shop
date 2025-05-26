@@ -343,6 +343,7 @@
             // action_pn
             // 
             action_pn.BackColor = Color.White;
+            action_pn.Controls.Add(button1);
             action_pn.Controls.Add(pay_btn);
             action_pn.Dock = DockStyle.Bottom;
             action_pn.Location = new Point(0, 794);
@@ -695,7 +696,6 @@
             // header_pn
             // 
             header_pn.BackColor = Color.White;
-            header_pn.Controls.Add(button1);
             header_pn.Controls.Add(back_btn);
             header_pn.Dock = DockStyle.Top;
             header_pn.Location = new Point(0, 0);
@@ -709,17 +709,18 @@
             button1.BackColor = Color.Red;
             button1.Cursor = Cursors.Hand;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(1394, 13);
+            button1.Location = new Point(1061, 3);
             button1.Name = "button1";
-            button1.Size = new Size(101, 45);
+            button1.Size = new Size(175, 68);
             button1.TabIndex = 18;
-            button1.Text = "Cancel";
+            button1.Text = "ຍົກເລີກ";
             button1.UseVisualStyleBackColor = false;
             // 
             // back_btn
             // 
+            back_btn.Cursor = Cursors.Hand;
             back_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             back_btn.Location = new Point(17, 13);
             back_btn.Name = "back_btn";

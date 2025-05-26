@@ -98,22 +98,22 @@
             // 
             address_txt.BorderStyle = BorderStyle.None;
             address_txt.Cursor = Cursors.IBeam;
-            address_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            address_txt.Location = new Point(15, 13);
+            address_txt.Font = new Font("Noto Sans Lao", 11.999999F);
+            address_txt.Location = new Point(15, 10);
             address_txt.MaxLength = 200;
             address_txt.Name = "address_txt";
-            address_txt.Size = new Size(372, 27);
+            address_txt.Size = new Size(372, 33);
             address_txt.TabIndex = 1;
             // 
             // address_lb
             // 
-            address_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            address_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             address_lb.Location = new Point(3, 204);
             address_lb.Margin = new Padding(3, 0, 3, 16);
             address_lb.Name = "address_lb";
             address_lb.Size = new Size(95, 55);
             address_lb.TabIndex = 6;
-            address_lb.Text = "Address";
+            address_lb.Text = "ທີ່ຢູ່";
             address_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // phone_pn
@@ -132,33 +132,33 @@
             // 
             phone_txt.BorderStyle = BorderStyle.None;
             phone_txt.Cursor = Cursors.IBeam;
-            phone_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            phone_txt.Location = new Point(15, 11);
+            phone_txt.Font = new Font("Noto Sans Lao", 11.999999F);
+            phone_txt.Location = new Point(15, 8);
             phone_txt.MaxLength = 12;
             phone_txt.Name = "phone_txt";
-            phone_txt.Size = new Size(372, 27);
+            phone_txt.Size = new Size(372, 33);
             phone_txt.TabIndex = 1;
             // 
             // phone_lb
             // 
-            phone_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            phone_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             phone_lb.Location = new Point(3, 136);
             phone_lb.Margin = new Padding(3, 0, 3, 16);
             phone_lb.Name = "phone_lb";
             phone_lb.Size = new Size(95, 52);
             phone_lb.TabIndex = 4;
-            phone_lb.Text = "Phone";
+            phone_lb.Text = "ເບີໂທ";
             phone_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // gender_lb
             // 
-            gender_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            gender_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             gender_lb.Location = new Point(3, 68);
             gender_lb.Margin = new Padding(3, 0, 3, 16);
             gender_lb.Name = "gender_lb";
             gender_lb.Size = new Size(95, 52);
             gender_lb.TabIndex = 2;
-            gender_lb.Text = "Gender";
+            gender_lb.Text = "ເພດ";
             gender_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // name_pn
@@ -177,22 +177,22 @@
             // 
             name_txt.BorderStyle = BorderStyle.None;
             name_txt.Cursor = Cursors.IBeam;
-            name_txt.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            name_txt.Location = new Point(16, 12);
+            name_txt.Font = new Font("Noto Sans Lao", 11.999999F);
+            name_txt.Location = new Point(16, 9);
             name_txt.MaxLength = 100;
             name_txt.Name = "name_txt";
-            name_txt.Size = new Size(372, 27);
+            name_txt.Size = new Size(372, 33);
             name_txt.TabIndex = 0;
             // 
             // name_lb
             // 
-            name_lb.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            name_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             name_lb.Location = new Point(3, 0);
             name_lb.Margin = new Padding(3, 0, 3, 16);
             name_lb.Name = "name_lb";
             name_lb.Size = new Size(95, 52);
             name_lb.TabIndex = 1;
-            name_lb.Text = "Name";
+            name_lb.Text = "ຊື່";
             name_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // gender_pn
@@ -211,45 +211,49 @@
             // gender_prefer_not_to_say_rb
             // 
             gender_prefer_not_to_say_rb.AutoSize = true;
-            gender_prefer_not_to_say_rb.Location = new Point(268, 14);
+            gender_prefer_not_to_say_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
+            gender_prefer_not_to_say_rb.Location = new Point(298, 10);
             gender_prefer_not_to_say_rb.Name = "gender_prefer_not_to_say_rb";
-            gender_prefer_not_to_say_rb.Size = new Size(133, 24);
+            gender_prefer_not_to_say_rb.Size = new Size(70, 32);
             gender_prefer_not_to_say_rb.TabIndex = 3;
             gender_prefer_not_to_say_rb.TabStop = true;
-            gender_prefer_not_to_say_rb.Text = "PreferNotToSay";
+            gender_prefer_not_to_say_rb.Text = "ບໍ່ລະບຸ";
             gender_prefer_not_to_say_rb.UseVisualStyleBackColor = true;
             // 
             // gender_other_rb
             // 
             gender_other_rb.AutoSize = true;
-            gender_other_rb.Location = new Point(175, 14);
+            gender_other_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
+            gender_other_rb.Location = new Point(205, 10);
             gender_other_rb.Name = "gender_other_rb";
-            gender_other_rb.Size = new Size(67, 24);
+            gender_other_rb.Size = new Size(65, 32);
             gender_other_rb.TabIndex = 2;
             gender_other_rb.TabStop = true;
-            gender_other_rb.Text = "Other";
+            gender_other_rb.Text = "ອື່ນໆ";
             gender_other_rb.UseVisualStyleBackColor = true;
             // 
             // gender_female_rb
             // 
             gender_female_rb.AutoSize = true;
-            gender_female_rb.Location = new Point(82, 14);
+            gender_female_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
+            gender_female_rb.Location = new Point(123, 10);
             gender_female_rb.Name = "gender_female_rb";
-            gender_female_rb.Size = new Size(78, 24);
+            gender_female_rb.Size = new Size(49, 32);
             gender_female_rb.TabIndex = 1;
             gender_female_rb.TabStop = true;
-            gender_female_rb.Text = "Female";
+            gender_female_rb.Text = "ຍິງ";
             gender_female_rb.UseVisualStyleBackColor = true;
             // 
             // gender_male_rb
             // 
             gender_male_rb.AutoSize = true;
-            gender_male_rb.Location = new Point(3, 14);
+            gender_male_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
+            gender_male_rb.Location = new Point(33, 10);
             gender_male_rb.Name = "gender_male_rb";
-            gender_male_rb.Size = new Size(63, 24);
+            gender_male_rb.Size = new Size(59, 32);
             gender_male_rb.TabIndex = 0;
             gender_male_rb.TabStop = true;
-            gender_male_rb.Text = "Male";
+            gender_male_rb.Text = "ຊາຍ";
             gender_male_rb.UseVisualStyleBackColor = true;
             // 
             // action_layout
@@ -272,12 +276,12 @@
             cancel_btn.BackColor = Color.White;
             cancel_btn.Cursor = Cursors.Hand;
             cancel_btn.FlatStyle = FlatStyle.Flat;
-            cancel_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancel_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             cancel_btn.Location = new Point(3, 3);
             cancel_btn.Name = "cancel_btn";
             cancel_btn.Size = new Size(141, 55);
             cancel_btn.TabIndex = 0;
-            cancel_btn.Text = "Cancel";
+            cancel_btn.Text = "ຍົກເລີກ";
             cancel_btn.UseVisualStyleBackColor = false;
             cancel_btn.Click += cancel_btn_Click;
             // 
@@ -287,26 +291,28 @@
             add_btn.BackColor = Color.FromArgb(33, 52, 72);
             add_btn.Cursor = Cursors.Hand;
             add_btn.FlatStyle = FlatStyle.Flat;
-            add_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            add_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             add_btn.ForeColor = Color.White;
-            add_btn.Location = new Point(286, 3);
+            add_btn.Location = new Point(360, 3);
             add_btn.Name = "add_btn";
-            add_btn.Size = new Size(217, 55);
+            add_btn.Size = new Size(143, 55);
             add_btn.TabIndex = 1;
-            add_btn.Text = "Add Customer";
+            add_btn.Text = "ເພີ່ມ";
             add_btn.UseVisualStyleBackColor = false;
             add_btn.Click += add_btn_Click;
             // 
             // header_lb
             // 
-            header_lb.AutoSize = true;
-            header_lb.BackColor = Color.White;
-            header_lb.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            header_lb.Location = new Point(175, 33);
+            header_lb.BackColor = Color.FromArgb(33, 52, 72);
+            header_lb.Dock = DockStyle.Top;
+            header_lb.Font = new Font("Noto Sans Lao", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            header_lb.ForeColor = Color.White;
+            header_lb.Location = new Point(0, 0);
             header_lb.Name = "header_lb";
-            header_lb.Size = new Size(237, 35);
+            header_lb.Size = new Size(569, 60);
             header_lb.TabIndex = 2;
-            header_lb.Text = "Customer Form";
+            header_lb.Text = "ຟອມລູກຄ້າ";
+            header_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // root_layout
             // 
@@ -344,7 +350,6 @@
             gender_pn.PerformLayout();
             action_layout.ResumeLayout(false);
             root_layout.ResumeLayout(false);
-            root_layout.PerformLayout();
             ResumeLayout(false);
         }
 

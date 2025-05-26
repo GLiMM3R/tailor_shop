@@ -18,8 +18,7 @@ namespace app.Presentation
     {
         private AppDbContext _dbContext;
         private FabricService _fabricService;
-        private FilterFabric _filter;
-
+        private FilterFabric _filter = new FilterFabric(1,10);
         private Debouncer searchDebouncer;
 
         public FabricUC()
@@ -28,19 +27,21 @@ namespace app.Presentation
             InitializeService();
             InitializeDataGridView();
 
-            searchDebouncer = new Debouncer(300, () => LoadFabrics());
+            searchDebouncer = new Debouncer(300, async () => await LoadFabrics());
         }
 
         private void InitializeService()
         {
             this._dbContext = new AppDbContext();
             this._fabricService = new FabricService(this._dbContext);
-            this._filter = new FilterFabric();
         }
 
-        private void FabricUC_Load(object sender, EventArgs e)
+        private async void FabricUC_Load(object sender, EventArgs e)
         {
-            LoadFabrics();
+            await LoadFabrics();
+
+            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
         private void InitializeDataGridView()
@@ -50,18 +51,18 @@ namespace app.Presentation
 
             fabric_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "MaterialType", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ColorName", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "Color"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "ValueToColor"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "UnitPrice")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "ປະເພດວັດສະດຸ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ຊື່ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ"),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: ""),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "ລາຄາ")
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
                 Name = "Edit",
                 HeaderText = "",
-                Text = "Edit",
+                Text = "ແກ້ໄຂ",
                 UseColumnTextForButtonValue = true,
                 FlatStyle = FlatStyle.Flat,
                 DefaultCellStyle = new DataGridViewCellStyle
@@ -69,7 +70,7 @@ namespace app.Presentation
                     Padding = new Padding(2),
                     BackColor = Color.FromArgb(78, 184, 206),
                     ForeColor = Color.White,
-                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
                     Alignment = DataGridViewContentAlignment.MiddleCenter,
                     SelectionBackColor = Color.FromArgb(60, 140, 160),
                     SelectionForeColor = Color.White
@@ -83,10 +84,12 @@ namespace app.Presentation
             fabric_dgv.CellContentClick += this.fabric_dgv_CellContentClick;
         }
 
-        public async void LoadFabrics()
+        public async Task LoadFabrics()
         {
-            var fabrics = await _fabricService.GetAll(this._filter);
-            fabric_dgv.DataSource = fabrics;
+            var result = await _fabricService.GetAll(this._filter);
+            fabric_dgv.DataSource = result.Data;
+            _filter.TotalItems = result.Total;
+            UpdatePageNumber();
         }
 
         private void new_fabric_btn_Click(object sender, EventArgs e)
@@ -169,5 +172,58 @@ namespace app.Presentation
         }
 
 
+        private void UpdatePageNumber()
+        {
+            if (_filter.TotalItems > 0)
+            {
+                page_lbl.Text = $"{_filter.Page}/{_filter.TotalPages}";
+            }
+            else
+            {
+                page_lbl.Text = "0/0";
+            }
+        }
+
+        private async void next_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasNextPage)
+            {
+                _filter.Page++;
+                await LoadFabrics();
+            }
+        }
+
+        private async void last_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.TotalPages > 0)
+            {
+                _filter.Page = _filter.TotalPages;
+                await LoadFabrics();
+            }
+        }
+
+        private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
+            await LoadFabrics();
+        }
+
+        private async void prev_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasPreviousPage)
+            {
+                _filter.Page--;
+                await LoadFabrics();
+            }
+        }
+
+        private async void first_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.Page > 1)
+            {
+                _filter.Page = 1;
+                await LoadFabrics();
+            }
+        }
     }
 }

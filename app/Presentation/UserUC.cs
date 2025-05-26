@@ -18,7 +18,7 @@ namespace app.Presentation
     {
         private AppDbContext _dbContext;
         private UserService _userService;
-        private FilterUser _filter;
+        private FilterUser _filter = new FilterUser(1, 10);
         private int _count;
 
         private Debouncer searchDebouncer;
@@ -29,10 +29,9 @@ namespace app.Presentation
             InitializeUserService();
             InitializeDataGridView();
 
-            this._filter = new FilterUser();
             total_users_lb.Text = this._count.ToString();
 
-            searchDebouncer = new Debouncer(300, () => LoadUsers());
+            searchDebouncer = new Debouncer(300, async () => await LoadUsers());
         }
 
         public void InitializeUserService()
@@ -43,9 +42,12 @@ namespace app.Presentation
             this._count = _userService.Count();
         }
 
-        private void UserUC_Load(object sender, EventArgs e)
+        private async void UserUC_Load(object sender, EventArgs e)
         {
-            LoadUsers();
+            await LoadUsers();
+
+            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
         private void InitializeDataGridView()
@@ -55,15 +57,15 @@ namespace app.Presentation
 
             user_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "Username", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Role", headerText: "Role", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "ຊື່ຜູ້ໃຊ້", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Role", headerText: "ພາລະບົດບາດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
                 Name = "Edit",
                 HeaderText = "",
-                Text = "Edit",
+                Text = "ແກ້ໄຂ",
                 UseColumnTextForButtonValue = true,
                 FlatStyle = FlatStyle.Flat,
                 DefaultCellStyle = new DataGridViewCellStyle
@@ -71,7 +73,7 @@ namespace app.Presentation
                     Padding = new Padding(2),
                     BackColor = Color.FromArgb(78, 184, 206),
                     ForeColor = Color.White,
-                    Font = new Font("Arial", 9F, FontStyle.Bold),
+                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
                     Alignment = DataGridViewContentAlignment.MiddleCenter,
                     SelectionBackColor = Color.FromArgb(60, 140, 160),
                     SelectionForeColor = Color.White
@@ -81,28 +83,30 @@ namespace app.Presentation
             user_dgv.Columns.Add(actionColumn);
         }
 
-        public async void LoadUsers()
+        public async Task LoadUsers()
         {
-            var users = await _userService.GetAll(this._filter);
-            user_dgv.DataSource = users;
+            var result = await _userService.GetAll(this._filter);
+            user_dgv.DataSource = result.Data;
+            _filter.TotalItems = result.Total;
+            UpdatePageNumber();
         }
 
-        private void role_cb_SelectedValueChanged(object sender, EventArgs e)
+        private async void role_cb_SelectedValueChanged(object sender, EventArgs e)
         {
             if (role_cb.SelectedIndex == 0)
             {
                 _filter.Role = null;
-                LoadUsers();
+                await LoadUsers();
             }
             else if (role_cb.SelectedIndex == 1)
             {
                 _filter.Role = Role.User;
-                LoadUsers();
+                await LoadUsers();
             }
             else if (role_cb.SelectedIndex == 2)
             {
                 _filter.Role = Role.Admin;
-                LoadUsers();
+                await LoadUsers();
             }
         }
 
@@ -130,6 +134,60 @@ namespace app.Presentation
                         form.ShowDialog();
                     }
                 }
+            }
+        }
+
+        private void UpdatePageNumber()
+        {
+            if (_filter.TotalItems > 0)
+            {
+                page_lbl.Text = $"{_filter.Page}/{_filter.TotalPages}";
+            }
+            else
+            {
+                page_lbl.Text = "0/0";
+            }
+        }
+
+        private async void next_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasNextPage)
+            {
+                _filter.Page++;
+                await LoadUsers();
+            }
+        }
+
+        private async void last_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.TotalPages > 0)
+            {
+                _filter.Page = _filter.TotalPages;
+                await LoadUsers();
+            }
+        }
+
+        private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
+            await LoadUsers();
+        }
+
+        private async void prev_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasPreviousPage)
+            {
+                _filter.Page--;
+                await LoadUsers();
+            }
+        }
+
+        private async void first_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.Page > 1)
+            {
+                _filter.Page = 1;
+                await LoadUsers();
             }
         }
     }

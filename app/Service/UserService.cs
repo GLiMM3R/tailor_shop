@@ -9,8 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Service
 {
-    public class FilterUser
+    public class FilterUser : Pagination
     {
+        public FilterUser(int page, int pageSize) : base(page, pageSize)
+        {
+            this.Page = page;
+            this.PageSize = pageSize;
+        }
+
         public int? Id { get; set; }
         public string? Username { get; set; }
 
@@ -38,8 +44,11 @@ namespace app.Service
             return user;
         }
 
-        public async Task<User[]> GetAll(FilterUser filter)
+        public async Task<ListResult<User>> GetAll(FilterUser filter)
         {
+            var skip = (filter?.Page - 1 ?? 0) * (filter?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+
             IQueryable<User> query = _context.Users.AsQueryable();
 
             if (filter != null)
@@ -59,8 +68,14 @@ namespace app.Service
                     query = query.Where(c => c.Role == filter.Role.Value);
                 }
             }
+            var total = await query.CountAsync();
+            var data = await query.Skip(skip).Take(filter?.PageSize ?? 10).ToArrayAsync();
 
-            return await query.ToArrayAsync();
+            return new ListResult<User>
+            {
+                Data = data,
+                Total = total,
+            };
         }
         public async Task Create(User dto)
         {

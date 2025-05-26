@@ -9,9 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace app.Service
 {
-    public class FilterFabric
+    public class FilterFabric : Pagination
     {
-        public string Search { get; set; }
+        public FilterFabric(int page, int pageSize) : base(page, pageSize)
+        {
+            this.Page = page;
+            this.PageSize = pageSize;
+        }
+
+        public string? Search { get; set; }
     }
 
     public class FabricService
@@ -23,8 +29,11 @@ namespace app.Service
             this._dbContext = dbContext;
         }
 
-        public async Task<Fabric[]> GetAll(FilterFabric? filter)
+        public async Task<ListResult<Fabric>> GetAll(FilterFabric? filter)
         {
+            var skip = (filter?.Page - 1 ?? 0) * (filter?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+
             IQueryable<Fabric> query = _dbContext.Fabrics.AsQueryable();
 
             if (filter != null)
@@ -35,7 +44,14 @@ namespace app.Service
                 }
             }
 
-            return await query.ToArrayAsync();
+            var total = await query.CountAsync();
+            var data = await query.Skip(skip).Take(filter?.PageSize ?? 0).ToArrayAsync();
+
+            return new ListResult<Fabric>
+            {
+                Data = data,
+                Total = total
+            };
         }
 
         public async Task<Fabric?> GetByID(int id)

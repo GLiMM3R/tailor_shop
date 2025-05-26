@@ -52,7 +52,7 @@ namespace app.Service
                     TotalAmount = g.Sum(x => x.TotalAmount),
                     TotalPaid = _context.Payments
                         .Where(p => g.Select(x => x.Id).Contains(p.OrderId))
-                        .Sum(p => (decimal?)p.TotalPrice) ?? 0
+                        .Sum(p => (decimal?)p.PaidAmount) ?? 0
                 });
 
             var total = await grouped.CountAsync();

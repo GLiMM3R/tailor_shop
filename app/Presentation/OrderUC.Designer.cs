@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             order_dgv = new DataGridView();
             filter_pn = new Panel();
             clear_btn = new Button();
@@ -38,7 +38,15 @@
             search_pn = new Panel();
             search_txt = new TextBox();
             main_layout = new TableLayoutPanel();
-            bottom_pn = new TableLayoutPanel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            pagination_pn = new TableLayoutPanel();
+            pagesize_cbb = new ComboBox();
+            last_page_btn = new Button();
+            next_page_btn = new Button();
+            prev_page_btn = new Button();
+            first_page_btn = new Button();
+            page_lbl = new Label();
             top_pn = new Panel();
             new_order_btn = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -49,7 +57,9 @@
             panel1.SuspendLayout();
             search_pn.SuspendLayout();
             main_layout.SuspendLayout();
-            bottom_pn.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            pagination_pn.SuspendLayout();
             top_pn.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -59,22 +69,22 @@
             order_dgv.AllowUserToAddRows = false;
             order_dgv.AllowUserToDeleteRows = false;
             order_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             order_dgv.Dock = DockStyle.Fill;
-            order_dgv.Location = new Point(9, 110);
+            order_dgv.Location = new Point(0, 90);
             order_dgv.Margin = new Padding(8);
             order_dgv.Name = "order_dgv";
             order_dgv.ReadOnly = true;
             order_dgv.RowHeadersWidth = 51;
-            order_dgv.Size = new Size(1042, 326);
+            order_dgv.Size = new Size(1060, 285);
             order_dgv.TabIndex = 0;
             // 
             // filter_pn
@@ -84,9 +94,9 @@
             filter_pn.Controls.Add(panel1);
             filter_pn.Controls.Add(search_pn);
             filter_pn.Dock = DockStyle.Top;
-            filter_pn.Location = new Point(4, 4);
+            filter_pn.Location = new Point(0, 0);
             filter_pn.Name = "filter_pn";
-            filter_pn.Size = new Size(1052, 90);
+            filter_pn.Size = new Size(1060, 90);
             filter_pn.TabIndex = 1;
             // 
             // clear_btn
@@ -159,7 +169,7 @@
             main_layout.BackColor = Color.White;
             main_layout.ColumnCount = 1;
             main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            main_layout.Controls.Add(bottom_pn, 0, 2);
+            main_layout.Controls.Add(panel2, 0, 1);
             main_layout.Controls.Add(top_pn, 0, 0);
             main_layout.Dock = DockStyle.Fill;
             main_layout.Location = new Point(0, 0);
@@ -171,21 +181,126 @@
             main_layout.Size = new Size(1066, 651);
             main_layout.TabIndex = 3;
             // 
-            // bottom_pn
+            // panel2
             // 
-            bottom_pn.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            bottom_pn.ColumnCount = 1;
-            bottom_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            bottom_pn.Controls.Add(order_dgv, 0, 1);
-            bottom_pn.Controls.Add(filter_pn, 0, 0);
-            bottom_pn.Dock = DockStyle.Fill;
-            bottom_pn.Location = new Point(3, 203);
-            bottom_pn.Name = "bottom_pn";
-            bottom_pn.RowCount = 2;
-            bottom_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
-            bottom_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            bottom_pn.Size = new Size(1060, 445);
-            bottom_pn.TabIndex = 1;
+            panel2.Controls.Add(order_dgv);
+            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(filter_pn);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(3, 203);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1060, 445);
+            panel2.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(pagination_pn);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 375);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1060, 70);
+            panel3.TabIndex = 6;
+            // 
+            // pagination_pn
+            // 
+            pagination_pn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pagination_pn.ColumnCount = 6;
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            pagination_pn.Controls.Add(pagesize_cbb, 3, 0);
+            pagination_pn.Controls.Add(last_page_btn, 5, 0);
+            pagination_pn.Controls.Add(next_page_btn, 4, 0);
+            pagination_pn.Controls.Add(prev_page_btn, 1, 0);
+            pagination_pn.Controls.Add(first_page_btn, 0, 0);
+            pagination_pn.Controls.Add(page_lbl, 2, 0);
+            pagination_pn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pagination_pn.Location = new Point(268, 15);
+            pagination_pn.Name = "pagination_pn";
+            pagination_pn.RowCount = 1;
+            pagination_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            pagination_pn.Size = new Size(524, 40);
+            pagination_pn.TabIndex = 5;
+            // 
+            // pagesize_cbb
+            // 
+            pagesize_cbb.Dock = DockStyle.Fill;
+            pagesize_cbb.FormattingEnabled = true;
+            pagesize_cbb.Items.AddRange(new object[] { "10", "20", "30", "50", "100" });
+            pagesize_cbb.Location = new Point(264, 3);
+            pagesize_cbb.Name = "pagesize_cbb";
+            pagesize_cbb.Size = new Size(81, 36);
+            pagesize_cbb.TabIndex = 7;
+            // 
+            // last_page_btn
+            // 
+            last_page_btn.BackColor = Color.LightGray;
+            last_page_btn.Cursor = Cursors.Hand;
+            last_page_btn.Dock = DockStyle.Fill;
+            last_page_btn.FlatStyle = FlatStyle.Flat;
+            last_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
+            last_page_btn.Location = new Point(438, 3);
+            last_page_btn.Name = "last_page_btn";
+            last_page_btn.Size = new Size(83, 34);
+            last_page_btn.TabIndex = 4;
+            last_page_btn.Text = "ສຸດທ້າຍ >>";
+            last_page_btn.UseVisualStyleBackColor = false;
+            // 
+            // next_page_btn
+            // 
+            next_page_btn.BackColor = Color.LightGray;
+            next_page_btn.Cursor = Cursors.Hand;
+            next_page_btn.Dock = DockStyle.Fill;
+            next_page_btn.FlatStyle = FlatStyle.Flat;
+            next_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
+            next_page_btn.Location = new Point(351, 3);
+            next_page_btn.Name = "next_page_btn";
+            next_page_btn.Size = new Size(81, 34);
+            next_page_btn.TabIndex = 3;
+            next_page_btn.Text = "ຖັດໄປ >";
+            next_page_btn.UseVisualStyleBackColor = false;
+            // 
+            // prev_page_btn
+            // 
+            prev_page_btn.BackColor = Color.LightGray;
+            prev_page_btn.Cursor = Cursors.Hand;
+            prev_page_btn.Dock = DockStyle.Fill;
+            prev_page_btn.FlatStyle = FlatStyle.Flat;
+            prev_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
+            prev_page_btn.Location = new Point(90, 3);
+            prev_page_btn.Name = "prev_page_btn";
+            prev_page_btn.Size = new Size(81, 34);
+            prev_page_btn.TabIndex = 1;
+            prev_page_btn.Text = "< ກັບຄືນ";
+            prev_page_btn.UseVisualStyleBackColor = false;
+            // 
+            // first_page_btn
+            // 
+            first_page_btn.BackColor = Color.LightGray;
+            first_page_btn.Cursor = Cursors.Hand;
+            first_page_btn.Dock = DockStyle.Fill;
+            first_page_btn.FlatStyle = FlatStyle.Flat;
+            first_page_btn.Font = new Font("Noto Sans Lao", 7.79999971F);
+            first_page_btn.Location = new Point(3, 3);
+            first_page_btn.Name = "first_page_btn";
+            first_page_btn.Size = new Size(81, 34);
+            first_page_btn.TabIndex = 0;
+            first_page_btn.Text = "<< ທໍາອິດ";
+            first_page_btn.UseVisualStyleBackColor = false;
+            // 
+            // page_lbl
+            // 
+            page_lbl.Dock = DockStyle.Fill;
+            page_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            page_lbl.Location = new Point(177, 0);
+            page_lbl.Name = "page_lbl";
+            page_lbl.Size = new Size(81, 40);
+            page_lbl.TabIndex = 2;
+            page_lbl.Text = "1/1";
+            page_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // top_pn
             // 
@@ -266,7 +381,9 @@
             search_pn.ResumeLayout(false);
             search_pn.PerformLayout();
             main_layout.ResumeLayout(false);
-            bottom_pn.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            pagination_pn.ResumeLayout(false);
             top_pn.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
@@ -279,7 +396,6 @@
         private Panel search_pn;
         private TextBox search_txt;
         private TableLayoutPanel main_layout;
-        private TableLayoutPanel bottom_pn;
         private Panel top_pn;
         private TableLayoutPanel tableLayoutPanel1;
         private Label total_order_lbl;
@@ -289,5 +405,14 @@
         private Panel panel1;
         private ComboBox status_cbb;
         private Button clear_btn;
+        private Panel panel2;
+        private Panel panel3;
+        private TableLayoutPanel pagination_pn;
+        private ComboBox pagesize_cbb;
+        private Button last_page_btn;
+        private Button next_page_btn;
+        private Button prev_page_btn;
+        private Button first_page_btn;
+        private Label page_lbl;
     }
 }

@@ -28,9 +28,14 @@ namespace app.Presentation
 
         private void CustomerForm_Load(object sender, EventArgs e)
         {
+            name_txt.KeyDown += FormTextBox_KeyDown;
+            phone_txt.KeyDown += FormTextBox_KeyDown;
+            address_txt.KeyDown += FormTextBox_KeyDown;
+            gender_prefer_not_to_say_rb.Checked = true;
+
             if (this._customer != null)
             {
-                add_btn.Text = "Update Customer";
+                add_btn.Text = "ແກ້ໄຂ";
 
                 name_txt.Text = this._customer.Name;
                 phone_txt.Text = this._customer.Phone;
@@ -80,10 +85,6 @@ namespace app.Presentation
             {
                 await this.CreateCustomer();
             }
-
-            this._customerUC.LoadCustomers();
-            this.Close();
-
         }
 
         private async Task CreateCustomer()
@@ -106,6 +107,8 @@ namespace app.Presentation
 
                 await _customerService.Create(newCustomer);
                 MessageBox.Show("New Customer Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await this._customerUC.LoadCustomers();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -148,10 +151,22 @@ namespace app.Presentation
 
                 await _customerService.Update(customer);
                 MessageBox.Show("Customer Update!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await this._customerUC.LoadCustomers();
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Optionally prevent the ding sound
+                e.SuppressKeyPress = true;
+                add_btn.PerformClick();
             }
         }
     }

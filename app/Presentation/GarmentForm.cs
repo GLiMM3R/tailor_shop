@@ -27,9 +27,13 @@ namespace app.Presentation
 
         private void GarmentForm_Load(object sender, EventArgs e)
         {
+            name_txt.KeyDown += FormTextBox_KeyDown;
+            description_txt.KeyDown += FormTextBox_KeyDown;
+            base_price_num.KeyDown += FormTextBox_KeyDown;
+
             if (this._garment != null)
             {
-                add_btn.Text = "Update Garment";
+                add_btn.Text = "ແກ້ໄຂ";
                 name_txt.Text = this._garment.Name;
                 base_price_num.Value = this._garment.BasePrice ?? 0; // Use null-coalescing operator to handle null values  
                 description_txt.Text = this._garment.Description ?? string.Empty; // Use null-coalescing operator to handle null values  
@@ -38,7 +42,7 @@ namespace app.Presentation
 
         private async void add_btn_Click(object sender, EventArgs e)
         {
-            if(this._garment != null)
+            if (this._garment != null)
             {
                 await UpdateFabric();
             }
@@ -46,9 +50,6 @@ namespace app.Presentation
             {
                 await CreateGarment();
             }
-
-            this._garmentUC.LoadGarments();
-            this.Close();
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -76,6 +77,9 @@ namespace app.Presentation
 
                 await this._garmentService.Create(newGarment);
                 MessageBox.Show("New Garment Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await this._garmentUC.LoadGarments();
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -113,10 +117,23 @@ namespace app.Presentation
 
                 await _garmentService.Update(garment);
                 MessageBox.Show("Garment Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await this._garmentUC.LoadGarments();
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating garment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormTextBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Optionally prevent the ding sound
+                e.SuppressKeyPress = true;
+                add_btn.PerformClick();
             }
         }
     }

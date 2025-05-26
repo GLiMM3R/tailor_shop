@@ -28,13 +28,7 @@ namespace app.Service
             this._context = context;
         }
 
-        public class OrderListResult
-        {
-            public Order[] Orders { get; set; } = Array.Empty<Order>();
-            public int Total { get; set; }
-        }
-
-        public async Task<OrderListResult> GetAll(FilterOrder? filter)
+        public async Task<ListResult<Order>> GetAll(FilterOrder? filter)
         {
             var skip = (filter?.Page - 1 ?? 0) * (filter?.PageSize ?? 10);
             if (skip < 0) skip = 0;
@@ -69,9 +63,9 @@ namespace app.Service
                 .Take(filter?.PageSize ?? 10)
                 .OrderByDescending(o => o.CreatedAt).ToArrayAsync();
 
-            return new OrderListResult
+            return new ListResult<Order>
             {
-                Orders = orders,
+                Data = orders,
                 Total = total
             };
         }
