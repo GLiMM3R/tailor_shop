@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,78 +16,26 @@ using static app.Service.ReportService;
 
 namespace app.Presentation.Report
 {
-    public partial class CustomerReportUC : UserControl
+    public partial class SaleReportUC : UserControl
     {
-        private Pagination _pagination;
+        private Pagination _pagination = new Pagination(1, 10);
 
-        public CustomerReportUC()
+        public SaleReportUC()
         {
             InitializeComponent();
-            InitializeDataGridView();
-
-            _pagination = new Pagination(1, 10);
-
-        }
-        private async void CustomerReportUC_Load(object sender, EventArgs e)
-        {
-            await LoadCustomerReport();
-
-            // Usage:
-            var reportTypes = Enum.GetValues(typeof(CustomerReportType))
-                .Cast<CustomerReportType>()
-                .Select(pt => new { Value = pt, Display = Period.GetEnumDisplayName(pt) })
-                .ToList();
-
-            report_type_cbb.DataSource = reportTypes;
-            report_type_cbb.DisplayMember = "Display";
-            report_type_cbb.ValueMember = "Value";
-            report_type_cbb.SelectedIndex = 0;
-
-            // Usage:
-            var periodItems = Enum.GetValues(typeof(Period.PeriodType))
-                .Cast<Period.PeriodType>()
-                .Select(pt => new { Value = pt, Display = Period.GetEnumDisplayName(pt) })
-                .ToList();
-
-            period_cbb.DataSource = periodItems;
-            period_cbb.DisplayMember = "Display";
-            period_cbb.ValueMember = "Value";
-            period_cbb.SelectedIndex = 0;
-
-            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
-            _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
-        public async Task LoadCustomerReport()
+        private async void SaleReportUC_Load(object sender, EventArgs e)
         {
-            // Always create a new DbContext and OrderService to avoid caching
-            using (var dbContext = new AppDbContext())
-            {
-                var report = new ReportService(dbContext);
-
-                var startOfDay = from_date_dpk.Value.Date;
-                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
-                var reportType = report_type_cbb.SelectedValue is ReportService.CustomerReportType type ? type : ReportService.CustomerReportType.All;
-
-                var result = await report.GetCustomerReport(startOfDay, endOfDay, _pagination, reportType);
-                _pagination.TotalItems = result.Total;
-                customer_report_dgv.DataSource = null;
-                customer_report_dgv.DataSource = result.Data.ToList();
-                customer_report_dgv.ClearSelection();
-                UpdatePageNumber();
-
-                // Update chart
-                //InitializeLineChart();
-                //BindLineChart(result.Data);
-            }
+            await LoadSaleReport();
         }
 
         private void InitializeDataGridView()
         {
-            customer_report_dgv.AutoGenerateColumns = false;
-            customer_report_dgv.Columns.Clear();
+            sale_report_dgv.AutoGenerateColumns = false;
+            sale_report_dgv.Columns.Clear();
 
-            customer_report_dgv.Columns.AddRange(
+            sale_report_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "ເພດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
@@ -101,12 +48,12 @@ namespace app.Presentation.Report
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Updated", headerText: "ວັນທີແກ້ໄຂ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
             );
 
-            customer_report_dgv.CellFormatting += CustomerReportDgv_CellFormatting;
+            sale_report_dgv.CellFormatting += CustomerReportDgv_CellFormatting;
         }
 
         private void CustomerReportDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
-            var columnName = customer_report_dgv.Columns[e.ColumnIndex].DataPropertyName;
+            var columnName = sale_report_dgv.Columns[e.ColumnIndex].DataPropertyName;
             if (columnName == "TotalSpent")
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
@@ -114,6 +61,30 @@ namespace app.Presentation.Report
                     e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
                     e.FormattingApplied = true;
                 }
+            }
+        }
+
+        public async Task LoadSaleReport()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new ReportService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+                var reportType = report_type_cbb.SelectedValue is ReportService.CustomerReportType type ? type : ReportService.CustomerReportType.All;
+
+                var result = await report.GetSaleReport(startOfDay, endOfDay, _pagination);
+                _pagination.TotalItems = result.Total;
+                sale_report_dgv.DataSource = null;
+                sale_report_dgv.DataSource = result.Data.ToList();
+                sale_report_dgv.ClearSelection();
+                UpdatePageNumber();
+
+                // Update chart
+                //InitializeLineChart();
+                //BindLineChart(result.Data);
             }
         }
 
@@ -134,7 +105,7 @@ namespace app.Presentation.Report
             if (_pagination.HasNextPage)
             {
                 _pagination.Page++;
-                await LoadCustomerReport();
+                await LoadSaleReport();
             }
         }
 
@@ -143,14 +114,14 @@ namespace app.Presentation.Report
             if (_pagination.TotalPages > 0)
             {
                 _pagination.Page = _pagination.TotalPages;
-                await LoadCustomerReport();
+                await LoadSaleReport();
             }
         }
 
         private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
-            await LoadCustomerReport();
+            await LoadSaleReport();
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -158,7 +129,7 @@ namespace app.Presentation.Report
             if (_pagination.HasPreviousPage)
             {
                 _pagination.Page--;
-                await LoadCustomerReport();
+                await LoadSaleReport();
             }
         }
 
@@ -167,18 +138,18 @@ namespace app.Presentation.Report
             if (_pagination.Page > 1)
             {
                 _pagination.Page = 1;
-                await LoadCustomerReport();
+                await LoadSaleReport();
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
-            await LoadCustomerReport();
+            await LoadSaleReport();
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
-            await LoadCustomerReport();
+            await LoadSaleReport();
         }
 
         private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,7 +160,7 @@ namespace app.Presentation.Report
                 // You can use this value to filter or change the report logic if needed
                 // For now, we just reload the report with the new type
                 _pagination.Page = 1; // Reset to first page when changing report type
-                await LoadCustomerReport();
+                await LoadSaleReport();
             }
         }
 

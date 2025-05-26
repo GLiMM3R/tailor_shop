@@ -170,14 +170,14 @@ namespace app.Presentation
                 var orderService = new OrderService(dbContext);
                 var result = await orderService.GetAll(_filter);
                 order_dgv.DataSource = null;
-                order_dgv.DataSource = result.Orders.ToList();
+                order_dgv.DataSource = result.Data.ToList();
                 order_dgv.ClearSelection();
 
                 total_order_lbl.Text = result.Total.ToString();
             }
         }
 
-        private async void new_order_btn_Click(object sender, EventArgs e)
+        private void new_order_btn_Click(object sender, EventArgs e)
         {
             var form = new OrderForm(this, this._user, this._orderService, this._dailySequenceService);
             form.ShowDialog();

@@ -54,5 +54,11 @@ namespace app.Presentation
             var report = new PaymentTransactionReportUC();
             _mainForm.LoadFormIntoPanel(report);
         }
+
+        private void sale_report_btn_Click(object sender, EventArgs e)
+        {
+            var report = new SaleReportUC();
+            _mainForm.LoadFormIntoPanel(report);
+        }
     }
 }

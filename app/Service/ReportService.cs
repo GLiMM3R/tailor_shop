@@ -207,67 +207,6 @@ namespace app.Service
                 Total = total
             };
         }
-        //public async Task<ListResult<FabricReport>> GetFabricReport(DateTime fromDate, DateTime toDate, Pagination pagination, FabricReportType reportType)
-        //{
-        //    var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
-        //    if (skip < 0) skip = 0;
-
-        //    // Only include completed orders in the date range
-        //    var query = _context.Orders
-        //        .Include(o => o.Fabric) // Include Fabric navigation property
-        //        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-        //        .Where(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
-
-        //    // Group by FabricId
-        //    var grouped = query
-        //        .GroupBy(o => o.FabricId)
-        //        .Select(g => new FabricReport
-        //        {
-        //            FabricId = g.Key,
-        //            MaterialType = g.Select(o => o.Fabric.MaterialType).FirstOrDefault() ?? "", // Fix: Access the MaterialType property of the Fabric entity
-        //            Color = g.Select(o => o.Fabric.Color).FirstOrDefault() ?? "", // Fix: Access the Color property of the Fabric entity
-        //            TotalOrdered = g.Count(),
-        //            TotalUsed = g.Sum(o => o.FabricUsedQty),
-        //            TotalCustomers = g.Select(x => x.CustomerId).Distinct().Count(),
-        //            TotalSpending = g.Sum(x => x.TotalAmount),
-        //        });
-
-        //    // Apply ordering for TopSpendingCustomer and TopOrderCustomer
-        //    if (reportType == FabricReportType.TopSpending)
-        //    {
-        //        grouped = grouped.OrderByDescending(r => r.TotalSpending);
-        //    }
-        //    else if (reportType == FabricReportType.MostCustomer)
-        //    {
-        //        grouped = grouped.OrderByDescending(r => r.TotalCustomers);
-        //    }
-        //    else if (reportType == FabricReportType.MostUsed)
-        //    {
-        //        grouped = grouped.OrderByDescending(r => r.TotalUsed);
-        //    }
-        //    else if (reportType == FabricReportType.TopOrder)
-        //    {
-        //        grouped = grouped.OrderByDescending(r => r.TotalOrdered);
-        //    }
-        //    else
-        //    {
-        //        // Default ordering for All report type
-        //        grouped = grouped.OrderByDescending(r => r.FabricId);
-        //    }
-
-        //    var total = await grouped.CountAsync();
-        //    var data = await grouped
-        //        .OrderByDescending(r => r.FabricId) // Adjusted ordering to use FabricId
-        //        .Skip(skip)
-        //        .Take(pagination?.PageSize ?? 10)
-        //        .ToArrayAsync();
-
-        //    return new ListResult<FabricReport>
-        //    {
-        //        Data = data,
-        //        Total = total
-        //    };
-        //}
 
         public enum GarmentReportType
         {
@@ -365,6 +304,54 @@ namespace app.Service
                 .ToArrayAsync();
 
             return new ListResult<PaymentTransactionReport>
+            {
+                Data = data,
+                Total = total
+            };
+        }
+
+        public async Task<ListResult<SaleReport>> GetSaleReport(DateTime fromDate, DateTime toDate, Pagination pagination)
+        {
+            var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+
+            IQueryable<Order> query = _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Garment)
+                .Include(o => o.Fabric)
+                .Include(o => o.User)
+                .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                .Where(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
+
+            var grouped = query
+                .Select(o => new SaleReport
+                {
+                    Id = o.Id,
+                    OrderNumber = o.OrderNumber,
+                    CustomerName = o.Customer.Name,
+                    UserName = o.User.Username,
+                    GarmentName = o.Garment.Name,
+                    FabricName = o.Fabric.MaterialType + " " + o.Fabric.ColorName,
+                    FabricUsedQty = o.FabricUsedQty,
+                    OrderDate = o.CreatedAt,
+                    Quantity = o.Quantity,
+                    Subtotal = o.Subtotal,
+                    Discount = o.Discount,
+                    TotalAmount = o.TotalAmount,
+                    DepositAmount = o.DepositAmount,
+                    Status = o.Status.ToString(),
+                    DueDate = o.DueDate,
+                    PickUpDate = o.PickUpDate
+                });
+
+            var total = await grouped.CountAsync();
+            var data = await grouped
+                .OrderByDescending(o => o.OrderDate)
+                .Skip(skip)
+                .Take(pagination?.PageSize ?? 10)
+                .ToArrayAsync();
+
+            return new ListResult<SaleReport>
             {
                 Data = data,
                 Total = total

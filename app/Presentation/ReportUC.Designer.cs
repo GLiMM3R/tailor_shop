@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            payment_transaction_report_btn = new Button();
             garment_report_btn = new Button();
             fabric_report_btn = new Button();
             customer_report_btn = new Button();
             overall_sale_report_btn = new Button();
-            payment_transaction_report_btn = new Button();
+            sale_report_btn = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -41,6 +42,7 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(sale_report_btn, 0, 5);
             tableLayoutPanel1.Controls.Add(payment_transaction_report_btn, 0, 4);
             tableLayoutPanel1.Controls.Add(garment_report_btn, 0, 3);
             tableLayoutPanel1.Controls.Add(fabric_report_btn, 0, 2);
@@ -49,14 +51,31 @@
             tableLayoutPanel1.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tableLayoutPanel1.Location = new Point(48, 51);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
+            tableLayoutPanel1.RowCount = 6;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
-            tableLayoutPanel1.Size = new Size(250, 296);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(250, 357);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // payment_transaction_report_btn
+            // 
+            payment_transaction_report_btn.BackColor = Color.FromArgb(33, 52, 72);
+            payment_transaction_report_btn.Cursor = Cursors.Hand;
+            payment_transaction_report_btn.Dock = DockStyle.Fill;
+            payment_transaction_report_btn.FlatStyle = FlatStyle.Flat;
+            payment_transaction_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            payment_transaction_report_btn.ForeColor = Color.White;
+            payment_transaction_report_btn.Location = new Point(3, 243);
+            payment_transaction_report_btn.Name = "payment_transaction_report_btn";
+            payment_transaction_report_btn.Size = new Size(244, 54);
+            payment_transaction_report_btn.TabIndex = 29;
+            payment_transaction_report_btn.Text = "ລາຍງານການຈ່າຍເງິນ";
+            payment_transaction_report_btn.UseVisualStyleBackColor = false;
+            payment_transaction_report_btn.Click += payment_transaction_report_btn_Click;
             // 
             // garment_report_btn
             // 
@@ -122,21 +141,21 @@
             overall_sale_report_btn.UseVisualStyleBackColor = false;
             overall_sale_report_btn.Click += overall_sale_report_btn_Click;
             // 
-            // payment_transaction_report_btn
+            // sale_report_btn
             // 
-            payment_transaction_report_btn.BackColor = Color.FromArgb(33, 52, 72);
-            payment_transaction_report_btn.Cursor = Cursors.Hand;
-            payment_transaction_report_btn.Dock = DockStyle.Fill;
-            payment_transaction_report_btn.FlatStyle = FlatStyle.Flat;
-            payment_transaction_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            payment_transaction_report_btn.ForeColor = Color.White;
-            payment_transaction_report_btn.Location = new Point(3, 243);
-            payment_transaction_report_btn.Name = "payment_transaction_report_btn";
-            payment_transaction_report_btn.Size = new Size(244, 54);
-            payment_transaction_report_btn.TabIndex = 29;
-            payment_transaction_report_btn.Text = "ລາຍງານການຈ່າຍເງິນ";
-            payment_transaction_report_btn.UseVisualStyleBackColor = false;
-            payment_transaction_report_btn.Click += payment_transaction_report_btn_Click;
+            sale_report_btn.BackColor = Color.FromArgb(33, 52, 72);
+            sale_report_btn.Cursor = Cursors.Hand;
+            sale_report_btn.Dock = DockStyle.Fill;
+            sale_report_btn.FlatStyle = FlatStyle.Flat;
+            sale_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            sale_report_btn.ForeColor = Color.White;
+            sale_report_btn.Location = new Point(3, 303);
+            sale_report_btn.Name = "sale_report_btn";
+            sale_report_btn.Size = new Size(244, 51);
+            sale_report_btn.TabIndex = 30;
+            sale_report_btn.Text = "ລາຍງານການສັ່ງຕັດເຄື່ອງ";
+            sale_report_btn.UseVisualStyleBackColor = false;
+            sale_report_btn.Click += sale_report_btn_Click;
             // 
             // ReportUC
             // 
@@ -158,5 +177,6 @@
         private Button fabric_report_btn;
         private Button garment_report_btn;
         private Button payment_transaction_report_btn;
+        private Button sale_report_btn;
     }
 }
