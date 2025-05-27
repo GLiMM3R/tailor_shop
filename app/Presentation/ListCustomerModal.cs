@@ -11,39 +11,30 @@ using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
-using Microsoft.EntityFrameworkCore;
 
 namespace app.Presentation
 {
-    public partial class CustomerUC : UserControl
+    public partial class ListCustomerModal : Form
     {
         private AppDbContext _context;
         private CustomerService _customerService;
-
-        private FilterCustomer _filter = new FilterCustomer(1,10);
-        private int _count = 0;
-
+        private FilterCustomer _filter = new FilterCustomer(1, 10);
         private Debouncer searchDebouncer;
-        public CustomerUC()
+
+        public Customer? selectedCustomer = null;
+
+        public ListCustomerModal()
         {
             InitializeComponent();
-            InitializeService();
-            InitializeDataGridView();
-
-            total_customer_lb.Text = this._count.ToString();
-
-            searchDebouncer = new Debouncer(300, async () => await LoadCustomers());
-        }
-
-        private void InitializeService()
-        {
             this._context = new AppDbContext();
             this._customerService = new CustomerService(this._context);
-            this._count = _customerService.Count();
+            searchDebouncer = new Debouncer(300, async () => await LoadCustomers());
+
         }
 
-        private async void Customer_Load(object sender, EventArgs e)
+        private async void ListCustomerModal_Load(object sender, EventArgs e)
         {
+            InitializeDataGridView();
             await LoadCustomers();
 
             pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
@@ -63,26 +54,22 @@ namespace app.Presentation
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Address", headerText: "ທີ່ຢູ່", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 80)
                 );
 
-            DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
-            {
-                Name = "Edit",
-                HeaderText = "",
-                Text = "ແກ້ໄຂ",
-                UseColumnTextForButtonValue = true,
-                FlatStyle = FlatStyle.Flat,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Padding = new Padding(2),
-                    BackColor = Color.FromArgb(78, 184, 206),
-                    ForeColor = Color.White,
-                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
-                    Alignment = DataGridViewContentAlignment.MiddleCenter,
-                    SelectionBackColor = Color.FromArgb(60, 140, 160),
-                    SelectionForeColor = Color.White
-                }
-            };
+            customer_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
 
-            customer_dgv.Columns.Add(actionColumn);
+        /// <summary>
+        /// Gets the currently selected Customer from the DataGridView.
+        /// Returns null if no row is selected.
+        /// </summary>
+        /// <returns>The selected Customer or null.</returns>
+        private Customer? GetSelectedCustomer()
+        {
+            if (customer_dgv.SelectedRows.Count > 0)
+            {
+                var row = customer_dgv.SelectedRows[0];
+                return row.DataBoundItem as Customer;
+            }
+            return null;
         }
 
         public async Task LoadCustomers()
@@ -93,10 +80,10 @@ namespace app.Presentation
             UpdatePageNumber();
         }
 
-        private void new_customer_btn_Click(object sender, EventArgs e)
+        private void search_txt_TextChanged(object sender, EventArgs e)
         {
-            var customer_form = new CustomerForm(this, _customerService, null);
-            customer_form.ShowDialog();
+            _filter.Name = search_txt.Text.Trim();
+            searchDebouncer.Trigger();
         }
 
         private async void gender_cb_SelectedValueChanged(object sender, EventArgs e)
@@ -127,28 +114,6 @@ namespace app.Presentation
                 await LoadCustomers();
             }
         }
-
-        private void search_txt_TextChanged(object sender, EventArgs e)
-        {
-            _filter.Name = search_txt.Text.Trim();
-            searchDebouncer.Trigger();
-        }
-
-        private void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                if (customer_dgv.Columns[e.ColumnIndex].Name == "Edit")
-                {
-                    if (customer_dgv.Rows[e.RowIndex].DataBoundItem is Customer selectedCustomer)
-                    {
-                        var form = new CustomerForm(this, this._customerService, selectedCustomer);
-                        form.ShowDialog();
-                    }
-                }
-            }
-        }
-
 
         private void UpdatePageNumber()
         {
@@ -202,6 +167,20 @@ namespace app.Presentation
                 _filter.Page = 1;
                 await LoadCustomers();
             }
+        }
+
+        private void select_customer_btn_Click(object sender, EventArgs e)
+        {
+            var _selectedCustomer = GetSelectedCustomer();
+            
+            if(_selectedCustomer == null)
+            {
+                MessageBox.Show("Please select a customer first.", "No Customer Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            selectedCustomer = _selectedCustomer;
+            this.Close();
         }
     }
 }

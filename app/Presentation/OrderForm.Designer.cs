@@ -98,8 +98,8 @@
             panel4 = new Panel();
             garment_cb = new ComboBox();
             panel3 = new Panel();
-            customer_cb = new ComboBox();
-            new_customer_btn = new Button();
+            customer_lbl = new Label();
+            choose_customer_btn = new Button();
             garment_lb = new Label();
             due_date_lb = new Label();
             fabric_qty_lb = new Label();
@@ -842,7 +842,7 @@
             top_pn.Controls.Add(panel5);
             top_pn.Controls.Add(panel4);
             top_pn.Controls.Add(panel3);
-            top_pn.Controls.Add(new_customer_btn);
+            top_pn.Controls.Add(choose_customer_btn);
             top_pn.Controls.Add(garment_lb);
             top_pn.Controls.Add(due_date_lb);
             top_pn.Controls.Add(fabric_qty_lb);
@@ -963,39 +963,38 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(customer_cb);
+            panel3.Controls.Add(customer_lbl);
             panel3.Location = new Point(27, 35);
             panel3.Name = "panel3";
             panel3.Size = new Size(290, 46);
             panel3.TabIndex = 14;
             // 
-            // customer_cb
+            // customer_lbl
             // 
-            customer_cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            customer_cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-            customer_cb.FlatStyle = FlatStyle.Flat;
-            customer_cb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            customer_cb.FormattingEnabled = true;
-            customer_cb.Location = new Point(9, 2);
-            customer_cb.Name = "customer_cb";
-            customer_cb.Size = new Size(271, 41);
-            customer_cb.TabIndex = 0;
-            customer_cb.Text = "Select Customer";
+            customer_lbl.Dock = DockStyle.Fill;
+            customer_lbl.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            customer_lbl.Location = new Point(0, 0);
+            customer_lbl.Name = "customer_lbl";
+            customer_lbl.Size = new Size(288, 44);
+            customer_lbl.TabIndex = 20;
+            customer_lbl.Text = "ກະລຸນາເລືອກລູກຄ້າ";
+            customer_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // new_customer_btn
+            // choose_customer_btn
             // 
-            new_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
-            new_customer_btn.Cursor = Cursors.Hand;
-            new_customer_btn.FlatStyle = FlatStyle.Flat;
-            new_customer_btn.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            new_customer_btn.ForeColor = Color.White;
-            new_customer_btn.Location = new Point(325, 35);
-            new_customer_btn.Margin = new Padding(0);
-            new_customer_btn.Name = "new_customer_btn";
-            new_customer_btn.Size = new Size(175, 45);
-            new_customer_btn.TabIndex = 13;
-            new_customer_btn.Text = "New Customer";
-            new_customer_btn.UseVisualStyleBackColor = false;
+            choose_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
+            choose_customer_btn.Cursor = Cursors.Hand;
+            choose_customer_btn.FlatStyle = FlatStyle.Flat;
+            choose_customer_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            choose_customer_btn.ForeColor = Color.White;
+            choose_customer_btn.Location = new Point(325, 35);
+            choose_customer_btn.Margin = new Padding(0);
+            choose_customer_btn.Name = "choose_customer_btn";
+            choose_customer_btn.Size = new Size(175, 46);
+            choose_customer_btn.TabIndex = 13;
+            choose_customer_btn.Text = "ເລືອກລູກຄ້າ";
+            choose_customer_btn.UseVisualStyleBackColor = false;
+            choose_customer_btn.Click += choose_customer_btn_Click;
             // 
             // garment_lb
             // 
@@ -1191,7 +1190,6 @@
         private Panel middle_pn;
         private Panel top_pn;
         private Button button1;
-        private ComboBox customer_cb;
         private Label order_number_lb;
         private Label label1;
         private Label neck_lb;
@@ -1234,7 +1232,7 @@
         private Label summary_and_note_lb;
         private ComboBox fabric_cb;
         private Label garment_lb;
-        private Button new_customer_btn;
+        private Button choose_customer_btn;
         private Panel summary_pn;
         private Label subtotal_title_lb;
         private Label label4;
@@ -1274,5 +1272,6 @@
         private Label label10;
         private Button close_btn;
         private Button create_order_btn;
+        private Label customer_lbl;
     }
 }

@@ -22,13 +22,13 @@ namespace app.Presentation
         private OrderService _orderService;
         private DailySequenceService _dailySequenceService;
 
-        private List<Customer> _customers;
         private List<Fabric> _fabrics;
         private List<Garment> _garments;
         private Fabric _fabric;
         private Garment _garment;
 
         private readonly string _MeasurementUnit = "cm";
+        private Customer? _selectedCustomer = null;
 
         public OrderForm(OrderUC orderUC, User user, OrderService orderService, DailySequenceService dailySequenceService)
         {
@@ -47,31 +47,11 @@ namespace app.Presentation
             upper_body_rb.Checked = true; // Set default to upper body
             try
             {
-                var task1 = LoadCustomers();
                 var task2 = LoadFabrics();
                 var task3 = LoadGarments();
                 var taskOrderNumber = LoadOrderNumber();
 
-                await Task.WhenAll(task1, task2, task3, taskOrderNumber);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception (e.g., using a logging framework)
-                MessageBox.Show($"Error loading initial data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Consider closing the form or disabling functionality if critical data fails to load
-            }
-        }
-
-        private async void OrderForm_Activated(object sender, EventArgs e)
-        {
-            try
-            {
-                var task1 = LoadCustomers();
-                var task2 = LoadFabrics();
-                var task3 = LoadGarments();
-                var taskOrderNumber = LoadOrderNumber();
-
-                await Task.WhenAll(task1, task2, task3, taskOrderNumber);
+                await Task.WhenAll(task2, task3, taskOrderNumber);
             }
             catch (Exception ex)
             {
@@ -85,20 +65,6 @@ namespace app.Presentation
         {
             var orderNumber = await _dailySequenceService.GetNextSequence(DateTime.Now);
             order_number_lb.Text = orderNumber.ToString();
-        }
-
-        private async Task LoadCustomers()
-        {
-            // Load fabrics from the database
-            using (var context = new AppDbContext())
-            {
-                _customers = await context.Customers.ToListAsync();
-            }
-
-            customer_cb.DataSource = _customers;
-            customer_cb.DisplayMember = "Name";
-            customer_cb.ValueMember = "Id";
-            customer_cb.SelectedIndex = -1;
         }
 
         private async Task LoadFabrics()
@@ -160,13 +126,7 @@ namespace app.Presentation
 
         private async void create_order_btn_Click(object sender, EventArgs e)
         {
-            if (customer_cb.SelectedValue == null)
-            {
-                MessageBox.Show("Please select a customer.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!int.TryParse(customer_cb.SelectedValue.ToString(), out int customerId))
+            if (_selectedCustomer == null)
             {
                 MessageBox.Show("Invalid customer selection.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -235,7 +195,7 @@ namespace app.Presentation
             var newOrder = new Order
             {
                 OrderNumber = order_number_lb.Text,
-                CustomerId = customerId,
+                CustomerId = _selectedCustomer.Id,
                 GarmentId = garmentId,
                 FabricId = fabricId,
                 FabricUsedQty = (int)fabric_qty_num.Value,
@@ -457,6 +417,18 @@ namespace app.Presentation
         private void close_btn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void choose_customer_btn_Click(object sender, EventArgs e)
+        {
+            var modal = new ListCustomerModal();
+            modal.ShowDialog();
+
+            if (modal.selectedCustomer != null)
+            {
+                _selectedCustomer = modal.selectedCustomer;
+                customer_lbl.Text = modal.selectedCustomer.Name;
+            }
         }
     }
 }
