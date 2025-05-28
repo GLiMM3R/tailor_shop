@@ -149,14 +149,18 @@ namespace app.Presentation
                 {
                     if (order_dgv.Rows[e.RowIndex].DataBoundItem is Order selectedOrder)
                     {
-                        var form = new OrderDetail(selectedOrder.OrderNumber);
-                        //form.ShowDialog();
-                        if (form.IsChanged)
+                        //var form = new OrderDetail(selectedOrder.OrderNumber);
+                        ////form.ShowDialog();
+                        //if (form.IsChanged)
+                        //{
+                        //    await LoadOrders();
+                        //}
+                        var order = new OrderDetailUC(this, selectedOrder.OrderNumber);
+                        _mainForm.LoadFormIntoPanel(order);
+                        if (order.IsChanged)
                         {
                             await LoadOrders();
                         }
-                        var order = new OrderDetailUC(this, selectedOrder.OrderNumber);
-                        _mainForm.LoadFormIntoPanel(order);
                     }
                 }
             }

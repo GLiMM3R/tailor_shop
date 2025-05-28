@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             layout_pn = new Panel();
+            setting_btn = new Button();
             label1 = new Label();
             exit_btn = new Button();
             form_layout_pn = new TableLayoutPanel();
@@ -51,6 +52,7 @@
             // layout_pn
             // 
             layout_pn.BackColor = Color.Bisque;
+            layout_pn.Controls.Add(setting_btn);
             layout_pn.Controls.Add(label1);
             layout_pn.Controls.Add(exit_btn);
             layout_pn.Controls.Add(form_layout_pn);
@@ -60,6 +62,22 @@
             layout_pn.Name = "layout_pn";
             layout_pn.Size = new Size(400, 600);
             layout_pn.TabIndex = 0;
+            // 
+            // setting_btn
+            // 
+            setting_btn.BackColor = Color.Gray;
+            setting_btn.Cursor = Cursors.Hand;
+            setting_btn.FlatAppearance.BorderSize = 0;
+            setting_btn.FlatStyle = FlatStyle.Flat;
+            setting_btn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            setting_btn.ForeColor = SystemColors.ControlText;
+            setting_btn.Image = (Image)resources.GetObject("setting_btn.Image");
+            setting_btn.Location = new Point(271, 12);
+            setting_btn.Name = "setting_btn";
+            setting_btn.Size = new Size(50, 49);
+            setting_btn.TabIndex = 3;
+            setting_btn.UseVisualStyleBackColor = false;
+            setting_btn.Click += setting_btn_Click;
             // 
             // label1
             // 
@@ -117,7 +135,7 @@
             password_txt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             password_txt.BorderStyle = BorderStyle.None;
             password_txt.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            password_txt.Location = new Point(11, 15);
+            password_txt.Location = new Point(11, 19);
             password_txt.MaxLength = 30;
             password_txt.Name = "password_txt";
             password_txt.PlaceholderText = "Password";
@@ -132,13 +150,13 @@
             login_btn.BackColor = Color.FromArgb(33, 52, 72);
             login_btn.Cursor = Cursors.Hand;
             login_btn.FlatStyle = FlatStyle.Flat;
-            login_btn.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            login_btn.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             login_btn.ForeColor = Color.White;
             login_btn.Location = new Point(3, 172);
             login_btn.Name = "login_btn";
             login_btn.Size = new Size(352, 73);
             login_btn.TabIndex = 2;
-            login_btn.Text = "Login";
+            login_btn.Text = "ເຂົ້າສູ້ລະບົບ";
             login_btn.UseVisualStyleBackColor = false;
             login_btn.Click += login_btn_Click;
             // 
@@ -158,7 +176,7 @@
             username_txt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             username_txt.BorderStyle = BorderStyle.None;
             username_txt.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            username_txt.Location = new Point(11, 16);
+            username_txt.Location = new Point(11, 19);
             username_txt.MaxLength = 30;
             username_txt.Name = "username_txt";
             username_txt.PlaceholderText = "Username";
@@ -229,5 +247,6 @@
         private Label label1;
         private TableLayoutPanel tableLayoutPanel1;
         private PictureBox pictureBox1;
+        private Button setting_btn;
     }
 }

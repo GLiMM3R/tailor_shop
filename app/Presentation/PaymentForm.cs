@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using app.Database;
+using app.Entity;
 using app.Model;
 using app.Service;
+using QuestPDF.Fluent;
 
 namespace app.Presentation
 {
@@ -122,6 +124,7 @@ namespace app.Presentation
 
                 await _orderDetailUC._orderService.Update(_order);
                 MessageBox.Show("Payment successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PrintInvoice();
                 IsChanged = true;
                 this.Close();
             }
@@ -134,6 +137,49 @@ namespace app.Presentation
         private void close_btn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void PrintInvoice()
+        {
+            try
+            {
+                // Sample invoice data
+                var invoiceModel = new InvoiceModel
+                {
+                    InvoiceNumber = _order.OrderNumber,
+                    IssueDate = _order.CreatedAt,
+                    DueDate = _order.DueDate,
+                    SellerName = _order.User.Username,
+                    CustomerName = _order.Customer.Name,
+                    CustomerPhone = _order.Customer.Phone,
+                    DepositAmount = _order.DepositAmount,
+                    Discount = _order.Discount,
+                    Items = new List<InvoiceItem>
+                        {
+                            new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
+                            new InvoiceItem { Description = _order.Fabric.MaterialType + " " + _order.Fabric.ColorName, Quantity = _order.FabricUsedQty, UnitPrice = _order.Fabric.UnitPrice }
+                        }
+                };
+
+                // Create the document
+                var document = new InvoiceDocument(invoiceModel);
+
+                // Configure QuestPDF to use the community license
+                QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
+                // Generate PDF
+                string filePath = "invoice.pdf";
+                document.GeneratePdf(filePath);
+
+                // Open the PDF (optional)
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath) { UseShellExecute = true });
+
+                //MessageBox.Show("Invoice PDF generated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error generating PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

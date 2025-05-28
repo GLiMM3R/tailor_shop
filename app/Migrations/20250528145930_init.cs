@@ -130,13 +130,13 @@ namespace app.Migrations
                         column: x => x.FabricId,
                         principalTable: "Fabrics",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Garments_GarmentId",
                         column: x => x.GarmentId,
                         principalTable: "Garments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,

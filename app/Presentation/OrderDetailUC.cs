@@ -89,7 +89,7 @@ namespace app.Presentation
 
                     status_lbl.BackColor = Color.FromArgb(0, 200, 0);
                 }
-                else if(_order.Status == OrderStatus.Pending)
+                else if (_order.Status == OrderStatus.Pending)
                 {
                     pay_btn.Enabled = true;
                     pay_btn.BackColor = Color.FromArgb(33, 52, 72);
@@ -121,8 +121,19 @@ namespace app.Presentation
 
             if (_order != null)
             {
-                LoadMeasurements(); 
+                LoadMeasurements();
+
+                if (_order.Status == OrderStatus.Completed || _order.Status == OrderStatus.PickedUp || _order.Status == OrderStatus.Canceled)
+                {
+                    pay_btn.Visible = false;
+                }
+
+                if(_order.Status == OrderStatus.PickedUp || _order.Status == OrderStatus.InProgress || _order.Status == OrderStatus.Canceled)
+                {
+                    pick_up_btn.Visible = false;
+                }
             }
+
         }
 
         private async void pay_btn_Click(object sender, EventArgs e)
@@ -133,6 +144,23 @@ namespace app.Presentation
             {
                 await LoadOrder();
                 IsChanged = false;
+            }
+        }
+
+        private async void pick_up_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _order.Status = OrderStatus.PickedUp;
+                await _orderService.Update(_order);
+
+                MessageBox.Show("Pick up successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                IsChanged = true;
+                await LoadOrder();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating payment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

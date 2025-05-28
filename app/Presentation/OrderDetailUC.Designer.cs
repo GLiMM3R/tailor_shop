@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             measurement_pn = new Panel();
             label4 = new Label();
             measurement_dgv = new DataGridView();
@@ -51,6 +51,7 @@
             notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             action_pn = new Panel();
+            pick_up_btn = new Button();
             pay_btn = new Button();
             root_layout = new Panel();
             order_detail_pn = new Panel();
@@ -79,7 +80,6 @@
             label2 = new Label();
             customer_phone_lbl = new Label();
             header_pn = new Panel();
-            button1 = new Button();
             back_btn = new Button();
             measurement_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)measurement_dgv).BeginInit();
@@ -123,14 +123,14 @@
             measurement_dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             measurement_dgv.BackgroundColor = Color.White;
             measurement_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            measurement_dgv.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            measurement_dgv.DefaultCellStyle = dataGridViewCellStyle2;
             measurement_dgv.Location = new Point(17, 52);
             measurement_dgv.Name = "measurement_dgv";
             measurement_dgv.RowHeadersWidth = 51;
@@ -343,13 +343,28 @@
             // action_pn
             // 
             action_pn.BackColor = Color.White;
-            action_pn.Controls.Add(button1);
             action_pn.Controls.Add(pay_btn);
             action_pn.Dock = DockStyle.Bottom;
             action_pn.Location = new Point(0, 794);
             action_pn.Name = "action_pn";
             action_pn.Size = new Size(1506, 91);
             action_pn.TabIndex = 12;
+            // 
+            // pick_up_btn
+            // 
+            pick_up_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pick_up_btn.BackColor = Color.FromArgb(33, 52, 72);
+            pick_up_btn.Cursor = Cursors.Hand;
+            pick_up_btn.FlatStyle = FlatStyle.Flat;
+            pick_up_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            pick_up_btn.ForeColor = Color.White;
+            pick_up_btn.Location = new Point(1288, 138);
+            pick_up_btn.Name = "pick_up_btn";
+            pick_up_btn.Size = new Size(130, 47);
+            pick_up_btn.TabIndex = 18;
+            pick_up_btn.Text = "ຮັບສິນຄ້າ";
+            pick_up_btn.UseVisualStyleBackColor = false;
+            pick_up_btn.Click += pick_up_btn_Click;
             // 
             // pay_btn
             // 
@@ -395,6 +410,7 @@
             // 
             // information_gb
             // 
+            information_gb.Controls.Add(pick_up_btn);
             information_gb.Controls.Add(status_lbl);
             information_gb.Controls.Add(garment_lb);
             information_gb.Controls.Add(tableLayoutPanel3);
@@ -703,21 +719,6 @@
             header_pn.Size = new Size(1506, 61);
             header_pn.TabIndex = 0;
             // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackColor = Color.Red;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(1061, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(175, 68);
-            button1.TabIndex = 18;
-            button1.Text = "ຍົກເລີກ";
-            button1.UseVisualStyleBackColor = false;
-            // 
             // back_btn
             // 
             back_btn.Cursor = Cursors.Hand;
@@ -807,7 +808,7 @@
         private Panel panel4;
         private Label garment_lb;
         private Button back_btn;
-        private Button button1;
+        private Button pick_up_btn;
         private Label status_lbl;
     }
 }

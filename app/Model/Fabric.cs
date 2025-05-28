@@ -21,7 +21,7 @@ namespace app.Model
         [Required]
         public string Color { get; set; }
 
-        public decimal UnitPrice { get; set; } = 0;
+        public decimal UnitPrice { get; set; } = 0m;
 
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }

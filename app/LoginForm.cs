@@ -59,7 +59,6 @@ namespace app
             catch (Exception)
             {
                 MessageBox.Show("Username or password is incorrect!");
-                throw;
             }
 
         }
@@ -72,6 +71,12 @@ namespace app
                 e.SuppressKeyPress = true;
                 login_btn.PerformClick();
             }
+        }
+
+        private void setting_btn_Click(object sender, EventArgs e)
+        {
+            var form = new ConnectionSettingsForm();
+            form.ShowDialog();
         }
     }
 }

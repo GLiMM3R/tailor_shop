@@ -12,7 +12,7 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250525035929_init")]
+    [Migration("20250528145930_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -336,15 +336,15 @@ namespace app.Migrations
                         .IsRequired();
 
                     b.HasOne("app.Model.Fabric", "Fabric")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("FabricId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("app.Model.Garment", "Garment")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("GarmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("app.Model.User", "User")
@@ -364,14 +364,26 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Model.Payment", b =>
                 {
-                    b.HasOne("app.Model.Order", null)
+                    b.HasOne("app.Model.Order", "Order")
                         .WithMany("Payments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("app.Model.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("app.Model.Fabric", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("app.Model.Garment", b =>
                 {
                     b.Navigation("Orders");
                 });
