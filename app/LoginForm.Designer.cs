@@ -156,7 +156,7 @@
             login_btn.Name = "login_btn";
             login_btn.Size = new Size(352, 73);
             login_btn.TabIndex = 2;
-            login_btn.Text = "ເຂົ້າສູ້ລະບົບ";
+            login_btn.Text = "ເຂົ້າສູ່ລະບົບ";
             login_btn.UseVisualStyleBackColor = false;
             login_btn.Click += login_btn_Click;
             // 

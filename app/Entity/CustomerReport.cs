@@ -21,4 +21,10 @@ namespace app.Entity
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
+
+    public class CustomerStatistic {
+        public int TotalCustomers { get; set; }
+        public int NewCustomers { get; set; }
+        public int RepeatCustomers { get; set; }
+    }
 }

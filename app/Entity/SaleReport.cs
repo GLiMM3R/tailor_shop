@@ -26,4 +26,14 @@ namespace app.Entity
         public DateTime? DueDate { get; set; }
         public DateTime? PickUpDate { get; set; }
     }
+
+    public class SaleStatistic
+    {
+        public int TotalOrders { get; set; }
+        public int TotalCustomers { get; set; }
+        public int TotalQuantity { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal TotalDeposit { get; set; }
+        public decimal TotalBalance { get; set; }
+    }
 }

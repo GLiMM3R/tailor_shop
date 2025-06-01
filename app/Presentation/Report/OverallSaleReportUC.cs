@@ -29,6 +29,7 @@ namespace app.Presentation.Report
         {
             InitializeDataGridView();
             await LoadOrders();
+            await LoadStatistic();
 
 
             // Usage:
@@ -103,6 +104,35 @@ namespace app.Presentation.Report
             }
         }
 
+        public async Task LoadStatistic()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetOverallSaleStatistic(startOfDay, endOfDay);
+              
+                if (result != null)
+                {
+                    gross_sales_lbl.Text = result.SubTotal.ToString("N2");
+                    net_sales_lbl.Text = result.TotalAmount.ToString("N2");
+                    total_orders_lbl.Text = result.TotalOrders.ToString("N0");
+                    aov_lbl.Text = result.TotalAvg.ToString("N2");
+                    paid_amount_lbl.Text = result.TotalPaid.ToString("N2");
+                    discount_lbl.Text = result.Discount.ToString("N2");
+                }
+
+                // Update chart
+                //InitializeLineChart();
+                //BindLineChart(result.Data);
+            }
+        }
+
+
         private void UpdatePageNumber()
         {
             if (_pagination.TotalItems > 0)
@@ -121,6 +151,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page++;
                 await LoadOrders();
+                await LoadStatistic();
+
             }
         }
 
@@ -130,6 +162,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = _pagination.TotalPages;
                 await LoadOrders();
+                await LoadStatistic();
+
             }
         }
 
@@ -137,6 +171,8 @@ namespace app.Presentation.Report
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
             await LoadOrders();
+            await LoadStatistic();
+
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -145,6 +181,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page--;
                 await LoadOrders();
+                await LoadStatistic();
+
             }
         }
 
@@ -154,17 +192,23 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = 1;
                 await LoadOrders();
+                await LoadStatistic();
+
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadOrders();
+            await LoadStatistic();
+
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadOrders();
+            await LoadStatistic();
+
         }
 
         //private void InitializeLineChart()

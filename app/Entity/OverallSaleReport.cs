@@ -18,4 +18,15 @@ namespace app.Entity
         public decimal TotalPaid { get; set; }
         public decimal TotalAmount { get; set; }
     }
+
+    public class OverallSaleStatistic
+    {
+        public decimal SubTotal { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal TotalOrders { get; set; }
+        public decimal TotalAvg { get; set; }
+        public decimal TotalPaid { get; set; }
+        public decimal Discount { get; set; }
+        public decimal DepositAmount { get; set; }
+    }
 }

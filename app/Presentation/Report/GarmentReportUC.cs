@@ -30,6 +30,7 @@ namespace app.Presentation.Report
         private async void GarmentReportUC_Load(object sender, EventArgs e)
         {
             await LoadGarmentReport();
+            await LoadGarmentStatistic();
 
             // Usage:
             var reportTypes = Enum.GetValues(typeof(GarmentReportType))
@@ -62,19 +63,13 @@ namespace app.Presentation.Report
             garment_report_dgv.AutoGenerateColumns = false;
             garment_report_dgv.Columns.Clear();
 
-        //      public int Id { get; set; }
-        //public string Name { get; set; }
-        //public int TotalOrders { get; set; }
-        //public int TotalCustomers { get; set; }
-        //public decimal TotalValue { get; set; }
-
-        garment_report_dgv.Columns.AddRange(
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດເສື້ອຜ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ເສື້ອຜ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalOrders", headerText: "ຈຳນວນອໍເດີ້", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalCustomers", headerText: "ຈຳນວນລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
-                );
+            garment_report_dgv.Columns.AddRange(
+                        DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດເສື້ອຜ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                        DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ເສື້ອຜ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                        DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalOrders", headerText: "ຈຳນວນອໍເດີ້", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                        DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalCustomers", headerText: "ຈຳນວນລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                        DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
+                    );
 
             garment_report_dgv.CellFormatting += GarmentReportDgv_CellFormatting;
         }
@@ -114,6 +109,29 @@ namespace app.Presentation.Report
                 //BindLineChart(result.Data);
             }
         }
+
+        private async Task LoadGarmentStatistic()
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetGarmentStatistic(startOfDay, endOfDay);
+                if (result != null)
+                {
+                    total_garments_lbl.Text = result.TotalGarments.ToString();
+                    total_values_lbl.Text = result.TotalValue.ToString("N2"); // Format as currency or number with 2 decimal places
+                }
+
+                // Update chart
+                //InitializeLineChart();
+                //BindLineChart(result.Data);
+            }
+        }
+
         private void UpdatePageNumber()
         {
             if (_pagination.TotalItems > 0)
@@ -132,6 +150,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page++;
                 await LoadGarmentReport();
+                await LoadGarmentStatistic();
+
             }
         }
 
@@ -141,6 +161,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = _pagination.TotalPages;
                 await LoadGarmentReport();
+                await LoadGarmentStatistic();
+
             }
         }
 
@@ -148,6 +170,8 @@ namespace app.Presentation.Report
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
             await LoadGarmentReport();
+            await LoadGarmentStatistic();
+
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -156,6 +180,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page--;
                 await LoadGarmentReport();
+                await LoadGarmentStatistic();
+
             }
         }
 
@@ -165,17 +191,23 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = 1;
                 await LoadGarmentReport();
+                await LoadGarmentStatistic();
+
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadGarmentReport();
+            await LoadGarmentStatistic();
+
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadGarmentReport();
+            await LoadGarmentStatistic();
+
         }
 
         private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
@@ -187,6 +219,8 @@ namespace app.Presentation.Report
                 // For now, we just reload the report with the new type
                 _pagination.Page = 1; // Reset to first page when changing report type
                 await LoadGarmentReport();
+                await LoadGarmentStatistic();
+
             }
         }
 

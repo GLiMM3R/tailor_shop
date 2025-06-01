@@ -14,4 +14,10 @@ namespace app.Entity
         public int TotalCustomers { get; set; }
         public decimal TotalValue { get; set; }
     }
+
+    public class GarmentStatistic
+    {
+        public int TotalGarments { get; set; }
+        public decimal TotalValue { get; set; }
+    }
 }

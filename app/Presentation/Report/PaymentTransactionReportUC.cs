@@ -27,8 +27,9 @@ namespace app.Presentation.Report
 
         private async void PaymentTransactionReportUC_Load(object sender, EventArgs e)
         {
-            await LoadPaymentReport();
             InitializeDataGridView();
+            await LoadPaymentReport();
+            await LoadPaymentStatistic();
 
             // Usage:
             var periodItems = Enum.GetValues(typeof(Period.PeriodType))
@@ -99,6 +100,32 @@ namespace app.Presentation.Report
                 //BindLineChart(result.Data);
             }
         }
+
+        private async Task LoadPaymentStatistic()
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetPaymentTransactionStatistic(startOfDay, endOfDay);
+               if(result != null)
+                {
+                    total_transactions_lbl.Text = result.TotalTransactions.ToString("N0");
+                    total_paid_amount_lbl.Text = result.TotalPaidAmount.ToString("N2");
+                    total_cash_lbl.Text = result.TotalCashTransactions.ToString("N2");
+                    total_bank_lbl.Text = result.TotalBankTransactions.ToString("N2");
+                    total_deposit_lbl.Text = result.TotalDepositTransactions.ToString("N2");
+                    total_avg_lbl.Text = result.AverageTransactionAmount.ToString("N2");
+                }
+
+                // Update chart
+                //InitializeLineChart();
+                //BindLineChart(result.Data);
+            }
+        }
         private void UpdatePageNumber()
         {
             if (_pagination.TotalItems > 0)
@@ -117,6 +144,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page++;
                 await LoadPaymentReport();
+                await LoadPaymentStatistic();
+
             }
         }
 
@@ -126,6 +155,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = _pagination.TotalPages;
                 await LoadPaymentReport();
+                await LoadPaymentStatistic();
+
             }
         }
 
@@ -133,6 +164,8 @@ namespace app.Presentation.Report
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
             await LoadPaymentReport();
+            await LoadPaymentStatistic();
+
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -141,6 +174,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page--;
                 await LoadPaymentReport();
+                await LoadPaymentStatistic();
+
             }
         }
 
@@ -150,20 +185,26 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = 1;
                 await LoadPaymentReport();
+                await LoadPaymentStatistic();
+
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadPaymentReport();
+            await LoadPaymentStatistic();
+
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadPaymentReport();
+            await LoadPaymentStatistic();
+
         }
 
-      private void period_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        private void period_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
             var today = DateTime.Now.Date; // Declare 'today' at the beginning of the method
             switch (period_cbb.SelectedValue)

@@ -473,6 +473,7 @@
             // length_num
             // 
             length_num.BorderStyle = BorderStyle.FixedSingle;
+            length_num.DecimalPlaces = 2;
             length_num.Dock = DockStyle.Fill;
             length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             length_num.Location = new Point(393, 83);
@@ -495,6 +496,7 @@
             // ankle_num
             // 
             ankle_num.BorderStyle = BorderStyle.FixedSingle;
+            ankle_num.DecimalPlaces = 2;
             ankle_num.Dock = DockStyle.Fill;
             ankle_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             ankle_num.Location = new Point(393, 43);
@@ -517,6 +519,7 @@
             // top_thigh_num
             // 
             top_thigh_num.BorderStyle = BorderStyle.FixedSingle;
+            top_thigh_num.DecimalPlaces = 2;
             top_thigh_num.Dock = DockStyle.Fill;
             top_thigh_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             top_thigh_num.Location = new Point(133, 83);
@@ -550,6 +553,7 @@
             // lower_waist_num
             // 
             lower_waist_num.BorderStyle = BorderStyle.FixedSingle;
+            lower_waist_num.DecimalPlaces = 2;
             lower_waist_num.Dock = DockStyle.Fill;
             lower_waist_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             lower_waist_num.Location = new Point(133, 3);
@@ -561,6 +565,7 @@
             // lower_hip_num
             // 
             lower_hip_num.BorderStyle = BorderStyle.FixedSingle;
+            lower_hip_num.DecimalPlaces = 2;
             lower_hip_num.Dock = DockStyle.Fill;
             lower_hip_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             lower_hip_num.Location = new Point(133, 43);
@@ -583,6 +588,7 @@
             // knee_num
             // 
             knee_num.BorderStyle = BorderStyle.FixedSingle;
+            knee_num.DecimalPlaces = 2;
             knee_num.Dock = DockStyle.Fill;
             knee_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             knee_num.Location = new Point(393, 3);
@@ -616,6 +622,7 @@
             // thigh_num
             // 
             thigh_num.BorderStyle = BorderStyle.FixedSingle;
+            thigh_num.DecimalPlaces = 2;
             thigh_num.Dock = DockStyle.Fill;
             thigh_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             thigh_num.Location = new Point(133, 123);
@@ -715,6 +722,7 @@
             // upper_waist_num
             // 
             upper_waist_num.BorderStyle = BorderStyle.FixedSingle;
+            upper_waist_num.DecimalPlaces = 2;
             upper_waist_num.Dock = DockStyle.Fill;
             upper_waist_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             upper_waist_num.Location = new Point(133, 123);
@@ -737,6 +745,7 @@
             // chest_num
             // 
             chest_num.BorderStyle = BorderStyle.FixedSingle;
+            chest_num.DecimalPlaces = 2;
             chest_num.Dock = DockStyle.Fill;
             chest_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             chest_num.Location = new Point(133, 83);
@@ -759,6 +768,7 @@
             // shoulder_num
             // 
             shoulder_num.BorderStyle = BorderStyle.FixedSingle;
+            shoulder_num.DecimalPlaces = 2;
             shoulder_num.Dock = DockStyle.Fill;
             shoulder_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             shoulder_num.Location = new Point(133, 43);
@@ -781,6 +791,7 @@
             // neck_num
             // 
             neck_num.BorderStyle = BorderStyle.FixedSingle;
+            neck_num.DecimalPlaces = 2;
             neck_num.Dock = DockStyle.Fill;
             neck_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             neck_num.Location = new Point(133, 3);
@@ -792,6 +803,7 @@
             // shirt_length_num
             // 
             shirt_length_num.BorderStyle = BorderStyle.FixedSingle;
+            shirt_length_num.DecimalPlaces = 2;
             shirt_length_num.Dock = DockStyle.Fill;
             shirt_length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             shirt_length_num.Location = new Point(393, 123);
@@ -803,6 +815,7 @@
             // sleeve_opening_num
             // 
             sleeve_opening_num.BorderStyle = BorderStyle.FixedSingle;
+            sleeve_opening_num.DecimalPlaces = 2;
             sleeve_opening_num.Dock = DockStyle.Fill;
             sleeve_opening_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             sleeve_opening_num.Location = new Point(393, 83);
@@ -814,6 +827,7 @@
             // sleeve_length_num
             // 
             sleeve_length_num.BorderStyle = BorderStyle.FixedSingle;
+            sleeve_length_num.DecimalPlaces = 2;
             sleeve_length_num.Dock = DockStyle.Fill;
             sleeve_length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             sleeve_length_num.Location = new Point(393, 43);
@@ -825,6 +839,7 @@
             // upper_hip_num
             // 
             upper_hip_num.BorderStyle = BorderStyle.FixedSingle;
+            upper_hip_num.DecimalPlaces = 2;
             upper_hip_num.Dock = DockStyle.Fill;
             upper_hip_num.Font = new Font("Noto Sans Lao", 10.1999989F);
             upper_hip_num.Location = new Point(393, 3);
@@ -1013,7 +1028,7 @@
             due_date_lb.Name = "due_date_lb";
             due_date_lb.Size = new Size(114, 31);
             due_date_lb.TabIndex = 8;
-            due_date_lb.Text = "ກຳໜົດວັນ";
+            due_date_lb.Text = "ວັນທີນັດຮັບ";
             due_date_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fabric_qty_lb

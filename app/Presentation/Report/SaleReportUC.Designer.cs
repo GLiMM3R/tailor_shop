@@ -35,9 +35,6 @@
             bottom_pn = new TableLayoutPanel();
             sale_report_dgv = new DataGridView();
             filter_pn = new Panel();
-            label10 = new Label();
-            panel4 = new Panel();
-            report_type_cbb = new ComboBox();
             label4 = new Label();
             panel5 = new Panel();
             period_cbb = new ComboBox();
@@ -74,7 +71,6 @@
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sale_report_dgv).BeginInit();
             filter_pn.SuspendLayout();
-            panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel2.SuspendLayout();
             gross_sales_pn.SuspendLayout();
@@ -108,7 +104,7 @@
             net_sales_lbl.ForeColor = Color.White;
             net_sales_lbl.Location = new Point(3, 50);
             net_sales_lbl.Name = "net_sales_lbl";
-            net_sales_lbl.Size = new Size(194, 50);
+            net_sales_lbl.Size = new Size(214, 50);
             net_sales_lbl.TabIndex = 2;
             net_sales_lbl.Text = "0";
             net_sales_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -120,7 +116,7 @@
             label5.ForeColor = Color.White;
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(194, 50);
+            label5.Size = new Size(214, 50);
             label5.TabIndex = 0;
             label5.Text = "ລູກຄ້າໃໝ່";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -168,8 +164,6 @@
             // 
             // filter_pn
             // 
-            filter_pn.Controls.Add(label10);
-            filter_pn.Controls.Add(panel4);
             filter_pn.Controls.Add(label4);
             filter_pn.Controls.Add(panel5);
             filter_pn.Controls.Add(export_btn);
@@ -180,39 +174,10 @@
             filter_pn.Size = new Size(1502, 90);
             filter_pn.TabIndex = 1;
             // 
-            // label10
-            // 
-            label10.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(6, 23);
-            label10.Name = "label10";
-            label10.Size = new Size(131, 40);
-            label10.TabIndex = 9;
-            label10.Text = "ປະເພດລາຍງານ";
-            label10.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // panel4
-            // 
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(report_type_cbb);
-            panel4.Location = new Point(143, 23);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(204, 40);
-            panel4.TabIndex = 8;
-            // 
-            // report_type_cbb
-            // 
-            report_type_cbb.FlatStyle = FlatStyle.Flat;
-            report_type_cbb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            report_type_cbb.FormattingEnabled = true;
-            report_type_cbb.Location = new Point(3, 1);
-            report_type_cbb.Name = "report_type_cbb";
-            report_type_cbb.Size = new Size(196, 36);
-            report_type_cbb.TabIndex = 1;
-            // 
             // label4
             // 
             label4.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(353, 25);
+            label4.Location = new Point(34, 25);
             label4.Name = "label4";
             label4.Size = new Size(131, 40);
             label4.TabIndex = 7;
@@ -223,7 +188,7 @@
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(period_cbb);
-            panel5.Location = new Point(490, 25);
+            panel5.Location = new Point(171, 25);
             panel5.Name = "panel5";
             panel5.Size = new Size(204, 40);
             panel5.TabIndex = 6;
@@ -238,6 +203,7 @@
             period_cbb.Name = "period_cbb";
             period_cbb.Size = new Size(196, 36);
             period_cbb.TabIndex = 1;
+            period_cbb.SelectedIndexChanged += period_cbb_SelectedIndexChanged;
             // 
             // export_btn
             // 
@@ -259,7 +225,7 @@
             panel2.Controls.Add(to_date_dpk);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(from_date_dpk);
-            panel2.Location = new Point(724, 23);
+            panel2.Location = new Point(410, 23);
             panel2.Name = "panel2";
             panel2.Size = new Size(422, 45);
             panel2.TabIndex = 2;
@@ -272,6 +238,7 @@
             to_date_dpk.Name = "to_date_dpk";
             to_date_dpk.Size = new Size(157, 40);
             to_date_dpk.TabIndex = 4;
+            to_date_dpk.ValueChanged += to_date_dpk_ValueChanged;
             // 
             // label3
             // 
@@ -291,6 +258,7 @@
             from_date_dpk.Name = "from_date_dpk";
             from_date_dpk.Size = new Size(157, 40);
             from_date_dpk.TabIndex = 1;
+            from_date_dpk.ValueChanged += from_date_dpk_ValueChanged;
             // 
             // gross_sales_pn
             // 
@@ -299,12 +267,12 @@
             gross_sales_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             gross_sales_pn.Controls.Add(total_customers_lbl, 0, 1);
             gross_sales_pn.Controls.Add(label2, 0, 0);
-            gross_sales_pn.Location = new Point(27, 125);
+            gross_sales_pn.Location = new Point(26, 125);
             gross_sales_pn.Name = "gross_sales_pn";
             gross_sales_pn.RowCount = 2;
             gross_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             gross_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            gross_sales_pn.Size = new Size(200, 100);
+            gross_sales_pn.Size = new Size(220, 100);
             gross_sales_pn.TabIndex = 2;
             // 
             // total_customers_lbl
@@ -314,7 +282,7 @@
             total_customers_lbl.ForeColor = Color.White;
             total_customers_lbl.Location = new Point(3, 50);
             total_customers_lbl.Name = "total_customers_lbl";
-            total_customers_lbl.Size = new Size(194, 50);
+            total_customers_lbl.Size = new Size(214, 50);
             total_customers_lbl.TabIndex = 2;
             total_customers_lbl.Text = "0";
             total_customers_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -326,7 +294,7 @@
             label2.ForeColor = Color.White;
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new Size(194, 50);
+            label2.Size = new Size(214, 50);
             label2.TabIndex = 0;
             label2.Text = "ຈຳນວນລູກຄ້າ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -343,7 +311,7 @@
             net_sales_pn.RowCount = 2;
             net_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             net_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            net_sales_pn.Size = new Size(200, 100);
+            net_sales_pn.Size = new Size(220, 100);
             net_sales_pn.TabIndex = 3;
             // 
             // panel1
@@ -374,7 +342,7 @@
             discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             discount_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            discount_pn.Size = new Size(200, 100);
+            discount_pn.Size = new Size(220, 100);
             discount_pn.TabIndex = 7;
             // 
             // discount_lbl
@@ -384,7 +352,7 @@
             discount_lbl.ForeColor = Color.White;
             discount_lbl.Location = new Point(3, 50);
             discount_lbl.Name = "discount_lbl";
-            discount_lbl.Size = new Size(194, 50);
+            discount_lbl.Size = new Size(214, 50);
             discount_lbl.TabIndex = 2;
             discount_lbl.Text = "0";
             discount_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -396,7 +364,7 @@
             label9.ForeColor = Color.White;
             label9.Location = new Point(3, 0);
             label9.Name = "label9";
-            label9.Size = new Size(194, 50);
+            label9.Size = new Size(214, 50);
             label9.TabIndex = 0;
             label9.Text = "ສ່ວນຫຼຸດລວມ";
             label9.TextAlign = ContentAlignment.MiddleCenter;
@@ -414,7 +382,7 @@
             paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            paid_amount_pn.Size = new Size(200, 100);
+            paid_amount_pn.Size = new Size(220, 100);
             paid_amount_pn.TabIndex = 6;
             // 
             // paid_amount_lbl
@@ -424,7 +392,7 @@
             paid_amount_lbl.ForeColor = Color.White;
             paid_amount_lbl.Location = new Point(3, 50);
             paid_amount_lbl.Name = "paid_amount_lbl";
-            paid_amount_lbl.Size = new Size(194, 50);
+            paid_amount_lbl.Size = new Size(214, 50);
             paid_amount_lbl.TabIndex = 2;
             paid_amount_lbl.Text = "0";
             paid_amount_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -436,7 +404,7 @@
             label8.ForeColor = Color.White;
             label8.Location = new Point(3, 0);
             label8.Name = "label8";
-            label8.Size = new Size(194, 50);
+            label8.Size = new Size(214, 50);
             label8.TabIndex = 0;
             label8.Text = "ຍອດຊຳລະແລ້ວ";
             label8.TextAlign = ContentAlignment.MiddleCenter;
@@ -454,7 +422,7 @@
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            aov_pn.Size = new Size(200, 100);
+            aov_pn.Size = new Size(220, 100);
             aov_pn.TabIndex = 5;
             // 
             // aov_lbl
@@ -464,7 +432,7 @@
             aov_lbl.ForeColor = Color.White;
             aov_lbl.Location = new Point(3, 50);
             aov_lbl.Name = "aov_lbl";
-            aov_lbl.Size = new Size(194, 50);
+            aov_lbl.Size = new Size(214, 50);
             aov_lbl.TabIndex = 2;
             aov_lbl.Text = "0";
             aov_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -476,7 +444,7 @@
             label7.ForeColor = Color.White;
             label7.Location = new Point(3, 0);
             label7.Name = "label7";
-            label7.Size = new Size(194, 50);
+            label7.Size = new Size(214, 50);
             label7.TabIndex = 0;
             label7.Text = "ມູນຄ່າສະເລ່ຍ";
             label7.TextAlign = ContentAlignment.MiddleCenter;
@@ -493,7 +461,7 @@
             total_orders_pn.RowCount = 2;
             total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            total_orders_pn.Size = new Size(200, 100);
+            total_orders_pn.Size = new Size(220, 100);
             total_orders_pn.TabIndex = 4;
             // 
             // total_orders_lbl
@@ -503,7 +471,7 @@
             total_orders_lbl.ForeColor = Color.White;
             total_orders_lbl.Location = new Point(3, 50);
             total_orders_lbl.Name = "total_orders_lbl";
-            total_orders_lbl.Size = new Size(194, 50);
+            total_orders_lbl.Size = new Size(214, 50);
             total_orders_lbl.TabIndex = 2;
             total_orders_lbl.Text = "0";
             total_orders_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -515,7 +483,7 @@
             label6.ForeColor = Color.White;
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(194, 50);
+            label6.Size = new Size(214, 50);
             label6.TabIndex = 0;
             label6.Text = "ລູກຄ້າປະຈຳ";
             label6.TextAlign = ContentAlignment.MiddleCenter;
@@ -562,6 +530,7 @@
             pagesize_cbb.Name = "pagesize_cbb";
             pagesize_cbb.Size = new Size(114, 36);
             pagesize_cbb.TabIndex = 7;
+            pagesize_cbb.Click += pagesize_cbb_SelectedIndexChanged;
             // 
             // last_page_btn
             // 
@@ -576,6 +545,7 @@
             last_page_btn.TabIndex = 4;
             last_page_btn.Text = "ສຸດທ້າຍ >>";
             last_page_btn.UseVisualStyleBackColor = false;
+            last_page_btn.Click += last_page_btn_Click;
             // 
             // next_page_btn
             // 
@@ -590,6 +560,7 @@
             next_page_btn.TabIndex = 3;
             next_page_btn.Text = "ຖັດໄປ >";
             next_page_btn.UseVisualStyleBackColor = false;
+            next_page_btn.Click += next_page_btn_Click;
             // 
             // prev_page_btn
             // 
@@ -604,6 +575,7 @@
             prev_page_btn.TabIndex = 1;
             prev_page_btn.Text = "< ກັບຄືນ";
             prev_page_btn.UseVisualStyleBackColor = false;
+            prev_page_btn.Click += prev_page_btn_Click;
             // 
             // first_page_btn
             // 
@@ -618,6 +590,7 @@
             first_page_btn.TabIndex = 0;
             first_page_btn.Text = "<< ທໍາອິດ";
             first_page_btn.UseVisualStyleBackColor = false;
+            first_page_btn.Click += first_page_btn_Click;
             // 
             // page_lbl
             // 
@@ -643,7 +616,6 @@
             bottom_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)sale_report_dgv).EndInit();
             filter_pn.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
             gross_sales_pn.ResumeLayout(false);
@@ -666,9 +638,6 @@
         private TableLayoutPanel bottom_pn;
         private DataGridView sale_report_dgv;
         private Panel filter_pn;
-        private Label label10;
-        private Panel panel4;
-        private ComboBox report_type_cbb;
         private Label label4;
         private Panel panel5;
         private ComboBox period_cbb;

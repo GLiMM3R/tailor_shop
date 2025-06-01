@@ -23,11 +23,26 @@ namespace app.Presentation.Report
         public SaleReportUC()
         {
             InitializeComponent();
+            InitializeDataGridView();
         }
 
         private async void SaleReportUC_Load(object sender, EventArgs e)
         {
             await LoadSaleReport();
+
+            // Usage:
+            var periodItems = Enum.GetValues(typeof(Period.PeriodType))
+                .Cast<Period.PeriodType>()
+                .Select(pt => new { Value = pt, Display = Period.GetEnumDisplayName(pt) })
+                .ToList();
+
+            period_cbb.DataSource = periodItems;
+            period_cbb.DisplayMember = "Display";
+            period_cbb.ValueMember = "Value";
+            period_cbb.SelectedIndex = 0;
+
+            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
+            _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
         private void InitializeDataGridView()
@@ -36,17 +51,16 @@ namespace app.Presentation.Report
             sale_report_dgv.Columns.Clear();
 
             sale_report_dgv.Columns.AddRange(
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "ເພດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "ເບີໂທ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderCount", headerText: "ຈຳນວນອໍເດີ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນສິນຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalSpent", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "LastOrderDate", headerText: "ອໍເດີ້ລ່າສຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "ວັນທີສ້າງ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Updated", headerText: "ວັນທີແກ້ໄຂ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
-            );
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "ເລກທີສັ່ງຊື້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CustomerName", headerText: "ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "ພະນັກງານ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Subtotal", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "ສ່ວນຫຼຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAMount", headerText: "ຍອດລວມສຸດທິ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "PickUpDate", headerText: "ວັນທີຮັບເຄື່ອງ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
+                );
 
             sale_report_dgv.CellFormatting += CustomerReportDgv_CellFormatting;
         }
@@ -73,7 +87,6 @@ namespace app.Presentation.Report
 
                 var startOfDay = from_date_dpk.Value.Date;
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
-                var reportType = report_type_cbb.SelectedValue is ReportService.CustomerReportType type ? type : ReportService.CustomerReportType.All;
 
                 var result = await report.GetSaleReport(startOfDay, endOfDay, _pagination);
                 _pagination.TotalItems = result.Total;
@@ -150,18 +163,6 @@ namespace app.Presentation.Report
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadSaleReport();
-        }
-
-        private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Update the report type based on the selected value
-            if (report_type_cbb.SelectedValue is CustomerReportType selectedReportType)
-            {
-                // You can use this value to filter or change the report logic if needed
-                // For now, we just reload the report with the new type
-                _pagination.Page = 1; // Reset to first page when changing report type
-                await LoadSaleReport();
-            }
         }
 
         private void period_cbb_SelectedIndexChanged(object sender, EventArgs e)

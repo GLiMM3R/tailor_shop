@@ -19,4 +19,14 @@ namespace app.Entity
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
+
+    public class PaymentTransactionStatistic {
+        public int TotalTransactions { get; set; }
+        public decimal TotalPaidAmount { get; set; }
+        public decimal TotalCashTransactions { get; set; }
+        public decimal TotalBankTransactions { get; set; }
+        public decimal TotalDepositTransactions { get; set; }
+        public decimal AverageTransactionAmount { get; set; }
+
+    }
 }

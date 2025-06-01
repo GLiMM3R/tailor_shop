@@ -7,8 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using app.Database;
 using app.Entity;
+using app.Model;
 using app.Service;
+using app.Utils;
 using QuestPDF.Fluent;
 
 namespace app.Presentation
@@ -18,48 +22,213 @@ namespace app.Presentation
         public HomeUC()
         {
             InitializeComponent();
+            InitializeDataGridView();
+            // Create and configure the chart
+            var chart = new Chart
+            {
+                Dock = DockStyle.Fill
+            };
+            var chartArea = new ChartArea();
+            chart.ChartAreas.Add(chartArea);
+
+            var series = new Series
+            {
+                ChartType = SeriesChartType.Doughnut // Note: "Doughnut" is the correct spelling in the API
+            };
+
+            // Example data
+            series.Points.AddXY("Category A", 40);
+            series.Points.AddXY("Category B", 30);
+            series.Points.AddXY("Category C", 20);
+            series.Points.AddXY("Category D", 10);
+
+            chart.Series.Add(series);
+
+            // Optional: Customize the appearance
+            series["DoughnutRadius"] = "60"; // 0-99, controls the size of the hole
+
+            this.Controls.Add(chart);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public async Task LoadLineChart()
         {
-            try
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
             {
-                // Sample invoice data
-                var invoiceModel = new InvoiceModel
+                var report = new ReportService(dbContext);
+                var now = DateTime.Now;
+
+                var from_date = now.AddDays(-30); // 30 days ago
+                var to_date = now;
+
+                var result = await report.GetOverallSaleReport(from_date, to_date, new Pagination(1, 30));
+
+                // Update chart
+                InitializeLineChart();
+                BindLineChart(result.Data);
+            }
+        }
+
+        public async Task LoadOverallStatistic()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+                var now = DateTime.Now;
+
+                var from_date = now.AddDays(-30); // 30 days ago
+                var to_date = now;
+
+                var result = await report.GetOverallSaleStatistic(from_date, to_date);
+
+                if (result != null)
                 {
-                    InvoiceNumber = "INV-001",
-                    IssueDate = DateTime.Now,
-                    SellerName = "ABC Company",
-                    CustomerName = "John Doe",
-                    CustomerPhone = "456 Customer Rd, City, Country",
-                    Items = new List<InvoiceItem>
+                    total_orders_lbl.Text = result.TotalOrders.ToString("N0");
+                    total_amount_lbl.Text = result.TotalAmount.ToString("N2");
+
+                    BindDonutChart(result);
+
+
+                }
+            }
+        }
+
+        private void InitializeLineChart()
+        {
+            line_chart.Series.Clear();
+            line_chart.ChartAreas.Clear();
+
+            // Create chart area
+            var chartArea = new ChartArea("MainArea");
+            line_chart.ChartAreas.Add(chartArea);
+
+            // Create line series
+            var series = new Series("Total Sales")
             {
-                new InvoiceItem { Description = "Item 1", Quantity = 2, UnitPrice = 50.00m },
-                new InvoiceItem { Description = "Item 2", Quantity = 1, UnitPrice = 150.00m },
-                new InvoiceItem { Description = "Item 3", Quantity = 3, UnitPrice = 30.00m }
-            }
-                };
+                ChartType = SeriesChartType.Line,
+                XValueType = ChartValueType.Date,
+                BorderWidth = 2
+            };
+            line_chart.Series.Add(series);
 
-                // Create the document
-                var document = new InvoiceDocument(invoiceModel);
+            // Optional: Set axis format
+            line_chart.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM";
+        }
 
-                // Configure QuestPDF to use the community license
-                QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+        private void BindLineChart(IEnumerable<OverallSaleReport> data)
+        {
+            var series = line_chart.Series["Total Sales"];
+            series.Points.Clear();
 
-                // Generate PDF
-                string filePath = "invoice.pdf";
-                document.GeneratePdf(filePath);
-
-                // Open the PDF (optional)
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath) { UseShellExecute = true });
-
-                MessageBox.Show("Invoice PDF generated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
+            foreach (var item in data)
             {
-                MessageBox.Show($"Error generating PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // X: OrderDate, Y: TotalAmount
+                series.Points.AddXY(item.OrderDate, item.TotalAmount);
+            }
+        }
+
+        private async void HomeUC_Load(object sender, EventArgs e)
+        {
+            InitializeDonutChart();
+            await LoadLineChart();
+            await LoadOrders();
+            await LoadOverallStatistic();
+        }
+
+        private void InitializeDonutChart()
+        {
+            donut_chart.Series.Clear();
+            donut_chart.ChartAreas.Clear();
+
+            // Create chart area
+            var chartArea = new ChartArea();
+            donut_chart.ChartAreas.Add(chartArea);
+
+            // Create line series
+            var series = new Series("Payments")
+            {
+                ChartType = SeriesChartType.Doughnut,
+                BorderWidth = 2
+            };
+            // Show values on the chart
+            series.IsValueShownAsLabel = true;
+            donut_chart.Series.Add(series);
+        }
+
+        private void BindDonutChart(OverallSaleStatistic data)
+        {
+            var series = donut_chart.Series["Payments"];
+            series.Points.Clear();
+
+            series.Points.AddXY("ຍອດລວມສຸດທິ", data.TotalAmount.ToString("N2"));
+            series.Points.AddXY("ມັດຈຳ", data.DepositAmount.ToString("N2"));
+        }
+
+        private void InitializeDataGridView()
+        {
+            order_dgv.AutoGenerateColumns = false;
+            order_dgv.Columns.Clear();
+
+            order_dgv.Columns.AddRange(
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "ເລກທີສັ່ງຕັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 38),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "ປະເພດເສື້ອຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "ຊື່ລູກຄ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "User", headerText: "ຊື່ຜູ້ໃຊ້ລະບົບ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 30),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "ວັນທີສ້າງ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UpdatedAt", headerText: "ວັນທີແກ້ໄຂ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
+            );
+
+            order_dgv.CellFormatting += OrderDgv_CellFormatting;
+        }
+
+        private void OrderDgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Customer")
+            {
+                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+                if (order != null && order.Customer != null)
+                {
+                    e.Value = order.Customer.Name;
+                    e.FormattingApplied = true;
+                }
             }
 
+            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "User")
+            {
+                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+                if (order != null && order.User != null)
+                {
+                    e.Value = order.User.Username;
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
+            {
+                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+                if (order != null && order.Garment != null)
+                {
+                    e.Value = order.Garment.Name;
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        public async Task LoadOrders()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var _filter = new FilterOrder(1, 5);
+                var orderService = new OrderService(dbContext);
+                var result = await orderService.GetAll(_filter);
+                order_dgv.DataSource = null;
+                order_dgv.DataSource = result.Data.ToList();
+                order_dgv.ClearSelection();
+            }
         }
     }
 }

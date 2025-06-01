@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            total_orders_lbl = new Label();
-            net_sales_lbl = new Label();
             aov_pn = new TableLayoutPanel();
             aov_lbl = new Label();
             label7 = new Label();
@@ -49,18 +47,14 @@
             to_date_dpk = new DateTimePicker();
             label3 = new Label();
             from_date_dpk = new DateTimePicker();
-            paid_amount_pn = new TableLayoutPanel();
-            paid_amount_lbl = new Label();
-            label8 = new Label();
             label6 = new Label();
-            total_customers_lbl = new Label();
-            discount_pn = new TableLayoutPanel();
-            discount_lbl = new Label();
-            label9 = new Label();
+            total_fabrics_lbl = new Label();
             label2 = new Label();
             panel1 = new Panel();
             total_orders_pn = new TableLayoutPanel();
+            total_value_lbl = new Label();
             net_sales_pn = new TableLayoutPanel();
+            total_used_lbl = new Label();
             gross_sales_pn = new TableLayoutPanel();
             label1 = new Label();
             panel3 = new Panel();
@@ -78,8 +72,6 @@
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel2.SuspendLayout();
-            paid_amount_pn.SuspendLayout();
-            discount_pn.SuspendLayout();
             panel1.SuspendLayout();
             total_orders_pn.SuspendLayout();
             net_sales_pn.SuspendLayout();
@@ -88,30 +80,6 @@
             pagination_pn.SuspendLayout();
             SuspendLayout();
             // 
-            // total_orders_lbl
-            // 
-            total_orders_lbl.Dock = DockStyle.Fill;
-            total_orders_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_orders_lbl.ForeColor = Color.White;
-            total_orders_lbl.Location = new Point(3, 50);
-            total_orders_lbl.Name = "total_orders_lbl";
-            total_orders_lbl.Size = new Size(194, 50);
-            total_orders_lbl.TabIndex = 2;
-            total_orders_lbl.Text = "0";
-            total_orders_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // net_sales_lbl
-            // 
-            net_sales_lbl.Dock = DockStyle.Fill;
-            net_sales_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            net_sales_lbl.ForeColor = Color.White;
-            net_sales_lbl.Location = new Point(3, 50);
-            net_sales_lbl.Name = "net_sales_lbl";
-            net_sales_lbl.Size = new Size(194, 50);
-            net_sales_lbl.TabIndex = 2;
-            net_sales_lbl.Text = "0";
-            net_sales_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // aov_pn
             // 
             aov_pn.BackColor = Color.FromArgb(84, 119, 146);
@@ -119,23 +87,23 @@
             aov_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             aov_pn.Controls.Add(aov_lbl, 0, 1);
             aov_pn.Controls.Add(label7, 0, 0);
-            aov_pn.Location = new Point(696, 125);
+            aov_pn.Location = new Point(702, 125);
             aov_pn.Name = "aov_pn";
             aov_pn.RowCount = 2;
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            aov_pn.Size = new Size(200, 100);
+            aov_pn.Size = new Size(220, 100);
             aov_pn.TabIndex = 5;
             // 
             // aov_lbl
             // 
             aov_lbl.Dock = DockStyle.Fill;
-            aov_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            aov_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
             aov_lbl.ForeColor = Color.White;
             aov_lbl.Location = new Point(3, 50);
             aov_lbl.Name = "aov_lbl";
-            aov_lbl.Size = new Size(194, 50);
+            aov_lbl.Size = new Size(214, 50);
             aov_lbl.TabIndex = 2;
             aov_lbl.Text = "0";
             aov_lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -147,7 +115,7 @@
             label7.ForeColor = Color.White;
             label7.Location = new Point(3, 0);
             label7.Name = "label7";
-            label7.Size = new Size(194, 50);
+            label7.Size = new Size(214, 50);
             label7.TabIndex = 0;
             label7.Text = "ມູນຄ່າສະເລ່ຍ";
             label7.TextAlign = ContentAlignment.MiddleCenter;
@@ -159,9 +127,9 @@
             label5.ForeColor = Color.White;
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(194, 50);
+            label5.Size = new Size(214, 50);
             label5.TabIndex = 0;
-            label5.Text = "ລູກຄ້າໃໝ່";
+            label5.Text = "ຈຳນວນຖືກໃຊ້";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // bottom_pn
@@ -335,46 +303,6 @@
             from_date_dpk.TabIndex = 1;
             from_date_dpk.ValueChanged += from_date_dpk_ValueChanged;
             // 
-            // paid_amount_pn
-            // 
-            paid_amount_pn.BackColor = Color.FromArgb(84, 119, 146);
-            paid_amount_pn.ColumnCount = 1;
-            paid_amount_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            paid_amount_pn.Controls.Add(paid_amount_lbl, 0, 1);
-            paid_amount_pn.Controls.Add(label8, 0, 0);
-            paid_amount_pn.Location = new Point(921, 125);
-            paid_amount_pn.Name = "paid_amount_pn";
-            paid_amount_pn.RowCount = 2;
-            paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            paid_amount_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            paid_amount_pn.Size = new Size(200, 100);
-            paid_amount_pn.TabIndex = 6;
-            // 
-            // paid_amount_lbl
-            // 
-            paid_amount_lbl.Dock = DockStyle.Fill;
-            paid_amount_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paid_amount_lbl.ForeColor = Color.White;
-            paid_amount_lbl.Location = new Point(3, 50);
-            paid_amount_lbl.Name = "paid_amount_lbl";
-            paid_amount_lbl.Size = new Size(194, 50);
-            paid_amount_lbl.TabIndex = 2;
-            paid_amount_lbl.Text = "0";
-            paid_amount_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            label8.Dock = DockStyle.Fill;
-            label8.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(3, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(194, 50);
-            label8.TabIndex = 0;
-            label8.Text = "ຍອດຊຳລະແລ້ວ";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // label6
             // 
             label6.Dock = DockStyle.Fill;
@@ -382,62 +310,22 @@
             label6.ForeColor = Color.White;
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(194, 50);
+            label6.Size = new Size(214, 50);
             label6.TabIndex = 0;
-            label6.Text = "ລູກຄ້າປະຈຳ";
+            label6.Text = "ລວມມູນຄ່າ";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // total_customers_lbl
+            // total_fabrics_lbl
             // 
-            total_customers_lbl.Dock = DockStyle.Fill;
-            total_customers_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_customers_lbl.ForeColor = Color.White;
-            total_customers_lbl.Location = new Point(3, 50);
-            total_customers_lbl.Name = "total_customers_lbl";
-            total_customers_lbl.Size = new Size(194, 50);
-            total_customers_lbl.TabIndex = 2;
-            total_customers_lbl.Text = "0";
-            total_customers_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // discount_pn
-            // 
-            discount_pn.BackColor = Color.FromArgb(84, 119, 146);
-            discount_pn.ColumnCount = 1;
-            discount_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            discount_pn.Controls.Add(discount_lbl, 0, 1);
-            discount_pn.Controls.Add(label9, 0, 0);
-            discount_pn.Location = new Point(1146, 125);
-            discount_pn.Name = "discount_pn";
-            discount_pn.RowCount = 2;
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            discount_pn.Size = new Size(200, 100);
-            discount_pn.TabIndex = 7;
-            // 
-            // discount_lbl
-            // 
-            discount_lbl.Dock = DockStyle.Fill;
-            discount_lbl.Font = new Font("Noto Sans", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            discount_lbl.ForeColor = Color.White;
-            discount_lbl.Location = new Point(3, 50);
-            discount_lbl.Name = "discount_lbl";
-            discount_lbl.Size = new Size(194, 50);
-            discount_lbl.TabIndex = 2;
-            discount_lbl.Text = "0";
-            discount_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            label9.Dock = DockStyle.Fill;
-            label9.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(3, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(194, 50);
-            label9.TabIndex = 0;
-            label9.Text = "ສ່ວນຫຼຸດລວມ";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
+            total_fabrics_lbl.Dock = DockStyle.Fill;
+            total_fabrics_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
+            total_fabrics_lbl.ForeColor = Color.White;
+            total_fabrics_lbl.Location = new Point(3, 50);
+            total_fabrics_lbl.Name = "total_fabrics_lbl";
+            total_fabrics_lbl.Size = new Size(214, 50);
+            total_fabrics_lbl.TabIndex = 2;
+            total_fabrics_lbl.Text = "0";
+            total_fabrics_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -446,15 +334,13 @@
             label2.ForeColor = Color.White;
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new Size(194, 50);
+            label2.Size = new Size(214, 50);
             label2.TabIndex = 0;
-            label2.Text = "ຈຳນວນລູກຄ້າ";
+            label2.Text = "ຈຳນວນຜ້າ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
-            panel1.Controls.Add(discount_pn);
-            panel1.Controls.Add(paid_amount_pn);
             panel1.Controls.Add(aov_pn);
             panel1.Controls.Add(total_orders_pn);
             panel1.Controls.Add(net_sales_pn);
@@ -471,44 +357,68 @@
             total_orders_pn.BackColor = Color.FromArgb(84, 119, 146);
             total_orders_pn.ColumnCount = 1;
             total_orders_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            total_orders_pn.Controls.Add(total_orders_lbl, 0, 1);
+            total_orders_pn.Controls.Add(total_value_lbl, 0, 1);
             total_orders_pn.Controls.Add(label6, 0, 0);
-            total_orders_pn.Location = new Point(472, 125);
+            total_orders_pn.Location = new Point(477, 125);
             total_orders_pn.Name = "total_orders_pn";
             total_orders_pn.RowCount = 2;
             total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            total_orders_pn.Size = new Size(200, 100);
+            total_orders_pn.Size = new Size(220, 100);
             total_orders_pn.TabIndex = 4;
+            // 
+            // total_value_lbl
+            // 
+            total_value_lbl.Dock = DockStyle.Fill;
+            total_value_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
+            total_value_lbl.ForeColor = Color.White;
+            total_value_lbl.Location = new Point(3, 50);
+            total_value_lbl.Name = "total_value_lbl";
+            total_value_lbl.Size = new Size(214, 50);
+            total_value_lbl.TabIndex = 3;
+            total_value_lbl.Text = "0";
+            total_value_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // net_sales_pn
             // 
             net_sales_pn.BackColor = Color.FromArgb(84, 119, 146);
             net_sales_pn.ColumnCount = 1;
             net_sales_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            net_sales_pn.Controls.Add(net_sales_lbl, 0, 1);
+            net_sales_pn.Controls.Add(total_used_lbl, 0, 1);
             net_sales_pn.Controls.Add(label5, 0, 0);
-            net_sales_pn.Location = new Point(249, 125);
+            net_sales_pn.Location = new Point(252, 125);
             net_sales_pn.Name = "net_sales_pn";
             net_sales_pn.RowCount = 2;
             net_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             net_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            net_sales_pn.Size = new Size(200, 100);
+            net_sales_pn.Size = new Size(220, 100);
             net_sales_pn.TabIndex = 3;
+            // 
+            // total_used_lbl
+            // 
+            total_used_lbl.Dock = DockStyle.Fill;
+            total_used_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
+            total_used_lbl.ForeColor = Color.White;
+            total_used_lbl.Location = new Point(3, 50);
+            total_used_lbl.Name = "total_used_lbl";
+            total_used_lbl.Size = new Size(214, 50);
+            total_used_lbl.TabIndex = 3;
+            total_used_lbl.Text = "0";
+            total_used_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // gross_sales_pn
             // 
             gross_sales_pn.BackColor = Color.FromArgb(84, 119, 146);
             gross_sales_pn.ColumnCount = 1;
             gross_sales_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            gross_sales_pn.Controls.Add(total_customers_lbl, 0, 1);
+            gross_sales_pn.Controls.Add(total_fabrics_lbl, 0, 1);
             gross_sales_pn.Controls.Add(label2, 0, 0);
             gross_sales_pn.Location = new Point(27, 125);
             gross_sales_pn.Name = "gross_sales_pn";
             gross_sales_pn.RowCount = 2;
             gross_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             gross_sales_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            gross_sales_pn.Size = new Size(200, 100);
+            gross_sales_pn.Size = new Size(220, 100);
             gross_sales_pn.TabIndex = 2;
             // 
             // label1
@@ -656,8 +566,6 @@
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            paid_amount_pn.ResumeLayout(false);
-            discount_pn.ResumeLayout(false);
             panel1.ResumeLayout(false);
             total_orders_pn.ResumeLayout(false);
             net_sales_pn.ResumeLayout(false);
@@ -693,7 +601,7 @@
         private Label paid_amount_lbl;
         private Label label8;
         private Label label6;
-        private Label total_customers_lbl;
+        private Label total_fabrics_lbl;
         private TableLayoutPanel discount_pn;
         private Label discount_lbl;
         private Label label9;
@@ -711,5 +619,7 @@
         private Button prev_page_btn;
         private Button first_page_btn;
         private Label page_lbl;
+        private Label total_value_lbl;
+        private Label total_used_lbl;
     }
 }

@@ -32,6 +32,7 @@ namespace app.Presentation.Report
         private async void CustomerReportUC_Load(object sender, EventArgs e)
         {
             await LoadCustomerReport();
+            await LoadCustomerStatistic();
 
             // Usage:
             var reportTypes = Enum.GetValues(typeof(CustomerReportType))
@@ -80,6 +81,26 @@ namespace app.Presentation.Report
                 // Update chart
                 //InitializeLineChart();
                 //BindLineChart(result.Data);
+            }
+        }
+
+        public async Task LoadCustomerStatistic()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetCustomerStatistic(startOfDay, endOfDay);
+                if (result != null)
+                {
+                    total_customers_lbl.Text = result.TotalCustomers.ToString();
+                    new_customers_lbl.Text = result.NewCustomers.ToString();
+                    repeat_customers_lbl.Text = result.RepeatCustomers.ToString();
+                }
             }
         }
 
@@ -135,6 +156,7 @@ namespace app.Presentation.Report
             {
                 _pagination.Page++;
                 await LoadCustomerReport();
+                await LoadCustomerStatistic();
             }
         }
 
@@ -144,6 +166,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = _pagination.TotalPages;
                 await LoadCustomerReport();
+                await LoadCustomerStatistic();
+
             }
         }
 
@@ -151,6 +175,8 @@ namespace app.Presentation.Report
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
             await LoadCustomerReport();
+            await LoadCustomerStatistic();
+
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -159,6 +185,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page--;
                 await LoadCustomerReport();
+                await LoadCustomerStatistic();
+
             }
         }
 
@@ -168,17 +196,23 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = 1;
                 await LoadCustomerReport();
+                await LoadCustomerStatistic();
+
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadCustomerReport();
+            await LoadCustomerStatistic();
+
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadCustomerReport();
+            await LoadCustomerStatistic();
+
         }
 
         private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,6 +224,8 @@ namespace app.Presentation.Report
                 // For now, we just reload the report with the new type
                 _pagination.Page = 1; // Reset to first page when changing report type
                 await LoadCustomerReport();
+                await LoadCustomerStatistic();
+
             }
         }
 

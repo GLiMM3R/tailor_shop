@@ -14,4 +14,12 @@ namespace app.Entity
         public int TotalUsedQuantity { get; set; }
         public decimal TotalValue { get; set; }
     }
+
+    public class FabricStatistic
+    {
+        public int TotalFabrics { get; set; }
+        public int TotalUsedFabrics { get; set; }
+        public decimal TotalValue { get; set; }
+        public decimal AverageValue { get; set; }
+    }
 }

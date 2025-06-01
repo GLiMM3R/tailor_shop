@@ -31,6 +31,7 @@ namespace app.Presentation.Report
         private async void FabricReportUC_Load(object sender, EventArgs e)
         {
             await LoadFabricReport();
+            await LoadFabricStatistic();
 
             // Usage:
             var reportTypes = Enum.GetValues(typeof(FabricReportType))
@@ -163,6 +164,27 @@ namespace app.Presentation.Report
                 //BindLineChart(result.Data);
             }
         }
+
+        private async Task LoadFabricStatistic()
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetFabricsStatistic(startOfDay, endOfDay);
+                if(result != null)
+                {
+                    total_fabrics_lbl.Text = result.TotalFabrics.ToString("N0");
+                    total_used_lbl.Text = result.TotalUsedFabrics.ToString("N0");
+                    total_value_lbl.Text = result.TotalValue.ToString("N2");
+                    aov_lbl.Text = result.AverageValue.ToString("N2");
+                }
+            }
+        }
+
         private void UpdatePageNumber()
         {
             if (_pagination.TotalItems > 0)
@@ -181,6 +203,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page++;
                 await LoadFabricReport();
+                await LoadFabricStatistic();
+
             }
         }
 
@@ -190,6 +214,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = _pagination.TotalPages;
                 await LoadFabricReport();
+                await LoadFabricStatistic();
+
             }
         }
 
@@ -197,6 +223,8 @@ namespace app.Presentation.Report
         {
             _pagination.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
             await LoadFabricReport();
+            await LoadFabricStatistic();
+
         }
 
         private async void prev_page_btn_Click(object sender, EventArgs e)
@@ -205,6 +233,8 @@ namespace app.Presentation.Report
             {
                 _pagination.Page--;
                 await LoadFabricReport();
+                await LoadFabricStatistic();
+
             }
         }
 
@@ -214,17 +244,23 @@ namespace app.Presentation.Report
             {
                 _pagination.Page = 1;
                 await LoadFabricReport();
+                await LoadFabricStatistic();
+
             }
         }
 
         private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadFabricReport();
+            await LoadFabricStatistic();
+
         }
 
         private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
         {
             await LoadFabricReport();
+            await LoadFabricStatistic();
+
         }
 
         private async void report_type_cbb_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,6 +272,8 @@ namespace app.Presentation.Report
                 // For now, we just reload the report with the new type
                 _pagination.Page = 1; // Reset to first page when changing report type
                 await LoadFabricReport();
+                await LoadFabricStatistic();
+
             }
         }
 
