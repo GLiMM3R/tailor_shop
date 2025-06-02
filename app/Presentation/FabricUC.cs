@@ -81,6 +81,7 @@ namespace app.Presentation
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             fabric_dgv.CellFormatting += this.fabric_dgv_CellFormatting;
+            fabric_dgv.CellFormatting += this.farbic_number_format_CellFormatting;
             fabric_dgv.CellContentClick += this.fabric_dgv_CellContentClick;
         }
 
@@ -109,6 +110,19 @@ namespace app.Presentation
                         var form = new FabricForm(this, this._fabricService, selectedFabric);
                         form.ShowDialog();
                     }
+                }
+            }
+        }
+
+        private void farbic_number_format_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var columnName = fabric_dgv.Columns[e.ColumnIndex].DataPropertyName;
+            if (columnName == "BasePrice" || columnName == "UnitPrice")
+            {
+                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
+                {
+                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.FormattingApplied = true;
                 }
             }
         }

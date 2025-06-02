@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             root_pn = new Panel();
             panel2 = new Panel();
@@ -43,6 +43,8 @@
             donut_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             label5 = new Label();
             panel4 = new Panel();
+            order_dgv = new DataGridView();
+            label6 = new Label();
             panel1 = new Panel();
             gross_sales_pn = new TableLayoutPanel();
             total_orders_lbl = new Label();
@@ -53,19 +55,17 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             total_amount_lbl = new Label();
             label3 = new Label();
-            label6 = new Label();
-            order_dgv = new DataGridView();
             root_pn.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)line_chart).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)donut_chart).BeginInit();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             panel1.SuspendLayout();
             gross_sales_pn.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)order_dgv).BeginInit();
             SuspendLayout();
             // 
             // root_pn
@@ -93,17 +93,17 @@
             // 
             // line_chart
             // 
-            chartArea3.Name = "ChartArea1";
-            line_chart.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            line_chart.ChartAreas.Add(chartArea1);
             line_chart.Dock = DockStyle.Fill;
-            legend3.Name = "Legend1";
-            line_chart.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            line_chart.Legends.Add(legend1);
             line_chart.Location = new Point(0, 46);
             line_chart.Name = "line_chart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            line_chart.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            line_chart.Series.Add(series1);
             line_chart.Size = new Size(816, 304);
             line_chart.TabIndex = 0;
             line_chart.Text = "Total Sales";
@@ -133,17 +133,17 @@
             // 
             // donut_chart
             // 
-            chartArea4.Name = "ChartArea1";
-            donut_chart.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            donut_chart.ChartAreas.Add(chartArea2);
             donut_chart.Dock = DockStyle.Fill;
-            legend4.Name = "Legend1";
-            donut_chart.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            donut_chart.Legends.Add(legend2);
             donut_chart.Location = new Point(0, 46);
             donut_chart.Name = "donut_chart";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            donut_chart.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            donut_chart.Series.Add(series2);
             donut_chart.Size = new Size(630, 304);
             donut_chart.TabIndex = 1;
             donut_chart.Text = "chart2";
@@ -169,8 +169,44 @@
             panel4.Dock = DockStyle.Bottom;
             panel4.Location = new Point(0, 534);
             panel4.Name = "panel4";
+            panel4.Padding = new Padding(20, 0, 20, 0);
             panel4.Size = new Size(1446, 366);
             panel4.TabIndex = 6;
+            // 
+            // order_dgv
+            // 
+            order_dgv.AllowUserToAddRows = false;
+            order_dgv.AllowUserToDeleteRows = false;
+            order_dgv.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            order_dgv.Dock = DockStyle.Fill;
+            order_dgv.Location = new Point(20, 46);
+            order_dgv.Margin = new Padding(8);
+            order_dgv.Name = "order_dgv";
+            order_dgv.ReadOnly = true;
+            order_dgv.RowHeadersWidth = 51;
+            order_dgv.Size = new Size(1406, 320);
+            order_dgv.TabIndex = 4;
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.White;
+            label6.Dock = DockStyle.Top;
+            label6.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(20, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(1406, 46);
+            label6.TabIndex = 3;
+            label6.Text = "ລາຍການສັ່ງຕັດລ່າສຸດ";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
@@ -220,7 +256,7 @@
             label2.Name = "label2";
             label2.Size = new Size(234, 60);
             label2.TabIndex = 0;
-            label2.Text = "ຈຳນວນສັ່ງຕັດມື້ນີ້";
+            label2.Text = "ຈຳນວນສັ່ງຕັດເດືອນນີ້";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
@@ -302,42 +338,6 @@
             label3.Text = "ຍອດລວມສຸດທິ";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label6
-            // 
-            label6.BackColor = Color.White;
-            label6.Dock = DockStyle.Top;
-            label6.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(0, 0);
-            label6.Name = "label6";
-            label6.Padding = new Padding(20, 0, 0, 0);
-            label6.Size = new Size(1446, 46);
-            label6.TabIndex = 3;
-            label6.Text = "ລາຍການສັ່ງຕັດລ່າສຸດ";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // order_dgv
-            // 
-            order_dgv.AllowUserToAddRows = false;
-            order_dgv.AllowUserToDeleteRows = false;
-            order_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            order_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            order_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            order_dgv.Dock = DockStyle.Fill;
-            order_dgv.Location = new Point(0, 46);
-            order_dgv.Margin = new Padding(8);
-            order_dgv.Name = "order_dgv";
-            order_dgv.ReadOnly = true;
-            order_dgv.RowHeadersWidth = 51;
-            order_dgv.Size = new Size(1446, 320);
-            order_dgv.TabIndex = 4;
-            // 
             // HomeUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -352,11 +352,11 @@
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)donut_chart).EndInit();
             panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             panel1.ResumeLayout(false);
             gross_sales_pn.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)order_dgv).EndInit();
             ResumeLayout(false);
         }
 

@@ -75,4 +75,13 @@ namespace app.Model
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
+
+    public class OrderStatistic
+    {
+        public int TotalOrders { get; set; }
+        public int InProgressOrders { get; set; }
+        public int CompletedOrders { get; set; }
+        public int PickedUpOrders { get; set; }
+        public int CanceledOrders { get; set; }
+    }
 }

@@ -29,6 +29,7 @@ namespace app.Presentation.Report
         private async void SaleReportUC_Load(object sender, EventArgs e)
         {
             await LoadSaleReport();
+            //await LoadStatistic();
 
             // Usage:
             var periodItems = Enum.GetValues(typeof(Period.PeriodType))
@@ -94,6 +95,35 @@ namespace app.Presentation.Report
                 sale_report_dgv.DataSource = result.Data.ToList();
                 sale_report_dgv.ClearSelection();
                 UpdatePageNumber();
+
+
+                // Update chart
+                //InitializeLineChart();
+                //BindLineChart(result.Data);
+            }
+            await LoadStatistic();
+        }
+
+        public async Task LoadStatistic()
+        {
+            // Always create a new DbContext and OrderService to avoid caching
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new StatisticService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+
+                var result = await report.GetOrderStatistic(startOfDay, endOfDay);
+
+                if (result != null)
+                {
+                    total_orders_lbl.Text = result.TotalOrders.ToString("N0");
+                    in_progress_lbl.Text = result.InProgressOrders.ToString("N0");
+                    complete_lbl.Text = result.CompletedOrders.ToString("N0");
+                    pick_up_lbl.Text = result.PickedUpOrders.ToString("N0");
+                    canceled_lbl.Text = result.CanceledOrders.ToString("N0");
+                }
 
                 // Update chart
                 //InitializeLineChart();

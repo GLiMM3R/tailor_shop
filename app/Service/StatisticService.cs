@@ -23,23 +23,9 @@ namespace app.Service
             IQueryable<Order> query = _context.Orders
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate);
 
-            var result = await query
-                .GroupBy(o => o.CreatedAt.Date)
-                .Select(g => new OverallSaleStatistic
-                {
-                    SubTotal = g.Sum(x => x.Subtotal),
-                    TotalAmount = g.Sum(x => x.TotalAmount),
-                    TotalOrders = g.Count(),
-                    TotalAvg = g.Average(x => x.TotalAmount),
-                    TotalPaid = _context.Payments
-                        .Where(p => g.Select(x => x.Id).Contains(p.OrderId))
-                        .Sum(p => (decimal?)p.PaidAmount) ?? 0,
-                    Discount = g.Sum(x => x.Discount),
-                    DepositAmount = g.Sum(x => x.DepositAmount)
-                })
-                .FirstOrDefaultAsync(); // Use FirstOrDefaultAsync instead of FirstOrDefault
+            var orders = await query.ToListAsync();
 
-            if (result == null)
+            if (orders == null || orders.Count == 0)
             {
                 return new OverallSaleStatistic
                 {
@@ -53,102 +39,107 @@ namespace app.Service
                 };
             }
 
-            return result;
+            var orderIds = orders.Select(o => o.Id).ToList();
+            var totalPaid = await _context.Payments
+                .Where(p => orderIds.Contains(p.OrderId))
+                .SumAsync(p => (decimal?)p.PaidAmount) ?? 0;
+
+            return new OverallSaleStatistic
+            {
+                SubTotal = orders.Sum(x => x.Subtotal),
+                TotalAmount = orders.Sum(x => x.TotalAmount),
+                TotalOrders = orders.Count,
+                TotalAvg = orders.Average(x => x.TotalAmount),
+                TotalPaid = totalPaid,
+                Discount = orders.Sum(x => x.Discount),
+                DepositAmount = orders.Sum(x => x.DepositAmount)
+            };
         }
 
         public async Task<CustomerStatistic> GetCustomerStatistic(DateTime fromDate, DateTime toDate)
         {
-            IQueryable<Customer> query = _context.Customers
-                .Include(c => c.Orders);
+            var customers = await _context.Customers
+                .Include(c => c.Orders)
+                .ToListAsync();
 
-            var result = await query
-                .GroupBy(o => o.Id)
-                .Select(g => new CustomerStatistic
-                {
-                    TotalCustomers = g.Count(),
-                    NewCustomers = g.Count(c => c.CreatedAt >= fromDate && c.CreatedAt <= toDate),
-                    RepeatCustomers = g.Count(c => c.Orders.Count(o => o.Status != OrderStatus.Pending || o.Status != OrderStatus.Canceled) > 1)
-                })
-                .FirstOrDefaultAsync(); // Use FirstOrDefaultAsync instead of FirstOrDefault
+            int totalCustomers = customers.Count;
+            int newCustomers = customers.Count(c => c.CreatedAt >= fromDate && c.CreatedAt <= toDate);
+            int repeatCustomers = customers.Count(c =>
+                c.Orders != null &&
+                c.Orders.Count(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled) > 1
+            );
 
-            if (result == null)
+            return new CustomerStatistic
             {
-                return new CustomerStatistic
-                {
-                    TotalCustomers = 0,
-                    NewCustomers = 0,
-                    RepeatCustomers = 0
-                };
-            }
-
-            return result;
+                TotalCustomers = totalCustomers,
+                NewCustomers = newCustomers,
+                RepeatCustomers = repeatCustomers
+            };
         }
 
         public async Task<FabricStatistic> GetFabricsStatistic(DateTime fromDate, DateTime toDate)
         {
-            IQueryable<Fabric> query = _context.Fabrics
-                .Include(f => f.Orders);
+            // Get all fabrics and their related orders in the date range
+            var fabrics = await _context.Fabrics
+                .Include(f => f.Orders)
+                .ToListAsync();
 
-            var result = await query
-                .Select(f => new
-                {
-                    Fabric = f,
-                    UsedOrders = f.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                })
-                .GroupBy(x => x.Fabric.Id)
-                .Select(g => new FabricStatistic
-                {
-                    TotalFabrics = g.Count(),
-                    TotalUsedFabrics = g.Sum(x => x.UsedOrders.Sum(o => o.Quantity)),
-                    TotalValue = g.Sum(x => x.Fabric.UnitPrice * x.UsedOrders.Sum(o => o.Quantity)),
-                    AverageValue = g.Average(x => x.Fabric.UnitPrice * x.UsedOrders.Sum(o => o.Quantity))
-                })
-                .FirstOrDefaultAsync();
+            int totalFabrics = fabrics.Count;
+            int totalUsedFabrics = 0;
+            decimal totalValue = 0;
 
-            if (result == null)
+            foreach (var fabric in fabrics)
             {
-                return new FabricStatistic
-                {
-                    TotalFabrics = 0,
-                    TotalUsedFabrics = 0,
-                    TotalValue = 0,
-                    AverageValue = 0
-                };
+                var usedOrders = fabric.Orders
+                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate);
+
+                int usedQty = usedOrders.Sum(o => o.Quantity);
+                totalUsedFabrics += usedQty;
+                totalValue += fabric.UnitPrice * usedQty;
             }
 
-            return result;
+            decimal averageValue = totalFabrics > 0 ? totalValue / totalFabrics : 0;
+
+            return new FabricStatistic
+            {
+                TotalFabrics = totalFabrics,
+                TotalUsedFabrics = totalUsedFabrics,
+                TotalValue = totalValue,
+                AverageValue = averageValue
+            };
         }
 
         public async Task<GarmentStatistic> GetGarmentStatistic(DateTime fromDate, DateTime toDate)
         {
-            IQueryable<Garment> query = _context.Garments
-                .Include(f => f.Orders);
+            // Pseudocode:
+            // - Query all garments
+            // - For each garment, filter its orders by date and status
+            // - Sum up the total value (quantity * base price) for all valid orders
+            // - Count total garments (distinct garments with at least one valid order in range)
 
-            var result = await query
-                .Select(g => new
-                {
-                    Garment = g,
-                    OrdersInRange = g.Orders
-                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate && o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled)
-                })
-                .GroupBy(x => x.Garment.Id)
-                .Select(g => new GarmentStatistic
-                {
-                    TotalGarments = g.Count(),
-                    TotalValue = g.Sum(x => x.OrdersInRange.Sum(o => o.Quantity * (o.Garment.BasePrice ?? 0)))
-                })
-                .FirstOrDefaultAsync();
+            var garments = await _context.Garments
+                .Include(g => g.Orders)
+                .ToListAsync();
 
-            if (result == null)
+            int totalGarments = 0;
+            decimal totalValue = 0;
+
+            foreach (var garment in garments)
             {
-                return new GarmentStatistic
-                {
-                    TotalGarments = 0,
-                    TotalValue = 0
-                };
+                var validOrders = garment.Orders
+                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate
+                        && o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
+
+                int orderCount = validOrders.Any() ? 1 : 0;
+                totalGarments += orderCount;
+                totalValue += validOrders.Sum(o => o.Quantity * (garment.BasePrice ?? 0));
             }
 
-            return result;
+            return new GarmentStatistic
+            {
+                TotalGarments = totalGarments,
+                TotalValue = totalValue
+            };
         }
 
         // Pseudocode plan:
@@ -159,24 +150,11 @@ namespace app.Service
         public async Task<PaymentTransactionStatistic> GetPaymentTransactionStatistic(DateTime fromDate, DateTime toDate)
         {
             IQueryable<Payment> query = _context.Payments
-                .Include(pt => pt.Order)
                 .Where(pt => pt.CreatedAt >= fromDate && pt.CreatedAt <= toDate);
 
-            var grouped = await query
-                .GroupBy(pt => new { pt.OrderId })
-                .Select(g => new
-                {
-                    TotalAmount = g.Sum(pt => pt.TotalPrice),
-                    TotalPaidAmount = g.Sum(pt => pt.PaidAmount),
-                    TotalCashTransactions = g.Where(pt => pt.TransactionType == TransactionType.Cash).Sum(pt => pt.PaidAmount),
-                    TotalBankTransactions = g.Where(pt => pt.TransactionType == TransactionType.Bank).Sum(pt => pt.PaidAmount),
-                    TotalDepositTransactions = g.Where(pt => pt.TransactionType == TransactionType.Deposit).Sum(pt => pt.PaidAmount),
-                    AverageTransactionAmount = g.Average(pt => pt.PaidAmount),
-                    TransactionCount = g.Count()
-                })
-                .ToListAsync();
+            var payments = await query.ToListAsync();
 
-            if (grouped == null || grouped.Count == 0)
+            if (payments == null || payments.Count == 0)
             {
                 return new PaymentTransactionStatistic
                 {
@@ -191,12 +169,40 @@ namespace app.Service
 
             return new PaymentTransactionStatistic
             {
-                TotalTransactions = grouped.Sum(x => x.TransactionCount),
-                TotalPaidAmount = grouped.Sum(x => x.TotalPaidAmount),
-                TotalCashTransactions = grouped.Sum(x => x.TotalCashTransactions),
-                TotalBankTransactions = grouped.Sum(x => x.TotalBankTransactions),
-                TotalDepositTransactions = grouped.Sum(x => x.TotalDepositTransactions),
-                AverageTransactionAmount = grouped.Average(x => x.AverageTransactionAmount)
+                TotalTransactions = payments.Count,
+                TotalPaidAmount = payments.Sum(pt => pt.PaidAmount),
+                TotalCashTransactions = payments.Where(pt => pt.TransactionType == TransactionType.Cash).Sum(pt => pt.PaidAmount),
+                TotalBankTransactions = payments.Where(pt => pt.TransactionType == TransactionType.Bank).Sum(pt => pt.PaidAmount),
+                TotalDepositTransactions = payments.Where(pt => pt.TransactionType == TransactionType.Deposit).Sum(pt => pt.PaidAmount),
+                AverageTransactionAmount = payments.Average(pt => pt.PaidAmount)
+            };
+        }
+
+        public async Task<OrderStatistic> GetOrderStatistic(DateTime fromDate, DateTime toDate)
+        {
+            IQueryable<Order> query = _context.Orders
+                .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate);
+
+            var orders = await query.ToListAsync();
+
+            if (orders == null || orders.Count == 0)
+            {
+                return new OrderStatistic
+                {
+                    TotalOrders = 0,
+                    InProgressOrders = 0,
+                    CompletedOrders = 0,
+                    PickedUpOrders = 0,
+                    CanceledOrders = 0
+                };
+            }
+            return new OrderStatistic
+            {
+                TotalOrders = orders.Count,
+                InProgressOrders = orders.Count(o => o.Status == OrderStatus.InProgress),
+                CompletedOrders = orders.Count(o => o.Status == OrderStatus.Completed),
+                PickedUpOrders = orders.Count(o => o.Status == OrderStatus.PickedUp),
+                CanceledOrders = orders.Count(o => o.Status == OrderStatus.Canceled)
             };
         }
     }

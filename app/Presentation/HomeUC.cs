@@ -13,6 +13,7 @@ using app.Entity;
 using app.Model;
 using app.Service;
 using app.Utils;
+using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 
 namespace app.Presentation
@@ -23,31 +24,6 @@ namespace app.Presentation
         {
             InitializeComponent();
             InitializeDataGridView();
-            // Create and configure the chart
-            var chart = new Chart
-            {
-                Dock = DockStyle.Fill
-            };
-            var chartArea = new ChartArea();
-            chart.ChartAreas.Add(chartArea);
-
-            var series = new Series
-            {
-                ChartType = SeriesChartType.Doughnut // Note: "Doughnut" is the correct spelling in the API
-            };
-
-            // Example data
-            series.Points.AddXY("Category A", 40);
-            series.Points.AddXY("Category B", 30);
-            series.Points.AddXY("Category C", 20);
-            series.Points.AddXY("Category D", 10);
-
-            chart.Series.Add(series);
-
-            // Optional: Customize the appearance
-            series["DoughnutRadius"] = "60"; // 0-99, controls the size of the hole
-
-            this.Controls.Add(chart);
         }
 
         public async Task LoadLineChart()
@@ -77,19 +53,22 @@ namespace app.Presentation
                 var report = new StatisticService(dbContext);
                 var now = DateTime.Now;
 
+                var monthRange = DateUtils.GetMonthRange(now);
+
                 var from_date = now.AddDays(-30); // 30 days ago
                 var to_date = now;
 
-                var result = await report.GetOverallSaleStatistic(from_date, to_date);
+                var result = await report.GetOverallSaleStatistic(monthRange.StartOfMonth, monthRange.EndOfMonth);
 
                 if (result != null)
                 {
                     total_orders_lbl.Text = result.TotalOrders.ToString("N0");
                     total_amount_lbl.Text = result.TotalAmount.ToString("N2");
+                    new_customers_lbl.Text = (await dbContext.Customers
+                        .Where(c => c.CreatedAt >= monthRange.StartOfMonth && c.CreatedAt <= monthRange.EndOfMonth)
+                        .CountAsync()).ToString();
 
                     BindDonutChart(result);
-
-
                 }
             }
         }

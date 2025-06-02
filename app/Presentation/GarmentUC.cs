@@ -81,7 +81,7 @@ namespace app.Presentation
             garment_dvg.Columns.Add(actionColumn);
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //garment_dvg.CellFormatting += this.fabric_dgv_CellFormatting;
+            garment_dvg.CellFormatting += this.garment_number_format_CellFormatting;
             garment_dvg.CellContentClick += this.garment_dgv_CellContentClick;
         }
 
@@ -96,6 +96,19 @@ namespace app.Presentation
                         var form = new GarmentForm(this, this._garmentService, selectedGarment);
                         form.ShowDialog();
                     }
+                }
+            }
+        }
+
+        private void garment_number_format_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var columnName = garment_dvg.Columns[e.ColumnIndex].DataPropertyName;
+            if (columnName == "BasePrice" || columnName == "UnitPrice")
+            {
+                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
+                {
+                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.FormattingApplied = true;
                 }
             }
         }
