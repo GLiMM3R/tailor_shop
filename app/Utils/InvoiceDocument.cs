@@ -9,7 +9,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace app.Service
+namespace app.Utils
 {
     public class InvoiceDocument : IDocument
     {

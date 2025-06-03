@@ -49,7 +49,7 @@
             gross_sales_lbl = new Label();
             label2 = new Label();
             label1 = new Label();
-            button5 = new Button();
+            export_to_excel_btn = new Button();
             panel2 = new Panel();
             to_date_dpk = new DateTimePicker();
             label3 = new Label();
@@ -349,21 +349,21 @@
             label1.Text = "ລາຍງານຍອດຂາຍລວມ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // button5
+            // export_to_excel_btn
             // 
-            button5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button5.BackColor = Color.FromArgb(33, 52, 72);
-            button5.Cursor = Cursors.Hand;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.ForeColor = Color.White;
-            button5.Location = new Point(1249, 16);
-            button5.Name = "button5";
-            button5.Size = new Size(180, 59);
-            button5.TabIndex = 5;
-            button5.Text = "Export to Excel";
-            button5.UseVisualStyleBackColor = false;
-            button5.Click += button5_Click;
+            export_to_excel_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            export_to_excel_btn.BackColor = Color.FromArgb(33, 52, 72);
+            export_to_excel_btn.Cursor = Cursors.Hand;
+            export_to_excel_btn.FlatStyle = FlatStyle.Flat;
+            export_to_excel_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            export_to_excel_btn.ForeColor = Color.White;
+            export_to_excel_btn.Location = new Point(1249, 16);
+            export_to_excel_btn.Name = "export_to_excel_btn";
+            export_to_excel_btn.Size = new Size(180, 59);
+            export_to_excel_btn.TabIndex = 5;
+            export_to_excel_btn.Text = "Export to Excel";
+            export_to_excel_btn.UseVisualStyleBackColor = false;
+            export_to_excel_btn.Click += export_to_excel_btn_Click;
             // 
             // panel2
             // 
@@ -564,7 +564,7 @@
             // 
             filter_pn.Controls.Add(label4);
             filter_pn.Controls.Add(panel5);
-            filter_pn.Controls.Add(button5);
+            filter_pn.Controls.Add(export_to_excel_btn);
             filter_pn.Controls.Add(panel2);
             filter_pn.Dock = DockStyle.Top;
             filter_pn.Location = new Point(4, 4);
@@ -646,7 +646,7 @@
         private Panel panel2;
         private DateTimePicker to_date_dpk;
         private Label label3;
-        private Button button5;
+        private Button export_to_excel_btn;
         private TableLayoutPanel bottom_pn;
         private DataGridView order_dgv;
         private Panel filter_pn;

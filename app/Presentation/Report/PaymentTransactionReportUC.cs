@@ -111,7 +111,7 @@ namespace app.Presentation.Report
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
 
                 var result = await report.GetPaymentTransactionStatistic(startOfDay, endOfDay);
-               if(result != null)
+                if (result != null)
                 {
                     total_transactions_lbl.Text = result.TotalTransactions.ToString("N0");
                     total_paid_amount_lbl.Text = result.TotalPaidAmount.ToString("N2");
@@ -263,6 +263,30 @@ namespace app.Presentation.Report
                     break;
                 default:
                     break;
+            }
+        }
+
+        private async void export_btn_Click(object sender, EventArgs e)
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new ReportService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+                var allPagination = new Pagination(1, int.MaxValue);
+
+                var result = await report.GetPaymentTransactionReport(startOfDay, endOfDay, allPagination);
+
+                if (result.Data != null && result.Data.Any())
+                {
+                    var excelUtils = new ExcelUtils();
+                    excelUtils.ExportToExcel(result.Data.ToList(), "Payment Transaction Report", "payment_transaction_report_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".xlsx");
+                }
+                else
+                {
+                    MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

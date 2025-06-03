@@ -115,7 +115,7 @@ namespace app.Presentation.Report
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
 
                 var result = await report.GetOverallSaleStatistic(startOfDay, endOfDay);
-              
+
                 if (result != null)
                 {
                     gross_sales_lbl.Text = result.SubTotal.ToString("N2");
@@ -125,10 +125,6 @@ namespace app.Presentation.Report
                     paid_amount_lbl.Text = result.TotalPaid.ToString("N2");
                     discount_lbl.Text = result.Discount.ToString("N2");
                 }
-
-                // Update chart
-                //InitializeLineChart();
-                //BindLineChart(result.Data);
             }
         }
 
@@ -211,45 +207,6 @@ namespace app.Presentation.Report
 
         }
 
-        //private void InitializeLineChart()
-        //{
-        //    overallSaleChart.Series.Clear();
-        //    overallSaleChart.ChartAreas.Clear();
-
-        //    // Create chart area
-        //    var chartArea = new ChartArea("MainArea");
-        //    overallSaleChart.ChartAreas.Add(chartArea);
-
-        //    // Create line series
-        //    var series = new Series("Total Sales")
-        //    {
-        //        ChartType = SeriesChartType.Line,
-        //        XValueType = ChartValueType.Date,
-        //        BorderWidth = 2
-        //    };
-        //    overallSaleChart.Series.Add(series);
-
-        //    // Optional: Set axis format
-        //    overallSaleChart.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM";
-        //}
-
-        //private void BindLineChart(IEnumerable<OverallSaleReport> data)
-        //{
-        //    var series = overallSaleChart.Series["Total Sales"];
-        //    series.Points.Clear();
-
-        //    foreach (var item in data)
-        //    {
-        //        // X: OrderDate, Y: TotalAmount
-        //        series.Points.AddXY(item.OrderDate, item.TotalAmount);
-        //    }
-        //}
-
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
         private void period_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
             var today = DateTime.Now.Date; // Declare 'today' at the beginning of the method
@@ -258,7 +215,7 @@ namespace app.Presentation.Report
                 case Period.PeriodType.Today:
                     from_date_dpk.Value = today;
                     to_date_dpk.Value = today.AddDays(1).AddTicks(-1); // Set to end of today
-                    break; 
+                    break;
                 case Period.PeriodType.Yesterday:
                     from_date_dpk.Value = today.AddDays(-1); // Set to yesterday
                     to_date_dpk.Value = today.AddTicks(-1); // Set to end of yesterday
@@ -309,6 +266,30 @@ namespace app.Presentation.Report
                     break;
                 default:
                     break;
+            }
+        }
+
+        private async void export_to_excel_btn_Click(object sender, EventArgs e)
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new ReportService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+                var allPagination = new Pagination(1, int.MaxValue);
+
+                var result = await report.GetOverallSaleReport(startOfDay, endOfDay, allPagination);
+
+                if (result.Data != null && result.Data.Any())
+                {
+                    var excelUtils = new ExcelUtils();
+                    excelUtils.ExportToExcel(result.Data.ToList(), "Overall Sale Report", "overall_sale_report_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".xlsx");
+                }
+                else
+                {
+                    MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

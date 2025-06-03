@@ -175,7 +175,7 @@ namespace app.Presentation.Report
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
 
                 var result = await report.GetFabricsStatistic(startOfDay, endOfDay);
-                if(result != null)
+                if (result != null)
                 {
                     total_fabrics_lbl.Text = result.TotalFabrics.ToString("N0");
                     total_used_lbl.Text = result.TotalUsedFabrics.ToString("N0");
@@ -336,6 +336,30 @@ namespace app.Presentation.Report
                     break;
                 default:
                     break;
+            }
+        }
+
+        private async void export_btn_Click(object sender, EventArgs e)
+        {
+            using (var dbContext = new AppDbContext())
+            {
+                var report = new ReportService(dbContext);
+
+                var startOfDay = from_date_dpk.Value.Date;
+                var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
+                var allPagination = new Pagination(1, int.MaxValue);
+
+                var result = await report.GetFabricReport(startOfDay, endOfDay, allPagination, FabricReportType.All);
+
+                if (result.Data != null && result.Data.Any())
+                {
+                    var excelUtils = new ExcelUtils();
+                    excelUtils.ExportToExcel(result.Data.ToList(), "Fabric Report", "fabric_report_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".xlsx");
+                }
+                else
+                {
+                    MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

@@ -262,6 +262,7 @@
             export_btn.TabIndex = 5;
             export_btn.Text = "Export to Excel";
             export_btn.UseVisualStyleBackColor = false;
+            export_btn.Click += export_btn_Click;
             // 
             // panel2
             // 
