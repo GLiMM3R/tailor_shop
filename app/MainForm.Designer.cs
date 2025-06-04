@@ -257,13 +257,13 @@
             // logoLb
             // 
             logoLb.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            logoLb.Font = new Font("Arial", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            logoLb.ForeColor = Color.FromArgb(236, 239, 202);
-            logoLb.Location = new Point(6, 86);
+            logoLb.Font = new Font("Noto Sans Lao", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            logoLb.ForeColor = Color.White;
+            logoLb.Location = new Point(6, 9);
             logoLb.Name = "logoLb";
-            logoLb.Size = new Size(266, 40);
+            logoLb.Size = new Size(266, 189);
             logoLb.TabIndex = 0;
-            logoLb.Text = "Tailor's shop";
+            logoLb.Text = "ຮ້ານ ຕັດຫຍິບ\r\nທ້າວ ມີ ແສງຈັນ";
             logoLb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // main_pn

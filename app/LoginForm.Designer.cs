@@ -81,13 +81,14 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(67, 134);
+            label1.Font = new Font("Noto Sans Lao", 22.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.FromArgb(33, 52, 72);
+            label1.Location = new Point(26, 79);
             label1.Name = "label1";
-            label1.Size = new Size(266, 46);
+            label1.Size = new Size(352, 124);
             label1.TabIndex = 2;
-            label1.Text = "Tailor's Shop";
+            label1.Text = "ຮ້ານ ຕັດຫຍິບ \r\nທ້າວ ມີ ແສງຈັນ";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // exit_btn
             // 
@@ -223,7 +224,6 @@
             Text = "Login";
             Load += LoginForm_Load;
             layout_pn.ResumeLayout(false);
-            layout_pn.PerformLayout();
             form_layout_pn.ResumeLayout(false);
             password_pn.ResumeLayout(false);
             password_pn.PerformLayout();
