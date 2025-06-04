@@ -172,8 +172,8 @@ namespace app.Presentation
         private void select_customer_btn_Click(object sender, EventArgs e)
         {
             var _selectedCustomer = GetSelectedCustomer();
-            
-            if(_selectedCustomer == null)
+
+            if (_selectedCustomer == null)
             {
                 MessageBox.Show("Please select a customer first.", "No Customer Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -181,6 +181,17 @@ namespace app.Presentation
 
             selectedCustomer = _selectedCustomer;
             this.Close();
+        }
+
+        private async void add_new_customer_btn_Click(object sender, EventArgs e)
+        {
+            var form = new CustomerForm(_customerService, null);
+            form.ShowDialog();
+            if(form.IsUpdate)
+            {
+                form.IsUpdate = false; // Reset the flag after use
+                await LoadCustomers();
+            }
         }
     }
 }

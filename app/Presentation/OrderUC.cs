@@ -214,5 +214,6 @@ namespace app.Presentation
             _filter = new FilterOrder(1, 10);
             searchDebouncer.Trigger();
         }
+
     }
 }

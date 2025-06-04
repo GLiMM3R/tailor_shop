@@ -20,7 +20,7 @@ namespace app.Presentation
         private AppDbContext _context;
         private CustomerService _customerService;
 
-        private FilterCustomer _filter = new FilterCustomer(1,10);
+        private FilterCustomer _filter = new FilterCustomer(1, 10);
         private int _count = 0;
 
         private Debouncer searchDebouncer;
@@ -93,10 +93,15 @@ namespace app.Presentation
             UpdatePageNumber();
         }
 
-        private void new_customer_btn_Click(object sender, EventArgs e)
+        private async void new_customer_btn_Click(object sender, EventArgs e)
         {
-            var customer_form = new CustomerForm(this, _customerService, null);
-            customer_form.ShowDialog();
+            var form = new CustomerForm(_customerService, null);
+            form.ShowDialog();
+            if (form.IsUpdate)
+            {
+                form.IsUpdate = false;
+                await LoadCustomers();
+            }
         }
 
         private async void gender_cb_SelectedValueChanged(object sender, EventArgs e)
@@ -134,7 +139,7 @@ namespace app.Presentation
             searchDebouncer.Trigger();
         }
 
-        private void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void customer_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -142,13 +147,17 @@ namespace app.Presentation
                 {
                     if (customer_dgv.Rows[e.RowIndex].DataBoundItem is Customer selectedCustomer)
                     {
-                        var form = new CustomerForm(this, this._customerService, selectedCustomer);
+                        var form = new CustomerForm(this._customerService, selectedCustomer);
                         form.ShowDialog();
+                        if (form.IsUpdate)
+                        {
+                            form.IsUpdate = false;
+                            await LoadCustomers();
+                        }
                     }
                 }
             }
         }
-
 
         private void UpdatePageNumber()
         {

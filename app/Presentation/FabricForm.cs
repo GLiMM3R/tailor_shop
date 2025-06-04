@@ -16,15 +16,14 @@ namespace app.Presentation
 {
     public partial class FabricForm : Form
     {
-        private readonly FabricUC _fabricUC;
         private readonly FabricService _fabricService;
         private Fabric? _fabric;
         private string _hexColor;
-        public FabricForm(FabricUC fabricUC, FabricService fabricService, Fabric? fabric)
+        public bool IsUpdate { get; set; } = false;
+        public FabricForm(FabricService fabricService, Fabric? fabric)
         {
             InitializeComponent();
 
-            this._fabricUC = fabricUC;
             this._fabricService = fabricService;
             this._fabric = fabric;
         }
@@ -40,6 +39,7 @@ namespace app.Presentation
                 add_btn.Text = "ແກ້ໄຂ";
 
                 type_txt.Text = this._fabric.MaterialType;
+                color_code_txt.Text = this._fabric.ColorCode;
                 color_name_txt.Text = this._fabric.ColorName;
                 unit_price_txt.Value = this._fabric.UnitPrice;
                 if (this._fabric.Color != null)
@@ -95,6 +95,7 @@ namespace app.Presentation
                 var newFabric = new Fabric
                 {
                     MaterialType = type_txt.Text.Trim(),
+                    ColorCode = color_code_txt.Text,
                     ColorName = color_name_txt.Text.Trim(),
                     Color = this._hexColor,
                     UnitPrice = unit_price_txt.Value
@@ -102,16 +103,17 @@ namespace app.Presentation
 
 
                 await this._fabricService.Create(newFabric);
-                this._hexColor = string.Empty;
-
                 MessageBox.Show("New Fabric Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                await this._fabricUC.LoadFabrics();
+                IsUpdate = true;
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating fabric: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this._hexColor = string.Empty;
             }
         }
 
@@ -132,6 +134,11 @@ namespace app.Presentation
                     fabric.MaterialType = type_txt.Text;
                 }
 
+                if (fabric.ColorCode != color_code_txt.Text && !string.IsNullOrWhiteSpace(color_code_txt.Text))
+                {
+                    fabric.ColorCode = color_code_txt.Text;
+                }
+
                 if (fabric.ColorName != color_name_txt.Text && !string.IsNullOrWhiteSpace(color_name_txt.Text))
                 {
                     fabric.ColorName = color_name_txt.Text;
@@ -149,8 +156,7 @@ namespace app.Presentation
 
                 await _fabricService.Update(fabric);
                 MessageBox.Show("Fabric Updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                await this._fabricUC.LoadFabrics();
+                IsUpdate = true;
                 this.Close();
             }
             catch (Exception ex)

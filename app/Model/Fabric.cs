@@ -14,7 +14,10 @@ namespace app.Model
 
         [Required]
         public string MaterialType { get; set; }
-        
+
+        [Required]
+        public string ColorCode { get; set; } = string.Empty;
+
         [Required]
         public string ColorName { get; set; }
 

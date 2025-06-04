@@ -11,6 +11,7 @@ using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace app.Presentation
 {
@@ -18,7 +19,7 @@ namespace app.Presentation
     {
         private AppDbContext _dbContext;
         private FabricService _fabricService;
-        private FilterFabric _filter = new FilterFabric(1,10);
+        private FilterFabric _filter = new FilterFabric(1, 10);
         private Debouncer searchDebouncer;
 
         public FabricUC()
@@ -52,10 +53,11 @@ namespace app.Presentation
             fabric_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "ປະເພດວັດສະດຸ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorCode", headerText: "ລະຫັດສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ຊື່ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: ""),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "ລາຄາ")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "")
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "ລາຄາ")
                 );
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
@@ -93,13 +95,18 @@ namespace app.Presentation
             UpdatePageNumber();
         }
 
-        private void new_fabric_btn_Click(object sender, EventArgs e)
+        private async void new_fabric_btn_Click(object sender, EventArgs e)
         {
-            var frm = new FabricForm(this, this._fabricService, null);
+            var frm = new FabricForm(this._fabricService, null);
             frm.ShowDialog();
+            if (frm.IsUpdate)
+            {
+                frm.IsUpdate = false; // Reset the flag after use
+                await LoadFabrics();
+            }
         }
 
-        private void fabric_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void fabric_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -107,8 +114,13 @@ namespace app.Presentation
                 {
                     if (fabric_dgv.Rows[e.RowIndex].DataBoundItem is Fabric selectedFabric)
                     {
-                        var form = new FabricForm(this, this._fabricService, selectedFabric);
+                        var form = new FabricForm(this._fabricService, selectedFabric);
                         form.ShowDialog();
+                        if (form.IsUpdate)
+                        {
+                            form.IsUpdate = false; // Reset the flag after use
+                            await LoadFabrics();
+                        }
                     }
                 }
             }

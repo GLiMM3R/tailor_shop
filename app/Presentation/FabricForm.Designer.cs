@@ -30,6 +30,9 @@
         {
             root_layout = new Panel();
             form_layout = new TableLayoutPanel();
+            panel3 = new Panel();
+            color_code_txt = new TextBox();
+            label3 = new Label();
             panel2 = new Panel();
             unit_price_txt = new NumericUpDown();
             label2 = new Label();
@@ -49,6 +52,7 @@
             header_lb = new Label();
             root_layout.SuspendLayout();
             form_layout.SuspendLayout();
+            panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)unit_price_txt).BeginInit();
             panel1.SuspendLayout();
@@ -67,7 +71,7 @@
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
             root_layout.Name = "root_layout";
-            root_layout.Size = new Size(573, 496);
+            root_layout.Size = new Size(573, 529);
             root_layout.TabIndex = 7;
             // 
             // form_layout
@@ -76,23 +80,60 @@
             form_layout.ColumnCount = 2;
             form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             form_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            form_layout.Controls.Add(panel2, 1, 3);
-            form_layout.Controls.Add(label2, 0, 3);
-            form_layout.Controls.Add(panel1, 1, 1);
-            form_layout.Controls.Add(label1, 0, 1);
+            form_layout.Controls.Add(panel3, 1, 1);
+            form_layout.Controls.Add(label3, 0, 1);
+            form_layout.Controls.Add(panel2, 1, 4);
+            form_layout.Controls.Add(label2, 0, 4);
+            form_layout.Controls.Add(panel1, 1, 2);
+            form_layout.Controls.Add(label1, 0, 2);
             form_layout.Controls.Add(type_pn, 1, 0);
             form_layout.Controls.Add(name_lb, 0, 0);
-            form_layout.Controls.Add(choose_color_pn, 1, 2);
-            form_layout.Controls.Add(phone_lb, 0, 2);
+            form_layout.Controls.Add(choose_color_pn, 1, 3);
+            form_layout.Controls.Add(phone_lb, 0, 3);
             form_layout.Location = new Point(32, 100);
             form_layout.Name = "form_layout";
-            form_layout.RowCount = 4;
+            form_layout.RowCount = 5;
             form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
             form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
             form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
             form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
-            form_layout.Size = new Size(506, 269);
+            form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            form_layout.Size = new Size(506, 337);
             form_layout.TabIndex = 4;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(color_code_txt);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(120, 68);
+            panel3.Margin = new Padding(0, 0, 0, 16);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(386, 52);
+            panel3.TabIndex = 11;
+            // 
+            // color_code_txt
+            // 
+            color_code_txt.BorderStyle = BorderStyle.None;
+            color_code_txt.Cursor = Cursors.IBeam;
+            color_code_txt.Font = new Font("Noto Sans Lao", 11.999999F);
+            color_code_txt.Location = new Point(16, 9);
+            color_code_txt.MaxLength = 100;
+            color_code_txt.Name = "color_code_txt";
+            color_code_txt.Size = new Size(356, 33);
+            color_code_txt.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Noto Sans Lao", 10.1999989F);
+            label3.Location = new Point(3, 68);
+            label3.Margin = new Padding(3, 0, 3, 16);
+            label3.Name = "label3";
+            label3.Size = new Size(114, 52);
+            label3.TabIndex = 10;
+            label3.Text = "ລະຫັດສີ";
+            label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel2
             // 
@@ -100,11 +141,12 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(unit_price_txt);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(120, 204);
+            panel2.Location = new Point(120, 272);
             panel2.Margin = new Padding(0, 0, 0, 16);
             panel2.Name = "panel2";
-            panel2.Size = new Size(386, 52);
+            panel2.Size = new Size(386, 49);
             panel2.TabIndex = 9;
+            panel2.Visible = false;
             // 
             // unit_price_txt
             // 
@@ -122,13 +164,14 @@
             // label2
             // 
             label2.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label2.Location = new Point(3, 204);
+            label2.Location = new Point(3, 272);
             label2.Margin = new Padding(3, 0, 3, 16);
             label2.Name = "label2";
-            label2.Size = new Size(114, 52);
+            label2.Size = new Size(114, 49);
             label2.TabIndex = 8;
             label2.Text = "ລາຄາ";
             label2.TextAlign = ContentAlignment.MiddleRight;
+            label2.Visible = false;
             // 
             // panel1
             // 
@@ -136,7 +179,7 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(color_name_txt);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(120, 68);
+            panel1.Location = new Point(120, 136);
             panel1.Margin = new Padding(0, 0, 0, 16);
             panel1.Name = "panel1";
             panel1.Size = new Size(386, 52);
@@ -156,7 +199,7 @@
             // label1
             // 
             label1.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label1.Location = new Point(3, 68);
+            label1.Location = new Point(3, 136);
             label1.Margin = new Padding(3, 0, 3, 16);
             label1.Name = "label1";
             label1.Size = new Size(114, 52);
@@ -202,7 +245,7 @@
             // 
             choose_color_pn.Controls.Add(color_pn);
             choose_color_pn.Controls.Add(choose_color_btn);
-            choose_color_pn.Location = new Point(120, 136);
+            choose_color_pn.Location = new Point(120, 204);
             choose_color_pn.Margin = new Padding(0);
             choose_color_pn.Name = "choose_color_pn";
             choose_color_pn.Size = new Size(386, 57);
@@ -236,7 +279,7 @@
             // phone_lb
             // 
             phone_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            phone_lb.Location = new Point(3, 136);
+            phone_lb.Location = new Point(3, 204);
             phone_lb.Margin = new Padding(3, 0, 3, 16);
             phone_lb.Name = "phone_lb";
             phone_lb.Size = new Size(114, 52);
@@ -252,7 +295,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(add_btn, 1, 0);
-            action_layout.Location = new Point(32, 403);
+            action_layout.Location = new Point(35, 440);
             action_layout.Margin = new Padding(0);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
@@ -309,7 +352,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(573, 496);
+            ClientSize = new Size(573, 529);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FabricForm";
@@ -318,6 +361,8 @@
             Load += FabricForm_Load;
             root_layout.ResumeLayout(false);
             form_layout.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)unit_price_txt).EndInit();
             panel1.ResumeLayout(false);
@@ -350,5 +395,8 @@
         private Label label2;
         private Panel panel2;
         private NumericUpDown unit_price_txt;
+        private Panel panel3;
+        private TextBox color_code_txt;
+        private Label label3;
     }
 }

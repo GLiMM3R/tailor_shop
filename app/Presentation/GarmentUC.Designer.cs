@@ -1,4 +1,6 @@
-﻿namespace app.Presentation
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace app.Presentation
 {
     partial class GarmentUC
     {
@@ -15,6 +17,7 @@
         {
             if (disposing && (components != null))
             {
+                _dbContext?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

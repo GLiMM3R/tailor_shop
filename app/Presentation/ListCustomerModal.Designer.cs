@@ -42,6 +42,7 @@
             page_lbl = new Label();
             filter_pn = new Panel();
             select_customer_btn = new Button();
+            add_new_customer_btn = new Button();
             label1 = new Label();
             panel2 = new Panel();
             gender_cb = new ComboBox();
@@ -218,6 +219,7 @@
             // filter_pn
             // 
             filter_pn.Controls.Add(select_customer_btn);
+            filter_pn.Controls.Add(add_new_customer_btn);
             filter_pn.Controls.Add(label1);
             filter_pn.Controls.Add(panel2);
             filter_pn.Controls.Add(search_pn);
@@ -235,7 +237,7 @@
             select_customer_btn.FlatStyle = FlatStyle.Flat;
             select_customer_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             select_customer_btn.ForeColor = Color.White;
-            select_customer_btn.Location = new Point(765, 22);
+            select_customer_btn.Location = new Point(769, 22);
             select_customer_btn.Name = "select_customer_btn";
             select_customer_btn.Size = new Size(110, 47);
             select_customer_btn.TabIndex = 3;
@@ -243,12 +245,28 @@
             select_customer_btn.UseVisualStyleBackColor = false;
             select_customer_btn.Click += select_customer_btn_Click;
             // 
+            // add_new_customer_btn
+            // 
+            add_new_customer_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            add_new_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
+            add_new_customer_btn.Cursor = Cursors.Hand;
+            add_new_customer_btn.FlatStyle = FlatStyle.Flat;
+            add_new_customer_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            add_new_customer_btn.ForeColor = Color.White;
+            add_new_customer_btn.Location = new Point(594, 22);
+            add_new_customer_btn.Name = "add_new_customer_btn";
+            add_new_customer_btn.Size = new Size(156, 47);
+            add_new_customer_btn.TabIndex = 4;
+            add_new_customer_btn.Text = "ເພີ່ມລູກຄ້າໃໝ່";
+            add_new_customer_btn.UseVisualStyleBackColor = false;
+            add_new_customer_btn.Click += add_new_customer_btn_Click;
+            // 
             // label1
             // 
             label1.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(332, 22);
+            label1.Location = new Point(315, 22);
             label1.Name = "label1";
-            label1.Size = new Size(72, 47);
+            label1.Size = new Size(49, 47);
             label1.TabIndex = 2;
             label1.Text = "ເພດ";
             label1.TextAlign = ContentAlignment.MiddleRight;
@@ -257,7 +275,7 @@
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(gender_cb);
-            panel2.Location = new Point(406, 22);
+            panel2.Location = new Point(366, 22);
             panel2.Name = "panel2";
             panel2.Size = new Size(198, 47);
             panel2.TabIndex = 1;
@@ -338,5 +356,6 @@
         private Label page_lbl;
         private Button select_customer_btn;
         private DataGridView customer_dgv;
+        private Button add_new_customer_btn;
     }
 }

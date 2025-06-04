@@ -109,9 +109,11 @@
             home_btn.Location = new Point(0, 0);
             home_btn.Margin = new Padding(0);
             home_btn.Name = "home_btn";
+            home_btn.Padding = new Padding(20, 0, 0, 0);
             home_btn.Size = new Size(280, 60);
             home_btn.TabIndex = 0;
             home_btn.Text = "ໜ້າຫຼັກ";
+            home_btn.TextAlign = ContentAlignment.MiddleLeft;
             home_btn.UseVisualStyleBackColor = false;
             home_btn.Click += home_btn_Click;
             // 
@@ -127,9 +129,11 @@
             order_btn.Location = new Point(0, 60);
             order_btn.Margin = new Padding(0);
             order_btn.Name = "order_btn";
+            order_btn.Padding = new Padding(20, 0, 0, 0);
             order_btn.Size = new Size(280, 60);
             order_btn.TabIndex = 1;
             order_btn.Text = "ການສັ່ງຕັດເສື້ອຜ້າ";
+            order_btn.TextAlign = ContentAlignment.MiddleLeft;
             order_btn.UseVisualStyleBackColor = false;
             order_btn.Click += order_btn_Click;
             // 
@@ -145,9 +149,11 @@
             customer_btn.Location = new Point(0, 120);
             customer_btn.Margin = new Padding(0);
             customer_btn.Name = "customer_btn";
+            customer_btn.Padding = new Padding(20, 0, 0, 0);
             customer_btn.Size = new Size(280, 60);
             customer_btn.TabIndex = 2;
             customer_btn.Text = "ຈັດການຂໍ້ມູນລູກຄ້າ";
+            customer_btn.TextAlign = ContentAlignment.MiddleLeft;
             customer_btn.UseVisualStyleBackColor = false;
             customer_btn.Click += customer_btn_Click;
             // 
@@ -164,9 +170,11 @@
             user_btn.Location = new Point(0, 180);
             user_btn.Margin = new Padding(0);
             user_btn.Name = "user_btn";
+            user_btn.Padding = new Padding(20, 0, 0, 0);
             user_btn.Size = new Size(280, 60);
             user_btn.TabIndex = 3;
             user_btn.Text = "ຈັດການຂໍ້ມູນຜູ້ໃຊ້ລະບົບ";
+            user_btn.TextAlign = ContentAlignment.MiddleLeft;
             user_btn.UseVisualStyleBackColor = false;
             user_btn.Click += user_btn_Click;
             // 
@@ -183,9 +191,11 @@
             fabric_btn.Location = new Point(0, 240);
             fabric_btn.Margin = new Padding(0);
             fabric_btn.Name = "fabric_btn";
+            fabric_btn.Padding = new Padding(20, 0, 0, 0);
             fabric_btn.Size = new Size(280, 60);
             fabric_btn.TabIndex = 4;
             fabric_btn.Text = "ຈັດການຂໍ້ມູນຜ້າ";
+            fabric_btn.TextAlign = ContentAlignment.MiddleLeft;
             fabric_btn.UseVisualStyleBackColor = false;
             fabric_btn.Click += fabric_btn_Click;
             // 
@@ -202,9 +212,11 @@
             garment_btn.Location = new Point(0, 300);
             garment_btn.Margin = new Padding(0);
             garment_btn.Name = "garment_btn";
+            garment_btn.Padding = new Padding(20, 0, 0, 0);
             garment_btn.Size = new Size(280, 60);
             garment_btn.TabIndex = 6;
             garment_btn.Text = "ຈັດການຂໍ້ມູນເສື້ອຜ້າ";
+            garment_btn.TextAlign = ContentAlignment.MiddleLeft;
             garment_btn.UseVisualStyleBackColor = false;
             garment_btn.Click += garment_btn_Click;
             // 
@@ -221,9 +233,11 @@
             report_btn.Location = new Point(0, 360);
             report_btn.Margin = new Padding(0);
             report_btn.Name = "report_btn";
+            report_btn.Padding = new Padding(20, 0, 0, 0);
             report_btn.Size = new Size(280, 60);
             report_btn.TabIndex = 5;
             report_btn.Text = "ລາຍງານ";
+            report_btn.TextAlign = ContentAlignment.MiddleLeft;
             report_btn.UseVisualStyleBackColor = false;
             report_btn.Click += report_btn_Click;
             // 

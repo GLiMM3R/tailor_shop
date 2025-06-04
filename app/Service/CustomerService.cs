@@ -67,7 +67,7 @@ namespace app.Service
                 }
             }
             var total = await query.CountAsync();
-            var data = await query.Skip(skip).Take(filter?.PageSize ?? 10).ToArrayAsync();
+            var data = await query.OrderByDescending(c => c.CreatedAt).Skip(skip).Take(filter?.PageSize ?? 10).ToArrayAsync();
 
             return new ListResult<Customer>
             {

@@ -42,6 +42,8 @@ namespace app.Presentation
                 // Update chart
                 InitializeLineChart();
                 BindLineChart(result.Data);
+
+                dbContext.Dispose();
             }
         }
 
@@ -70,6 +72,8 @@ namespace app.Presentation
 
                     BindDonutChart(result);
                 }
+
+                dbContext.Dispose();
             }
         }
 
@@ -207,7 +211,10 @@ namespace app.Presentation
                 order_dgv.DataSource = null;
                 order_dgv.DataSource = result.Data.ToList();
                 order_dgv.ClearSelection();
+
+                dbContext.Dispose();
             }
         }
+
     }
 }

@@ -14,14 +14,15 @@ namespace app.Presentation
 {
     public partial class CustomerForm : Form
     {
-        private readonly CustomerUC _customerUC;
         private readonly CustomerService _customerService;
         private Customer? _customer;
-        public CustomerForm(CustomerUC customerUC, CustomerService customerService, Customer? customer)
+
+        public bool IsUpdate { get; set; } = false;
+
+        public CustomerForm(CustomerService customerService, Customer? customer)
         {
             InitializeComponent();
 
-            this._customerUC = customerUC;
             this._customerService = customerService;
             this._customer = customer;
         }
@@ -107,7 +108,7 @@ namespace app.Presentation
 
                 await _customerService.Create(newCustomer);
                 MessageBox.Show("New Customer Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await this._customerUC.LoadCustomers();
+                IsUpdate = true;
                 this.Close();
             }
             catch (Exception ex)
@@ -151,7 +152,7 @@ namespace app.Presentation
 
                 await _customerService.Update(customer);
                 MessageBox.Show("Customer Update!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await this._customerUC.LoadCustomers();
+                IsUpdate = true;
                 this.Close();
             }
             catch (Exception ex)
