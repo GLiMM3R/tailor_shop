@@ -56,11 +56,11 @@ namespace app.Presentation
             // Add the order's garment as a single row
             var garment = new ListViewItem(_order.Garment.Name);
             garment.SubItems.Add(_order.Quantity.ToString());
-            garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N2") ?? "0.00");
+            garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0.00");
 
             var fabric = new ListViewItem(_order.Fabric.MaterialType + " " + _order.Fabric.ColorName);
-            fabric.SubItems.Add(_order.FabricUsedQty.ToString());
-            fabric.SubItems.Add((_order.Fabric.UnitPrice * _order.FabricUsedQty).ToString("N2") ?? "0.00");
+            fabric.SubItems.Add((1).ToString());
+            fabric.SubItems.Add((0).ToString("N0") ?? "0.00");
 
             items_lsv.Items.AddRange([garment, fabric]);
 
@@ -74,11 +74,12 @@ namespace app.Presentation
 
             if (_order != null)
             {
-                subtotal_val_lb.Text = _order.Subtotal.ToString("N2") ?? "0.00";
-                discount_val_lb.Text = _order?.Discount.ToString("N2") ?? "0.00";
-                deposit_amount_val_lb.Text = _order?.DepositAmount.ToString("N2") ?? "0.00";
-                total_amount_lb.Text = _order?.TotalAmount.ToString("N2") ?? "0.00";
-                amount_to_be_paid_lbl.Text = (_order?.TotalAmount - _order?.DepositAmount)?.ToString("N2") ?? "0.00";
+                total_paying_num.Value = (_order?.TotalAmount - _order?.DepositAmount) ?? 0;
+                subtotal_val_lb.Text = _order.Subtotal.ToString("N0") ?? "0.00";
+                //discount_val_lb.Text = _order?.Discount.ToString("N0") ?? "0.00";
+                deposit_amount_val_lb.Text = _order?.DepositAmount.ToString("N0") ?? "0.00";
+                total_amount_lb.Text = _order?.TotalAmount.ToString("N0") ?? "0.00";
+                amount_to_be_paid_lbl.Text = (_order?.TotalAmount - _order?.DepositAmount)?.ToString("N0") ?? "0.00";
             }
         }
 
@@ -154,7 +155,8 @@ namespace app.Presentation
                     CustomerName = _order.Customer.Name,
                     CustomerPhone = _order.Customer.Phone,
                     DepositAmount = _order.DepositAmount,
-                    Discount = _order.Discount,
+                    Subtotal = _order.Subtotal,
+                    TotalAmount = _order.TotalAmount,
                     Items = new List<InvoiceItem>
                         {
                             new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },

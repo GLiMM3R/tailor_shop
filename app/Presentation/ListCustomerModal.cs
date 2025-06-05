@@ -37,6 +37,10 @@ namespace app.Presentation
             InitializeDataGridView();
             await LoadCustomers();
 
+            gender_cb.Items.Clear();
+            gender_cb.Items.AddRange(new object[] { "ທັງໝົດ", "ຊາຍ", "ຍິງ" });
+            gender_cb.SelectedIndex = 0; // Set default selection to "ທັງໝົດ"
+
             pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
             _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
@@ -101,16 +105,6 @@ namespace app.Presentation
             else if (gender_cb.SelectedIndex == 2)
             {
                 _filter.Gender = Gender.Female;
-                await LoadCustomers();
-            }
-            else if (gender_cb.SelectedIndex == 3)
-            {
-                _filter.Gender = Gender.Other;
-                await LoadCustomers();
-            }
-            else if (gender_cb.SelectedIndex == 4)
-            {
-                _filter.Gender = Gender.PreferNotToSay;
                 await LoadCustomers();
             }
         }

@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            aov_pn = new TableLayoutPanel();
-            aov_lbl = new Label();
-            label7 = new Label();
             label5 = new Label();
             bottom_pn = new TableLayoutPanel();
             fabric_report_dgv = new DataGridView();
@@ -47,12 +44,9 @@
             to_date_dpk = new DateTimePicker();
             label3 = new Label();
             from_date_dpk = new DateTimePicker();
-            label6 = new Label();
             total_fabrics_lbl = new Label();
             label2 = new Label();
             panel1 = new Panel();
-            total_orders_pn = new TableLayoutPanel();
-            total_value_lbl = new Label();
             net_sales_pn = new TableLayoutPanel();
             total_used_lbl = new Label();
             gross_sales_pn = new TableLayoutPanel();
@@ -65,7 +59,6 @@
             prev_page_btn = new Button();
             first_page_btn = new Button();
             page_lbl = new Label();
-            aov_pn.SuspendLayout();
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fabric_report_dgv).BeginInit();
             filter_pn.SuspendLayout();
@@ -73,52 +66,11 @@
             panel5.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
-            total_orders_pn.SuspendLayout();
             net_sales_pn.SuspendLayout();
             gross_sales_pn.SuspendLayout();
             panel3.SuspendLayout();
             pagination_pn.SuspendLayout();
             SuspendLayout();
-            // 
-            // aov_pn
-            // 
-            aov_pn.BackColor = Color.FromArgb(84, 119, 146);
-            aov_pn.ColumnCount = 1;
-            aov_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            aov_pn.Controls.Add(aov_lbl, 0, 1);
-            aov_pn.Controls.Add(label7, 0, 0);
-            aov_pn.Location = new Point(702, 125);
-            aov_pn.Name = "aov_pn";
-            aov_pn.RowCount = 2;
-            aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            aov_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            aov_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            aov_pn.Size = new Size(220, 100);
-            aov_pn.TabIndex = 5;
-            // 
-            // aov_lbl
-            // 
-            aov_lbl.Dock = DockStyle.Fill;
-            aov_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
-            aov_lbl.ForeColor = Color.White;
-            aov_lbl.Location = new Point(3, 50);
-            aov_lbl.Name = "aov_lbl";
-            aov_lbl.Size = new Size(214, 50);
-            aov_lbl.TabIndex = 2;
-            aov_lbl.Text = "0";
-            aov_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(3, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(214, 50);
-            label7.TabIndex = 0;
-            label7.Text = "ມູນຄ່າສະເລ່ຍ";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -276,8 +228,9 @@
             // 
             // to_date_dpk
             // 
+            to_date_dpk.CustomFormat = "dd/MM/yyyy";
             to_date_dpk.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            to_date_dpk.Format = DateTimePickerFormat.Short;
+            to_date_dpk.Format = DateTimePickerFormat.Custom;
             to_date_dpk.Location = new Point(262, 2);
             to_date_dpk.Name = "to_date_dpk";
             to_date_dpk.Size = new Size(157, 40);
@@ -296,25 +249,14 @@
             // 
             // from_date_dpk
             // 
+            from_date_dpk.CustomFormat = "dd/MM/yyyy";
             from_date_dpk.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            from_date_dpk.Format = DateTimePickerFormat.Short;
+            from_date_dpk.Format = DateTimePickerFormat.Custom;
             from_date_dpk.Location = new Point(0, 2);
             from_date_dpk.Name = "from_date_dpk";
             from_date_dpk.Size = new Size(157, 40);
             from_date_dpk.TabIndex = 1;
             from_date_dpk.ValueChanged += from_date_dpk_ValueChanged;
-            // 
-            // label6
-            // 
-            label6.Dock = DockStyle.Fill;
-            label6.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(3, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(214, 50);
-            label6.TabIndex = 0;
-            label6.Text = "ລວມມູນຄ່າ";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // total_fabrics_lbl
             // 
@@ -342,8 +284,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(aov_pn);
-            panel1.Controls.Add(total_orders_pn);
             panel1.Controls.Add(net_sales_pn);
             panel1.Controls.Add(gross_sales_pn);
             panel1.Controls.Add(label1);
@@ -352,33 +292,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1472, 252);
             panel1.TabIndex = 7;
-            // 
-            // total_orders_pn
-            // 
-            total_orders_pn.BackColor = Color.FromArgb(84, 119, 146);
-            total_orders_pn.ColumnCount = 1;
-            total_orders_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            total_orders_pn.Controls.Add(total_value_lbl, 0, 1);
-            total_orders_pn.Controls.Add(label6, 0, 0);
-            total_orders_pn.Location = new Point(477, 125);
-            total_orders_pn.Name = "total_orders_pn";
-            total_orders_pn.RowCount = 2;
-            total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            total_orders_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            total_orders_pn.Size = new Size(220, 100);
-            total_orders_pn.TabIndex = 4;
-            // 
-            // total_value_lbl
-            // 
-            total_value_lbl.Dock = DockStyle.Fill;
-            total_value_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
-            total_value_lbl.ForeColor = Color.White;
-            total_value_lbl.Location = new Point(3, 50);
-            total_value_lbl.Name = "total_value_lbl";
-            total_value_lbl.Size = new Size(214, 50);
-            total_value_lbl.TabIndex = 3;
-            total_value_lbl.Text = "0";
-            total_value_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // net_sales_pn
             // 
@@ -560,7 +473,6 @@
             Name = "FabricReportUC";
             Size = new Size(1472, 908);
             Load += FabricReportUC_Load;
-            aov_pn.ResumeLayout(false);
             bottom_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)fabric_report_dgv).EndInit();
             filter_pn.ResumeLayout(false);
@@ -568,7 +480,6 @@
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            total_orders_pn.ResumeLayout(false);
             net_sales_pn.ResumeLayout(false);
             gross_sales_pn.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -580,9 +491,6 @@
 
         private Label total_orders_lbl;
         private Label net_sales_lbl;
-        private TableLayoutPanel aov_pn;
-        private Label aov_lbl;
-        private Label label7;
         private Label label5;
         private TableLayoutPanel bottom_pn;
         private DataGridView fabric_report_dgv;
@@ -601,14 +509,12 @@
         private TableLayoutPanel paid_amount_pn;
         private Label paid_amount_lbl;
         private Label label8;
-        private Label label6;
         private Label total_fabrics_lbl;
         private TableLayoutPanel discount_pn;
         private Label discount_lbl;
         private Label label9;
         private Label label2;
         private Panel panel1;
-        private TableLayoutPanel total_orders_pn;
         private TableLayoutPanel net_sales_pn;
         private TableLayoutPanel gross_sales_pn;
         private Label label1;
@@ -620,7 +526,6 @@
         private Button prev_page_btn;
         private Button first_page_btn;
         private Label page_lbl;
-        private Label total_value_lbl;
         private Label total_used_lbl;
     }
 }

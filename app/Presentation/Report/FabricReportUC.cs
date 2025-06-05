@@ -69,8 +69,8 @@ namespace app.Presentation.Report
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "ປະເພດວັດສະດຸ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DisplayColor", headerText: "ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalUsedQuantity", headerText: "ຈຳນວນຖືກໃຊ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalUsedQuantity", headerText: "ຈຳນວນຖືກໃຊ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
+                    //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
                 );
 
             fabric_report_dgv.CellFormatting += FabricReportDgv_CellFormatting;
@@ -179,8 +179,6 @@ namespace app.Presentation.Report
                 {
                     total_fabrics_lbl.Text = result.TotalFabrics.ToString("N0");
                     total_used_lbl.Text = result.TotalUsedFabrics.ToString("N0");
-                    total_value_lbl.Text = result.TotalValue.ToString("N2");
-                    aov_lbl.Text = result.AverageValue.ToString("N2");
                 }
             }
         }

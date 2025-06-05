@@ -34,9 +34,6 @@
             label2 = new Label();
             amount_to_be_paid_lbl = new Label();
             label4 = new Label();
-            label16 = new Label();
-            discount_val_lb = new Label();
-            discount_lb = new Label();
             label12 = new Label();
             deposit_amount_val_lb = new Label();
             deposit_amount_lb = new Label();
@@ -74,7 +71,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(522, 723);
+            panel2.Size = new Size(522, 738);
             panel2.TabIndex = 1;
             // 
             // summary_pn
@@ -83,9 +80,6 @@
             summary_pn.Controls.Add(label2);
             summary_pn.Controls.Add(amount_to_be_paid_lbl);
             summary_pn.Controls.Add(label4);
-            summary_pn.Controls.Add(label16);
-            summary_pn.Controls.Add(discount_val_lb);
-            summary_pn.Controls.Add(discount_lb);
             summary_pn.Controls.Add(label12);
             summary_pn.Controls.Add(deposit_amount_val_lb);
             summary_pn.Controls.Add(deposit_amount_lb);
@@ -96,16 +90,16 @@
             summary_pn.Controls.Add(line);
             summary_pn.Controls.Add(subtotal_val_lb);
             summary_pn.Controls.Add(subtotal_title_lb);
-            summary_pn.Location = new Point(19, 451);
+            summary_pn.Location = new Point(19, 466);
             summary_pn.Name = "summary_pn";
-            summary_pn.Size = new Size(482, 172);
+            summary_pn.Size = new Size(482, 139);
             summary_pn.TabIndex = 11;
             // 
             // label2
             // 
             label2.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label2.ForeColor = Color.DarkRed;
-            label2.Location = new Point(418, 125);
+            label2.ForeColor = Color.Red;
+            label2.Location = new Point(418, 94);
             label2.Name = "label2";
             label2.Size = new Size(64, 28);
             label2.TabIndex = 26;
@@ -115,8 +109,8 @@
             // amount_to_be_paid_lbl
             // 
             amount_to_be_paid_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            amount_to_be_paid_lbl.ForeColor = Color.DarkRed;
-            amount_to_be_paid_lbl.Location = new Point(164, 125);
+            amount_to_be_paid_lbl.ForeColor = Color.Red;
+            amount_to_be_paid_lbl.Location = new Point(164, 94);
             amount_to_be_paid_lbl.Name = "amount_to_be_paid_lbl";
             amount_to_be_paid_lbl.Size = new Size(256, 28);
             amount_to_be_paid_lbl.TabIndex = 25;
@@ -126,52 +120,19 @@
             // label4
             // 
             label4.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label4.ForeColor = Color.DarkRed;
-            label4.Location = new Point(0, 125);
+            label4.ForeColor = Color.Red;
+            label4.Location = new Point(0, 94);
             label4.Name = "label4";
             label4.Size = new Size(164, 28);
             label4.TabIndex = 24;
-            label4.Text = "ຈຳນວນຕ້ອງຈ່າຍ:";
+            label4.Text = "ຈຳນວນຕ້ອງຊຳລະ:";
             label4.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label16
-            // 
-            label16.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label16.ForeColor = Color.Gray;
-            label16.Location = new Point(418, 28);
-            label16.Name = "label16";
-            label16.Size = new Size(64, 28);
-            label16.TabIndex = 23;
-            label16.Text = "LAK";
-            label16.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // discount_val_lb
-            // 
-            discount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            discount_val_lb.ForeColor = Color.Gray;
-            discount_val_lb.Location = new Point(164, 28);
-            discount_val_lb.Name = "discount_val_lb";
-            discount_val_lb.Size = new Size(256, 28);
-            discount_val_lb.TabIndex = 22;
-            discount_val_lb.Text = "0";
-            discount_val_lb.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // discount_lb
-            // 
-            discount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            discount_lb.ForeColor = Color.Gray;
-            discount_lb.Location = new Point(0, 28);
-            discount_lb.Name = "discount_lb";
-            discount_lb.Size = new Size(148, 28);
-            discount_lb.TabIndex = 21;
-            discount_lb.Text = "ສ່ວນຫຼຸດ:";
-            discount_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label12
             // 
             label12.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label12.ForeColor = Color.Gray;
-            label12.Location = new Point(418, 56);
+            label12.Location = new Point(418, 27);
             label12.Name = "label12";
             label12.Size = new Size(64, 28);
             label12.TabIndex = 20;
@@ -182,7 +143,7 @@
             // 
             deposit_amount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_val_lb.ForeColor = Color.Gray;
-            deposit_amount_val_lb.Location = new Point(164, 56);
+            deposit_amount_val_lb.Location = new Point(164, 27);
             deposit_amount_val_lb.Name = "deposit_amount_val_lb";
             deposit_amount_val_lb.Size = new Size(256, 28);
             deposit_amount_val_lb.TabIndex = 19;
@@ -193,7 +154,7 @@
             // 
             deposit_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_lb.ForeColor = Color.Gray;
-            deposit_amount_lb.Location = new Point(0, 56);
+            deposit_amount_lb.Location = new Point(0, 27);
             deposit_amount_lb.Name = "deposit_amount_lb";
             deposit_amount_lb.Size = new Size(148, 28);
             deposit_amount_lb.TabIndex = 18;
@@ -204,7 +165,7 @@
             // 
             label7.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label7.ForeColor = Color.RoyalBlue;
-            label7.Location = new Point(418, 84);
+            label7.Location = new Point(418, 55);
             label7.Name = "label7";
             label7.Size = new Size(64, 28);
             label7.TabIndex = 17;
@@ -225,7 +186,7 @@
             // 
             total_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             total_amount_lb.ForeColor = Color.RoyalBlue;
-            total_amount_lb.Location = new Point(164, 84);
+            total_amount_lb.Location = new Point(164, 55);
             total_amount_lb.Name = "total_amount_lb";
             total_amount_lb.Size = new Size(256, 28);
             total_amount_lb.TabIndex = 14;
@@ -236,7 +197,7 @@
             // 
             label11.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label11.ForeColor = Color.RoyalBlue;
-            label11.Location = new Point(0, 84);
+            label11.Location = new Point(0, 55);
             label11.Name = "label11";
             label11.Size = new Size(148, 28);
             label11.TabIndex = 13;
@@ -246,7 +207,7 @@
             // line
             // 
             line.BackColor = Color.LightGray;
-            line.Location = new Point(0, 115);
+            line.Location = new Point(0, 87);
             line.Name = "line";
             line.Size = new Size(480, 2);
             line.TabIndex = 12;
@@ -278,7 +239,7 @@
             bank_btn.FlatStyle = FlatStyle.Flat;
             bank_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             bank_btn.ForeColor = Color.White;
-            bank_btn.Location = new Point(268, 644);
+            bank_btn.Location = new Point(268, 628);
             bank_btn.Name = "bank_btn";
             bank_btn.Size = new Size(233, 66);
             bank_btn.TabIndex = 24;
@@ -293,7 +254,7 @@
             cash_btn.FlatStyle = FlatStyle.Flat;
             cash_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold);
             cash_btn.ForeColor = Color.White;
-            cash_btn.Location = new Point(19, 644);
+            cash_btn.Location = new Point(19, 628);
             cash_btn.Name = "cash_btn";
             cash_btn.Size = new Size(233, 66);
             cash_btn.TabIndex = 23;
@@ -318,9 +279,9 @@
             label1.Font = new Font("Noto Sans Lao", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(19, 74);
             label1.Name = "label1";
-            label1.Size = new Size(149, 49);
+            label1.Size = new Size(163, 49);
             label1.TabIndex = 20;
-            label1.Text = "ຈຳນວນຈ່າຍ";
+            label1.Text = "ຈຳນວນຊຳລະ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel6
@@ -363,7 +324,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(522, 723);
+            ClientSize = new Size(522, 738);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "PaymentForm";
@@ -385,9 +346,6 @@
         private Label label2;
         private Label amount_to_be_paid_lbl;
         private Label label4;
-        private Label label16;
-        private Label discount_val_lb;
-        private Label discount_lb;
         private Label label12;
         private Label deposit_amount_val_lb;
         private Label deposit_amount_lb;

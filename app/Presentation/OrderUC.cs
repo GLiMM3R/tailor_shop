@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,7 +32,7 @@ namespace app.Presentation
         private OrderService _orderService;
         private DailySequenceService _dailySequenceService;
         private User _user;
-        private FilterOrder _filter = new FilterOrder(1,10);
+        private FilterOrder _filter = new FilterOrder(1, 10);
         private Debouncer searchDebouncer;
 
         public OrderUC(User user, MainForm mainForm)
@@ -51,11 +53,23 @@ namespace app.Presentation
             await LoadOrders();
 
             // Add "All" option to the status ComboBox
-            var statusList = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().ToList();
-            //statusList.Insert(0, "All"); // Insert a default value at the top (e.g., 0)
+            // Replace the status ComboBox setup in OrderUC_Load with display name support
+            var statusList = Enum.GetValues(typeof(OrderStatus))
+                .Cast<OrderStatus>()
+                .Select(s => new
+                {
+                    Value = s,
+                    Display = EnumUtils.GetEnumDisplayName(s)
+                })
+                .ToList();
+
+            // Optionally add an "All" option at the top
+            statusList.Insert(0, new { Value = (OrderStatus)(-1), Display = "ທັງໝົດ" });
+
             status_cbb.DataSource = statusList;
-            status_cbb.DisplayMember = "ToString";
-            status_cbb.SelectedIndex = -1;
+            status_cbb.DisplayMember = "Display";
+            status_cbb.ValueMember = "Value";
+            status_cbb.SelectedIndex = 0;
         }
 
         private void InitializeDataGridView()
@@ -78,7 +92,7 @@ namespace app.Presentation
             {
                 Name = "View",
                 HeaderText = "",
-                Text = "ເບິ່ງ",
+                Text = "ຊຳລະເງິນ",
                 UseColumnTextForButtonValue = true,
                 FlatStyle = FlatStyle.Flat,
                 DefaultCellStyle = new DataGridViewCellStyle
@@ -98,7 +112,7 @@ namespace app.Presentation
             order_dgv.CellContentClick += order_dgv_CellContentClick;
         }
 
-        private void OrderDgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void OrderDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Customer")
             {
@@ -129,19 +143,22 @@ namespace app.Presentation
                     e.FormattingApplied = true;
                 }
             }
+            // Helper method to get display name from enum value
 
-            //if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Status")
-            //{
-            //    var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
-            //    if (order != null && order.Status != null)
-            //    {
-            //        e.Value = order.Status;
-            //        e.FormattingApplied = true;
-            //    }
-            //}
+
+            // In OrderDgv_CellFormatting, replace the Status mapping:
+            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Status")
+            {
+                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+                if (order != null)
+                {
+                    e.Value = EnumUtils.GetEnumDisplayName(order.Status);
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
-        private async void order_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void order_dgv_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -149,16 +166,11 @@ namespace app.Presentation
                 {
                     if (order_dgv.Rows[e.RowIndex].DataBoundItem is Order selectedOrder)
                     {
-                        //var form = new OrderDetail(selectedOrder.OrderNumber);
-                        ////form.ShowDialog();
-                        //if (form.IsChanged)
-                        //{
-                        //    await LoadOrders();
-                        //}
                         var order = new OrderDetailUC(this, selectedOrder.OrderNumber);
                         _mainForm.LoadFormIntoPanel(order);
                         if (order.IsChanged)
                         {
+                            order.IsChanged = false; // Reset the flag after handling
                             await LoadOrders();
                         }
                     }
@@ -181,10 +193,15 @@ namespace app.Presentation
             }
         }
 
-        private void new_order_btn_Click(object sender, EventArgs e)
+        private async void new_order_btn_Click(object sender, EventArgs e)
         {
-            var form = new OrderForm(this, this._user, this._orderService, this._dailySequenceService);
+            var form = new OrderForm(this._user, this._orderService, this._dailySequenceService);
             form.ShowDialog();
+            if (form.IsUpdate)
+            {
+                form.IsUpdate = false; // Reset the flag after handling
+                await LoadOrders();
+            }
         }
 
         private void search_txt_TextChanged(object sender, EventArgs e)
@@ -195,13 +212,30 @@ namespace app.Presentation
 
         private void status_cbb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (status_cbb.SelectedItem is OrderStatus selectedStatus)
+            // status_cbb.SelectedItem is an anonymous type with Value property, not OrderStatus directly
+            if (status_cbb.SelectedItem != null)
             {
-                _filter.Status = selectedStatus;
+                var valueProperty = status_cbb.SelectedItem.GetType().GetProperty("Value");
+                if (valueProperty != null)
+                {
+                    var value = valueProperty.GetValue(status_cbb.SelectedItem);
+                    if (value is OrderStatus status && (int)status >= 0)
+                    {
+                        _filter.Status = status;
+                    }
+                    else
+                    {
+                        _filter.Status = null; // "All" or invalid selection
+                    }
+                }
+                else
+                {
+                    _filter.Status = null;
+                }
             }
             else
             {
-                _filter.Status = null; // Handle the case where SelectedItem is null or not an OrderStatus
+                _filter.Status = null;
             }
 
             searchDebouncer.Trigger();

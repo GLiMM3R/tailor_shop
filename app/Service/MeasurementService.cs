@@ -14,6 +14,7 @@ namespace app.Service
     {
         public int OrderId { get; set; }
         public string? BodyPart { get; set; }
+        public BodyType? BodyType { get; set; } = 0;
     }
 
     public class MeasurementService
@@ -44,7 +45,7 @@ namespace app.Service
                 }
             }
 
-            return await query.ToArrayAsync();
+            return await query.OrderBy(m => m.BodyType).ToArrayAsync();
         }
 
         public async Task<Measurement?> GetByID(int id)

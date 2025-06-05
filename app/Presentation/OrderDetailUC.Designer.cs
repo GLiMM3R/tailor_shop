@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             measurement_pn = new Panel();
             label4 = new Label();
             measurement_dgv = new DataGridView();
             bottom_pn = new Panel();
             label13 = new Label();
             summary_pn = new Panel();
+            line = new Panel();
             label16 = new Label();
-            discount_val_lb = new Label();
+            amount_to_be_paid_lbl = new Label();
             discount_lb = new Label();
             label12 = new Label();
             deposit_amount_val_lb = new Label();
@@ -45,14 +46,13 @@
             label9 = new Label();
             total_amount_lb = new Label();
             label11 = new Label();
-            line = new Panel();
             subtotal_val_lb = new Label();
             subtotal_title_lb = new Label();
             notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             action_pn = new Panel();
-            pick_up_btn = new Button();
             pay_btn = new Button();
+            pick_up_btn = new Button();
             root_layout = new Panel();
             order_detail_pn = new Panel();
             information_gb = new GroupBox();
@@ -71,7 +71,7 @@
             label17 = new Label();
             fabric_lbl = new Label();
             label19 = new Label();
-            fabric_used_qty_lbl = new Label();
+            quantity_lbl = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             label5 = new Label();
             customer_name_lbl = new Label();
@@ -81,6 +81,7 @@
             customer_phone_lbl = new Label();
             header_pn = new Panel();
             back_btn = new Button();
+            print_btn = new Button();
             measurement_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)measurement_dgv).BeginInit();
             bottom_pn.SuspendLayout();
@@ -123,14 +124,14 @@
             measurement_dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             measurement_dgv.BackgroundColor = Color.White;
             measurement_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            measurement_dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            measurement_dgv.DefaultCellStyle = dataGridViewCellStyle1;
             measurement_dgv.Location = new Point(17, 52);
             measurement_dgv.Name = "measurement_dgv";
             measurement_dgv.RowHeadersWidth = 51;
@@ -165,8 +166,9 @@
             // summary_pn
             // 
             summary_pn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            summary_pn.Controls.Add(line);
             summary_pn.Controls.Add(label16);
-            summary_pn.Controls.Add(discount_val_lb);
+            summary_pn.Controls.Add(amount_to_be_paid_lbl);
             summary_pn.Controls.Add(discount_lb);
             summary_pn.Controls.Add(label12);
             summary_pn.Controls.Add(deposit_amount_val_lb);
@@ -175,7 +177,6 @@
             summary_pn.Controls.Add(label9);
             summary_pn.Controls.Add(total_amount_lb);
             summary_pn.Controls.Add(label11);
-            summary_pn.Controls.Add(line);
             summary_pn.Controls.Add(subtotal_val_lb);
             summary_pn.Controls.Add(subtotal_title_lb);
             summary_pn.Location = new Point(957, 58);
@@ -183,44 +184,52 @@
             summary_pn.Size = new Size(517, 131);
             summary_pn.TabIndex = 10;
             // 
+            // line
+            // 
+            line.BackColor = Color.LightGray;
+            line.Location = new Point(-2, 95);
+            line.Name = "line";
+            line.Size = new Size(520, 2);
+            line.TabIndex = 24;
+            // 
             // label16
             // 
             label16.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label16.ForeColor = Color.Gray;
-            label16.Location = new Point(448, 28);
+            label16.Location = new Point(448, 33);
             label16.Name = "label16";
             label16.Size = new Size(64, 28);
             label16.TabIndex = 23;
             label16.Text = "LAK";
             label16.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // discount_val_lb
+            // amount_to_be_paid_lbl
             // 
-            discount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            discount_val_lb.ForeColor = Color.Gray;
-            discount_val_lb.Location = new Point(194, 28);
-            discount_val_lb.Name = "discount_val_lb";
-            discount_val_lb.Size = new Size(256, 28);
-            discount_val_lb.TabIndex = 22;
-            discount_val_lb.Text = "0";
-            discount_val_lb.TextAlign = ContentAlignment.MiddleRight;
+            amount_to_be_paid_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
+            amount_to_be_paid_lbl.ForeColor = Color.Red;
+            amount_to_be_paid_lbl.Location = new Point(195, 101);
+            amount_to_be_paid_lbl.Name = "amount_to_be_paid_lbl";
+            amount_to_be_paid_lbl.Size = new Size(256, 28);
+            amount_to_be_paid_lbl.TabIndex = 22;
+            amount_to_be_paid_lbl.Text = "0";
+            amount_to_be_paid_lbl.TextAlign = ContentAlignment.MiddleRight;
             // 
             // discount_lb
             // 
             discount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            discount_lb.ForeColor = Color.Gray;
-            discount_lb.Location = new Point(0, 28);
+            discount_lb.ForeColor = Color.Red;
+            discount_lb.Location = new Point(1, 101);
             discount_lb.Name = "discount_lb";
             discount_lb.Size = new Size(200, 28);
             discount_lb.TabIndex = 21;
-            discount_lb.Text = "ສ່ວນຫຼຸດ:";
+            discount_lb.Text = "ຈຳນວນຕ້ອງຊຳລະ:";
             discount_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label12
             // 
             label12.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label12.ForeColor = Color.Gray;
-            label12.Location = new Point(448, 56);
+            label12.ForeColor = Color.Red;
+            label12.Location = new Point(448, 101);
             label12.Name = "label12";
             label12.Size = new Size(64, 28);
             label12.TabIndex = 20;
@@ -231,7 +240,7 @@
             // 
             deposit_amount_val_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_val_lb.ForeColor = Color.Gray;
-            deposit_amount_val_lb.Location = new Point(194, 56);
+            deposit_amount_val_lb.Location = new Point(194, 33);
             deposit_amount_val_lb.Name = "deposit_amount_val_lb";
             deposit_amount_val_lb.Size = new Size(256, 28);
             deposit_amount_val_lb.TabIndex = 19;
@@ -242,7 +251,7 @@
             // 
             deposit_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             deposit_amount_lb.ForeColor = Color.Gray;
-            deposit_amount_lb.Location = new Point(0, 56);
+            deposit_amount_lb.Location = new Point(0, 33);
             deposit_amount_lb.Name = "deposit_amount_lb";
             deposit_amount_lb.Size = new Size(200, 28);
             deposit_amount_lb.TabIndex = 18;
@@ -253,7 +262,7 @@
             // 
             label7.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label7.ForeColor = Color.RoyalBlue;
-            label7.Location = new Point(448, 92);
+            label7.Location = new Point(448, 63);
             label7.Name = "label7";
             label7.Size = new Size(64, 28);
             label7.TabIndex = 17;
@@ -274,7 +283,7 @@
             // 
             total_amount_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             total_amount_lb.ForeColor = Color.RoyalBlue;
-            total_amount_lb.Location = new Point(194, 92);
+            total_amount_lb.Location = new Point(194, 63);
             total_amount_lb.Name = "total_amount_lb";
             total_amount_lb.Size = new Size(256, 28);
             total_amount_lb.TabIndex = 14;
@@ -285,20 +294,12 @@
             // 
             label11.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label11.ForeColor = Color.RoyalBlue;
-            label11.Location = new Point(0, 92);
+            label11.Location = new Point(0, 63);
             label11.Name = "label11";
             label11.Size = new Size(200, 28);
             label11.TabIndex = 13;
             label11.Text = "ຍອດລວມສຸດທິ:";
             label11.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // line
-            // 
-            line.BackColor = Color.LightGray;
-            line.Location = new Point(0, 87);
-            line.Name = "line";
-            line.Size = new Size(520, 2);
-            line.TabIndex = 12;
             // 
             // subtotal_val_lb
             // 
@@ -343,28 +344,13 @@
             // action_pn
             // 
             action_pn.BackColor = Color.White;
+            action_pn.Controls.Add(print_btn);
             action_pn.Controls.Add(pay_btn);
             action_pn.Dock = DockStyle.Bottom;
             action_pn.Location = new Point(0, 794);
             action_pn.Name = "action_pn";
             action_pn.Size = new Size(1506, 91);
             action_pn.TabIndex = 12;
-            // 
-            // pick_up_btn
-            // 
-            pick_up_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pick_up_btn.BackColor = Color.FromArgb(33, 52, 72);
-            pick_up_btn.Cursor = Cursors.Hand;
-            pick_up_btn.FlatStyle = FlatStyle.Flat;
-            pick_up_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            pick_up_btn.ForeColor = Color.White;
-            pick_up_btn.Location = new Point(1288, 138);
-            pick_up_btn.Name = "pick_up_btn";
-            pick_up_btn.Size = new Size(130, 47);
-            pick_up_btn.TabIndex = 18;
-            pick_up_btn.Text = "ຮັບສິນຄ້າ";
-            pick_up_btn.UseVisualStyleBackColor = false;
-            pick_up_btn.Click += pick_up_btn_Click;
             // 
             // pay_btn
             // 
@@ -381,6 +367,22 @@
             pay_btn.Text = "ຊຳລະເງິນ";
             pay_btn.UseVisualStyleBackColor = false;
             pay_btn.Click += pay_btn_Click;
+            // 
+            // pick_up_btn
+            // 
+            pick_up_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pick_up_btn.BackColor = Color.FromArgb(33, 52, 72);
+            pick_up_btn.Cursor = Cursors.Hand;
+            pick_up_btn.FlatStyle = FlatStyle.Flat;
+            pick_up_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            pick_up_btn.ForeColor = Color.White;
+            pick_up_btn.Location = new Point(1288, 138);
+            pick_up_btn.Name = "pick_up_btn";
+            pick_up_btn.Size = new Size(130, 47);
+            pick_up_btn.TabIndex = 18;
+            pick_up_btn.Text = "ຮັບສິນຄ້າ";
+            pick_up_btn.UseVisualStyleBackColor = false;
+            pick_up_btn.Click += pick_up_btn_Click;
             // 
             // root_layout
             // 
@@ -547,7 +549,7 @@
             tableLayoutPanel2.Controls.Add(label17, 0, 1);
             tableLayoutPanel2.Controls.Add(fabric_lbl, 1, 1);
             tableLayoutPanel2.Controls.Add(label19, 0, 2);
-            tableLayoutPanel2.Controls.Add(fabric_used_qty_lbl, 1, 2);
+            tableLayoutPanel2.Controls.Add(quantity_lbl, 1, 2);
             tableLayoutPanel2.Location = new Point(400, 58);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
@@ -609,19 +611,19 @@
             label19.Name = "label19";
             label19.Size = new Size(154, 47);
             label19.TabIndex = 10;
-            label19.Text = "ຈຳນວນຜ້າທີ່ໃຊ້:";
+            label19.Text = "ຈຳນວນ:";
             label19.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // fabric_used_qty_lbl
+            // quantity_lbl
             // 
-            fabric_used_qty_lbl.Dock = DockStyle.Fill;
-            fabric_used_qty_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
-            fabric_used_qty_lbl.Location = new Point(163, 80);
-            fabric_used_qty_lbl.Name = "fabric_used_qty_lbl";
-            fabric_used_qty_lbl.Size = new Size(234, 47);
-            fabric_used_qty_lbl.TabIndex = 11;
-            fabric_used_qty_lbl.Text = "0";
-            fabric_used_qty_lbl.TextAlign = ContentAlignment.MiddleLeft;
+            quantity_lbl.Dock = DockStyle.Fill;
+            quantity_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
+            quantity_lbl.Location = new Point(163, 80);
+            quantity_lbl.Name = "quantity_lbl";
+            quantity_lbl.Size = new Size(234, 47);
+            quantity_lbl.TabIndex = 11;
+            quantity_lbl.Text = "0";
+            quantity_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel1
             // 
@@ -731,6 +733,22 @@
             back_btn.UseVisualStyleBackColor = true;
             back_btn.Click += back_btn_Click;
             // 
+            // print_btn
+            // 
+            print_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            print_btn.BackColor = Color.FromArgb(33, 52, 72);
+            print_btn.Cursor = Cursors.Hand;
+            print_btn.FlatStyle = FlatStyle.Flat;
+            print_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            print_btn.ForeColor = Color.White;
+            print_btn.Location = new Point(1090, 3);
+            print_btn.Name = "print_btn";
+            print_btn.Size = new Size(178, 68);
+            print_btn.TabIndex = 5;
+            print_btn.Text = "Print";
+            print_btn.UseVisualStyleBackColor = false;
+            print_btn.Click += print_btn_Click;
+            // 
             // OrderDetailUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -764,7 +782,7 @@
         private Label label13;
         private Panel summary_pn;
         private Label label16;
-        private Label discount_val_lb;
+        private Label amount_to_be_paid_lbl;
         private Label discount_lb;
         private Label label12;
         private Label deposit_amount_val_lb;
@@ -773,7 +791,6 @@
         private Label label9;
         private Label total_amount_lb;
         private Label label11;
-        private Panel line;
         private Label subtotal_val_lb;
         private Label subtotal_title_lb;
         private TextBox notes_txt;
@@ -804,11 +821,13 @@
         private Label label17;
         private Label fabric_lbl;
         private Label label19;
-        private Label fabric_used_qty_lbl;
+        private Label quantity_lbl;
         private Panel panel4;
         private Label garment_lb;
         private Button back_btn;
         private Button pick_up_btn;
         private Label status_lbl;
+        private Panel line;
+        private Button print_btn;
     }
 }

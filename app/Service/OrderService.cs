@@ -88,7 +88,7 @@ namespace app.Service
                 .Include(o => o.Garment)
                 .Include(o => o.Fabric)
                 .Include(o => o.User)
-                //.Include(o => o.Payments)
+                .Include(o => o.Payments)
                 .FirstOrDefaultAsync(c => c.OrderNumber == orderNumber);
 
             if (order == null)

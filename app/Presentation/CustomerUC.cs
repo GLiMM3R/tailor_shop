@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -46,7 +48,12 @@ namespace app.Presentation
         {
             await LoadCustomers();
 
-            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
+            // Populate gender_cb with gender options  
+            gender_cb.Items.Clear();
+            gender_cb.Items.AddRange(new object[] { "ທັງໝົດ", "ຊາຍ", "ຍິງ" });
+            gender_cb.SelectedIndex = 0; // Set default selection to "ທັງໝົດ"
+
+            pagesize_cbb.SelectedIndex = 0; // Set default page size to first item  
             _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
         }
 
@@ -83,6 +90,20 @@ namespace app.Presentation
             };
 
             customer_dgv.Columns.Add(actionColumn);
+            customer_dgv.CellFormatting += customer_dvg_CellFormatting;
+        }
+
+        private void customer_dvg_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (customer_dgv.Columns[e.ColumnIndex].DataPropertyName == "Gender")
+            {
+                var customer = customer_dgv.Rows[e.RowIndex].DataBoundItem as Customer;
+                if (customer != null)
+                {
+                    e.Value = GetEnumDisplayName(customer.Gender);
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         public async Task LoadCustomers()
@@ -121,16 +142,6 @@ namespace app.Presentation
                 _filter.Gender = Gender.Female;
                 await LoadCustomers();
             }
-            else if (gender_cb.SelectedIndex == 3)
-            {
-                _filter.Gender = Gender.Other;
-                await LoadCustomers();
-            }
-            else if (gender_cb.SelectedIndex == 4)
-            {
-                _filter.Gender = Gender.PreferNotToSay;
-                await LoadCustomers();
-            }
         }
 
         private void search_txt_TextChanged(object sender, EventArgs e)
@@ -157,6 +168,13 @@ namespace app.Presentation
                     }
                 }
             }
+        }
+
+        private string GetEnumDisplayName(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var displayAttribute = field?.GetCustomAttribute<DisplayAttribute>();
+            return displayAttribute?.Name ?? value.ToString();
         }
 
         private void UpdatePageNumber()

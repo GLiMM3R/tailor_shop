@@ -17,10 +17,9 @@ namespace app.Entity
         public string CustomerName { get; set; }
         public string CustomerPhone { get; set; }
         public List<InvoiceItem> Items { get; set; }
-        public decimal Subtotal => Items.Sum(item => item.Total);
-        public decimal Discount { get; set; }
+        public decimal Subtotal { get; set; }
         public decimal DepositAmount { get; set; }
-        public decimal TotalAmount => Subtotal - Discount;
+        public decimal TotalAmount { get; set; }
     }
 
     public class InvoiceItem

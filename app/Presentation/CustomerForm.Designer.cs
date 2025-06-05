@@ -40,8 +40,6 @@
             name_txt = new TextBox();
             name_lb = new Label();
             gender_pn = new Panel();
-            gender_prefer_not_to_say_rb = new RadioButton();
-            gender_other_rb = new RadioButton();
             gender_female_rb = new RadioButton();
             gender_male_rb = new RadioButton();
             action_layout = new TableLayoutPanel();
@@ -197,8 +195,6 @@
             // 
             // gender_pn
             // 
-            gender_pn.Controls.Add(gender_prefer_not_to_say_rb);
-            gender_pn.Controls.Add(gender_other_rb);
             gender_pn.Controls.Add(gender_female_rb);
             gender_pn.Controls.Add(gender_male_rb);
             gender_pn.Dock = DockStyle.Fill;
@@ -207,30 +203,6 @@
             gender_pn.Name = "gender_pn";
             gender_pn.Size = new Size(405, 52);
             gender_pn.TabIndex = 3;
-            // 
-            // gender_prefer_not_to_say_rb
-            // 
-            gender_prefer_not_to_say_rb.AutoSize = true;
-            gender_prefer_not_to_say_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            gender_prefer_not_to_say_rb.Location = new Point(298, 10);
-            gender_prefer_not_to_say_rb.Name = "gender_prefer_not_to_say_rb";
-            gender_prefer_not_to_say_rb.Size = new Size(70, 32);
-            gender_prefer_not_to_say_rb.TabIndex = 3;
-            gender_prefer_not_to_say_rb.TabStop = true;
-            gender_prefer_not_to_say_rb.Text = "ບໍ່ລະບຸ";
-            gender_prefer_not_to_say_rb.UseVisualStyleBackColor = true;
-            // 
-            // gender_other_rb
-            // 
-            gender_other_rb.AutoSize = true;
-            gender_other_rb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            gender_other_rb.Location = new Point(205, 10);
-            gender_other_rb.Name = "gender_other_rb";
-            gender_other_rb.Size = new Size(65, 32);
-            gender_other_rb.TabIndex = 2;
-            gender_other_rb.TabStop = true;
-            gender_other_rb.Text = "ອື່ນໆ";
-            gender_other_rb.UseVisualStyleBackColor = true;
             // 
             // gender_female_rb
             // 
@@ -362,7 +334,6 @@
         private Panel name_pn;
         private Label name_lb;
         private Panel gender_pn;
-        private RadioButton gender_other_rb;
         private RadioButton gender_female_rb;
         private RadioButton gender_male_rb;
         private Panel address_pn;
@@ -375,6 +346,5 @@
         private TextBox name_txt;
         private TextBox address_txt;
         private TextBox phone_txt;
-        private RadioButton gender_prefer_not_to_say_rb;
     }
 }

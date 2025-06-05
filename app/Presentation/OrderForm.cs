@@ -18,7 +18,6 @@ namespace app.Presentation
     public partial class OrderForm : Form
     {
         private User _user;
-        private OrderUC _orderUC;
         private OrderService _orderService;
         private DailySequenceService _dailySequenceService;
 
@@ -29,12 +28,12 @@ namespace app.Presentation
 
         private readonly string _MeasurementUnit = "cm";
         private Customer? _selectedCustomer = null;
+        public bool IsUpdate { get; set; } = false; // Flag to indicate if this is an update operation
 
-        public OrderForm(OrderUC orderUC, User user, OrderService orderService, DailySequenceService dailySequenceService)
+        public OrderForm(User user, OrderService orderService, DailySequenceService dailySequenceService)
         {
             InitializeComponent();
             this._user = user;
-            this._orderUC = orderUC;
             this._orderService = orderService;
             this._dailySequenceService = dailySequenceService;
 
@@ -110,16 +109,16 @@ namespace app.Presentation
             }
         }
 
-        private void fabric_cb_Format(object sender, ListControlConvertEventArgs e)
+        private void fabric_cb_Format(object? sender, ListControlConvertEventArgs e)
         {
             // e.ListItem is the current Fabric object
             if (e.ListItem is Fabric fabric)
             {
-                e.Value = fabric.MaterialType + " " + fabric.ColorName; // Or any formatting
+                e.Value = $"#{fabric.ColorCode} " + fabric.MaterialType + " " + fabric.ColorName; // Or any formatting
             }
         }
 
-        private async void cancel_btn_Click(object sender, EventArgs e)
+        private void cancel_btn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -235,7 +234,7 @@ namespace app.Presentation
             {
                 await _orderService.Create(newOrder);
                 MessageBox.Show("Order created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await this._orderUC.LoadOrders();
+                IsUpdate = true;
                 this.Close();
             }
             catch (Exception ex)

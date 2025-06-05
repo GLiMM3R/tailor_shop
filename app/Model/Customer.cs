@@ -9,10 +9,10 @@ namespace app.Model
 {
     public enum Gender
     {
+        [Display(Name = "ຊາຍ")]
         Male,
-        Female,
-        Other,
-        PreferNotToSay
+        [Display(Name = "ຍິງ")]
+        Female
     }
 
     public class Customer

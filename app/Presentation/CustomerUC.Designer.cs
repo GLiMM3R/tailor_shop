@@ -266,7 +266,6 @@
             gender_cb.FlatStyle = FlatStyle.Flat;
             gender_cb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gender_cb.FormattingEnabled = true;
-            gender_cb.Items.AddRange(new object[] { "All", "Male", "Female", "Other", "PreferNotToSay" });
             gender_cb.Location = new Point(3, 2);
             gender_cb.Name = "gender_cb";
             gender_cb.Size = new Size(190, 41);

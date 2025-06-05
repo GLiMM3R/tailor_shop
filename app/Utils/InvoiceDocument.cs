@@ -45,25 +45,69 @@ namespace app.Utils
         {
             container.Column(column =>
             {
+                //column.Item().AlignCenter().Text("ໃບຮັບເງິນ").FontSize(20).Bold();
+                //column.Item().Text($"ໃບຮັບເງິນເລກທີ: {_model.InvoiceNumber}").FontSize(12);
+                //column.Item().Text($"ວັນທີ: {_model.IssueDate:dd/MM/yyyy}").FontSize(12);
+                //column.Item().Text($"ວັນທີຮັບເຄື່ອງ: {_model.DueDate:dd/MM/yyyy}").FontSize(12);
+                //column.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Grey.Medium);
                 column.Item().AlignCenter().Text("ໃບຮັບເງິນ").FontSize(20).Bold();
-                column.Item().Text($"ໃບຮັບເງິນເລກທີ: {_model.InvoiceNumber}").FontSize(12);
-                column.Item().Text($"ວັນທີ: {_model.IssueDate:dd/MM/yyyy}").FontSize(12);
-                column.Item().Text($"ວັນທີຮັບເຄື່ອງ: {_model.DueDate:dd/MM/yyyy}").FontSize(12);
+                
+
+                column.Item().PaddingTop(20).Row(row =>
+                {
+                    row.RelativeItem().Column(col =>
+                    {
+                        col.Item().Text("ຮ້ານຕັດຫຍິບ ທ້າວ ມີ ແສງຈັນ");
+                        col.Item().Text("ບ້ານ ປ່ອງຄຳ, ນະຄອນຫຼວງພະບາງ, ແຂວງຫຼວງພະບາງ");
+                        col.Item().Text("ເບີໂທ 020 78978978");
+                    });
+
+                    row.RelativeItem().Column(col =>
+                    {
+                        col.Item().AlignRight().Row(row =>
+                        {
+                            row.RelativeItem().AlignRight().Text("ໃບຮັບເງິນເລກທີ:");
+                            row.ConstantItem(120).AlignRight().Text($"{_model.InvoiceNumber}");
+                        });
+                        col.Item().AlignRight().Row(row =>
+                        {
+                            row.RelativeItem().AlignRight().Text("ວັນທີ:");
+                            row.ConstantItem(120).AlignRight().Text($"{_model.IssueDate:dd/MM/yyyy}");
+                        });
+                        col.Item().AlignRight().Row(row =>
+                        {
+                            row.RelativeItem().AlignRight().Text("ວັນທີຮັບເຄື່ອງ:");
+                            row.ConstantItem(120).AlignRight().Text($"{_model.DueDate:dd/MM/yyyy}");
+                        });
+                    });
+                });
+
                 column.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Grey.Medium);
 
                 column.Item().Row(row =>
                 {
                     row.RelativeItem().Column(col =>
                     {
-                        col.Item().Text("ພະນັກງານ:").Bold();
-                        col.Item().Text(_model.SellerName);
+                        col.Item().AlignLeft().Row(row =>
+                        {
+                            row.ConstantItem(60).AlignLeft().Text("ຊື່ພະນັກງານ:");
+                            row.RelativeItem().AlignLeft().Text(_model.SellerName);
+                        });
                     });
 
-                    row.RelativeItem().Column(col =>
+                    row.ConstantItem(200).Column(col =>
                     {
-                        col.Item().Text("ລູກຄ້າ:").Bold();
-                        col.Item().Text(_model.CustomerName);
-                        col.Item().Text(_model.CustomerPhone);
+                        col.Item().AlignRight().Row(row =>
+                        {
+                            row.RelativeItem().AlignRight().Text("ຊື່ລູກຄ້າ:");
+                            row.ConstantItem(150).AlignRight().Text(_model.CustomerName);
+                        });
+                        col.Item().AlignRight().Row(row =>
+                        {
+                            row.RelativeItem().AlignRight().Text("ເບີໂທ:");
+                            row.ConstantItem(150).AlignRight().Text(_model.CustomerPhone);
+                        });
+
                     });
                 });
             });
@@ -99,35 +143,30 @@ namespace app.Utils
                         table.Cell().Padding(5).Text(index++.ToString());
                         table.Cell().Padding(5).Text(item.Description);
                         table.Cell().Padding(5).Text(item.Quantity.ToString());
-                        table.Cell().Padding(5).Text($"{item.UnitPrice}");
-                        table.Cell().Padding(5).Text($"{item.Total}");
+                        table.Cell().Padding(5).Text(item.UnitPrice.ToString("N0"));
+                        table.Cell().Padding(5).Text(item.Total.ToString("N0"));
                     }
                 });
 
                 column.Item().AlignRight().Row(row =>
                 {
                     row.RelativeItem().AlignRight().PaddingTop(10).Text("ຍອດລວມ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.Subtotal}").Bold();
-                });
-                column.Item().AlignRight().Row(row =>
-                {
-                    row.RelativeItem().AlignRight().PaddingTop(10).Text("ສ່ວນຫຼຸດ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.Discount}").Bold();
+                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.Subtotal:N0}").Bold();
                 });
                 column.Item().AlignRight().Row(row =>
                 {
                     row.RelativeItem().AlignRight().PaddingTop(10).Text("ມັດຈຳ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.DepositAmount}").Bold();
+                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.DepositAmount:N0}").Bold();
                 });
                 column.Item().AlignRight().Row(row =>
                 {
                     row.RelativeItem().AlignRight().PaddingTop(10).Text("ຍອດລວມສຸດທິ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.TotalAmount}").Bold();
+                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.TotalAmount:N0}").Bold();
                 });
                 column.Item().AlignRight().Row(row =>
                 {
-                    row.RelativeItem().AlignRight().PaddingTop(10).Text("ຈຳນວນທີ່ຈ່າຍ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{_model.TotalAmount - _model.DepositAmount}").Bold();
+                    row.RelativeItem().AlignRight().PaddingTop(10).Text("ຈຳນວນຊຳລະ:").Bold();
+                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{(_model.TotalAmount - _model.DepositAmount):N0}").Bold();
                 });
             });
         }

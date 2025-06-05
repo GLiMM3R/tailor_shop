@@ -32,7 +32,7 @@ namespace app.Presentation
             name_txt.KeyDown += FormTextBox_KeyDown;
             phone_txt.KeyDown += FormTextBox_KeyDown;
             address_txt.KeyDown += FormTextBox_KeyDown;
-            gender_prefer_not_to_say_rb.Checked = true;
+            gender_male_rb.Checked = true;
 
             if (this._customer != null)
             {
@@ -46,17 +46,9 @@ namespace app.Presentation
                 {
                     gender_male_rb.Checked = true;
                 }
-                else if (this._customer.Gender == Gender.Female)
+                else
                 {
                     gender_female_rb.Checked = true;
-                }
-                else if (this._customer.Gender == Gender.Other)
-                {
-                    gender_other_rb.Checked = true;
-                }
-                else if (this._customer.Gender == Gender.PreferNotToSay)
-                {
-                    gender_prefer_not_to_say_rb.Checked = true;
                 }
             }
         }
@@ -69,11 +61,8 @@ namespace app.Presentation
         private Gender GetSelectedGender()
         {
             if (gender_male_rb.Checked) return Gender.Male;
-            if (gender_female_rb.Checked) return Gender.Female;
-            if (gender_other_rb.Checked) return Gender.Other;
-            if (gender_prefer_not_to_say_rb.Checked) return Gender.PreferNotToSay;
 
-            return Gender.Other; // No gender selected
+            return Gender.Female; // No gender selected
         }
 
         private async void add_btn_Click(object sender, EventArgs e)

@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace app.Model
 {
+    public enum BodyType
+    {
+        UpperBody = 0,
+        LowerBody = 1,
+    }
+
     public class Measurement
     {
         [Key]
@@ -17,6 +23,9 @@ namespace app.Model
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; } // Navigation Property
+
+        [Required]
+        public BodyType BodyType { get; set; } = BodyType.UpperBody;
 
         [Required]
         public string BodyPart { get; set; }

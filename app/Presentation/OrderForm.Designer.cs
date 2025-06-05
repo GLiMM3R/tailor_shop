@@ -51,6 +51,7 @@
             notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             middle_pn = new Panel();
+            checkBox1 = new CheckBox();
             lower_body_rb = new RadioButton();
             upper_body_rb = new RadioButton();
             measurements_title_lb = new Label();
@@ -166,7 +167,7 @@
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 180F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
-            main_layout.Size = new Size(1421, 724);
+            main_layout.Size = new Size(1421, 728);
             main_layout.TabIndex = 0;
             // 
             // bottom_pn
@@ -179,7 +180,7 @@
             bottom_pn.Location = new Point(0, 460);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
-            bottom_pn.Size = new Size(1421, 264);
+            bottom_pn.Size = new Size(1421, 268);
             bottom_pn.TabIndex = 2;
             // 
             // summary_pn
@@ -393,6 +394,7 @@
             // 
             // middle_pn
             // 
+            middle_pn.Controls.Add(checkBox1);
             middle_pn.Controls.Add(lower_body_rb);
             middle_pn.Controls.Add(upper_body_rb);
             middle_pn.Controls.Add(measurements_title_lb);
@@ -404,6 +406,17 @@
             middle_pn.Name = "middle_pn";
             middle_pn.Size = new Size(1421, 280);
             middle_pn.TabIndex = 1;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
+            checkBox1.Location = new Point(489, 35);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(182, 42);
+            checkBox1.TabIndex = 10;
+            checkBox1.Text = "ຮ່າງກາຍສ່ວນເທິງ";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // lower_body_rb
             // 
@@ -924,9 +937,9 @@
             // due_date_dpk
             // 
             due_date_dpk.CalendarFont = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            due_date_dpk.CustomFormat = "dd/mm/yyyy";
+            due_date_dpk.CustomFormat = "dd/MM/yyyy";
             due_date_dpk.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            due_date_dpk.Format = DateTimePickerFormat.Short;
+            due_date_dpk.Format = DateTimePickerFormat.Custom;
             due_date_dpk.Location = new Point(1157, 35);
             due_date_dpk.MinDate = new DateTime(2025, 5, 18, 0, 0, 0, 0);
             due_date_dpk.Name = "due_date_dpk";
@@ -1112,9 +1125,9 @@
             footer_pn.BackColor = Color.White;
             footer_pn.Controls.Add(create_order_btn);
             footer_pn.Dock = DockStyle.Bottom;
-            footer_pn.Location = new Point(0, 785);
+            footer_pn.Location = new Point(0, 789);
             footer_pn.Name = "footer_pn";
-            footer_pn.Size = new Size(1421, 80);
+            footer_pn.Size = new Size(1421, 103);
             footer_pn.TabIndex = 4;
             // 
             // create_order_btn
@@ -1142,14 +1155,14 @@
             root_pn.Dock = DockStyle.Fill;
             root_pn.Location = new Point(0, 0);
             root_pn.Name = "root_pn";
-            root_pn.Size = new Size(1423, 867);
+            root_pn.Size = new Size(1423, 894);
             root_pn.TabIndex = 7;
             // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1423, 867);
+            ClientSize = new Size(1423, 894);
             Controls.Add(root_pn);
             FormBorderStyle = FormBorderStyle.None;
             Name = "OrderForm";
@@ -1288,5 +1301,6 @@
         private Button close_btn;
         private Button create_order_btn;
         private Label customer_lbl;
+        private CheckBox checkBox1;
     }
 }

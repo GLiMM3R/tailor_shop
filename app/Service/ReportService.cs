@@ -153,8 +153,8 @@ namespace app.Service
             All,
             [Display(Name = "ຖືກໃຊ້ຫຼາຍ")]
             MostUsedQuantity,
-            [Display(Name = "ມູນຄ່າສູງ")]
-            TopValue
+            //[Display(Name = "ມູນຄ່າສູງ")]
+            //TopValue
         }
 
         public async Task<ListResult<FabricReport>> GetFabricReport(DateTime fromDate, DateTime toDate, Pagination pagination, FabricReportType reportType)
@@ -184,11 +184,11 @@ namespace app.Service
                 // Fabrics with the highest total used quantity
                 grouped = grouped.OrderByDescending(r => r.TotalUsedQuantity);
             }
-            else if (reportType == FabricReportType.TopValue)
-            {
-                // Fabrics with the highest total value
-                grouped = grouped.OrderByDescending(r => r.TotalValue);
-            }
+            //else if (reportType == FabricReportType.TopValue)
+            //{
+            //    // Fabrics with the highest total value
+            //    grouped = grouped.OrderByDescending(r => r.TotalValue);
+            //}
             else
             {
                 // Default ordering for All report type

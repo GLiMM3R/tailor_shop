@@ -65,7 +65,7 @@ namespace app.Presentation
                 if (result != null)
                 {
                     total_orders_lbl.Text = result.TotalOrders.ToString("N0");
-                    total_amount_lbl.Text = result.TotalAmount.ToString("N2");
+                    total_amount_lbl.Text = result.TotalAmount.ToString("N0");
                     new_customers_lbl.Text = (await dbContext.Customers
                         .Where(c => c.CreatedAt >= monthRange.StartOfMonth && c.CreatedAt <= monthRange.EndOfMonth)
                         .CountAsync()).ToString();
@@ -167,7 +167,7 @@ namespace app.Presentation
             order_dgv.CellFormatting += OrderDgv_CellFormatting;
         }
 
-        private void OrderDgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void OrderDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Customer")
             {
@@ -195,6 +195,16 @@ namespace app.Presentation
                 if (order != null && order.Garment != null)
                 {
                     e.Value = order.Garment.Name;
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Status")
+            {
+                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+                if (order != null)
+                {
+                    e.Value = EnumUtils.GetEnumDisplayName(order.Status);
                     e.FormattingApplied = true;
                 }
             }

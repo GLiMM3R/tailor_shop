@@ -74,8 +74,9 @@
             // 
             // to_date_dpk
             // 
+            to_date_dpk.CustomFormat = "dd/MM/yyyy";
             to_date_dpk.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            to_date_dpk.Format = DateTimePickerFormat.Short;
+            to_date_dpk.Format = DateTimePickerFormat.Custom;
             to_date_dpk.Location = new Point(262, 2);
             to_date_dpk.Name = "to_date_dpk";
             to_date_dpk.Size = new Size(157, 40);
@@ -311,8 +312,9 @@
             // 
             // from_date_dpk
             // 
+            from_date_dpk.CustomFormat = "dd/MM/yyyy";
             from_date_dpk.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            from_date_dpk.Format = DateTimePickerFormat.Short;
+            from_date_dpk.Format = DateTimePickerFormat.Custom;
             from_date_dpk.Location = new Point(0, 2);
             from_date_dpk.Name = "from_date_dpk";
             from_date_dpk.Size = new Size(157, 40);

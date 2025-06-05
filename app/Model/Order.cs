@@ -11,10 +11,15 @@ namespace app.Model
 {
     public enum OrderStatus
     {
+        [Display(Name = "ລໍຖ້າ")]
         Pending = 0,
+        [Display(Name = "ກຳລັງປະຕິບັດ")]
         InProgress = 1,
+        [Display(Name = "ສຳເລັດ")]
         Completed = 2,
+        [Display(Name = "ຮັບເສື້ອແລ້ວ")]
         PickedUp = 3,
+        [Display(Name = "ຍົກເລີກ")]
         Canceled = 4
     }
 
