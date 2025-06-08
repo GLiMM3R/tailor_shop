@@ -95,17 +95,14 @@ namespace app.Service
 
                 int usedQty = usedOrders.Sum(o => o.Quantity);
                 totalUsedFabrics += usedQty;
-                totalValue += fabric.UnitPrice * usedQty;
             }
-
-            decimal averageValue = totalFabrics > 0 ? totalValue / totalFabrics : 0;
 
             return new FabricStatistic
             {
                 TotalFabrics = totalFabrics,
                 TotalUsedFabrics = totalUsedFabrics,
-                TotalValue = totalValue,
-                AverageValue = averageValue
+                TotalValue = 0,
+                AverageValue = 0
             };
         }
 

@@ -18,7 +18,6 @@ namespace app.Presentation
     {
         private readonly FabricService _fabricService;
         private Fabric? _fabric;
-        private string _hexColor;
         public bool IsUpdate { get; set; } = false;
         public FabricForm(FabricService fabricService, Fabric? fabric)
         {
@@ -31,8 +30,7 @@ namespace app.Presentation
         private void FabricForm_Load(object sender, EventArgs e)
         {
             type_txt.KeyDown += FormTextBox_KeyDown;
-            color_name_txt.KeyDown += FormTextBox_KeyDown;
-            unit_price_txt.KeyDown += FormTextBox_KeyDown;
+            color_code_txt.KeyDown += FormTextBox_KeyDown;
 
             if (this._fabric != null)
             {
@@ -40,8 +38,6 @@ namespace app.Presentation
 
                 type_txt.Text = this._fabric.MaterialType;
                 color_code_txt.Text = this._fabric.ColorCode;
-                color_name_txt.Text = this._fabric.ColorName;
-                unit_price_txt.Value = this._fabric.UnitPrice;
 
                 if (_fabric.Image != null)
                 {
@@ -50,25 +46,6 @@ namespace app.Presentation
                         fabric_pb.Image = Image.FromStream(ms);
                     }
                 }
-
-                if (this._fabric.Color != null)
-                {
-                    this._hexColor = this._fabric.Color;
-                    Color fabricColor = System.Drawing.ColorTranslator.FromHtml(this._hexColor);
-                    color_pn.BackColor = fabricColor;
-                }
-            }
-        }
-
-        private void choose_color_btn_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog = new ColorDialog();
-
-            DialogResult result = colorDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                color_pn.BackColor = colorDialog.Color;
-                this._hexColor = $"#{colorDialog.Color.R:X2}{colorDialog.Color.G:X2}{colorDialog.Color.B:X2}";
             }
         }
 
@@ -91,8 +68,7 @@ namespace app.Presentation
 
         private async Task CreateFabric()
         {
-            if (string.IsNullOrWhiteSpace(type_txt.Text) || string.IsNullOrWhiteSpace(color_name_txt.Text) ||
-                string.IsNullOrWhiteSpace(this._hexColor))
+            if (string.IsNullOrWhiteSpace(type_txt.Text) || string.IsNullOrWhiteSpace(color_code_txt.Text))
             {
                 MessageBox.Show("Please enter valid fabric details.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -104,9 +80,6 @@ namespace app.Presentation
                 {
                     MaterialType = type_txt.Text.Trim(),
                     ColorCode = color_code_txt.Text.Trim(),
-                    ColorName = color_name_txt.Text.Trim(),
-                    Color = this._hexColor,
-                    UnitPrice = unit_price_txt.Value,
                 };
 
                 if (fabric_pb.Image != null)
@@ -156,21 +129,6 @@ namespace app.Presentation
                     fabric.ColorCode = color_code_txt.Text;
                 }
 
-                if (fabric.ColorName != color_name_txt.Text && !string.IsNullOrWhiteSpace(color_name_txt.Text))
-                {
-                    fabric.ColorName = color_name_txt.Text;
-                }
-
-                if (fabric.Color != this._hexColor && !string.IsNullOrWhiteSpace(this._hexColor))
-                {
-                    fabric.Color = this._hexColor;
-                }
-
-                if (fabric.UnitPrice != unit_price_txt.Value && unit_price_txt.Value != 0)
-                {
-                    fabric.UnitPrice = unit_price_txt.Value;
-                }
-
                 if (fabric_pb.Image != null)
                 {
                     using (var ms = new MemoryStream())
@@ -208,28 +166,39 @@ namespace app.Presentation
 
         private void browse_btn_Click(object sender, EventArgs e)
         {
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    using (var originalImage = new Bitmap(openFileDialog.FileName))
+                    try
                     {
-                        // Set desired width and height (e.g., PictureBox size)
-                        int targetWidth = fabric_pb.Width;
-                        int targetHeight = fabric_pb.Height;
+                        using (var originalImage = new Bitmap(openFileDialog.FileName))
+                        {
+                            // Set desired width and height (e.g., PictureBox size)
+                            int targetWidth = fabric_pb.Width;
+                            int targetHeight = fabric_pb.Height;
 
-                        // Maintain aspect ratio
-                        float ratioX = (float)targetWidth / originalImage.Width;
-                        float ratioY = (float)targetHeight / originalImage.Height;
-                        float ratio = Math.Min(ratioX, ratioY);
+                            // Maintain aspect ratio
+                            float ratioX = (float)targetWidth / originalImage.Width;
+                            float ratioY = (float)targetHeight / originalImage.Height;
+                            float ratio = Math.Min(ratioX, ratioY);
 
-                        int newWidth = (int)(originalImage.Width * ratio);
-                        int newHeight = (int)(originalImage.Height * ratio);
+                            int newWidth = (int)(originalImage.Width * ratio);
+                            int newHeight = (int)(originalImage.Height * ratio);
 
-                        var resizedImage = new Bitmap(originalImage, newWidth, newHeight);
-                        fabric_pb.Image = resizedImage;
+                            var resizedImage = new Bitmap(originalImage, newWidth, newHeight);
+                            fabric_pb.Image = resizedImage;
+                        }
                     }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error loading image. Please select a valid image file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        fabric_pb.Image?.Dispose();
+                        fabric_pb.Image = null;
+                    }
+
                 }
             }
         }

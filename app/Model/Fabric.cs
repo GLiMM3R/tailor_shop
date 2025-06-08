@@ -20,14 +20,6 @@ namespace app.Model
         [Required]
         public string ColorCode { get; set; } = string.Empty;
 
-        [Required]
-        public string ColorName { get; set; }
-
-        [Required]
-        public string Color { get; set; }
-
-        public decimal UnitPrice { get; set; } = 0m;
-
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

@@ -168,8 +168,9 @@ namespace app.Service
             var grouped = query.Select(c => new FabricReport
             {
                 FabricId = c.Id,
+                Image = c.Image,
                 MaterialType = c.MaterialType,
-                Color = c.Color,
+                ColorCode = c.ColorCode,
                 TotalUsedQuantity = c.Orders
                     .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
                     .Sum(o => o.Quantity),
@@ -322,7 +323,7 @@ namespace app.Service
                     CustomerName = o.Customer.Name,
                     UserName = o.User.Username,
                     GarmentName = o.Garment.Name,
-                    FabricName = o.Fabric.MaterialType + " " + o.Fabric.ColorName,
+                    FabricName = o.Fabric.MaterialType + " " + o.Fabric.ColorCode,
                     OrderDate = o.CreatedAt,
                     Quantity = o.Quantity,
                     Subtotal = o.Subtotal,

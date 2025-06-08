@@ -63,16 +63,39 @@ namespace app.Presentation.Report
         {
             fabric_report_dgv.AutoGenerateColumns = false;
             fabric_report_dgv.Columns.Clear();
-
+            DataGridViewImageColumn imageColumn = new DataGridViewImageColumn
+            {
+                Name = "Image",
+                HeaderText = "ຮູບພາບ",
+                DataPropertyName = "Image",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 100, // Set desired width
+                ImageLayout = DataGridViewImageCellLayout.Stretch,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    NullValue = null,
+                },
+                HeaderCell = {
+                    Style = new DataGridViewCellStyle
+                    {
+                        Alignment = DataGridViewContentAlignment.MiddleCenter,
+                        Font = new Font("Noto Sans Lao", 10, FontStyle.Bold)
+                    }
+                }
+            };
             fabric_report_dgv.Columns.AddRange(
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "FabricId", headerText: "ລະຫັດຜ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                    imageColumn,
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "ປະເພດວັດສະດຸ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DisplayColor", headerText: "ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorCode", headerText: "ລະຫັດສີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
+                    //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DisplayColor", headerText: "ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalUsedQuantity", headerText: "ຈຳນວນຖືກໃຊ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
                     //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
                 );
 
+            fabric_report_dgv.RowTemplate.Height = 100; // Set row height to accommodate images
             fabric_report_dgv.CellFormatting += FabricReportDgv_CellFormatting;
             fabric_report_dgv.CellFormatting += fabric_dgv_CellFormatting;
         }

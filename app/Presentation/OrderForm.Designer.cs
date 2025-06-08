@@ -83,6 +83,8 @@
             sleeve_length_num = new NumericUpDown();
             upper_hip_num = new NumericUpDown();
             top_pn = new Panel();
+            panel1 = new Panel();
+            fabric_image_pb = new PictureBox();
             panel7 = new Panel();
             quantity_num = new NumericUpDown();
             label10 = new Label();
@@ -129,6 +131,8 @@
             ((System.ComponentModel.ISupportInitialize)sleeve_length_num).BeginInit();
             ((System.ComponentModel.ISupportInitialize)upper_hip_num).BeginInit();
             top_pn.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fabric_image_pb).BeginInit();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)quantity_num).BeginInit();
             panel5.SuspendLayout();
@@ -152,7 +156,7 @@
             main_layout.Margin = new Padding(0);
             main_layout.Name = "main_layout";
             main_layout.RowCount = 3;
-            main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 180F));
+            main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
             main_layout.Size = new Size(1421, 728);
@@ -165,11 +169,12 @@
             bottom_pn.Controls.Add(notes_txt);
             bottom_pn.Controls.Add(summary_and_note_lb);
             bottom_pn.Dock = DockStyle.Fill;
-            bottom_pn.Location = new Point(0, 460);
+            bottom_pn.Location = new Point(0, 480);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
-            bottom_pn.Size = new Size(1421, 268);
+            bottom_pn.Size = new Size(1421, 248);
             bottom_pn.TabIndex = 2;
+            bottom_pn.Paint += bottom_pn_Paint;
             // 
             // summary_pn
             // 
@@ -319,16 +324,15 @@
             notes_txt.Location = new Point(37, 85);
             notes_txt.Multiline = true;
             notes_txt.Name = "notes_txt";
-            notes_txt.Size = new Size(522, 166);
+            notes_txt.Size = new Size(522, 157);
             notes_txt.TabIndex = 0;
             // 
             // summary_and_note_lb
             // 
-            summary_and_note_lb.AutoSize = true;
             summary_and_note_lb.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            summary_and_note_lb.Location = new Point(11, 9);
+            summary_and_note_lb.Location = new Point(11, 0);
             summary_and_note_lb.Name = "summary_and_note_lb";
-            summary_and_note_lb.Size = new Size(83, 44);
+            summary_and_note_lb.Size = new Size(83, 53);
             summary_and_note_lb.TabIndex = 8;
             summary_and_note_lb.Text = "ສະຫຼຸບ";
             // 
@@ -340,7 +344,7 @@
             middle_pn.Controls.Add(lower_body_form_layout);
             middle_pn.Controls.Add(upper_body_form_layout);
             middle_pn.Dock = DockStyle.Fill;
-            middle_pn.Location = new Point(0, 180);
+            middle_pn.Location = new Point(0, 200);
             middle_pn.Margin = new Padding(0);
             middle_pn.Name = "middle_pn";
             middle_pn.Size = new Size(1421, 280);
@@ -790,6 +794,7 @@
             // 
             // top_pn
             // 
+            top_pn.Controls.Add(panel1);
             top_pn.Controls.Add(panel7);
             top_pn.Controls.Add(label10);
             top_pn.Controls.Add(due_date_dpk);
@@ -805,8 +810,27 @@
             top_pn.Location = new Point(0, 0);
             top_pn.Margin = new Padding(0);
             top_pn.Name = "top_pn";
-            top_pn.Size = new Size(1421, 180);
+            top_pn.Size = new Size(1421, 200);
             top_pn.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(fabric_image_pb);
+            panel1.Location = new Point(325, 87);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(175, 110);
+            panel1.TabIndex = 20;
+            // 
+            // fabric_image_pb
+            // 
+            fabric_image_pb.Dock = DockStyle.Fill;
+            fabric_image_pb.Location = new Point(0, 0);
+            fabric_image_pb.Name = "fabric_image_pb";
+            fabric_image_pb.Size = new Size(173, 108);
+            fabric_image_pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            fabric_image_pb.TabIndex = 0;
+            fabric_image_pb.TabStop = false;
             // 
             // panel7
             // 
@@ -870,6 +894,7 @@
             fabric_cb.Size = new Size(269, 41);
             fabric_cb.TabIndex = 12;
             fabric_cb.Text = "Select Fabric";
+            fabric_cb.SelectedIndexChanged += fabric_cb_SelectedIndexChanged;
             fabric_cb.SelectedValueChanged += fabric_cb_SelectedValueChanged;
             // 
             // panel4
@@ -1090,6 +1115,8 @@
             ((System.ComponentModel.ISupportInitialize)sleeve_length_num).EndInit();
             ((System.ComponentModel.ISupportInitialize)upper_hip_num).EndInit();
             top_pn.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)fabric_image_pb).EndInit();
             panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)quantity_num).EndInit();
             panel5.ResumeLayout(false);
@@ -1185,5 +1212,7 @@
         private Label customer_lbl;
         private CheckBox upper_body_cb;
         private CheckBox lower_body_cb;
+        private Panel panel1;
+        private PictureBox fabric_image_pb;
     }
 }

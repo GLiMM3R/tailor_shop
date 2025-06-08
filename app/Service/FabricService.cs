@@ -40,7 +40,7 @@ namespace app.Service
             {
                 if (!string.IsNullOrEmpty(filter.Search))
                 {
-                    query = query.Where(c => c.MaterialType.ToLower().Contains(filter.Search.ToLower()) || c.ColorName.ToLower().Contains(filter.Search.ToLower()));
+                    query = query.Where(c => c.MaterialType.ToLower().Contains(filter.Search.ToLower()) || c.ColorCode.ToLower().Contains(filter.Search.ToLower()));
                 }
             }
 

@@ -58,7 +58,7 @@ namespace app.Presentation
             garment.SubItems.Add(_order.Quantity.ToString());
             garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0");
 
-            var fabric = new ListViewItem(_order.Fabric.MaterialType + " " + _order.Fabric.ColorName);
+            var fabric = new ListViewItem($"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}");
             fabric.SubItems.Add((1).ToString());
             fabric.SubItems.Add((0).ToString("N0") ?? "0");
 
@@ -156,7 +156,7 @@ namespace app.Presentation
                     Items = new List<InvoiceItem>
                         {
                             new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
-                            new InvoiceItem { Description = _order.Fabric.MaterialType + " " + _order.Fabric.ColorName, Quantity = 1, UnitPrice = 0 }
+                            new InvoiceItem { Description = $"{_order.Fabric.MaterialType} #{_order.Fabric.ColorCode}", Quantity = 1, UnitPrice = 0 }
                         }
                 };
 

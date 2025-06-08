@@ -99,5 +99,15 @@ namespace app.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] image {
+            get {
+                object obj = ResourceManager.GetObject("image", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -73,7 +73,7 @@ namespace app.Presentation
                 customer_name_lbl.Text = _order.Customer.Name;
                 customer_phone_lbl.Text = _order.Customer.Phone;
                 garment_lbl.Text = _order.Garment.Name;
-                fabric_lbl.Text = $"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType} {_order.Fabric.ColorName}";
+                fabric_lbl.Text = $"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}";
                 quantity_lbl.Text = _order.Quantity.ToString();
                 order_date_lbl.Text = _order.CreatedAt.ToString("dd/MM/yyyy");
                 due_date_lbl.Text = _order.DueDate?.ToString("dd/MM/yyyy") ?? "-";
@@ -215,7 +215,7 @@ namespace app.Presentation
                     Items = new List<InvoiceItem>
                         {
                             new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
-                            new InvoiceItem { Description = $"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType} {_order.Fabric.ColorName}", Quantity = 1, UnitPrice = 0 }
+                            new InvoiceItem { Description = $"{_order.Fabric.MaterialType} #{_order.Fabric.ColorCode}", Quantity = 1, UnitPrice = 0 }
                         }
                 };
 

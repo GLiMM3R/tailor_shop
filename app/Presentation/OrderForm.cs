@@ -23,8 +23,8 @@ namespace app.Presentation
 
         private List<Fabric> _fabrics;
         private List<Garment> _garments;
-        private Fabric _fabric;
-        private Garment _garment;
+        //private Fabric _fabric;
+        //private Garment? _garment;
 
         private readonly string _MeasurementUnit = "cm";
         private Customer? _selectedCustomer = null;
@@ -76,6 +76,7 @@ namespace app.Presentation
             fabric_cb.ValueMember = "Id";
             fabric_cb.Format += fabric_cb_Format;
             fabric_cb.SelectedIndex = -1;
+            fabric_image_pb.Image = null; // Clear image initially
 
         }
 
@@ -91,10 +92,13 @@ namespace app.Presentation
             garment_cb.ValueMember = "Id";
             garment_cb.SelectedIndex = -1;
 
-            if (_garments.Count > 0)
-            {
-                this._garment = _garments[0]; ;
-            }
+            CalculateTotal();
+
+
+            //if (_garments.Count > 0)
+            //{
+            //    this._garment = _garments[0]; ;
+            //}
         }
 
         private void fabric_cb_Format(object? sender, ListControlConvertEventArgs e)
@@ -102,7 +106,7 @@ namespace app.Presentation
             // e.ListItem is the current Fabric object
             if (e.ListItem is Fabric fabric)
             {
-                e.Value = $"#{fabric.ColorCode} " + fabric.MaterialType + " " + fabric.ColorName; // Or any formatting
+                e.Value = $"{fabric.MaterialType} #{fabric.ColorCode}"; // Or any formatting
             }
         }
 
@@ -143,7 +147,7 @@ namespace app.Presentation
                 return;
             }
 
-            if(upper_body_cb.Checked == false && lower_body_cb.Checked == false)
+            if (upper_body_cb.Checked == false && lower_body_cb.Checked == false)
             {
                 MessageBox.Show("Please select at least one measurement type (Upper Body or Lower Body).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -167,7 +171,7 @@ namespace app.Presentation
             //    return;
             //}
 
-            if(deposit_amount <= 0)
+            if (deposit_amount <= 0)
             {
                 MessageBox.Show("Deposit amount cannot be negative.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -249,31 +253,38 @@ namespace app.Presentation
 
         private void CalculateTotal()
         {
-            if (fabric_cb.SelectedIndex == -1 && garment_cb.SelectedIndex == -1)
+            //if (fabric_cb.SelectedIndex == -1 && garment_cb.SelectedIndex == -1)
+            //{
+            //    // Avoid calculation if called too early before selections are definitely made by Form_Activated
+            //    return;
+            //}
+
+            if (garment_cb.SelectedItem is Garment selectedGarment)
             {
-                // Avoid calculation if called too early before selections are definitely made by Form_Activated
-                return;
+                var garmentBasePrice = selectedGarment.BasePrice ?? 0m;
+
+                var subtotal = (garmentBasePrice) * quantity_num.Value;
+                var totalAmount = subtotal;
+
+                subtotal_lb.Text = $"{subtotal:N0}"; // "N2" for number with 2 decimal places
+                total_amount_lb.Text = $"{totalAmount:N0}";
+            } else
+            {
+                subtotal_lb.Text = "0"; // "N2" for number with 2 decimal places
+                total_amount_lb.Text = "0";
             }
-
-            var garmentBasePrice = _garment?.BasePrice ?? 0m;
-
-            var subtotal = (garmentBasePrice) * quantity_num.Value;
-            var totalAmount = subtotal;
-
-            subtotal_lb.Text = $"{subtotal:N2}"; // "N2" for number with 2 decimal places
-            total_amount_lb.Text = $"{totalAmount:N2}";
         }
 
         private void garment_cb_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (garment_cb.SelectedItem is Garment selectedGarment)
-            {
-                _garment = selectedGarment;
-            }
-            else
-            {
-                _garment = null;
-            }
+            //if (garment_cb.SelectedItem is Garment selectedGarment)
+            //{
+            //    _garment = selectedGarment;
+            //}
+            //else
+            //{
+            //    _garment = null;
+            //}
 
             CalculateTotal();
         }
@@ -287,11 +298,22 @@ namespace app.Presentation
         {
             if (fabric_cb.SelectedItem is Fabric selectedFabric)
             {
-                _fabric = selectedFabric;
+                //_fabric = selectedFabric;
+                if (selectedFabric.Image != null)
+                {
+                    using (var ms = new MemoryStream(selectedFabric.Image))
+                    {
+                        fabric_image_pb.Image = Image.FromStream(ms);
+                    }
+                }
+                else
+                {
+                    fabric_image_pb.Image = null; // Clear image if no image is available
+                }
             }
             else
             {
-                _fabric = null;
+                //_fabric = null;
             }
 
             CalculateTotal();
@@ -429,6 +451,16 @@ namespace app.Presentation
 
         private void upper_body_cb_CheckedChanged(object sender, EventArgs e)
         {
+        }
+
+        private void bottom_pn_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void fabric_cb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

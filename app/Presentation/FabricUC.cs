@@ -50,15 +50,39 @@ namespace app.Presentation
             fabric_dgv.AutoGenerateColumns = false;
             fabric_dgv.Columns.Clear();
 
+            DataGridViewImageColumn imageColumn = new DataGridViewImageColumn
+            {
+                Name = "Image",
+                HeaderText = "ຮູບພາບ",
+                DataPropertyName = "Image",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 100, // Set desired width
+                ImageLayout = DataGridViewImageCellLayout.Stretch,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    NullValue = null,
+                },
+                HeaderCell = {
+                    Style = new DataGridViewCellStyle
+                    {
+                        Alignment = DataGridViewContentAlignment.MiddleCenter,
+                        Font = new Font("Noto Sans Lao", 10, FontStyle.Bold)
+                    }
+                }
+            };
+            // To set row height for all rows (e.g., in InitializeDataGridView)
             fabric_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID"),
+                imageColumn,
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "MaterialType", headerText: "ປະເພດວັດສະດຸ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorCode", headerText: "ລະຫັດສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ຊື່ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ"),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "")
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorCode", headerText: "ລະຫັດສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60)
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ColorName", headerText: "ຊື່ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 60),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ"),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "ValueToColor", headerText: "")
                 //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "ລາຄາ")
                 );
+
 
             DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn
             {
@@ -80,6 +104,7 @@ namespace app.Presentation
             };
 
             fabric_dgv.Columns.Add(actionColumn);
+            fabric_dgv.RowTemplate.Height = 100; // Set desired height
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             fabric_dgv.CellFormatting += this.fabric_dgv_CellFormatting;
