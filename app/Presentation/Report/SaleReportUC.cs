@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using app.Constant;
 using app.Database;
+using app.Entity;
 using app.Model;
 using app.Service;
 using app.Utils;
@@ -57,23 +58,32 @@ namespace app.Presentation.Report
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CustomerName", headerText: "ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "ພະນັກງານ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Subtotal", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "ສ່ວນຫຼຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAMount", headerText: "ຍອດລວມສຸດທິ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "PickUpDate", headerText: "ວັນທີຮັບເຄື່ອງ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
                 );
 
-            sale_report_dgv.CellFormatting += CustomerReportDgv_CellFormatting;
+            sale_report_dgv.CellFormatting += SaleReportDgv_CellFormatting;
         }
 
-        private void CustomerReportDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        private void SaleReportDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             var columnName = sale_report_dgv.Columns[e.ColumnIndex].DataPropertyName;
-            if (columnName == "TotalSpent")
+            if (columnName == "Subtotal" | columnName == "TotalAMount")
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
                 {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.Value = value.ToString("N0"); // Use "N2" for 2 decimal places  
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (columnName == "Status")
+            {
+                var order = sale_report_dgv.Rows[e.RowIndex].DataBoundItem as SaleReport;
+                if (order != null && Enum.TryParse(typeof(OrderStatus), order.Status, out var statusEnum))
+                {
+                    e.Value = EnumUtils.GetEnumDisplayName((Enum)statusEnum);
                     e.FormattingApplied = true;
                 }
             }

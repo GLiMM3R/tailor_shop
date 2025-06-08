@@ -83,23 +83,33 @@ namespace app.Presentation
                 deposit_amount_val_lb.Text = _order.DepositAmount.ToString("N0");
                 total_amount_lb.Text = _order.TotalAmount.ToString("N0");
                 notes_txt.Text = _order.Notes;
-                status_lbl.Text = _order.Status.ToString();
 
-                if (_order.Status == OrderStatus.Completed)
-                {
-                    pay_btn.Enabled = false;
-                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
-                    pay_btn.Text = "ຈ່າຍແລ້ວ";
+                //if (_order.Status == OrderStatus.Completed)
+                //{
+                //    pay_btn.Enabled = false;
+                //    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
+                //    pay_btn.Text = "ຈ່າຍແລ້ວ";
+                //}
+                //else if (_order.Status == OrderStatus.Pending)
+                //{
+                //    pay_btn.Enabled = true;
+                //    pay_btn.BackColor = Color.FromArgb(33, 52, 72);
+                //    pay_btn.Text = "ຊຳລະເງິນ";
+                //}
 
-                    status_lbl.BackColor = Color.FromArgb(0, 200, 0);
-                }
-                else if (_order.Status == OrderStatus.Pending)
+                if (_order.TotalAmount - paid_amount > 0)
                 {
                     pay_btn.Enabled = true;
                     pay_btn.BackColor = Color.FromArgb(33, 52, 72);
                     pay_btn.Text = "ຊຳລະເງິນ";
+                } else
+                {
+                    pay_btn.Enabled = false;
+                    pay_btn.BackColor = Color.FromArgb(200, 200, 200);
+                    pay_btn.Text = "ຈ່າຍແລ້ວ";
+                    print_invoice_btn.Enabled = false;
+                    print_invoice_btn.BackColor = Color.FromArgb(200, 200, 200);
 
-                    status_lbl.BackColor = Color.FromArgb(255, 200, 0);
                 }
             }
         }
@@ -120,22 +130,27 @@ namespace app.Presentation
 
         private async void OrderDetailUC_Load(object sender, EventArgs e)
         {
+            var statusList = Enum.GetValues(typeof(OrderStatus))
+             .Cast<OrderStatus>()
+             .Select(s => new
+             {
+                 Value = s,
+                 Display = EnumUtils.GetEnumDisplayName(s)
+             })
+             .ToList();
+
+            status_cbb.DataSource = statusList;
+            status_cbb.DisplayMember = "Display";
+            status_cbb.ValueMember = "Value";
+            status_cbb.SelectedIndex = 0;
+
             // Load the order details
             await LoadOrder();
 
             if (_order != null)
             {
                 await LoadMeasurements();
-
-                if (_order.Status == OrderStatus.Completed || _order.Status == OrderStatus.PickedUp || _order.Status == OrderStatus.Canceled)
-                {
-                    pay_btn.Visible = false;
-                }
-
-                if (_order.Status == OrderStatus.PickedUp || _order.Status == OrderStatus.InProgress || _order.Status == OrderStatus.Canceled)
-                {
-                    pick_up_btn.Visible = false;
-                }
+                status_cbb.SelectedValue = _order.Status;
             }
 
         }
@@ -155,13 +170,25 @@ namespace app.Presentation
         {
             try
             {
-                _order.Status = OrderStatus.PickedUp;
-                _order.PickUpDate = DateTime.Now;
-                await _orderService.Update(_order);
+                // Safely handle the unboxing of the selected value
+                if (status_cbb.SelectedValue is OrderStatus selectedStatus)
+                {
+                    _order.Status = selectedStatus;
+                    if (selectedStatus == OrderStatus.PickedUp)
+                    {
+                        _order.PickUpDate = DateTime.Now;
+                    }
+                    _order.UpdatedAt = DateTime.Now;
+                    await _orderService.Update(_order);
 
-                MessageBox.Show("Pick up successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                IsChanged = true;
-                await LoadOrder();
+                    MessageBox.Show("Update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    IsChanged = true;
+                    await LoadOrder();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid status selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -193,7 +220,7 @@ namespace app.Presentation
                 };
 
                 // Create the document
-                var document = new InvoiceDocument(invoiceModel);
+                var document = new InvoiceDocument(invoiceModel, DocumentType.Invoice);
 
                 // Configure QuestPDF to use the community license
                 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;

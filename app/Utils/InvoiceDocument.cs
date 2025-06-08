@@ -11,13 +11,31 @@ using QuestPDF.Infrastructure;
 
 namespace app.Utils
 {
+    public enum DocumentType
+    {
+        Invoice,
+        Receipt,
+    }
     public class InvoiceDocument : IDocument
     {
         private readonly InvoiceModel _model;
+        private readonly DocumentType _document;
+        private string title = "ໃບແຈ້ງໜີ້";
 
-        public InvoiceDocument(InvoiceModel model)
+        public InvoiceDocument(InvoiceModel model, DocumentType document)
         {
             _model = model;
+            _document = document;
+
+            switch (document)
+            {
+                case DocumentType.Invoice:
+                    title = "ໃບແຈ້ງໜີ້";
+                    break;
+                case DocumentType.Receipt:
+                    title = "ໃບຮັບເງິນ";
+                    break;
+            }
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -33,11 +51,11 @@ namespace app.Utils
 
                     page.Header().Element(ComposeHeader);
                     page.Content().Element(ComposeContent);
-                    page.Footer().AlignCenter().Text(x =>
-                    {
-                        x.Span("Page ");
-                        x.CurrentPageNumber();
-                    });
+                    //page.Footer().AlignCenter().Text(x =>
+                    //{
+                    //    x.Span("Page ");
+                    //    x.CurrentPageNumber();
+                    //});
                 });
         }
 
@@ -45,12 +63,7 @@ namespace app.Utils
         {
             container.Column(column =>
             {
-                //column.Item().AlignCenter().Text("ໃບຮັບເງິນ").FontSize(20).Bold();
-                //column.Item().Text($"ໃບຮັບເງິນເລກທີ: {_model.InvoiceNumber}").FontSize(12);
-                //column.Item().Text($"ວັນທີ: {_model.IssueDate:dd/MM/yyyy}").FontSize(12);
-                //column.Item().Text($"ວັນທີຮັບເຄື່ອງ: {_model.DueDate:dd/MM/yyyy}").FontSize(12);
-                //column.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Grey.Medium);
-                column.Item().AlignCenter().Text("ໃບຮັບເງິນ").FontSize(20).Bold();
+                column.Item().AlignCenter().Text(this.title).FontSize(20).Bold();
                 
 
                 column.Item().PaddingTop(20).Row(row =>
@@ -165,8 +178,18 @@ namespace app.Utils
                 });
                 column.Item().AlignRight().Row(row =>
                 {
-                    row.RelativeItem().AlignRight().PaddingTop(10).Text("ຈຳນວນຊຳລະ:").Bold();
-                    row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{(_model.TotalAmount - _model.DepositAmount):N0}").Bold();
+                    column.Item().AlignRight().Row(row =>
+                    {
+                        if (_document == DocumentType.Receipt)
+                        {
+                            row.RelativeItem().AlignRight().PaddingTop(10).Text("ຈຳນວນຊຳລະ:").Bold();
+                        }
+                        else
+                        {
+                            row.RelativeItem().AlignRight().PaddingTop(10).Text("ຈຳນວນຕ້ອງຊຳລະ:").Bold();
+                        }
+                        row.ConstantItem(120).AlignRight().PaddingTop(10).Text($"{(_model.TotalAmount - _model.DepositAmount):N0}").Bold();
+                    });
                 });
             });
         }

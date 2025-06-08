@@ -111,11 +111,11 @@ namespace app.Presentation.Report
 
             customer_report_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Name", headerText: "ຊື່ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Gender", headerText: "ເພດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Phone", headerText: "ເບີໂທ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderCount", headerText: "ຈຳນວນອໍເດີ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນສິນຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderCount", headerText: "ຈຳນວນອໍເດີ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນສິນຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalSpent", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "LastOrderDate", headerText: "ອໍເດີ້ລ່າສຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CreatedAt", headerText: "ວັນທີສ້າງ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
@@ -132,7 +132,7 @@ namespace app.Presentation.Report
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
                 {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.Value = value.ToString("N0"); // Use "N2" for 2 decimal places  
                     e.FormattingApplied = true;
                 }
             }

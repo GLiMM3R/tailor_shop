@@ -51,12 +51,13 @@
             notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             action_pn = new Panel();
+            print_invoice_btn = new Button();
             pay_btn = new Button();
             pick_up_btn = new Button();
             root_layout = new Panel();
             order_detail_pn = new Panel();
             information_gb = new GroupBox();
-            status_lbl = new Label();
+            status_cbb = new ComboBox();
             garment_lb = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             label21 = new Label();
@@ -81,7 +82,6 @@
             customer_phone_lbl = new Label();
             header_pn = new Panel();
             back_btn = new Button();
-            print_btn = new Button();
             measurement_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)measurement_dgv).BeginInit();
             bottom_pn.SuspendLayout();
@@ -106,7 +106,7 @@
             measurement_pn.Margin = new Padding(0);
             measurement_pn.Name = "measurement_pn";
             measurement_pn.Padding = new Padding(8, 16, 8, 4);
-            measurement_pn.Size = new Size(1506, 311);
+            measurement_pn.Size = new Size(1546, 311);
             measurement_pn.TabIndex = 2;
             // 
             // label4
@@ -135,7 +135,7 @@
             measurement_dgv.Location = new Point(17, 52);
             measurement_dgv.Name = "measurement_dgv";
             measurement_dgv.RowHeadersWidth = 51;
-            measurement_dgv.Size = new Size(1478, 249);
+            measurement_dgv.Size = new Size(1518, 249);
             measurement_dgv.TabIndex = 1;
             // 
             // bottom_pn
@@ -149,7 +149,7 @@
             bottom_pn.Location = new Point(0, 588);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
-            bottom_pn.Size = new Size(1506, 206);
+            bottom_pn.Size = new Size(1546, 206);
             bottom_pn.TabIndex = 3;
             // 
             // label13
@@ -157,7 +157,7 @@
             label13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label13.AutoSize = true;
             label13.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(957, 19);
+            label13.Location = new Point(997, 19);
             label13.Name = "label13";
             label13.Size = new Size(62, 33);
             label13.TabIndex = 11;
@@ -179,7 +179,7 @@
             summary_pn.Controls.Add(label11);
             summary_pn.Controls.Add(subtotal_val_lb);
             summary_pn.Controls.Add(subtotal_title_lb);
-            summary_pn.Location = new Point(957, 58);
+            summary_pn.Location = new Point(997, 58);
             summary_pn.Name = "summary_pn";
             summary_pn.Size = new Size(517, 131);
             summary_pn.TabIndex = 10;
@@ -344,13 +344,29 @@
             // action_pn
             // 
             action_pn.BackColor = Color.White;
-            action_pn.Controls.Add(print_btn);
+            action_pn.Controls.Add(print_invoice_btn);
             action_pn.Controls.Add(pay_btn);
             action_pn.Dock = DockStyle.Bottom;
             action_pn.Location = new Point(0, 794);
             action_pn.Name = "action_pn";
-            action_pn.Size = new Size(1506, 91);
+            action_pn.Size = new Size(1546, 91);
             action_pn.TabIndex = 12;
+            // 
+            // print_invoice_btn
+            // 
+            print_invoice_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            print_invoice_btn.BackColor = Color.FromArgb(33, 52, 72);
+            print_invoice_btn.Cursor = Cursors.Hand;
+            print_invoice_btn.FlatStyle = FlatStyle.Flat;
+            print_invoice_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            print_invoice_btn.ForeColor = Color.White;
+            print_invoice_btn.Location = new Point(1130, 3);
+            print_invoice_btn.Name = "print_invoice_btn";
+            print_invoice_btn.Size = new Size(178, 68);
+            print_invoice_btn.TabIndex = 5;
+            print_invoice_btn.Text = "ພິມໃບແຈ້ງໜີ້";
+            print_invoice_btn.UseVisualStyleBackColor = false;
+            print_invoice_btn.Click += print_btn_Click;
             // 
             // pay_btn
             // 
@@ -360,7 +376,7 @@
             pay_btn.FlatStyle = FlatStyle.Flat;
             pay_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             pay_btn.ForeColor = Color.White;
-            pay_btn.Location = new Point(1296, 3);
+            pay_btn.Location = new Point(1336, 3);
             pay_btn.Name = "pay_btn";
             pay_btn.Size = new Size(178, 68);
             pay_btn.TabIndex = 4;
@@ -376,11 +392,11 @@
             pick_up_btn.FlatStyle = FlatStyle.Flat;
             pick_up_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             pick_up_btn.ForeColor = Color.White;
-            pick_up_btn.Location = new Point(1288, 138);
+            pick_up_btn.Location = new Point(1414, 99);
             pick_up_btn.Name = "pick_up_btn";
-            pick_up_btn.Size = new Size(130, 47);
+            pick_up_btn.Size = new Size(96, 40);
             pick_up_btn.TabIndex = 18;
-            pick_up_btn.Text = "ຮັບສິນຄ້າ";
+            pick_up_btn.Text = "ບັນທຶກ";
             pick_up_btn.UseVisualStyleBackColor = false;
             pick_up_btn.Click += pick_up_btn_Click;
             // 
@@ -395,7 +411,7 @@
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
             root_layout.Name = "root_layout";
-            root_layout.Size = new Size(1508, 887);
+            root_layout.Size = new Size(1548, 887);
             root_layout.TabIndex = 4;
             // 
             // order_detail_pn
@@ -407,13 +423,13 @@
             order_detail_pn.Margin = new Padding(0);
             order_detail_pn.Name = "order_detail_pn";
             order_detail_pn.Padding = new Padding(8, 16, 8, 4);
-            order_detail_pn.Size = new Size(1506, 216);
+            order_detail_pn.Size = new Size(1546, 216);
             order_detail_pn.TabIndex = 1;
             // 
             // information_gb
             // 
+            information_gb.Controls.Add(status_cbb);
             information_gb.Controls.Add(pick_up_btn);
-            information_gb.Controls.Add(status_lbl);
             information_gb.Controls.Add(garment_lb);
             information_gb.Controls.Add(tableLayoutPanel3);
             information_gb.Controls.Add(tableLayoutPanel2);
@@ -422,31 +438,24 @@
             information_gb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             information_gb.Location = new Point(8, 16);
             information_gb.Name = "information_gb";
-            information_gb.Size = new Size(1490, 196);
+            information_gb.Size = new Size(1530, 196);
             information_gb.TabIndex = 0;
             information_gb.TabStop = false;
             information_gb.Text = "ຂໍ້ມູນການສັ່ງຊື້";
             // 
-            // status_lbl
+            // status_cbb
             // 
-            status_lbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            status_lbl.BackColor = Color.FromArgb(247, 155, 114);
-            status_lbl.BorderStyle = BorderStyle.FixedSingle;
-            status_lbl.FlatStyle = FlatStyle.Flat;
-            status_lbl.Font = new Font("Arial", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            status_lbl.ForeColor = Color.Black;
-            status_lbl.Location = new Point(1251, 58);
-            status_lbl.Name = "status_lbl";
-            status_lbl.Size = new Size(210, 63);
-            status_lbl.TabIndex = 18;
-            status_lbl.Text = "Pending";
-            status_lbl.TextAlign = ContentAlignment.MiddleCenter;
+            status_cbb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            status_cbb.Location = new Point(1221, 98);
+            status_cbb.Name = "status_cbb";
+            status_cbb.Size = new Size(187, 41);
+            status_cbb.TabIndex = 19;
             // 
             // garment_lb
             // 
             garment_lb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             garment_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            garment_lb.Location = new Point(1251, 26);
+            garment_lb.Location = new Point(1221, 58);
             garment_lb.Name = "garment_lb";
             garment_lb.Size = new Size(114, 31);
             garment_lb.TabIndex = 16;
@@ -503,7 +512,7 @@
             label23.Name = "label23";
             label23.Size = new Size(154, 40);
             label23.TabIndex = 8;
-            label23.Text = "ກຳໜົດວັນທີ:";
+            label23.Text = "ວັນທີນັດຮັບ:";
             label23.TextAlign = ContentAlignment.MiddleRight;
             // 
             // due_date_lbl
@@ -718,7 +727,7 @@
             header_pn.Dock = DockStyle.Top;
             header_pn.Location = new Point(0, 0);
             header_pn.Name = "header_pn";
-            header_pn.Size = new Size(1506, 61);
+            header_pn.Size = new Size(1546, 61);
             header_pn.TabIndex = 0;
             // 
             // back_btn
@@ -733,29 +742,13 @@
             back_btn.UseVisualStyleBackColor = true;
             back_btn.Click += back_btn_Click;
             // 
-            // print_btn
-            // 
-            print_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            print_btn.BackColor = Color.FromArgb(33, 52, 72);
-            print_btn.Cursor = Cursors.Hand;
-            print_btn.FlatStyle = FlatStyle.Flat;
-            print_btn.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            print_btn.ForeColor = Color.White;
-            print_btn.Location = new Point(1090, 3);
-            print_btn.Name = "print_btn";
-            print_btn.Size = new Size(178, 68);
-            print_btn.TabIndex = 5;
-            print_btn.Text = "Print";
-            print_btn.UseVisualStyleBackColor = false;
-            print_btn.Click += print_btn_Click;
-            // 
             // OrderDetailUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(root_layout);
             Name = "OrderDetailUC";
-            Size = new Size(1508, 887);
+            Size = new Size(1548, 887);
             Load += OrderDetailUC_Load;
             measurement_pn.ResumeLayout(false);
             measurement_pn.PerformLayout();
@@ -826,8 +819,8 @@
         private Label garment_lb;
         private Button back_btn;
         private Button pick_up_btn;
-        private Label status_lbl;
         private Panel line;
-        private Button print_btn;
+        private Button print_invoice_btn;
+        private ComboBox status_cbb;
     }
 }

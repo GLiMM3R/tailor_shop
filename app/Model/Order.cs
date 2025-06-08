@@ -49,9 +49,6 @@ namespace app.Model
         public virtual Fabric Fabric { get; set; } // Navigation Property
 
         [Required]
-        public int FabricUsedQty { get; set; }
-
-        [Required]
         public int Quantity { get; set; }
 
         [Required]
@@ -63,6 +60,12 @@ namespace app.Model
         public decimal TotalAmount { get; set; }
 
         public decimal DepositAmount { get; set; } = 0;
+
+        // Add this method to the Order class
+        public decimal TotalPaid()
+        {
+            return Payments?.Sum(p => p.PaidAmount) ?? 0m;
+        }
 
         public DateTime? DueDate { get; set; }
 

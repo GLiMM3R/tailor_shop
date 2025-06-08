@@ -5,25 +5,24 @@
 namespace app.Migrations
 {
     /// <inheritdoc />
-    public partial class add_body_type_to_measurement : Migration
+    public partial class add_image_to_fabric : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "BodyType",
-                table: "Measurements",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.AddColumn<byte[]>(
+                name: "Image",
+                table: "Fabrics",
+                type: "varbinary(max)",
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "BodyType",
-                table: "Measurements");
+                name: "Image",
+                table: "Fabrics");
         }
     }
 }

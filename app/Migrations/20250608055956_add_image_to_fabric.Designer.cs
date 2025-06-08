@@ -12,8 +12,8 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250604150143_add_col_color_code_into_fabric")]
-    partial class add_col_color_code_into_fabric
+    [Migration("20250608055956_add_image_to_fabric")]
+    partial class add_image_to_fabric
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("MaterialType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -153,6 +156,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BodyType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("MeasurementDate")
                         .HasColumnType("datetime2");
 
@@ -197,9 +203,6 @@ namespace app.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FabricId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FabricUsedQty")
                         .HasColumnType("int");
 
                     b.Property<int>("GarmentId")

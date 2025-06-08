@@ -103,6 +103,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("MaterialType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -197,9 +200,6 @@ namespace app.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FabricId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FabricUsedQty")
                         .HasColumnType("int");
 
                     b.Property<int>("GarmentId")

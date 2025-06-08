@@ -43,7 +43,6 @@ namespace app.Presentation
 
         private async void OrderForm_Load(object sender, EventArgs e)
         {
-            upper_body_rb.Checked = true; // Set default to upper body
             try
             {
                 var task2 = LoadFabrics();
@@ -76,18 +75,7 @@ namespace app.Presentation
             fabric_cb.DataSource = _fabrics;
             fabric_cb.ValueMember = "Id";
             fabric_cb.Format += fabric_cb_Format;
-            //fabric_cb.SelectedIndex = -1;
-
-            if (_fabrics.Count > 0)
-            {
-                this._fabric = _fabrics[0];
-                fabric_qty_num.Value = 1; // Set default quantity to 1
-            }
-            else
-            {
-                fabric_qty_num.Enabled = false; // Disable the quantity control if no fabrics are available
-                fabric_qty_pn.BackColor = ColorTranslator.FromHtml("#f0f0f0");
-            }
+            fabric_cb.SelectedIndex = -1;
 
         }
 
@@ -101,7 +89,7 @@ namespace app.Presentation
             garment_cb.DataSource = _garments;
             garment_cb.DisplayMember = "Name";
             garment_cb.ValueMember = "Id";
-            //garment_cb.SelectedIndex = -1;
+            garment_cb.SelectedIndex = -1;
 
             if (_garments.Count > 0)
             {
@@ -155,15 +143,15 @@ namespace app.Presentation
                 return;
             }
 
-            if (!decimal.TryParse(subtotal_lb.Text, out decimal subtotal))
+            if(upper_body_cb.Checked == false && lower_body_cb.Checked == false)
             {
-                MessageBox.Show("Invalid subtotal.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select at least one measurement type (Upper Body or Lower Body).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!decimal.TryParse(discount_num.Text, out decimal discount))
+            if (!decimal.TryParse(subtotal_lb.Text, out decimal subtotal))
             {
-                MessageBox.Show("Invalid discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Invalid subtotal.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -173,13 +161,19 @@ namespace app.Presentation
                 return;
             }
 
-            if (deposit_amount < (subtotal - discount) / 2)
+            //if (deposit_amount < (subtotal) / 2)
+            //{
+            //    MessageBox.Show("Deposit amount must be at least half of the subtotal after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
+            if(deposit_amount <= 0)
             {
-                MessageBox.Show("Deposit amount must be at least half of the subtotal after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Deposit amount cannot be negative.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (deposit_amount > subtotal - discount)
+            if (deposit_amount > subtotal)
             {
                 MessageBox.Show("Deposit amount cannot exceed the total amount after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -197,10 +191,8 @@ namespace app.Presentation
                 CustomerId = _selectedCustomer.Id,
                 GarmentId = garmentId,
                 FabricId = fabricId,
-                FabricUsedQty = (int)fabric_qty_num.Value,
                 DueDate = due_date_dpk.Value,
                 Subtotal = subtotal,
-                Discount = discount,
                 DepositAmount = deposit_amount_num.Value,
                 TotalAmount = totalAmount,
                 Quantity = (int)quantity_num.Value,
@@ -208,13 +200,20 @@ namespace app.Presentation
                 UserId = this._user.Id,
             };
 
-            if (upper_body_rb.Checked)
+            if (upper_body_cb.Checked)
             {
-                newOrder.Measurements = getUpperBodyMeasurements();
+                foreach (var measurement in getUpperBodyMeasurements())
+                {
+                    newOrder.Measurements.Add(measurement);
+                }
             }
-            else if (lower_body_rb.Checked)
+
+            if (lower_body_cb.Checked)
             {
-                newOrder.Measurements = getLowerBodyMeasurements();
+                foreach (var measurement in getLowerBodyMeasurements())
+                {
+                    newOrder.Measurements.Add(measurement);
+                }
             }
 
             if (deposit_amount > 0)
@@ -256,12 +255,10 @@ namespace app.Presentation
                 return;
             }
 
-            var fabricUsedQty = (int)fabric_qty_num.Value;
-            var fabricUnitPrice = _fabric?.UnitPrice ?? 0m; // Use 'm' for decimal literals
             var garmentBasePrice = _garment?.BasePrice ?? 0m;
 
-            var subtotal = ((fabricUsedQty * fabricUnitPrice) + garmentBasePrice) * quantity_num.Value;
-            var totalAmount = subtotal - discount_num.Value; // discount_num.Value is already decimal
+            var subtotal = (garmentBasePrice) * quantity_num.Value;
+            var totalAmount = subtotal;
 
             subtotal_lb.Text = $"{subtotal:N2}"; // "N2" for number with 2 decimal places
             total_amount_lb.Text = $"{totalAmount:N2}";
@@ -428,6 +425,10 @@ namespace app.Presentation
                 _selectedCustomer = modal.selectedCustomer;
                 customer_lbl.Text = modal.selectedCustomer.Name;
             }
+        }
+
+        private void upper_body_cb_CheckedChanged(object sender, EventArgs e)
+        {
         }
     }
 }

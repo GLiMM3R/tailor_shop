@@ -41,12 +41,16 @@ namespace app.Presentation
         {
             this._context = new AppDbContext();
             this._customerService = new CustomerService(this._context);
-            this._count = _customerService.Count();
         }
 
         private async void Customer_Load(object sender, EventArgs e)
         {
             await LoadCustomers();
+
+            using (var db = new AppDbContext())
+            {
+                _count = await db.Customers.CountAsync();
+            }
 
             // Populate gender_cb with gender options  
             gender_cb.Items.Clear();
@@ -108,10 +112,14 @@ namespace app.Presentation
 
         public async Task LoadCustomers()
         {
-            var result = await _customerService.GetAll(this._filter);
-            customer_dgv.DataSource = result.Data;
-            _filter.TotalItems = result.Total;
-            UpdatePageNumber();
+            using (var context = new AppDbContext())
+            {
+                var service = new CustomerService(context);
+                var result = await service.GetAll(this._filter);
+                customer_dgv.DataSource = result.Data;
+                _filter.TotalItems = result.Total;
+                UpdatePageNumber();
+            }
         }
 
         private async void new_customer_btn_Click(object sender, EventArgs e)

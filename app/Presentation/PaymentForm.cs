@@ -56,11 +56,11 @@ namespace app.Presentation
             // Add the order's garment as a single row
             var garment = new ListViewItem(_order.Garment.Name);
             garment.SubItems.Add(_order.Quantity.ToString());
-            garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0.00");
+            garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0");
 
             var fabric = new ListViewItem(_order.Fabric.MaterialType + " " + _order.Fabric.ColorName);
             fabric.SubItems.Add((1).ToString());
-            fabric.SubItems.Add((0).ToString("N0") ?? "0.00");
+            fabric.SubItems.Add((0).ToString("N0") ?? "0");
 
             items_lsv.Items.AddRange([garment, fabric]);
 
@@ -75,11 +75,11 @@ namespace app.Presentation
             if (_order != null)
             {
                 total_paying_num.Value = (_order?.TotalAmount - _order?.DepositAmount) ?? 0;
-                subtotal_val_lb.Text = _order.Subtotal.ToString("N0") ?? "0.00";
+                subtotal_val_lb.Text = _order.Subtotal.ToString("N0") ?? "0";
                 //discount_val_lb.Text = _order?.Discount.ToString("N0") ?? "0.00";
-                deposit_amount_val_lb.Text = _order?.DepositAmount.ToString("N0") ?? "0.00";
-                total_amount_lb.Text = _order?.TotalAmount.ToString("N0") ?? "0.00";
-                amount_to_be_paid_lbl.Text = (_order?.TotalAmount - _order?.DepositAmount)?.ToString("N0") ?? "0.00";
+                deposit_amount_val_lb.Text = _order?.DepositAmount.ToString("N0") ?? "0";
+                total_amount_lb.Text = _order?.TotalAmount.ToString("N0") ?? "0";
+                amount_to_be_paid_lbl.Text = (_order?.TotalAmount - _order?.DepositAmount)?.ToString("N0") ?? "0";
             }
         }
 
@@ -120,10 +120,6 @@ namespace app.Presentation
                 };
 
                 await _paymentService.Create(newPayment);
-
-                _order.Status = OrderStatus.Completed;
-                _order.UpdatedAt = DateTime.Now;
-
                 await _orderDetailUC._orderService.Update(_order);
                 MessageBox.Show("Payment successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 PrintInvoice();
@@ -160,12 +156,12 @@ namespace app.Presentation
                     Items = new List<InvoiceItem>
                         {
                             new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
-                            new InvoiceItem { Description = _order.Fabric.MaterialType + " " + _order.Fabric.ColorName, Quantity = _order.FabricUsedQty, UnitPrice = _order.Fabric.UnitPrice }
+                            new InvoiceItem { Description = _order.Fabric.MaterialType + " " + _order.Fabric.ColorName, Quantity = 1, UnitPrice = 0 }
                         }
                 };
 
                 // Create the document
-                var document = new InvoiceDocument(invoiceModel);
+                var document = new InvoiceDocument(invoiceModel, DocumentType.Receipt);
 
                 // Configure QuestPDF to use the community license
                 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;

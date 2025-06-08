@@ -73,7 +73,7 @@ namespace app.Presentation.Report
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
                 {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.Value = value.ToString("N0"); // Use "N2" for 2 decimal places  
                     e.FormattingApplied = true;
                 }
             }
@@ -114,11 +114,11 @@ namespace app.Presentation.Report
                 if (result != null)
                 {
                     total_transactions_lbl.Text = result.TotalTransactions.ToString("N0");
-                    total_paid_amount_lbl.Text = result.TotalPaidAmount.ToString("N2");
-                    total_cash_lbl.Text = result.TotalCashTransactions.ToString("N2");
-                    total_bank_lbl.Text = result.TotalBankTransactions.ToString("N2");
-                    total_deposit_lbl.Text = result.TotalDepositTransactions.ToString("N2");
-                    total_avg_lbl.Text = result.AverageTransactionAmount.ToString("N2");
+                    total_paid_amount_lbl.Text = result.TotalPaidAmount.ToString("N0");
+                    total_cash_lbl.Text = result.TotalCashTransactions.ToString("N0");
+                    total_bank_lbl.Text = result.TotalBankTransactions.ToString("N0");
+                    total_deposit_lbl.Text = result.TotalDepositTransactions.ToString("N0");
+                    total_avg_lbl.Text = result.AverageTransactionAmount.ToString("N0");
                 }
 
                 // Update chart

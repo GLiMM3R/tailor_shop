@@ -15,7 +15,6 @@ namespace app.Entity
         public string UserName { get; set; } // Added UserName property to include user information
         public string GarmentName { get; set; }
         public string FabricName { get; set; }
-        public int FabricUsedQty { get; set; } // Added FabricUsedQty property to include fabric usage information
         public int Quantity { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Discount { get; set; }

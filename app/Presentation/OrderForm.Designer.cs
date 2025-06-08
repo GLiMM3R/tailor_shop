@@ -33,27 +33,22 @@
             bottom_pn = new Panel();
             summary_pn = new Panel();
             label9 = new Label();
-            label6 = new Label();
             label3 = new Label();
             panel6 = new Panel();
             deposit_amount_num = new NumericUpDown();
             label8 = new Label();
             label7 = new Label();
-            panel2 = new Panel();
-            discount_num = new NumericUpDown();
             total_amount_lb = new Label();
             label5 = new Label();
             line = new Panel();
-            label4 = new Label();
             subtotal_lb = new Label();
             subtotal_title_lb = new Label();
             label2 = new Label();
             notes_txt = new TextBox();
             summary_and_note_lb = new Label();
             middle_pn = new Panel();
-            checkBox1 = new CheckBox();
-            lower_body_rb = new RadioButton();
-            upper_body_rb = new RadioButton();
+            lower_body_cb = new CheckBox();
+            upper_body_cb = new CheckBox();
             measurements_title_lb = new Label();
             lower_body_form_layout = new TableLayoutPanel();
             length_num = new NumericUpDown();
@@ -91,8 +86,6 @@
             panel7 = new Panel();
             quantity_num = new NumericUpDown();
             label10 = new Label();
-            fabric_qty_pn = new Panel();
-            fabric_qty_num = new NumericUpDown();
             due_date_dpk = new DateTimePicker();
             panel5 = new Panel();
             fabric_cb = new ComboBox();
@@ -103,7 +96,6 @@
             choose_customer_btn = new Button();
             garment_lb = new Label();
             due_date_lb = new Label();
-            fabric_qty_lb = new Label();
             fabric_lb = new Label();
             customer_lb = new Label();
             order_number_lb = new Label();
@@ -118,8 +110,6 @@
             summary_pn.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)deposit_amount_num).BeginInit();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)discount_num).BeginInit();
             middle_pn.SuspendLayout();
             lower_body_form_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)length_num).BeginInit();
@@ -141,8 +131,6 @@
             top_pn.SuspendLayout();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)quantity_num).BeginInit();
-            fabric_qty_pn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fabric_qty_num).BeginInit();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
@@ -186,16 +174,13 @@
             // summary_pn
             // 
             summary_pn.Controls.Add(label9);
-            summary_pn.Controls.Add(label6);
             summary_pn.Controls.Add(label3);
             summary_pn.Controls.Add(panel6);
             summary_pn.Controls.Add(label8);
             summary_pn.Controls.Add(label7);
-            summary_pn.Controls.Add(panel2);
             summary_pn.Controls.Add(total_amount_lb);
             summary_pn.Controls.Add(label5);
             summary_pn.Controls.Add(line);
-            summary_pn.Controls.Add(label4);
             summary_pn.Controls.Add(subtotal_lb);
             summary_pn.Controls.Add(subtotal_title_lb);
             summary_pn.Location = new Point(867, 48);
@@ -207,29 +192,18 @@
             // 
             label9.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
             label9.ForeColor = Color.Gray;
-            label9.Location = new Point(459, 91);
+            label9.Location = new Point(459, 46);
             label9.Name = "label9";
             label9.Size = new Size(61, 44);
             label9.TabIndex = 21;
             label9.Text = "LAK";
             label9.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label6
-            // 
-            label6.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label6.ForeColor = Color.Gray;
-            label6.Location = new Point(459, 43);
-            label6.Name = "label6";
-            label6.Size = new Size(61, 44);
-            label6.TabIndex = 20;
-            label6.Text = "LAK";
-            label6.TextAlign = ContentAlignment.MiddleRight;
-            // 
             // label3
             // 
             label3.Font = new Font("Noto Sans Lao", 10.1999989F);
             label3.ForeColor = Color.Gray;
-            label3.Location = new Point(3, 92);
+            label3.Location = new Point(3, 47);
             label3.Name = "label3";
             label3.Size = new Size(177, 37);
             label3.TabIndex = 19;
@@ -240,7 +214,7 @@
             // 
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(deposit_amount_num);
-            panel6.Location = new Point(202, 92);
+            panel6.Location = new Point(202, 47);
             panel6.Name = "panel6";
             panel6.Size = new Size(253, 38);
             panel6.TabIndex = 18;
@@ -262,7 +236,7 @@
             // 
             label8.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.RoyalBlue;
-            label8.Location = new Point(443, 148);
+            label8.Location = new Point(443, 109);
             label8.Name = "label8";
             label8.Size = new Size(77, 44);
             label8.TabIndex = 17;
@@ -279,34 +253,11 @@
             label7.Text = "LAK";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // panel2
-            // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(discount_num);
-            panel2.Location = new Point(202, 46);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(253, 38);
-            panel2.TabIndex = 15;
-            // 
-            // discount_num
-            // 
-            discount_num.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            discount_num.BorderStyle = BorderStyle.None;
-            discount_num.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            discount_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            discount_num.Location = new Point(11, 7);
-            discount_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            discount_num.Name = "discount_num";
-            discount_num.Size = new Size(235, 23);
-            discount_num.TabIndex = 10;
-            discount_num.TextAlign = HorizontalAlignment.Right;
-            discount_num.ValueChanged += discount_num_ValueChanged;
-            // 
             // total_amount_lb
             // 
             total_amount_lb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             total_amount_lb.ForeColor = Color.RoyalBlue;
-            total_amount_lb.Location = new Point(191, 147);
+            total_amount_lb.Location = new Point(191, 108);
             total_amount_lb.Name = "total_amount_lb";
             total_amount_lb.Size = new Size(259, 44);
             total_amount_lb.TabIndex = 14;
@@ -317,7 +268,7 @@
             // 
             label5.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.RoyalBlue;
-            label5.Location = new Point(0, 147);
+            label5.Location = new Point(0, 108);
             label5.Name = "label5";
             label5.Size = new Size(207, 44);
             label5.TabIndex = 13;
@@ -327,21 +278,10 @@
             // line
             // 
             line.BackColor = Color.LightGray;
-            line.Location = new Point(0, 136);
+            line.Location = new Point(0, 94);
             line.Name = "line";
             line.Size = new Size(519, 3);
             line.TabIndex = 12;
-            // 
-            // label4
-            // 
-            label4.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label4.ForeColor = Color.Gray;
-            label4.Location = new Point(3, 48);
-            label4.Name = "label4";
-            label4.Size = new Size(143, 37);
-            label4.TabIndex = 11;
-            label4.Text = "ສ່ວນຫຼຸດ (LAK):";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // subtotal_lb
             // 
@@ -394,9 +334,8 @@
             // 
             // middle_pn
             // 
-            middle_pn.Controls.Add(checkBox1);
-            middle_pn.Controls.Add(lower_body_rb);
-            middle_pn.Controls.Add(upper_body_rb);
+            middle_pn.Controls.Add(lower_body_cb);
+            middle_pn.Controls.Add(upper_body_cb);
             middle_pn.Controls.Add(measurements_title_lb);
             middle_pn.Controls.Add(lower_body_form_layout);
             middle_pn.Controls.Add(upper_body_form_layout);
@@ -407,40 +346,28 @@
             middle_pn.Size = new Size(1421, 280);
             middle_pn.TabIndex = 1;
             // 
-            // checkBox1
+            // lower_body_cb
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
-            checkBox1.Location = new Point(489, 35);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(182, 42);
-            checkBox1.TabIndex = 10;
-            checkBox1.Text = "ຮ່າງກາຍສ່ວນເທິງ";
-            checkBox1.UseVisualStyleBackColor = true;
+            lower_body_cb.AutoSize = true;
+            lower_body_cb.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
+            lower_body_cb.Location = new Point(767, 57);
+            lower_body_cb.Name = "lower_body_cb";
+            lower_body_cb.Size = new Size(178, 42);
+            lower_body_cb.TabIndex = 11;
+            lower_body_cb.Text = "ຮ່າງກາຍສ່ວນລຸ່ມ";
+            lower_body_cb.UseVisualStyleBackColor = true;
             // 
-            // lower_body_rb
+            // upper_body_cb
             // 
-            lower_body_rb.AutoSize = true;
-            lower_body_rb.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
-            lower_body_rb.Location = new Point(764, 55);
-            lower_body_rb.Name = "lower_body_rb";
-            lower_body_rb.Size = new Size(177, 42);
-            lower_body_rb.TabIndex = 9;
-            lower_body_rb.TabStop = true;
-            lower_body_rb.Text = "ຮ່າງກາຍສ່ວນລຸ່ມ";
-            lower_body_rb.UseVisualStyleBackColor = true;
-            // 
-            // upper_body_rb
-            // 
-            upper_body_rb.AutoSize = true;
-            upper_body_rb.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
-            upper_body_rb.Location = new Point(132, 58);
-            upper_body_rb.Name = "upper_body_rb";
-            upper_body_rb.Size = new Size(181, 42);
-            upper_body_rb.TabIndex = 8;
-            upper_body_rb.TabStop = true;
-            upper_body_rb.Text = "ຮ່າງກາຍສ່ວນເທິງ";
-            upper_body_rb.UseVisualStyleBackColor = true;
+            upper_body_cb.AutoSize = true;
+            upper_body_cb.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
+            upper_body_cb.Location = new Point(133, 57);
+            upper_body_cb.Name = "upper_body_cb";
+            upper_body_cb.Size = new Size(182, 42);
+            upper_body_cb.TabIndex = 10;
+            upper_body_cb.Text = "ຮ່າງກາຍສ່ວນເທິງ";
+            upper_body_cb.UseVisualStyleBackColor = true;
+            upper_body_cb.CheckedChanged += upper_body_cb_CheckedChanged;
             // 
             // measurements_title_lb
             // 
@@ -865,7 +792,6 @@
             // 
             top_pn.Controls.Add(panel7);
             top_pn.Controls.Add(label10);
-            top_pn.Controls.Add(fabric_qty_pn);
             top_pn.Controls.Add(due_date_dpk);
             top_pn.Controls.Add(panel5);
             top_pn.Controls.Add(panel4);
@@ -873,7 +799,6 @@
             top_pn.Controls.Add(choose_customer_btn);
             top_pn.Controls.Add(garment_lb);
             top_pn.Controls.Add(due_date_lb);
-            top_pn.Controls.Add(fabric_qty_lb);
             top_pn.Controls.Add(fabric_lb);
             top_pn.Controls.Add(customer_lb);
             top_pn.Dock = DockStyle.Fill;
@@ -913,26 +838,6 @@
             label10.TabIndex = 18;
             label10.Text = "ຈຳນວນ";
             label10.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fabric_qty_pn
-            // 
-            fabric_qty_pn.BorderStyle = BorderStyle.FixedSingle;
-            fabric_qty_pn.Controls.Add(fabric_qty_num);
-            fabric_qty_pn.Location = new Point(325, 121);
-            fabric_qty_pn.Name = "fabric_qty_pn";
-            fabric_qty_pn.Size = new Size(175, 46);
-            fabric_qty_pn.TabIndex = 17;
-            // 
-            // fabric_qty_num
-            // 
-            fabric_qty_num.BorderStyle = BorderStyle.None;
-            fabric_qty_num.Font = new Font("Noto Sans Lao", 11.999999F);
-            fabric_qty_num.Location = new Point(7, 4);
-            fabric_qty_num.Name = "fabric_qty_num";
-            fabric_qty_num.Size = new Size(160, 36);
-            fabric_qty_num.TabIndex = 9;
-            fabric_qty_num.TextAlign = HorizontalAlignment.Center;
-            fabric_qty_num.ValueChanged += fabric_qty_num_ValueChanged;
             // 
             // due_date_dpk
             // 
@@ -1043,16 +948,6 @@
             due_date_lb.TabIndex = 8;
             due_date_lb.Text = "ວັນທີນັດຮັບ";
             due_date_lb.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fabric_qty_lb
-            // 
-            fabric_qty_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            fabric_qty_lb.Location = new Point(325, 87);
-            fabric_qty_lb.Name = "fabric_qty_lb";
-            fabric_qty_lb.Size = new Size(168, 31);
-            fabric_qty_lb.TabIndex = 10;
-            fabric_qty_lb.Text = "ຈຳນວນຜ້າທີ່ໃຊ້";
-            fabric_qty_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fabric_lb
             // 
@@ -1175,8 +1070,6 @@
             summary_pn.ResumeLayout(false);
             panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)deposit_amount_num).EndInit();
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)discount_num).EndInit();
             middle_pn.ResumeLayout(false);
             middle_pn.PerformLayout();
             lower_body_form_layout.ResumeLayout(false);
@@ -1199,8 +1092,6 @@
             top_pn.ResumeLayout(false);
             panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)quantity_num).EndInit();
-            fabric_qty_pn.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)fabric_qty_num).EndInit();
             panel5.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -1253,8 +1144,6 @@
         private Button button2;
         private Label customer_lb;
         private Label due_date_lb;
-        private Label fabric_qty_lb;
-        private NumericUpDown fabric_qty_num;
         private Label label2;
         private TextBox notes_txt;
         private Label summary_and_note_lb;
@@ -1263,13 +1152,10 @@
         private Button choose_customer_btn;
         private Panel summary_pn;
         private Label subtotal_title_lb;
-        private Label label4;
-        private NumericUpDown discount_num;
         private Label subtotal_lb;
         private Label total_amount_lb;
         private Label label5;
         private Panel line;
-        private Panel panel2;
         private Label label8;
         private Label label7;
         private Panel footer_pn;
@@ -1277,7 +1163,6 @@
         private Panel panel3;
         private Panel panel4;
         private Panel panel5;
-        private Panel fabric_qty_pn;
         private Label sleeve_opening_lb;
         private Label sleeve_length_lb;
         private Label upper_hip_lb;
@@ -1286,21 +1171,19 @@
         private Label ankle_lb;
         private Label thigh_lb;
         private NumericUpDown thigh_num;
-        private RadioButton lower_body_rb;
-        private RadioButton upper_body_rb;
         private NumericUpDown length_num;
         private Label length_lb;
         private Panel panel6;
         private NumericUpDown deposit_amount_num;
         private Label label3;
         private Label label9;
-        private Label label6;
         private Panel panel7;
         private NumericUpDown quantity_num;
         private Label label10;
         private Button close_btn;
         private Button create_order_btn;
         private Label customer_lbl;
-        private CheckBox checkBox1;
+        private CheckBox upper_body_cb;
+        private CheckBox lower_body_cb;
     }
 }

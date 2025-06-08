@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             root_layout = new Panel();
+            clear_image_btn = new Button();
+            browse_btn = new Button();
+            panel4 = new Panel();
+            fabric_pb = new PictureBox();
             form_layout = new TableLayoutPanel();
             panel3 = new Panel();
             color_code_txt = new TextBox();
@@ -51,6 +55,8 @@
             add_btn = new Button();
             header_lb = new Label();
             root_layout.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fabric_pb).BeginInit();
             form_layout.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -65,14 +71,70 @@
             // 
             root_layout.BackColor = Color.White;
             root_layout.BorderStyle = BorderStyle.FixedSingle;
+            root_layout.Controls.Add(clear_image_btn);
+            root_layout.Controls.Add(browse_btn);
+            root_layout.Controls.Add(panel4);
             root_layout.Controls.Add(form_layout);
             root_layout.Controls.Add(action_layout);
             root_layout.Controls.Add(header_lb);
             root_layout.Dock = DockStyle.Fill;
             root_layout.Location = new Point(0, 0);
             root_layout.Name = "root_layout";
-            root_layout.Size = new Size(573, 529);
+            root_layout.Size = new Size(573, 727);
             root_layout.TabIndex = 7;
+            // 
+            // clear_image_btn
+            // 
+            clear_image_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            clear_image_btn.BackColor = Color.FromArgb(33, 52, 72);
+            clear_image_btn.Cursor = Cursors.Hand;
+            clear_image_btn.FlatStyle = FlatStyle.Flat;
+            clear_image_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clear_image_btn.ForeColor = Color.White;
+            clear_image_btn.Location = new Point(375, 187);
+            clear_image_btn.Margin = new Padding(0);
+            clear_image_btn.Name = "clear_image_btn";
+            clear_image_btn.Size = new Size(131, 57);
+            clear_image_btn.TabIndex = 10;
+            clear_image_btn.Text = "ລຶບ";
+            clear_image_btn.UseVisualStyleBackColor = false;
+            clear_image_btn.Click += clear_image_btn_Click;
+            // 
+            // browse_btn
+            // 
+            browse_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            browse_btn.BackColor = Color.FromArgb(33, 52, 72);
+            browse_btn.Cursor = Cursors.Hand;
+            browse_btn.FlatStyle = FlatStyle.Flat;
+            browse_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            browse_btn.ForeColor = Color.White;
+            browse_btn.Location = new Point(375, 120);
+            browse_btn.Margin = new Padding(0);
+            browse_btn.Name = "browse_btn";
+            browse_btn.Size = new Size(131, 57);
+            browse_btn.TabIndex = 9;
+            browse_btn.Text = "ເລືອກຮູບ";
+            browse_btn.UseVisualStyleBackColor = false;
+            browse_btn.Click += browse_btn_Click;
+            // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(fabric_pb);
+            panel4.Location = new Point(151, 83);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(200, 200);
+            panel4.TabIndex = 6;
+            // 
+            // fabric_pb
+            // 
+            fabric_pb.Dock = DockStyle.Fill;
+            fabric_pb.Location = new Point(0, 0);
+            fabric_pb.Name = "fabric_pb";
+            fabric_pb.Size = new Size(198, 198);
+            fabric_pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            fabric_pb.TabIndex = 0;
+            fabric_pb.TabStop = false;
             // 
             // form_layout
             // 
@@ -90,7 +152,7 @@
             form_layout.Controls.Add(name_lb, 0, 0);
             form_layout.Controls.Add(choose_color_pn, 1, 3);
             form_layout.Controls.Add(phone_lb, 0, 3);
-            form_layout.Location = new Point(32, 100);
+            form_layout.Location = new Point(31, 305);
             form_layout.Name = "form_layout";
             form_layout.RowCount = 5;
             form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
@@ -295,7 +357,7 @@
             action_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             action_layout.Controls.Add(cancel_btn, 0, 0);
             action_layout.Controls.Add(add_btn, 1, 0);
-            action_layout.Location = new Point(35, 440);
+            action_layout.Location = new Point(34, 645);
             action_layout.Margin = new Padding(0);
             action_layout.Name = "action_layout";
             action_layout.RowCount = 1;
@@ -352,7 +414,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(573, 529);
+            ClientSize = new Size(573, 727);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FabricForm";
@@ -360,6 +422,8 @@
             Text = "FabricForm";
             Load += FabricForm_Load;
             root_layout.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)fabric_pb).EndInit();
             form_layout.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -398,5 +462,9 @@
         private Panel panel3;
         private TextBox color_code_txt;
         private Label label3;
+        private Panel panel4;
+        private Button clear_image_btn;
+        private Button browse_btn;
+        private PictureBox fabric_pb;
     }
 }

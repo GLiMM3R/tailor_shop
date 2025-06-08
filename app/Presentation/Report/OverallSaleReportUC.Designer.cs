@@ -30,15 +30,12 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            discount_pn = new TableLayoutPanel();
-            discount_lbl = new Label();
-            label9 = new Label();
             paid_amount_pn = new TableLayoutPanel();
             paid_amount_lbl = new Label();
             label8 = new Label();
             aov_pn = new TableLayoutPanel();
-            aov_lbl = new Label();
             label7 = new Label();
+            aov_lbl = new Label();
             total_orders_pn = new TableLayoutPanel();
             total_orders_lbl = new Label();
             label6 = new Label();
@@ -69,7 +66,6 @@
             panel5 = new Panel();
             period_cbb = new ComboBox();
             panel1.SuspendLayout();
-            discount_pn.SuspendLayout();
             paid_amount_pn.SuspendLayout();
             aov_pn.SuspendLayout();
             total_orders_pn.SuspendLayout();
@@ -86,7 +82,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(discount_pn);
             panel1.Controls.Add(paid_amount_pn);
             panel1.Controls.Add(aov_pn);
             panel1.Controls.Add(total_orders_pn);
@@ -98,46 +93,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1453, 252);
             panel1.TabIndex = 0;
-            // 
-            // discount_pn
-            // 
-            discount_pn.BackColor = Color.FromArgb(84, 119, 146);
-            discount_pn.ColumnCount = 1;
-            discount_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            discount_pn.Controls.Add(discount_lbl, 0, 1);
-            discount_pn.Controls.Add(label9, 0, 0);
-            discount_pn.Location = new Point(1152, 125);
-            discount_pn.Name = "discount_pn";
-            discount_pn.RowCount = 2;
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            discount_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            discount_pn.Size = new Size(220, 100);
-            discount_pn.TabIndex = 7;
-            // 
-            // discount_lbl
-            // 
-            discount_lbl.Dock = DockStyle.Fill;
-            discount_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
-            discount_lbl.ForeColor = Color.White;
-            discount_lbl.Location = new Point(3, 50);
-            discount_lbl.Name = "discount_lbl";
-            discount_lbl.Size = new Size(214, 50);
-            discount_lbl.TabIndex = 2;
-            discount_lbl.Text = "0";
-            discount_lbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            label9.Dock = DockStyle.Fill;
-            label9.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(3, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(214, 50);
-            label9.TabIndex = 0;
-            label9.Text = "ສ່ວນຫຼຸດລວມ";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // paid_amount_pn
             // 
@@ -184,8 +139,8 @@
             aov_pn.BackColor = Color.FromArgb(84, 119, 146);
             aov_pn.ColumnCount = 1;
             aov_pn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            aov_pn.Controls.Add(aov_lbl, 0, 1);
             aov_pn.Controls.Add(label7, 0, 0);
+            aov_pn.Controls.Add(aov_lbl, 0, 1);
             aov_pn.Location = new Point(702, 125);
             aov_pn.Name = "aov_pn";
             aov_pn.RowCount = 2;
@@ -194,18 +149,6 @@
             aov_pn.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             aov_pn.Size = new Size(220, 100);
             aov_pn.TabIndex = 5;
-            // 
-            // aov_lbl
-            // 
-            aov_lbl.Dock = DockStyle.Fill;
-            aov_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
-            aov_lbl.ForeColor = Color.White;
-            aov_lbl.Location = new Point(3, 50);
-            aov_lbl.Name = "aov_lbl";
-            aov_lbl.Size = new Size(214, 50);
-            aov_lbl.TabIndex = 2;
-            aov_lbl.Text = "0";
-            aov_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -218,6 +161,18 @@
             label7.TabIndex = 0;
             label7.Text = "ມູນຄ່າສະເລ່ຍ";
             label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // aov_lbl
+            // 
+            aov_lbl.Dock = DockStyle.Fill;
+            aov_lbl.Font = new Font("Noto Sans", 13.7999992F, FontStyle.Bold);
+            aov_lbl.ForeColor = Color.White;
+            aov_lbl.Location = new Point(3, 50);
+            aov_lbl.Name = "aov_lbl";
+            aov_lbl.Size = new Size(214, 50);
+            aov_lbl.TabIndex = 2;
+            aov_lbl.Text = "0";
+            aov_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // total_orders_pn
             // 
@@ -617,7 +572,6 @@
             Size = new Size(1453, 904);
             Load += OrderReportUC_Load;
             panel1.ResumeLayout(false);
-            discount_pn.ResumeLayout(false);
             paid_amount_pn.ResumeLayout(false);
             aov_pn.ResumeLayout(false);
             total_orders_pn.ResumeLayout(false);
@@ -661,9 +615,6 @@
         private TableLayoutPanel gross_sales_pn;
         private Label gross_sales_lbl;
         private Label label2;
-        private TableLayoutPanel discount_pn;
-        private Label discount_lbl;
-        private Label label9;
         private TableLayoutPanel paid_amount_pn;
         private Label paid_amount_lbl;
         private Label label8;

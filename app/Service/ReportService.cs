@@ -35,7 +35,7 @@ namespace app.Service
             // Only include completed orders in the date range
             var query = _context.Orders
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                .Where(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
+                .Where(o => o.Status != OrderStatus.Canceled);
 
             // Group by date (date only, ignore time)
             var grouped = query
@@ -162,7 +162,6 @@ namespace app.Service
             var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
             if (skip < 0) skip = 0;
 
-
             IQueryable<Fabric> query = _context.Fabrics
                 .Include(c => c.Orders);
 
@@ -173,33 +172,25 @@ namespace app.Service
                 Color = c.Color,
                 TotalUsedQuantity = c.Orders
                     .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                    .Sum(o => o.FabricUsedQty),
-                TotalValue = c.UnitPrice * c.Orders
-                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                    .Sum(o => o.FabricUsedQty)
+                    .Sum(o => o.Quantity),
             });
-
-            if (reportType == FabricReportType.MostUsedQuantity)
-            {
-                // Fabrics with the highest total used quantity
-                grouped = grouped.OrderByDescending(r => r.TotalUsedQuantity);
-            }
-            //else if (reportType == FabricReportType.TopValue)
-            //{
-            //    // Fabrics with the highest total value
-            //    grouped = grouped.OrderByDescending(r => r.TotalValue);
-            //}
-            else
-            {
-                // Default ordering for All report type
-                grouped = grouped.OrderByDescending(r => r.FabricId);
-            }
 
             var total = await grouped.CountAsync();
             var data = await grouped
                 .Skip(skip)
                 .Take(pagination?.PageSize ?? 10)
                 .ToArrayAsync();
+
+            if (reportType == FabricReportType.MostUsedQuantity)
+            {
+                // Fabrics with the highest total used quantity
+                data = data.OrderByDescending(r => r.TotalUsedQuantity).ToArray();
+            }
+            else
+            {
+                // Default ordering for All report type
+                data = data.OrderByDescending(r => r.FabricId).ToArray();
+            }
 
             return new ListResult<FabricReport>
             {
@@ -321,7 +312,7 @@ namespace app.Service
                 .Include(o => o.Fabric)
                 .Include(o => o.User)
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                .Where(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
+                .Where(o => o.Status != OrderStatus.Canceled);
 
             var grouped = query
                 .Select(o => new SaleReport
@@ -332,7 +323,6 @@ namespace app.Service
                     UserName = o.User.Username,
                     GarmentName = o.Garment.Name,
                     FabricName = o.Fabric.MaterialType + " " + o.Fabric.ColorName,
-                    FabricUsedQty = o.FabricUsedQty,
                     OrderDate = o.CreatedAt,
                     Quantity = o.Quantity,
                     Subtotal = o.Subtotal,

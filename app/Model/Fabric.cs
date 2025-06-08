@@ -12,6 +12,8 @@ namespace app.Model
         [Key]
         public int Id { get; set; }
 
+        public byte[]? Image { get; set; }
+
         [Required]
         public string MaterialType { get; set; }
 

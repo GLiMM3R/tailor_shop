@@ -81,7 +81,7 @@ namespace app.Presentation.Report
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
                 {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.Value = value.ToString("N0"); // Use "N2" for 2 decimal places  
                     e.FormattingApplied = true;
                 }
             }
@@ -123,7 +123,7 @@ namespace app.Presentation.Report
                 if (result != null)
                 {
                     total_garments_lbl.Text = result.TotalGarments.ToString();
-                    total_values_lbl.Text = result.TotalValue.ToString("N2"); // Format as currency or number with 2 decimal places
+                    total_values_lbl.Text = result.TotalValue.ToString("N0"); // Format as currency or number with 2 decimal places
                 }
 
                 // Update chart

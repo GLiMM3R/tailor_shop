@@ -75,7 +75,7 @@ namespace app.Presentation.Report
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal value))
                 {
-                    e.Value = value.ToString("N2"); // Use "N2" for 2 decimal places  
+                    e.Value = value.ToString("N0"); // Use "N2" for 2 decimal places  
                     e.FormattingApplied = true;
                 }
             }
@@ -118,12 +118,11 @@ namespace app.Presentation.Report
 
                 if (result != null)
                 {
-                    gross_sales_lbl.Text = result.SubTotal.ToString("N2");
-                    net_sales_lbl.Text = result.TotalAmount.ToString("N2");
+                    gross_sales_lbl.Text = result.SubTotal.ToString("N0");
+                    net_sales_lbl.Text = result.TotalAmount.ToString("N0");
                     total_orders_lbl.Text = result.TotalOrders.ToString("N0");
-                    aov_lbl.Text = result.TotalAvg.ToString("N2");
-                    paid_amount_lbl.Text = result.TotalPaid.ToString("N2");
-                    discount_lbl.Text = result.Discount.ToString("N2");
+                    aov_lbl.Text = result.TotalAvg.ToString("N0");
+                    paid_amount_lbl.Text = result.TotalPaid.ToString("N0");
                 }
             }
         }

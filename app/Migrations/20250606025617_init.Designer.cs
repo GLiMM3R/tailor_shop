@@ -12,7 +12,7 @@ using app.Database;
 namespace app.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250528145930_init")]
+    [Migration("20250606025617_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -98,6 +98,10 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ColorCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ColorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -149,6 +153,9 @@ namespace app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BodyType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("MeasurementDate")
                         .HasColumnType("datetime2");
 
@@ -193,9 +200,6 @@ namespace app.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FabricId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FabricUsedQty")
                         .HasColumnType("int");
 
                     b.Property<int>("GarmentId")

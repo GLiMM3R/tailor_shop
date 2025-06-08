@@ -136,12 +136,12 @@
             // status_cbb
             // 
             status_cbb.FlatStyle = FlatStyle.Flat;
-            status_cbb.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            status_cbb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
             status_cbb.FormattingEnabled = true;
             status_cbb.Items.AddRange(new object[] { "All", "User", "Admin" });
-            status_cbb.Location = new Point(3, 7);
+            status_cbb.Location = new Point(6, 2);
             status_cbb.Name = "status_cbb";
-            status_cbb.Size = new Size(190, 31);
+            status_cbb.Size = new Size(190, 41);
             status_cbb.TabIndex = 1;
             status_cbb.SelectedIndexChanged += status_cbb_SelectedIndexChanged;
             // 
