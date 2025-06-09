@@ -60,5 +60,11 @@ namespace app.Presentation
             var report = new SaleReportUC();
             _mainForm.LoadFormIntoPanel(report);
         }
+
+        private void user_report_btn_Click(object sender, EventArgs e)
+        {
+            var report = new UserReportUC();
+            _mainForm.LoadFormIntoPanel(report);
+        }
     }
 }

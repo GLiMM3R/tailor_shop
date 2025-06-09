@@ -202,5 +202,28 @@ namespace app.Service
                 CanceledOrders = orders.Count(o => o.Status == OrderStatus.Canceled)
             };
         }
+
+        public async Task<UserStatistic> GetUserStatistic(DateTime fromDate, DateTime toDate)
+        {
+            IQueryable<User> query = _context.Users.Include(u => u.Orders);
+            var users = await query.ToListAsync();
+            if (users == null || users.Count == 0)
+            {
+                return new UserStatistic
+                {
+                    TotalUsers = 0,
+                    TotalAmount = 0,
+                    TotalOrders = 0
+                };
+            }
+            return new UserStatistic
+            {
+                TotalUsers = users.Count,
+                TotalOrders = users.Sum(u => u.Orders.Count(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)),
+                TotalAmount = users.Sum(u => u.Orders
+                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                    .Sum(o => o.TotalAmount))
+            };
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace app.Model
         InProgress = 1,
         [Display(Name = "ສຳເລັດ")]
         Completed = 2,
-        [Display(Name = "ຮັບເສື້ອແລ້ວ")]
+        [Display(Name = "ຮັບແລ້ວ")]
         PickedUp = 3,
         [Display(Name = "ຍົກເລີກ")]
         Canceled = 4

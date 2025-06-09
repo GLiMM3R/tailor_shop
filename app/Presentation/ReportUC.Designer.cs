@@ -37,6 +37,7 @@
             overall_sale_report_btn = new Button();
             panel1 = new Panel();
             label1 = new Label();
+            user_report_btn = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -45,6 +46,7 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(user_report_btn, 0, 6);
             tableLayoutPanel1.Controls.Add(sale_report_btn, 0, 5);
             tableLayoutPanel1.Controls.Add(payment_transaction_report_btn, 0, 4);
             tableLayoutPanel1.Controls.Add(garment_report_btn, 0, 3);
@@ -54,14 +56,15 @@
             tableLayoutPanel1.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tableLayoutPanel1.Location = new Point(60, 154);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 6;
+            tableLayoutPanel1.RowCount = 7;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(270, 357);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.Size = new Size(270, 421);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // sale_report_btn
@@ -75,7 +78,7 @@
             sale_report_btn.Location = new Point(3, 303);
             sale_report_btn.Name = "sale_report_btn";
             sale_report_btn.Padding = new Padding(10, 0, 0, 0);
-            sale_report_btn.Size = new Size(264, 51);
+            sale_report_btn.Size = new Size(264, 54);
             sale_report_btn.TabIndex = 30;
             sale_report_btn.Text = "ລາຍງານການສັ່ງຕັດເຄື່ອງ";
             sale_report_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -194,6 +197,24 @@
             label1.Text = "ລາຍງານ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // user_report_btn
+            // 
+            user_report_btn.BackColor = Color.FromArgb(33, 52, 72);
+            user_report_btn.Cursor = Cursors.Hand;
+            user_report_btn.Dock = DockStyle.Fill;
+            user_report_btn.FlatStyle = FlatStyle.Flat;
+            user_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            user_report_btn.ForeColor = Color.White;
+            user_report_btn.Location = new Point(3, 363);
+            user_report_btn.Name = "user_report_btn";
+            user_report_btn.Padding = new Padding(10, 0, 0, 0);
+            user_report_btn.Size = new Size(264, 55);
+            user_report_btn.TabIndex = 31;
+            user_report_btn.Text = "ລາຍງານການຜູ້ໃຊ້ລະບົບ";
+            user_report_btn.TextAlign = ContentAlignment.MiddleLeft;
+            user_report_btn.UseVisualStyleBackColor = false;
+            user_report_btn.Click += user_report_btn_Click;
+            // 
             // ReportUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -219,5 +240,6 @@
         private Button sale_report_btn;
         private Panel panel1;
         private Label label1;
+        private Button user_report_btn;
     }
 }

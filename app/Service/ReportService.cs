@@ -348,5 +348,47 @@ namespace app.Service
                 Total = total
             };
         }
+
+        //public enum UserReportType
+        //{
+        //    [Display(Name = "ສັ່ງຊື້ຫຼາຍ")]
+        //    TopOrders,
+        //    [Display(Name = "ມູນຄ່າສູງ")]
+        //    TopValue
+        //}
+        public async Task<ListResult<UserReport>> GetUserReport(DateTime fromDate, DateTime toDate, Pagination pagination)
+        {
+            var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
+            if (skip < 0) skip = 0;
+            IQueryable<User> query = _context.Users
+                .Include(u => u.Orders);
+            var grouped = query.Select(u => new UserReport
+            {
+                Id = u.Id,
+                Username = u.Username,
+                TotalOrders = u.Orders.Count(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate),
+                TotalAmount = u.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.TotalAmount)
+            });
+            // Apply ordering for TopSpendingCustomer and TopOrderCustomer
+            //if (reportType == UserReportType.TopOrders)
+            //{
+            //    grouped = grouped.OrderByDescending(r => r.TotalOrders);
+            //}
+            //else if (reportType == UserReportType.TopValue)
+            //{
+            //    grouped = grouped.OrderByDescending(r => r.TotalAmount);
+            //}
+          
+            var total = await grouped.CountAsync();
+            var data = await grouped
+                .Skip(skip)
+                .Take(pagination?.PageSize ?? 10)
+                .ToArrayAsync();
+            return new ListResult<UserReport>
+            {
+                Data = data,
+                Total = total
+            };
+        }
     }
 }
