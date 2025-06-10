@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             header_lb = new Label();
             cancel_btn = new Button();
             action_layout = new TableLayoutPanel();
@@ -267,6 +268,7 @@
             ClientSize = new Size(573, 414);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UserForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UserForm";

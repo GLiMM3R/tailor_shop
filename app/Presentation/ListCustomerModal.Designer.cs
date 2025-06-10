@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListCustomerModal));
             root_pn = new Panel();
             content_pn = new Panel();
             customer_dgv = new DataGridView();
@@ -319,6 +320,7 @@
             ClientSize = new Size(900, 558);
             Controls.Add(root_pn);
             Font = new Font("Noto Sans Lao", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "ListCustomerModal";
             StartPosition = FormStartPosition.CenterParent;

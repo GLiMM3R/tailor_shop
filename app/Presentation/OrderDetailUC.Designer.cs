@@ -364,7 +364,7 @@
             print_invoice_btn.Name = "print_invoice_btn";
             print_invoice_btn.Size = new Size(178, 68);
             print_invoice_btn.TabIndex = 5;
-            print_invoice_btn.Text = "ພິມໃບແຈ້ງໜີ້";
+            print_invoice_btn.Text = "ພິມໃບຮັບເຄື່ອງ";
             print_invoice_btn.UseVisualStyleBackColor = false;
             print_invoice_btn.Click += print_btn_Click;
             // 

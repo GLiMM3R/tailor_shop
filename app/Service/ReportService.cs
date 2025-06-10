@@ -8,6 +8,7 @@ using app.Database;
 using app.Entity;
 using app.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static app.Service.OrderService;
 
@@ -302,7 +303,7 @@ namespace app.Service
             };
         }
 
-        public async Task<ListResult<SaleReport>> GetSaleReport(DateTime fromDate, DateTime toDate, Pagination pagination)
+        public async Task<ListResult<SaleReport>> GetSaleReport(DateTime fromDate, DateTime toDate, Pagination pagination, string? search)
         {
             var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
             if (skip < 0) skip = 0;
@@ -314,6 +315,19 @@ namespace app.Service
                 .Include(o => o.User)
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
                 .Where(o => o.Status != OrderStatus.Canceled);
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                string searchLower = search.ToLower();
+                int customerId;
+                bool isCustomerId = int.TryParse(searchLower, out customerId);
+                query = query.Where(o =>
+                    o.OrderNumber.ToLower().Contains(searchLower) ||
+                    (isCustomerId && o.Customer.Id == customerId) ||
+                    o.Customer.Name.ToLower().Contains(searchLower) ||
+                    o.Customer.Phone.ToLower().Contains(searchLower)
+                );
+            }
 
             var grouped = query
                 .Select(o => new SaleReport
@@ -378,7 +392,7 @@ namespace app.Service
             //{
             //    grouped = grouped.OrderByDescending(r => r.TotalAmount);
             //}
-          
+
             var total = await grouped.CountAsync();
             var data = await grouped
                 .Skip(skip)

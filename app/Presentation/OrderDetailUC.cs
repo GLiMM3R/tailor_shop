@@ -102,7 +102,8 @@ namespace app.Presentation
                     pay_btn.Enabled = true;
                     pay_btn.BackColor = Color.FromArgb(33, 52, 72);
                     pay_btn.Text = "ຊຳລະເງິນ";
-                } else
+                }
+                else
                 {
                     pay_btn.Enabled = false;
                     pay_btn.BackColor = Color.FromArgb(200, 200, 200);
@@ -173,6 +174,13 @@ namespace app.Presentation
                 // Safely handle the unboxing of the selected value
                 if (status_cbb.SelectedValue is OrderStatus selectedStatus)
                 {
+                    if (selectedStatus == OrderStatus.PickedUp && _order.TotalAmount > _order.TotalPaid())
+                    {
+                        MessageBox.Show("ຕ້ອງຊຳລະເງິນກ່ອນ ຮັບເຄື່ອງ!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        status_cbb.SelectedValue = _order.Status;
+                        return;
+                    }
+
                     _order.Status = selectedStatus;
                     if (selectedStatus == OrderStatus.PickedUp)
                     {

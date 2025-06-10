@@ -520,6 +520,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             Controls.Add(bottom_pn);
             Controls.Add(panel3);
             Controls.Add(panel1);

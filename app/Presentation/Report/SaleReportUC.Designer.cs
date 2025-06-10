@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
             in_progress_lbl = new Label();
             label5 = new Label();
@@ -65,6 +65,8 @@
             prev_page_btn = new Button();
             first_page_btn = new Button();
             page_lbl = new Label();
+            search_pn = new Panel();
+            search_txt = new TextBox();
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sale_report_dgv).BeginInit();
             filter_pn.SuspendLayout();
@@ -78,6 +80,7 @@
             total_orders_pn.SuspendLayout();
             panel3.SuspendLayout();
             pagination_pn.SuspendLayout();
+            search_pn.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -139,14 +142,14 @@
             sale_report_dgv.AllowUserToDeleteRows = false;
             sale_report_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             sale_report_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            sale_report_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            sale_report_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             sale_report_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             sale_report_dgv.Dock = DockStyle.Fill;
             sale_report_dgv.Location = new Point(9, 110);
@@ -160,6 +163,7 @@
             // 
             // filter_pn
             // 
+            filter_pn.Controls.Add(search_pn);
             filter_pn.Controls.Add(label4);
             filter_pn.Controls.Add(panel5);
             filter_pn.Controls.Add(export_btn);
@@ -173,7 +177,7 @@
             // label4
             // 
             label4.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(34, 25);
+            label4.Location = new Point(336, 25);
             label4.Name = "label4";
             label4.Size = new Size(131, 40);
             label4.TabIndex = 7;
@@ -184,7 +188,7 @@
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(period_cbb);
-            panel5.Location = new Point(171, 25);
+            panel5.Location = new Point(473, 25);
             panel5.Name = "panel5";
             panel5.Size = new Size(204, 40);
             panel5.TabIndex = 6;
@@ -222,7 +226,7 @@
             panel2.Controls.Add(to_date_dpk);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(from_date_dpk);
-            panel2.Location = new Point(410, 23);
+            panel2.Location = new Point(712, 23);
             panel2.Name = "panel2";
             panel2.Size = new Size(422, 45);
             panel2.TabIndex = 2;
@@ -561,10 +565,31 @@
             page_lbl.Text = "1/1";
             page_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // search_pn
+            // 
+            search_pn.BorderStyle = BorderStyle.FixedSingle;
+            search_pn.Controls.Add(search_txt);
+            search_pn.Location = new Point(25, 22);
+            search_pn.Name = "search_pn";
+            search_pn.Size = new Size(275, 47);
+            search_pn.TabIndex = 8;
+            // 
+            // search_txt
+            // 
+            search_txt.BorderStyle = BorderStyle.None;
+            search_txt.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            search_txt.Location = new Point(7, 6);
+            search_txt.Name = "search_txt";
+            search_txt.PlaceholderText = "ຄົ້ນຫາ...";
+            search_txt.Size = new Size(259, 33);
+            search_txt.TabIndex = 0;
+            search_txt.TextChanged += search_txt_TextChanged;
+            // 
             // SaleReportUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             Controls.Add(bottom_pn);
             Controls.Add(panel1);
             Controls.Add(panel3);
@@ -584,6 +609,8 @@
             total_orders_pn.ResumeLayout(false);
             panel3.ResumeLayout(false);
             pagination_pn.ResumeLayout(false);
+            search_pn.ResumeLayout(false);
+            search_pn.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -625,5 +652,7 @@
         private Button prev_page_btn;
         private Button first_page_btn;
         private Label page_lbl;
+        private Panel search_pn;
+        private TextBox search_txt;
     }
 }

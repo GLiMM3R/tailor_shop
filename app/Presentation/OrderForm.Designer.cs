@@ -1085,6 +1085,7 @@
             ClientSize = new Size(1423, 894);
             Controls.Add(root_pn);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "OrderForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OrderForm";

@@ -327,6 +327,7 @@
             ClientSize = new Size(522, 738);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "PaymentForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Payment Form";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionSettingsForm));
             panel1 = new Panel();
             close_btn = new Button();
             test_btn = new Button();
@@ -339,6 +340,7 @@
             ClientSize = new Size(646, 581);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ConnectionSettingsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ConnectionSettingsForm";

@@ -20,7 +20,7 @@ namespace app.Utils
     {
         private readonly InvoiceModel _model;
         private readonly DocumentType _document;
-        private string title = "ໃບແຈ້ງໜີ້";
+        private string title = "ໃບຮັບເຄື່ອງ";
 
         public InvoiceDocument(InvoiceModel model, DocumentType document)
         {
@@ -30,7 +30,7 @@ namespace app.Utils
             switch (document)
             {
                 case DocumentType.Invoice:
-                    title = "ໃບແຈ້ງໜີ້";
+                    title = "ໃບຮັບເຄື່ອງ";
                     break;
                 case DocumentType.Receipt:
                     title = "ໃບຮັບເງິນ";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerForm));
             form_layout = new TableLayoutPanel();
             address_pn = new Panel();
             address_txt = new TextBox();
@@ -307,6 +308,7 @@
             ClientSize = new Size(571, 494);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CustomerForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Customer Form";

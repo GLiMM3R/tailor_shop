@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             root_layout = new TableLayoutPanel();
             sidebar_pn = new Panel();
             sidebar_buttons_layout = new FlowLayoutPanel();
@@ -305,6 +306,7 @@
             ClientSize = new Size(1292, 683);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Tailor Shop";

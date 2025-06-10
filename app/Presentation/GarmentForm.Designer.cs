@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GarmentForm));
             root_layout = new Panel();
             form_layout = new TableLayoutPanel();
             panel1 = new Panel();
@@ -259,6 +260,7 @@
             ClientSize = new Size(570, 476);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "GarmentForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GarmentForm";

@@ -20,11 +20,16 @@ namespace app.Presentation.Report
     public partial class SaleReportUC : UserControl
     {
         private Pagination _pagination = new Pagination(1, 10);
+        private string _search = string.Empty;
+        private Debouncer searchDebouncer;
+
 
         public SaleReportUC()
         {
             InitializeComponent();
             InitializeDataGridView();
+
+            searchDebouncer = new Debouncer(300, async () => await LoadSaleReport());
         }
 
         private async void SaleReportUC_Load(object sender, EventArgs e)
@@ -99,7 +104,7 @@ namespace app.Presentation.Report
                 var startOfDay = from_date_dpk.Value.Date;
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
 
-                var result = await report.GetSaleReport(startOfDay, endOfDay, _pagination);
+                var result = await report.GetSaleReport(startOfDay, endOfDay, _pagination, _search);
                 _pagination.TotalItems = result.Total;
                 sale_report_dgv.DataSource = null;
                 sale_report_dgv.DataSource = result.Data.ToList();
@@ -277,7 +282,7 @@ namespace app.Presentation.Report
                 var endOfDay = to_date_dpk.Value.Date.AddDays(1).AddTicks(-1);
                 var allPagination = new Pagination(1, int.MaxValue);
 
-                var result = await report.GetSaleReport(startOfDay, endOfDay, allPagination);
+                var result = await report.GetSaleReport(startOfDay, endOfDay, allPagination, _search);
 
                 if (result.Data != null && result.Data.Any())
                 {
@@ -289,6 +294,12 @@ namespace app.Presentation.Report
                     MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            _search = search_txt.Text;
+            searchDebouncer.Trigger();
         }
     }
 }

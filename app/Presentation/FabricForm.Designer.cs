@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabricForm));
             root_layout = new Panel();
             clear_image_btn = new Button();
             browse_btn = new Button();
@@ -276,6 +277,7 @@
             ClientSize = new Size(573, 552);
             Controls.Add(root_layout);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FabricForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FabricForm";
