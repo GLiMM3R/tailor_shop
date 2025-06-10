@@ -86,7 +86,7 @@ namespace app.Presentation
                 {
                     using (var ms = new MemoryStream())
                     {
-                        // Image.RawFormat is good because it preserves the original format (JPG, PNG, etc.)
+                        // Save as PNG to memory stream
                         fabric_pb.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         newFabric.Image = ms.ToArray();
                     }
@@ -174,6 +174,13 @@ namespace app.Presentation
                 {
                     try
                     {
+                        var fileInfo = new FileInfo(openFileDialog.FileName);
+                        if (fileInfo.Length > 1048576) // 1MB = 1,048,576 bytes
+                        {
+                            MessageBox.Show("Image file size must not exceed 1MB.", "File Size Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
                         using (var originalImage = new Bitmap(openFileDialog.FileName))
                         {
                             // Set desired width and height (e.g., PictureBox size)
@@ -198,7 +205,6 @@ namespace app.Presentation
                         fabric_pb.Image?.Dispose();
                         fabric_pb.Image = null;
                     }
-
                 }
             }
         }
