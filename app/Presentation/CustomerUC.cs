@@ -50,6 +50,7 @@ namespace app.Presentation
             using (var db = new AppDbContext())
             {
                 _count = await db.Customers.CountAsync();
+                total_customer_lb.Text = _count.ToString();
             }
 
             // Populate gender_cb with gender options  

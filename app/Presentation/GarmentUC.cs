@@ -11,6 +11,7 @@ using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace app.Presentation
 {
@@ -35,6 +36,12 @@ namespace app.Presentation
         private async void GarmentUC_Load(object sender, EventArgs e)
         {
             await LoadGarments();
+
+            using (var db = new AppDbContext())
+            {
+                int count = await db.Garments.CountAsync();
+                total_garment_lb.Text = count.ToString();
+            }
 
             pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
             _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
