@@ -235,6 +235,7 @@
             pagesize_cbb.Name = "pagesize_cbb";
             pagesize_cbb.Size = new Size(81, 36);
             pagesize_cbb.TabIndex = 7;
+            pagesize_cbb.SelectedIndexChanged += pagesize_cbb_SelectedIndexChanged;
             // 
             // last_page_btn
             // 
@@ -249,6 +250,7 @@
             last_page_btn.TabIndex = 4;
             last_page_btn.Text = "ສຸດທ້າຍ >>";
             last_page_btn.UseVisualStyleBackColor = false;
+            last_page_btn.Click += last_page_btn_Click;
             // 
             // next_page_btn
             // 
@@ -263,6 +265,7 @@
             next_page_btn.TabIndex = 3;
             next_page_btn.Text = "ຖັດໄປ >";
             next_page_btn.UseVisualStyleBackColor = false;
+            next_page_btn.Click += next_page_btn_Click;
             // 
             // prev_page_btn
             // 
@@ -277,6 +280,7 @@
             prev_page_btn.TabIndex = 1;
             prev_page_btn.Text = "< ກັບຄືນ";
             prev_page_btn.UseVisualStyleBackColor = false;
+            prev_page_btn.Click += prev_page_btn_Click;
             // 
             // first_page_btn
             // 
@@ -291,6 +295,7 @@
             first_page_btn.TabIndex = 0;
             first_page_btn.Text = "<< ທໍາອິດ";
             first_page_btn.UseVisualStyleBackColor = false;
+            first_page_btn.Click += first_page_btn_Click;
             // 
             // page_lbl
             // 

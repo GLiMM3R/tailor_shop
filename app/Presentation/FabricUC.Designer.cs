@@ -277,7 +277,7 @@
             new_customer_btn.Name = "new_customer_btn";
             new_customer_btn.Size = new Size(178, 66);
             new_customer_btn.TabIndex = 2;
-            new_customer_btn.Text = "ສ້າງຜ້າໃໝ່";
+            new_customer_btn.Text = "ເພີ່ມຜ້າໃໝ່";
             new_customer_btn.UseVisualStyleBackColor = false;
             new_customer_btn.Click += new_fabric_btn_Click;
             // 

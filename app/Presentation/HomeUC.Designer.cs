@@ -118,7 +118,7 @@
             label1.Padding = new Padding(20, 0, 0, 0);
             label1.Size = new Size(816, 46);
             label1.TabIndex = 1;
-            label1.Text = "ຍອດຂາຍລວມ";
+            label1.Text = "ຍອດລາຍຮັບ";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel3

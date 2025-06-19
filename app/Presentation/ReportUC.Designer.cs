@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            user_report_btn = new Button();
             sale_report_btn = new Button();
             payment_transaction_report_btn = new Button();
             garment_report_btn = new Button();
@@ -37,7 +38,6 @@
             overall_sale_report_btn = new Button();
             panel1 = new Panel();
             label1 = new Label();
-            user_report_btn = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -66,6 +66,24 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.Size = new Size(270, 421);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // user_report_btn
+            // 
+            user_report_btn.BackColor = Color.FromArgb(33, 52, 72);
+            user_report_btn.Cursor = Cursors.Hand;
+            user_report_btn.Dock = DockStyle.Fill;
+            user_report_btn.FlatStyle = FlatStyle.Flat;
+            user_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            user_report_btn.ForeColor = Color.White;
+            user_report_btn.Location = new Point(3, 363);
+            user_report_btn.Name = "user_report_btn";
+            user_report_btn.Padding = new Padding(10, 0, 0, 0);
+            user_report_btn.Size = new Size(264, 55);
+            user_report_btn.TabIndex = 31;
+            user_report_btn.Text = "ລາຍງານການຜູ້ໃຊ້ລະບົບ";
+            user_report_btn.TextAlign = ContentAlignment.MiddleLeft;
+            user_report_btn.UseVisualStyleBackColor = false;
+            user_report_btn.Click += user_report_btn_Click;
             // 
             // sale_report_btn
             // 
@@ -170,7 +188,7 @@
             overall_sale_report_btn.Padding = new Padding(10, 0, 0, 0);
             overall_sale_report_btn.Size = new Size(264, 54);
             overall_sale_report_btn.TabIndex = 25;
-            overall_sale_report_btn.Text = "ລາຍງານຍອດຂາຍລວມ";
+            overall_sale_report_btn.Text = "ລາຍງານຍອດລວມ";
             overall_sale_report_btn.TextAlign = ContentAlignment.MiddleLeft;
             overall_sale_report_btn.UseVisualStyleBackColor = false;
             overall_sale_report_btn.Click += overall_sale_report_btn_Click;
@@ -196,24 +214,6 @@
             label1.TabIndex = 0;
             label1.Text = "ລາຍງານ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // user_report_btn
-            // 
-            user_report_btn.BackColor = Color.FromArgb(33, 52, 72);
-            user_report_btn.Cursor = Cursors.Hand;
-            user_report_btn.Dock = DockStyle.Fill;
-            user_report_btn.FlatStyle = FlatStyle.Flat;
-            user_report_btn.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            user_report_btn.ForeColor = Color.White;
-            user_report_btn.Location = new Point(3, 363);
-            user_report_btn.Name = "user_report_btn";
-            user_report_btn.Padding = new Padding(10, 0, 0, 0);
-            user_report_btn.Size = new Size(264, 55);
-            user_report_btn.TabIndex = 31;
-            user_report_btn.Text = "ລາຍງານການຜູ້ໃຊ້ລະບົບ";
-            user_report_btn.TextAlign = ContentAlignment.MiddleLeft;
-            user_report_btn.UseVisualStyleBackColor = false;
-            user_report_btn.Click += user_report_btn_Click;
             // 
             // ReportUC
             // 

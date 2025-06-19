@@ -70,6 +70,8 @@ namespace app.Presentation
             status_cbb.DisplayMember = "Display";
             status_cbb.ValueMember = "Value";
             status_cbb.SelectedIndex = 0;
+
+            pagesize_cbb.SelectedIndex = 0; // Default to 10 items per page
         }
 
         private void InitializeDataGridView()
@@ -185,12 +187,14 @@ namespace app.Presentation
             {
                 var orderService = new OrderService(dbContext);
                 var result = await orderService.GetAll(_filter);
-                order_dgv.DataSource = null;
+                _filter.TotalItems = result.Total;
                 order_dgv.DataSource = result.Data.ToList();
                 order_dgv.ClearSelection();
 
                 total_order_lbl.Text = result.Total.ToString();
             }
+
+            UpdatePageNumber();
         }
 
         private async void new_order_btn_Click(object sender, EventArgs e)
@@ -249,5 +253,70 @@ namespace app.Presentation
             searchDebouncer.Trigger();
         }
 
+
+
+        private void UpdatePageNumber()
+        {
+            if (_filter.TotalItems > 0)
+            {
+                page_lbl.Text = $"{_filter.Page}/{_filter.TotalPages}";
+            }
+            else
+            {
+                page_lbl.Text = "0/0";
+            }
+        }
+
+        private async void next_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasNextPage)
+            {
+                _filter.Page++;
+                await LoadOrders();
+            }
+        }
+
+        private async void last_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.TotalPages > 0)
+            {
+                _filter.Page = _filter.TotalPages;
+                await LoadOrders();
+            }
+        }
+
+        private async void pagesize_cbb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
+            await LoadOrders();
+        }
+
+        private async void prev_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.HasPreviousPage)
+            {
+                _filter.Page--;
+                await LoadOrders();
+            }
+        }
+
+        private async void first_page_btn_Click(object sender, EventArgs e)
+        {
+            if (_filter.Page > 1)
+            {
+                _filter.Page = 1;
+                await LoadOrders();
+            }
+        }
+
+        private async void from_date_dpk_ValueChanged(object sender, EventArgs e)
+        {
+            await LoadOrders();
+        }
+
+        private async void to_date_dpk_ValueChanged(object sender, EventArgs e)
+        {
+            await LoadOrders();
+        }
     }
 }

@@ -353,7 +353,7 @@
             new_customer_btn.Name = "new_customer_btn";
             new_customer_btn.Size = new Size(178, 66);
             new_customer_btn.TabIndex = 0;
-            new_customer_btn.Text = "ສ້າງລູກຄ້າໃໝ່";
+            new_customer_btn.Text = "ເພີ່ມລູກຄ້າໃໝ່";
             new_customer_btn.UseVisualStyleBackColor = false;
             new_customer_btn.Click += new_customer_btn_Click;
             // 

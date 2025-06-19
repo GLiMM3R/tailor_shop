@@ -48,7 +48,7 @@ namespace app.Service
                     TotalCustomers = g.Select(x => x.CustomerId).Distinct().Count(),
                     TotalQuantity = g.Sum(x => x.Quantity),
                     Subtotal = g.Sum(x => x.Subtotal),
-                    Discount = g.Sum(x => x.Discount),
+                    Discount = 0,
                     DepositAmount = g.Sum(x => x.DepositAmount),
                     TotalAmount = g.Sum(x => x.TotalAmount),
                     TotalPaid = _context.Payments
@@ -341,7 +341,6 @@ namespace app.Service
                     OrderDate = o.CreatedAt,
                     Quantity = o.Quantity,
                     Subtotal = o.Subtotal,
-                    Discount = o.Discount,
                     TotalAmount = o.TotalAmount,
                     DepositAmount = o.DepositAmount,
                     Status = o.Status.ToString(),

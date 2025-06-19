@@ -17,7 +17,6 @@ namespace app.Entity
         public string FabricName { get; set; }
         public int Quantity { get; set; }
         public decimal Subtotal { get; set; }
-        public decimal Discount { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal DepositAmount { get; set; }
         public decimal BalanceAmount => TotalAmount - DepositAmount;

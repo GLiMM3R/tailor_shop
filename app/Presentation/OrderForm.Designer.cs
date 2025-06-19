@@ -305,7 +305,7 @@
             subtotal_title_lb.Name = "subtotal_title_lb";
             subtotal_title_lb.Size = new Size(143, 44);
             subtotal_title_lb.TabIndex = 0;
-            subtotal_title_lb.Text = "ຍອດຂາຍລວມ:";
+            subtotal_title_lb.Text = "ຍອດລວມ:";
             subtotal_title_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
@@ -365,7 +365,7 @@
             // 
             upper_body_cb.AutoSize = true;
             upper_body_cb.Font = new Font("Noto Sans Lao", 13.8F, FontStyle.Bold);
-            upper_body_cb.Location = new Point(133, 57);
+            upper_body_cb.Location = new Point(93, 57);
             upper_body_cb.Name = "upper_body_cb";
             upper_body_cb.Size = new Size(182, 42);
             upper_body_cb.TabIndex = 10;
@@ -411,7 +411,7 @@
             lower_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             lower_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             lower_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            lower_body_form_layout.Size = new Size(520, 160);
+            lower_body_form_layout.Size = new Size(562, 160);
             lower_body_form_layout.TabIndex = 5;
             // 
             // length_num
@@ -420,9 +420,9 @@
             length_num.DecimalPlaces = 2;
             length_num.Dock = DockStyle.Fill;
             length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            length_num.Location = new Point(393, 83);
+            length_num.Location = new Point(423, 83);
             length_num.Name = "length_num";
-            length_num.Size = new Size(124, 35);
+            length_num.Size = new Size(136, 35);
             length_num.TabIndex = 7;
             length_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -430,9 +430,9 @@
             // 
             length_lb.Dock = DockStyle.Fill;
             length_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            length_lb.Location = new Point(263, 80);
+            length_lb.Location = new Point(283, 80);
             length_lb.Name = "length_lb";
-            length_lb.Size = new Size(124, 40);
+            length_lb.Size = new Size(134, 40);
             length_lb.TabIndex = 31;
             length_lb.Text = "ຄວາມຍາວ";
             length_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -443,9 +443,9 @@
             ankle_num.DecimalPlaces = 2;
             ankle_num.Dock = DockStyle.Fill;
             ankle_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            ankle_num.Location = new Point(393, 43);
+            ankle_num.Location = new Point(423, 43);
             ankle_num.Name = "ankle_num";
-            ankle_num.Size = new Size(124, 35);
+            ankle_num.Size = new Size(136, 35);
             ankle_num.TabIndex = 6;
             ankle_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -453,9 +453,9 @@
             // 
             ankle_lb.Dock = DockStyle.Fill;
             ankle_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            ankle_lb.Location = new Point(263, 40);
+            ankle_lb.Location = new Point(283, 40);
             ankle_lb.Name = "ankle_lb";
-            ankle_lb.Size = new Size(124, 40);
+            ankle_lb.Size = new Size(134, 40);
             ankle_lb.TabIndex = 29;
             ankle_lb.Text = "ປາຍຂາ";
             ankle_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -466,9 +466,9 @@
             top_thigh_num.DecimalPlaces = 2;
             top_thigh_num.Dock = DockStyle.Fill;
             top_thigh_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            top_thigh_num.Location = new Point(133, 83);
+            top_thigh_num.Location = new Point(143, 83);
             top_thigh_num.Name = "top_thigh_num";
-            top_thigh_num.Size = new Size(124, 35);
+            top_thigh_num.Size = new Size(134, 35);
             top_thigh_num.TabIndex = 3;
             top_thigh_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -478,7 +478,7 @@
             top_thigh_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             top_thigh_lb.Location = new Point(3, 80);
             top_thigh_lb.Name = "top_thigh_lb";
-            top_thigh_lb.Size = new Size(124, 40);
+            top_thigh_lb.Size = new Size(134, 40);
             top_thigh_lb.TabIndex = 18;
             top_thigh_lb.Text = "ອ້ອງ";
             top_thigh_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -489,7 +489,7 @@
             lower_hip_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             lower_hip_lb.Location = new Point(3, 40);
             lower_hip_lb.Name = "lower_hip_lb";
-            lower_hip_lb.Size = new Size(124, 40);
+            lower_hip_lb.Size = new Size(134, 40);
             lower_hip_lb.TabIndex = 0;
             lower_hip_lb.Text = "ສະໂພກ";
             lower_hip_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -500,9 +500,9 @@
             lower_waist_num.DecimalPlaces = 2;
             lower_waist_num.Dock = DockStyle.Fill;
             lower_waist_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            lower_waist_num.Location = new Point(133, 3);
+            lower_waist_num.Location = new Point(143, 3);
             lower_waist_num.Name = "lower_waist_num";
-            lower_waist_num.Size = new Size(124, 35);
+            lower_waist_num.Size = new Size(134, 35);
             lower_waist_num.TabIndex = 1;
             lower_waist_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -512,9 +512,9 @@
             lower_hip_num.DecimalPlaces = 2;
             lower_hip_num.Dock = DockStyle.Fill;
             lower_hip_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            lower_hip_num.Location = new Point(133, 43);
+            lower_hip_num.Location = new Point(143, 43);
             lower_hip_num.Name = "lower_hip_num";
-            lower_hip_num.Size = new Size(124, 35);
+            lower_hip_num.Size = new Size(134, 35);
             lower_hip_num.TabIndex = 2;
             lower_hip_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -524,7 +524,7 @@
             lower_waist_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             lower_waist_lb.Location = new Point(3, 0);
             lower_waist_lb.Name = "lower_waist_lb";
-            lower_waist_lb.Size = new Size(124, 40);
+            lower_waist_lb.Size = new Size(134, 40);
             lower_waist_lb.TabIndex = 0;
             lower_waist_lb.Text = "ແອວ";
             lower_waist_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -535,9 +535,9 @@
             knee_num.DecimalPlaces = 2;
             knee_num.Dock = DockStyle.Fill;
             knee_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            knee_num.Location = new Point(393, 3);
+            knee_num.Location = new Point(423, 3);
             knee_num.Name = "knee_num";
-            knee_num.Size = new Size(124, 35);
+            knee_num.Size = new Size(136, 35);
             knee_num.TabIndex = 5;
             knee_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -545,9 +545,9 @@
             // 
             knee_lb.Dock = DockStyle.Fill;
             knee_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            knee_lb.Location = new Point(263, 0);
+            knee_lb.Location = new Point(283, 0);
             knee_lb.Name = "knee_lb";
-            knee_lb.Size = new Size(124, 40);
+            knee_lb.Size = new Size(134, 40);
             knee_lb.TabIndex = 6;
             knee_lb.Text = "ເຂົ່າ";
             knee_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -558,7 +558,7 @@
             thigh_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             thigh_lb.Location = new Point(3, 120);
             thigh_lb.Name = "thigh_lb";
-            thigh_lb.Size = new Size(124, 40);
+            thigh_lb.Size = new Size(134, 40);
             thigh_lb.TabIndex = 27;
             thigh_lb.Text = "ກົກຂາ";
             thigh_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -569,9 +569,9 @@
             thigh_num.DecimalPlaces = 2;
             thigh_num.Dock = DockStyle.Fill;
             thigh_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            thigh_num.Location = new Point(133, 123);
+            thigh_num.Location = new Point(143, 123);
             thigh_num.Name = "thigh_num";
-            thigh_num.Size = new Size(124, 35);
+            thigh_num.Size = new Size(134, 35);
             thigh_num.TabIndex = 4;
             thigh_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -598,23 +598,23 @@
             upper_body_form_layout.Controls.Add(sleeve_opening_num, 3, 2);
             upper_body_form_layout.Controls.Add(sleeve_length_num, 3, 1);
             upper_body_form_layout.Controls.Add(upper_hip_num, 3, 0);
-            upper_body_form_layout.Location = new Point(133, 102);
+            upper_body_form_layout.Location = new Point(93, 102);
             upper_body_form_layout.Name = "upper_body_form_layout";
             upper_body_form_layout.RowCount = 4;
             upper_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             upper_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             upper_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             upper_body_form_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            upper_body_form_layout.Size = new Size(520, 160);
+            upper_body_form_layout.Size = new Size(562, 160);
             upper_body_form_layout.TabIndex = 3;
             // 
             // shirt_length_lb
             // 
             shirt_length_lb.Dock = DockStyle.Fill;
             shirt_length_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            shirt_length_lb.Location = new Point(263, 120);
+            shirt_length_lb.Location = new Point(283, 120);
             shirt_length_lb.Name = "shirt_length_lb";
-            shirt_length_lb.Size = new Size(124, 40);
+            shirt_length_lb.Size = new Size(134, 40);
             shirt_length_lb.TabIndex = 19;
             shirt_length_lb.Text = "ຄວາມຍາວເສື້ອ";
             shirt_length_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -623,9 +623,9 @@
             // 
             sleeve_opening_lb.Dock = DockStyle.Fill;
             sleeve_opening_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            sleeve_opening_lb.Location = new Point(263, 80);
+            sleeve_opening_lb.Location = new Point(283, 80);
             sleeve_opening_lb.Name = "sleeve_opening_lb";
-            sleeve_opening_lb.Size = new Size(124, 40);
+            sleeve_opening_lb.Size = new Size(134, 40);
             sleeve_opening_lb.TabIndex = 18;
             sleeve_opening_lb.Text = "ຄວາມຍາວປາຍແຂນເສື້ອ";
             sleeve_opening_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -634,9 +634,9 @@
             // 
             sleeve_length_lb.Dock = DockStyle.Fill;
             sleeve_length_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            sleeve_length_lb.Location = new Point(263, 40);
+            sleeve_length_lb.Location = new Point(283, 40);
             sleeve_length_lb.Name = "sleeve_length_lb";
-            sleeve_length_lb.Size = new Size(124, 40);
+            sleeve_length_lb.Size = new Size(134, 40);
             sleeve_length_lb.TabIndex = 17;
             sleeve_length_lb.Text = "ຄວາມຍາວແຂນເສື້ອ";
             sleeve_length_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -645,9 +645,9 @@
             // 
             upper_hip_lb.Dock = DockStyle.Fill;
             upper_hip_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            upper_hip_lb.Location = new Point(263, 0);
+            upper_hip_lb.Location = new Point(283, 0);
             upper_hip_lb.Name = "upper_hip_lb";
-            upper_hip_lb.Size = new Size(124, 40);
+            upper_hip_lb.Size = new Size(134, 40);
             upper_hip_lb.TabIndex = 16;
             upper_hip_lb.Text = "ສະໂພກ";
             upper_hip_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -658,7 +658,7 @@
             upper_waist_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             upper_waist_lb.Location = new Point(3, 120);
             upper_waist_lb.Name = "upper_waist_lb";
-            upper_waist_lb.Size = new Size(124, 40);
+            upper_waist_lb.Size = new Size(134, 40);
             upper_waist_lb.TabIndex = 4;
             upper_waist_lb.Text = "ແອວ";
             upper_waist_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -669,9 +669,9 @@
             upper_waist_num.DecimalPlaces = 2;
             upper_waist_num.Dock = DockStyle.Fill;
             upper_waist_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            upper_waist_num.Location = new Point(133, 123);
+            upper_waist_num.Location = new Point(143, 123);
             upper_waist_num.Name = "upper_waist_num";
-            upper_waist_num.Size = new Size(124, 35);
+            upper_waist_num.Size = new Size(134, 35);
             upper_waist_num.TabIndex = 4;
             upper_waist_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -681,7 +681,7 @@
             chest_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             chest_lb.Location = new Point(3, 80);
             chest_lb.Name = "chest_lb";
-            chest_lb.Size = new Size(124, 40);
+            chest_lb.Size = new Size(134, 40);
             chest_lb.TabIndex = 2;
             chest_lb.Text = "ເອິກ";
             chest_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -692,9 +692,9 @@
             chest_num.DecimalPlaces = 2;
             chest_num.Dock = DockStyle.Fill;
             chest_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            chest_num.Location = new Point(133, 83);
+            chest_num.Location = new Point(143, 83);
             chest_num.Name = "chest_num";
-            chest_num.Size = new Size(124, 35);
+            chest_num.Size = new Size(134, 35);
             chest_num.TabIndex = 3;
             chest_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -704,7 +704,7 @@
             shoulder_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             shoulder_lb.Location = new Point(3, 40);
             shoulder_lb.Name = "shoulder_lb";
-            shoulder_lb.Size = new Size(124, 40);
+            shoulder_lb.Size = new Size(134, 40);
             shoulder_lb.TabIndex = 0;
             shoulder_lb.Text = "ບ່າໄຫຼ່";
             shoulder_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -715,9 +715,9 @@
             shoulder_num.DecimalPlaces = 2;
             shoulder_num.Dock = DockStyle.Fill;
             shoulder_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            shoulder_num.Location = new Point(133, 43);
+            shoulder_num.Location = new Point(143, 43);
             shoulder_num.Name = "shoulder_num";
-            shoulder_num.Size = new Size(124, 35);
+            shoulder_num.Size = new Size(134, 35);
             shoulder_num.TabIndex = 2;
             shoulder_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -727,7 +727,7 @@
             neck_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
             neck_lb.Location = new Point(3, 0);
             neck_lb.Name = "neck_lb";
-            neck_lb.Size = new Size(124, 40);
+            neck_lb.Size = new Size(134, 40);
             neck_lb.TabIndex = 0;
             neck_lb.Text = "ຄໍ";
             neck_lb.TextAlign = ContentAlignment.MiddleRight;
@@ -738,9 +738,9 @@
             neck_num.DecimalPlaces = 2;
             neck_num.Dock = DockStyle.Fill;
             neck_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            neck_num.Location = new Point(133, 3);
+            neck_num.Location = new Point(143, 3);
             neck_num.Name = "neck_num";
-            neck_num.Size = new Size(124, 35);
+            neck_num.Size = new Size(134, 35);
             neck_num.TabIndex = 1;
             neck_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -750,9 +750,9 @@
             shirt_length_num.DecimalPlaces = 2;
             shirt_length_num.Dock = DockStyle.Fill;
             shirt_length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            shirt_length_num.Location = new Point(393, 123);
+            shirt_length_num.Location = new Point(423, 123);
             shirt_length_num.Name = "shirt_length_num";
-            shirt_length_num.Size = new Size(124, 35);
+            shirt_length_num.Size = new Size(136, 35);
             shirt_length_num.TabIndex = 8;
             shirt_length_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -762,9 +762,9 @@
             sleeve_opening_num.DecimalPlaces = 2;
             sleeve_opening_num.Dock = DockStyle.Fill;
             sleeve_opening_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            sleeve_opening_num.Location = new Point(393, 83);
+            sleeve_opening_num.Location = new Point(423, 83);
             sleeve_opening_num.Name = "sleeve_opening_num";
-            sleeve_opening_num.Size = new Size(124, 35);
+            sleeve_opening_num.Size = new Size(136, 35);
             sleeve_opening_num.TabIndex = 7;
             sleeve_opening_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -774,9 +774,9 @@
             sleeve_length_num.DecimalPlaces = 2;
             sleeve_length_num.Dock = DockStyle.Fill;
             sleeve_length_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            sleeve_length_num.Location = new Point(393, 43);
+            sleeve_length_num.Location = new Point(423, 43);
             sleeve_length_num.Name = "sleeve_length_num";
-            sleeve_length_num.Size = new Size(124, 35);
+            sleeve_length_num.Size = new Size(136, 35);
             sleeve_length_num.TabIndex = 6;
             sleeve_length_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -786,9 +786,9 @@
             upper_hip_num.DecimalPlaces = 2;
             upper_hip_num.Dock = DockStyle.Fill;
             upper_hip_num.Font = new Font("Noto Sans Lao", 10.1999989F);
-            upper_hip_num.Location = new Point(393, 3);
+            upper_hip_num.Location = new Point(423, 3);
             upper_hip_num.Name = "upper_hip_num";
-            upper_hip_num.Size = new Size(124, 35);
+            upper_hip_num.Size = new Size(136, 35);
             upper_hip_num.TabIndex = 5;
             upper_hip_num.TextAlign = HorizontalAlignment.Center;
             // 
@@ -998,7 +998,7 @@
             // 
             order_number_lb.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             order_number_lb.ForeColor = Color.White;
-            order_number_lb.Location = new Point(149, 9);
+            order_number_lb.Location = new Point(168, 9);
             order_number_lb.Name = "order_number_lb";
             order_number_lb.Size = new Size(283, 46);
             order_number_lb.TabIndex = 3;
@@ -1012,9 +1012,9 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(22, 8);
             label1.Name = "label1";
-            label1.Size = new Size(134, 44);
+            label1.Size = new Size(152, 44);
             label1.TabIndex = 2;
-            label1.Text = "ເລກທີສັ່ງຊື້:";
+            label1.Text = "ເລກທີສັ່ງຕັດ:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // header_pn
@@ -1062,7 +1062,7 @@
             create_order_btn.Name = "create_order_btn";
             create_order_btn.Size = new Size(155, 66);
             create_order_btn.TabIndex = 2;
-            create_order_btn.Text = "ສ້າງຄຳສັ່ງຊື້";
+            create_order_btn.Text = "ບັນທຶກການສັ່ງຕັດ";
             create_order_btn.UseVisualStyleBackColor = false;
             create_order_btn.Click += create_order_btn_Click;
             // 

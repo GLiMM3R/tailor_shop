@@ -133,7 +133,7 @@
             label1.Name = "label1";
             label1.Size = new Size(1627, 94);
             label1.TabIndex = 0;
-            label1.Text = "ລາຍງານການຈ່າຍເງິນ";
+            label1.Text = "ລາຍງານການຊຳລະເງິນ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel3

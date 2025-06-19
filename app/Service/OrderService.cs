@@ -59,9 +59,10 @@ namespace app.Service
 
             var total = await query.CountAsync();
             var orders = await query
+                .OrderByDescending(o => o.CreatedAt)
                 .Skip(skip)
                 .Take(filter?.PageSize ?? 10)
-                .OrderByDescending(o => o.CreatedAt).ToArrayAsync();
+                .ToArrayAsync();
 
             return new ListResult<Order>
             {

@@ -441,7 +441,7 @@
             information_gb.Size = new Size(1530, 196);
             information_gb.TabIndex = 0;
             information_gb.TabStop = false;
-            information_gb.Text = "ຂໍ້ມູນການສັ່ງຊື້";
+            information_gb.Text = "ຂໍ້ມູນການສັ່ງຕັດ";
             // 
             // status_cbb
             // 
@@ -706,7 +706,7 @@
             label2.Name = "label2";
             label2.Size = new Size(154, 40);
             label2.TabIndex = 1;
-            label2.Text = "ເລກທີສັ່ງຊື້:";
+            label2.Text = "ເລກທີສັ່ງຕັດ:";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // customer_phone_lbl

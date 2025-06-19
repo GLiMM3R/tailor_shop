@@ -314,7 +314,7 @@
             new_user_btn.Name = "new_user_btn";
             new_user_btn.Size = new Size(178, 66);
             new_user_btn.TabIndex = 2;
-            new_user_btn.Text = "ສ້າງຜູ້ໃຊ້ໃໝ່";
+            new_user_btn.Text = "ເພີ່ມຜູ້ໃຊ້ໃໝ່";
             new_user_btn.UseVisualStyleBackColor = false;
             new_user_btn.Click += new_user_btn_Click;
             // 

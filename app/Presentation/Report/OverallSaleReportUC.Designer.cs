@@ -301,7 +301,7 @@
             label1.Name = "label1";
             label1.Size = new Size(1453, 94);
             label1.TabIndex = 0;
-            label1.Text = "ລາຍງານຍອດຂາຍລວມ";
+            label1.Text = "ລາຍງານຍອດລວມ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // export_to_excel_btn

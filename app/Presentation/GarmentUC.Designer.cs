@@ -279,7 +279,7 @@ namespace app.Presentation
             new_garment_btn.Name = "new_garment_btn";
             new_garment_btn.Size = new Size(178, 66);
             new_garment_btn.TabIndex = 3;
-            new_garment_btn.Text = "ສ້າງເສື້ອຜ້າໃໝ່";
+            new_garment_btn.Text = "ເພີ່ມເສື້ອຜ້າໃໝ່";
             new_garment_btn.UseVisualStyleBackColor = false;
             new_garment_btn.Click += new_garment_btn_Click;
             // 

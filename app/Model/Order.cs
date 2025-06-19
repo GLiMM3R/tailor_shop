@@ -54,8 +54,6 @@ namespace app.Model
         [Required]
         public decimal Subtotal { get; set; }
 
-        public decimal Discount { get; set; } = 0;
-
         [Required]
         public decimal TotalAmount { get; set; }
 

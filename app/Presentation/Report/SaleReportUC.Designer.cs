@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
             in_progress_lbl = new Label();
             label5 = new Label();
             bottom_pn = new TableLayoutPanel();
             sale_report_dgv = new DataGridView();
             filter_pn = new Panel();
+            search_pn = new Panel();
+            search_txt = new TextBox();
             label4 = new Label();
             panel5 = new Panel();
             period_cbb = new ComboBox();
@@ -65,11 +67,10 @@
             prev_page_btn = new Button();
             first_page_btn = new Button();
             page_lbl = new Label();
-            search_pn = new Panel();
-            search_txt = new TextBox();
             bottom_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sale_report_dgv).BeginInit();
             filter_pn.SuspendLayout();
+            search_pn.SuspendLayout();
             panel5.SuspendLayout();
             panel2.SuspendLayout();
             gross_sales_pn.SuspendLayout();
@@ -80,7 +81,6 @@
             total_orders_pn.SuspendLayout();
             panel3.SuspendLayout();
             pagination_pn.SuspendLayout();
-            search_pn.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -142,14 +142,14 @@
             sale_report_dgv.AllowUserToDeleteRows = false;
             sale_report_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             sale_report_dgv.BackgroundColor = Color.White;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            sale_report_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            sale_report_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             sale_report_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             sale_report_dgv.Dock = DockStyle.Fill;
             sale_report_dgv.Location = new Point(9, 110);
@@ -173,6 +173,26 @@
             filter_pn.Name = "filter_pn";
             filter_pn.Size = new Size(1502, 90);
             filter_pn.TabIndex = 1;
+            // 
+            // search_pn
+            // 
+            search_pn.BorderStyle = BorderStyle.FixedSingle;
+            search_pn.Controls.Add(search_txt);
+            search_pn.Location = new Point(25, 22);
+            search_pn.Name = "search_pn";
+            search_pn.Size = new Size(275, 47);
+            search_pn.TabIndex = 8;
+            // 
+            // search_txt
+            // 
+            search_txt.BorderStyle = BorderStyle.None;
+            search_txt.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            search_txt.Location = new Point(7, 6);
+            search_txt.Name = "search_txt";
+            search_txt.PlaceholderText = "ຄົ້ນຫາ...";
+            search_txt.Size = new Size(259, 33);
+            search_txt.TabIndex = 0;
+            search_txt.TextChanged += search_txt_TextChanged;
             // 
             // label4
             // 
@@ -565,26 +585,6 @@
             page_lbl.Text = "1/1";
             page_lbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // search_pn
-            // 
-            search_pn.BorderStyle = BorderStyle.FixedSingle;
-            search_pn.Controls.Add(search_txt);
-            search_pn.Location = new Point(25, 22);
-            search_pn.Name = "search_pn";
-            search_pn.Size = new Size(275, 47);
-            search_pn.TabIndex = 8;
-            // 
-            // search_txt
-            // 
-            search_txt.BorderStyle = BorderStyle.None;
-            search_txt.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            search_txt.Location = new Point(7, 6);
-            search_txt.Name = "search_txt";
-            search_txt.PlaceholderText = "ຄົ້ນຫາ...";
-            search_txt.Size = new Size(259, 33);
-            search_txt.TabIndex = 0;
-            search_txt.TextChanged += search_txt_TextChanged;
-            // 
             // SaleReportUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -599,6 +599,8 @@
             bottom_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)sale_report_dgv).EndInit();
             filter_pn.ResumeLayout(false);
+            search_pn.ResumeLayout(false);
+            search_pn.PerformLayout();
             panel5.ResumeLayout(false);
             panel2.ResumeLayout(false);
             gross_sales_pn.ResumeLayout(false);
@@ -609,8 +611,6 @@
             total_orders_pn.ResumeLayout(false);
             panel3.ResumeLayout(false);
             pagination_pn.ResumeLayout(false);
-            search_pn.ResumeLayout(false);
-            search_pn.PerformLayout();
             ResumeLayout(false);
         }
 

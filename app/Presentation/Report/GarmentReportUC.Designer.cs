@@ -192,7 +192,7 @@
             label1.Name = "label1";
             label1.Size = new Size(1486, 94);
             label1.TabIndex = 0;
-            label1.Text = "ລາຍງານປະເພດເສື້ອຜ້າ";
+            label1.Text = "ລາຍງານເສື້ອຜ້າ";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel3

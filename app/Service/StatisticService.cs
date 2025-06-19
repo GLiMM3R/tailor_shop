@@ -51,7 +51,7 @@ namespace app.Service
                 TotalOrders = orders.Count,
                 TotalAvg = orders.Average(x => x.TotalAmount),
                 TotalPaid = totalPaid,
-                Discount = orders.Sum(x => x.Discount),
+                Discount = 0,
                 DepositAmount = orders.Sum(x => x.DepositAmount)
             };
         }

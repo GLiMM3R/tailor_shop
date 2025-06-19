@@ -58,7 +58,6 @@ namespace app.Presentation.Report
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalCustomers", headerText: "ຈຳນວນລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalQuantity", headerText: "ຈຳນວນຕັດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "SubTotal", headerText: "ຍອດລວມຂາຍ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Discount", headerText: "ສ່ວນຫຼຸດ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DepositAmount", headerText: "ຍອດລວມມັດຈຳ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalPaid", headerText: "ຍອດຊຳລະແລ້ວ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "ຍອດລວມສຸດທິ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
