@@ -153,8 +153,16 @@ namespace app.Presentation
                 {
                     if (user_dgv.Rows[e.RowIndex].DataBoundItem is User selectedUser)
                     {
-                        var form = new UserForm(this, this._userService, selectedUser);
-                        form.ShowDialog();
+                        if (_user.Role != Role.Admin)
+                        {
+                            MessageBox.Show("ທ່ານບໍ່ສາມາດແກ້ໄຂຜູ້ໃຊ້ນີ້", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            var form = new UserForm(this, this._userService, selectedUser);
+                            form.ShowDialog();
+                        }
                     }
                 }
             }
