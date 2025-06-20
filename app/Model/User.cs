@@ -9,7 +9,9 @@ namespace app.Model
 {
     public enum Role
     {
+        [Display(Name = "ຜູ້ໃຊ້")]
         User,
+        [Display(Name = "ຜູ້ດູແລລະບົບ")]
         Admin
     }
 

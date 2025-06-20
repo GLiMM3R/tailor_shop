@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using app.Constant;
 using app.Database;
 using app.Model;
 using app.Service;
 using app.Utils;
+using static app.Service.ReportService;
 
 namespace app.Presentation
 {
@@ -20,10 +22,11 @@ namespace app.Presentation
         private UserService _userService;
         private FilterUser _filter = new FilterUser(1, 10);
         private int _count;
+        private User _user;
 
         private Debouncer searchDebouncer;
 
-        public UserUC()
+        public UserUC(User user)
         {
             InitializeComponent();
             InitializeUserService();
@@ -32,6 +35,7 @@ namespace app.Presentation
             total_users_lb.Text = this._count.ToString();
 
             searchDebouncer = new Debouncer(300, async () => await LoadUsers());
+            _user = user;
         }
 
         public void InitializeUserService()
@@ -45,6 +49,21 @@ namespace app.Presentation
         private async void UserUC_Load(object sender, EventArgs e)
         {
             await LoadUsers();
+
+            if (_user.Role != Role.Admin)
+            {
+                new_user_btn.Enabled = false;
+            }
+
+            var role = Enum.GetValues(typeof(Role))
+                .Cast<Role>()
+                .Select(pt => new { Value = pt, Display = Period.GetEnumDisplayName(pt) })
+                .ToList();
+
+            role_cb.DataSource = role;
+            role_cb.DisplayMember = "Display";
+            role_cb.ValueMember = "Value";
+            role_cb.SelectedIndex = 0;
 
             pagesize_cbb.SelectedIndex = 0; // Set default page size to first item
             _filter.PageSize = int.Parse(pagesize_cbb.SelectedItem?.ToString() ?? "10");
@@ -85,10 +104,14 @@ namespace app.Presentation
 
         public async Task LoadUsers()
         {
-            var result = await _userService.GetAll(this._filter);
-            user_dgv.DataSource = result.Data;
-            _filter.TotalItems = result.Total;
-            UpdatePageNumber();
+            using (var context = new AppDbContext())
+            {
+                var userService = new UserService(context);
+                var result = await userService.GetAll(this._filter);
+                user_dgv.DataSource = result.Data;
+                _filter.TotalItems = result.Total;
+                UpdatePageNumber();
+            }
         }
 
         private async void role_cb_SelectedValueChanged(object sender, EventArgs e)

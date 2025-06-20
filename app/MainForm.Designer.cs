@@ -216,7 +216,7 @@
             garment_btn.Padding = new Padding(20, 0, 0, 0);
             garment_btn.Size = new Size(280, 60);
             garment_btn.TabIndex = 6;
-            garment_btn.Text = "ຈັດການຂໍ້ມູນເສື້ອຜ້າ";
+            garment_btn.Text = "ຈັດການຂໍ້ມູນປະເພດເສື້ອຜ້າ";
             garment_btn.TextAlign = ContentAlignment.MiddleLeft;
             garment_btn.UseVisualStyleBackColor = false;
             garment_btn.Click += garment_btn_Click;

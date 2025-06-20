@@ -152,7 +152,7 @@
             fabric_report_btn.Padding = new Padding(10, 0, 0, 0);
             fabric_report_btn.Size = new Size(264, 54);
             fabric_report_btn.TabIndex = 27;
-            fabric_report_btn.Text = "ລາຍງານປະເພດຜ້າ";
+            fabric_report_btn.Text = "ລາຍງານຜ້າ";
             fabric_report_btn.TextAlign = ContentAlignment.MiddleLeft;
             fabric_report_btn.UseVisualStyleBackColor = false;
             fabric_report_btn.Click += fabric_report_btn_Click;

@@ -124,7 +124,7 @@ namespace app
         }
         private void user_btn_Click(object sender, EventArgs e)
         {
-            var user = new UserUC();
+            var user = new UserUC(_user);
             LoadFormIntoPanel(user);
         }
 
