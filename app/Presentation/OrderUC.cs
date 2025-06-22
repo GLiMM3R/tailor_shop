@@ -170,11 +170,6 @@ namespace app.Presentation
                     {
                         var order = new OrderDetailUC(this, selectedOrder.OrderNumber);
                         _mainForm.LoadFormIntoPanel(order);
-                        if (order.IsChanged)
-                        {
-                            order.IsChanged = false; // Reset the flag after handling
-                            await LoadOrders();
-                        }
                     }
                 }
             }

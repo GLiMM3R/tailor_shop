@@ -190,8 +190,8 @@ namespace app.Presentation
                     await _orderService.Update(_order);
 
                     MessageBox.Show("Update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    IsChanged = true;
                     await LoadOrder();
+                    await _orderUC.LoadOrders();
                 }
                 else
                 {
