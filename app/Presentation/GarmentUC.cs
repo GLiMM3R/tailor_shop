@@ -21,9 +21,11 @@ namespace app.Presentation
         private GarmentService _garmentService;
         private FilterGarment _filter = new FilterGarment(1, 10);
         private Debouncer searchDebouncer;
+        private User _user;
 
-        public GarmentUC()
+        public GarmentUC(User user)
         {
+            _user = user;
             InitializeComponent();
             InitializeDataGridView();
 
@@ -36,6 +38,13 @@ namespace app.Presentation
         private async void GarmentUC_Load(object sender, EventArgs e)
         {
             await LoadGarments();
+
+            if (_user.Role != Role.Admin)
+            {
+                new_garment_btn.Enabled = false;
+                new_garment_btn.BackColor = Color.LightGray;
+                new_garment_btn.ForeColor = Color.DarkGray;
+            }
 
             using (var db = new AppDbContext())
             {
@@ -84,8 +93,10 @@ namespace app.Presentation
                     SelectionForeColor = Color.White
                 }
             };
-
-            garment_dvg.Columns.Add(actionColumn);
+            if (_user.Role == Role.Admin)
+            {
+                garment_dvg.Columns.Add(actionColumn);
+            }
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             garment_dvg.CellFormatting += this.garment_number_format_CellFormatting;

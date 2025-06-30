@@ -130,12 +130,12 @@ namespace app
 
         private void fabric_btn_Click(object sender, EventArgs e)
         {
-            var fabric = new FabricUC();
+            var fabric = new FabricUC(_user);
             LoadFormIntoPanel(fabric);
         }
         private void garment_btn_Click(object sender, EventArgs e)
         {
-            var garment = new GarmentUC();
+            var garment = new GarmentUC(_user);
             LoadFormIntoPanel(garment);
         }
         private void report_btn_Click(object sender, EventArgs e)

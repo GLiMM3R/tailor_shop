@@ -28,6 +28,7 @@ namespace app.Presentation
 
         public UserUC(User user)
         {
+            _user = user;
             InitializeComponent();
             InitializeUserService();
             InitializeDataGridView();
@@ -35,7 +36,6 @@ namespace app.Presentation
             total_users_lb.Text = this._count.ToString();
 
             searchDebouncer = new Debouncer(300, async () => await LoadUsers());
-            _user = user;
         }
 
         public void InitializeUserService()
@@ -53,6 +53,8 @@ namespace app.Presentation
             if (_user.Role != Role.Admin)
             {
                 new_user_btn.Enabled = false;
+                new_user_btn.BackColor = Color.LightGray;
+                new_user_btn.ForeColor = Color.DarkGray;
             }
 
             var role = Enum.GetValues(typeof(Role))
@@ -99,7 +101,10 @@ namespace app.Presentation
                 }
             };
 
-            user_dgv.Columns.Add(actionColumn);
+            if(_user.Role == Role.Admin)
+            {
+                user_dgv.Columns.Add(actionColumn);
+            }
         }
 
         public async Task LoadUsers()

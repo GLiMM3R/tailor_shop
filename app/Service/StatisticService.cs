@@ -66,7 +66,7 @@ namespace app.Service
             int newCustomers = customers.Count(c => c.CreatedAt >= fromDate && c.CreatedAt <= toDate);
             int repeatCustomers = customers.Count(c =>
                 c.Orders != null &&
-                c.Orders.Count(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled) > 1
+                c.Orders.Count(o => o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled) >= 10
             );
 
             return new CustomerStatistic

@@ -21,9 +21,11 @@ namespace app.Presentation
         private FabricService _fabricService;
         private FilterFabric _filter = new FilterFabric(1, 10);
         private Debouncer searchDebouncer;
+        private User _user;
 
-        public FabricUC()
+        public FabricUC(User user)
         {
+            _user = user;
             InitializeComponent();
             InitializeService();
             InitializeDataGridView();
@@ -40,6 +42,13 @@ namespace app.Presentation
         private async void FabricUC_Load(object sender, EventArgs e)
         {
             await LoadFabrics();
+
+            if (_user.Role != Role.Admin)
+            {
+                new_customer_btn.Enabled = false;
+                new_customer_btn.BackColor = Color.LightGray;
+                new_customer_btn.ForeColor = Color.DarkGray;
+            }
 
             using (var db = new AppDbContext())
             {
@@ -109,7 +118,11 @@ namespace app.Presentation
                 }
             };
 
-            fabric_dgv.Columns.Add(actionColumn);
+            if (_user.Role == Role.Admin)
+            {
+                fabric_dgv.Columns.Add(actionColumn);
+            }
+
             fabric_dgv.RowTemplate.Height = 100; // Set desired height
 
             //fabric_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
