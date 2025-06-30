@@ -20,6 +20,6 @@ namespace app.Model
         [Required]
         public string ColorCode { get; set; } = string.Empty;
 
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

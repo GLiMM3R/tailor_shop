@@ -42,16 +42,6 @@ namespace app.Model
         public virtual Customer Customer { get; set; } // Navigation Property
 
         [Required]
-        public int GarmentId { get; set; }
-        public virtual Garment Garment { get; set; } // Navigation Property [Required]
-
-        public int FabricId { get; set; }
-        public virtual Fabric Fabric { get; set; } // Navigation Property
-
-        [Required]
-        public int Quantity { get; set; }
-
-        [Required]
         public decimal Subtotal { get; set; }
 
         [Required]
@@ -76,8 +66,6 @@ namespace app.Model
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-
-        public virtual ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }

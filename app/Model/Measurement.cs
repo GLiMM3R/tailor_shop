@@ -20,9 +20,9 @@ namespace app.Model
         public int Id { get; set; }
 
         [Required]
-        public int OrderId { get; set; }
-        [ForeignKey("OrderId")]
-        public virtual Order Order { get; set; } // Navigation Property
+        public int OrderItemId { get; set; }
+        [ForeignKey("OrderItemId")]
+        public virtual OrderItem OrderItem { get; set; } // Navigation Property
 
         [Required]
         public BodyType BodyType { get; set; } = BodyType.UpperBody;
@@ -35,7 +35,5 @@ namespace app.Model
 
         [Required]
         public string Unit {  get; set; }
-
-        public DateTime MeasurementDate { get; set; } = DateTime.Now;
     }
 }
