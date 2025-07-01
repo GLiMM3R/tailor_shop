@@ -20,14 +20,15 @@ namespace app.Presentation.Report
     public partial class CustomerReportUC : UserControl
     {
         private Pagination _pagination;
+        private MainForm _mainForm;
 
-        public CustomerReportUC()
+        public CustomerReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
             InitializeDataGridView();
 
             _pagination = new Pagination(1, 10);
-
         }
         private async void CustomerReportUC_Load(object sender, EventArgs e)
         {
@@ -313,6 +314,12 @@ namespace app.Presentation.Report
                     MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
         }
     }
 }

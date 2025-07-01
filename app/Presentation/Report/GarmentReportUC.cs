@@ -19,8 +19,10 @@ namespace app.Presentation.Report
     public partial class GarmentReportUC : UserControl
     {
         private Pagination _pagination;
-        public GarmentReportUC()
+        private MainForm _mainForm;
+        public GarmentReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
             InitializeDataGridView();
 
@@ -308,6 +310,12 @@ namespace app.Presentation.Report
                     MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
         }
     }
 }

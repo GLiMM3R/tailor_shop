@@ -136,15 +136,15 @@ namespace app.Presentation
                 }
             }
 
-            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
-            {
-                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
-                if (order != null && order.Garment != null)
-                {
-                    e.Value = order.Garment.Name;
-                    e.FormattingApplied = true;
-                }
-            }
+            //if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
+            //{
+            //    var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+            //    if (order != null && order.Garment != null)
+            //    {
+            //        e.Value = order.Garment.Name;
+            //        e.FormattingApplied = true;
+            //    }
+            //}
             // Helper method to get display name from enum value
 
 
@@ -192,15 +192,10 @@ namespace app.Presentation
             UpdatePageNumber();
         }
 
-        private async void new_order_btn_Click(object sender, EventArgs e)
+        private void new_order_btn_Click(object sender, EventArgs e)
         {
-            var form = new OrderForm(this._user, this._orderService, this._dailySequenceService);
-            form.ShowDialog();
-            if (form.IsUpdate)
-            {
-                form.IsUpdate = false; // Reset the flag after handling
-                await LoadOrders();
-            }
+            var form = new OrderFormUC(this, _user);
+            _mainForm.LoadFormIntoPanel(form);
         }
 
         private void search_txt_TextChanged(object sender, EventArgs e)

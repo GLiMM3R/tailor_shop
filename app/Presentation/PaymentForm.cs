@@ -22,6 +22,7 @@ namespace app.Presentation
         private PaymentService _paymentService;
         private AppDbContext _context;
         private Order _order;
+       
         public bool IsChanged { get; set; } = false;
 
 
@@ -54,15 +55,24 @@ namespace app.Presentation
             items_lsv.Columns.Add("ລາຄາ", 140, HorizontalAlignment.Right);
 
             // Add the order's garment as a single row
-            var garment = new ListViewItem(_order.Garment.Name);
-            garment.SubItems.Add(_order.Quantity.ToString());
-            garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0");
+            //var garment = new ListViewItem(_order.Garment.Name);
+            //garment.SubItems.Add(_order.Quantity.ToString());
+            //garment.SubItems.Add((_order.Garment.BasePrice * _order.Quantity)?.ToString("N0") ?? "0");
 
-            var fabric = new ListViewItem($"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}");
-            fabric.SubItems.Add((1).ToString());
-            fabric.SubItems.Add((0).ToString("N0") ?? "0");
+            //var fabric = new ListViewItem($"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}");
+            //fabric.SubItems.Add((1).ToString());
+            //fabric.SubItems.Add((0).ToString("N0") ?? "0");
 
-            items_lsv.Items.AddRange([garment, fabric]);
+            //items_lsv.Items.AddRange([garment, fabric]);
+
+            foreach(var item in _orderDetailUC._orderItems)
+            {
+                var _item = new ListViewItem($"{item.Garment.Name} {item.Fabric.MaterialType} {item.Fabric.ColorCode}");
+                _item.SubItems.Add(item.Quantity.ToString());
+                _item.SubItems.Add((item.UnitPrice * item.Quantity).ToString("N0") ?? "0");
+
+                items_lsv.Items.Add(_item);
+            }
 
             // Optional: set view to Details if not already set
             items_lsv.View = View.Details;
@@ -75,7 +85,7 @@ namespace app.Presentation
             if (_order != null)
             {
                 total_paying_num.Value = (_order?.TotalAmount - _order?.DepositAmount) ?? 0;
-                subtotal_val_lb.Text = _order.Subtotal.ToString("N0") ?? "0";
+                subtotal_val_lb.Text = _order?.Subtotal.ToString("N0") ?? "0";
                 //discount_val_lb.Text = _order?.Discount.ToString("N0") ?? "0.00";
                 deposit_amount_val_lb.Text = _order?.DepositAmount.ToString("N0") ?? "0";
                 total_amount_lb.Text = _order?.TotalAmount.ToString("N0") ?? "0";
@@ -155,8 +165,8 @@ namespace app.Presentation
                     TotalAmount = _order.TotalAmount,
                     Items = new List<InvoiceItem>
                         {
-                            new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
-                            new InvoiceItem { Description = $"{_order.Fabric.MaterialType} #{_order.Fabric.ColorCode}", Quantity = 1, UnitPrice = 0 }
+                            //new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
+                            //new InvoiceItem { Description = $"{_order.Fabric.MaterialType} #{_order.Fabric.ColorCode}", Quantity = 1, UnitPrice = 0 }
                         }
                 };
 

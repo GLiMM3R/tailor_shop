@@ -19,8 +19,10 @@ namespace app.Presentation.Report
     public partial class PaymentTransactionReportUC : UserControl
     {
         private Pagination _pagination;
-        public PaymentTransactionReportUC()
+        private MainForm _mainForm;
+        public PaymentTransactionReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
             _pagination = new Pagination(1, 10);
         }
@@ -288,6 +290,12 @@ namespace app.Presentation.Report
                     MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
         }
     }
 }

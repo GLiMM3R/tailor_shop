@@ -13,8 +13,6 @@ namespace app.Entity
         public DateTime OrderDate { get; set; }
         public string CustomerName { get; set; }
         public string UserName { get; set; } // Added UserName property to include user information
-        public string GarmentName { get; set; }
-        public string FabricName { get; set; }
         public int Quantity { get; set; }
         public decimal Subtotal { get; set; }
         public decimal TotalAmount { get; set; }

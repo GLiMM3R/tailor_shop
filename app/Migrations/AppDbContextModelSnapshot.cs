@@ -145,10 +145,7 @@ namespace app.Migrations
                     b.Property<int>("BodyType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("MeasurementDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
+                    b.Property<int>("OrderItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("Unit")
@@ -160,7 +157,7 @@ namespace app.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderItemId");
 
                     b.ToTable("Measurements");
                 });
@@ -185,12 +182,6 @@ namespace app.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FabricId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GarmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
@@ -200,9 +191,6 @@ namespace app.Migrations
 
                     b.Property<DateTime?>("PickUpDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -223,16 +211,52 @@ namespace app.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("FabricId");
-
-                    b.HasIndex("GarmentId");
-
                     b.HasIndex("OrderNumber")
                         .IsUnique();
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("app.Model.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FabricId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FarbricId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GarmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FabricId");
+
+                    b.HasIndex("GarmentId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("app.Model.Payment", b =>
@@ -308,13 +332,13 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Model.Measurement", b =>
                 {
-                    b.HasOne("app.Model.Order", "Order")
+                    b.HasOne("app.Model.OrderItem", "OrderItem")
                         .WithMany("Measurements")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("OrderItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("OrderItem");
                 });
 
             modelBuilder.Entity("app.Model.Order", b =>
@@ -322,18 +346,6 @@ namespace app.Migrations
                     b.HasOne("app.Model.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("app.Model.Fabric", "Fabric")
-                        .WithMany("Orders")
-                        .HasForeignKey("FabricId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("app.Model.Garment", "Garment")
-                        .WithMany("Orders")
-                        .HasForeignKey("GarmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -345,11 +357,34 @@ namespace app.Migrations
 
                     b.Navigation("Customer");
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("app.Model.OrderItem", b =>
+                {
+                    b.HasOne("app.Model.Fabric", "Fabric")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("FabricId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("app.Model.Garment", "Garment")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("GarmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("app.Model.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Fabric");
 
                     b.Navigation("Garment");
 
-                    b.Navigation("User");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("app.Model.Payment", b =>
@@ -370,19 +405,24 @@ namespace app.Migrations
 
             modelBuilder.Entity("app.Model.Fabric", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("app.Model.Garment", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("app.Model.Order", b =>
                 {
-                    b.Navigation("Measurements");
+                    b.Navigation("OrderItems");
 
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("app.Model.OrderItem", b =>
+                {
+                    b.Navigation("Measurements");
                 });
 
             modelBuilder.Entity("app.Model.User", b =>

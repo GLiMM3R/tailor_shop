@@ -12,57 +12,147 @@ using app.Model;
 using app.Service;
 using Microsoft.EntityFrameworkCore;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static Azure.Core.HttpHeader;
 
 namespace app.Presentation
 {
-    public partial class OrderForm : Form
+    public partial class OrderItemForm : Form
     {
-        private User _user;
-        private OrderService _orderService;
-        private DailySequenceService _dailySequenceService;
-
         private List<Fabric> _fabrics;
         private List<Garment> _garments;
-        //private Fabric _fabric;
-        //private Garment? _garment;
+
+        public OrderItem? existItem = null;
+        public Fabric? selectedFabric = null;
+        public Garment? selectedGarment = null;
+        private OrderFormUC _orderForm;
 
         private readonly string _MeasurementUnit = "cm";
-        private Customer? _selectedCustomer = null;
         public bool IsUpdate { get; set; } = false; // Flag to indicate if this is an update operation
 
-        public OrderForm(User user, OrderService orderService, DailySequenceService dailySequenceService)
+        public OrderItemForm(OrderFormUC orderForm, OrderItem? item)
         {
+            _orderForm = orderForm;
             InitializeComponent();
-            this._user = user;
-            this._orderService = orderService;
-            this._dailySequenceService = dailySequenceService;
 
-            //garment_cb_SelectedIndexChanged(garment_cb, EventArgs.Empty);
-            //this.Activated += OrderForm_Activated;
+            if (item != null)
+            {
+                existItem = item;
+            }
         }
 
         private async void OrderForm_Load(object sender, EventArgs e)
         {
             try
             {
-                var task2 = LoadFabrics();
-                var task3 = LoadGarments();
-                var taskOrderNumber = LoadOrderNumber();
-
-                await Task.WhenAll(task2, task3, taskOrderNumber);
+                await Task.WhenAll(LoadFabrics(), LoadGarments());
             }
             catch (Exception ex)
             {
-                // Log the exception (e.g., using a logging framework)
                 MessageBox.Show($"Error loading initial data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Consider closing the form or disabling functionality if critical data fails to load
+            }
+
+            fillData();
+        }
+
+        private void fillData()
+        {
+            // Pre-select fabric
+            if (existItem != null && _fabrics != null)
+            {
+                int fabricIdx = _fabrics.FindIndex(x => x.Id == existItem.FabricId);
+                fabric_cb.SelectedIndex = fabricIdx >= 0 ? fabricIdx : -1;
+                selectedFabric = fabricIdx >= 0 ? _fabrics[fabricIdx] : null;
+            }
+
+            // Pre-select garment
+            if (existItem != null && _garments != null)
+            {
+                int garmentIdx = _garments.FindIndex(x => x.Id == existItem.GarmentId);
+                garment_cb.SelectedIndex = garmentIdx >= 0 ? garmentIdx : -1;
+                selectedGarment = garmentIdx >= 0 ? _garments[garmentIdx] : null;
+            }
+
+            if (existItem != null)
+            {
+                quantity_num.Value = (existItem.Quantity > quantity_num.Minimum && existItem.Quantity < quantity_num.Maximum)
+                    ? existItem.Quantity
+                    : quantity_num.Minimum;
+
+                notes_txt.Text = existItem.Notes ?? string.Empty;
+
+                // Fill measurements
+                if (existItem.Measurements != null && existItem.Measurements.Count > 0)
+                {
+                    FillUpperBodyMeasurements(existItem.Measurements);
+                    FillLowerBodyMeasurements(existItem.Measurements);
+                }
+                else
+                {
+                    upper_body_cb.Checked = false;
+                    lower_body_cb.Checked = false;
+                }
             }
         }
 
-        private async Task LoadOrderNumber()
+        private void FillUpperBodyMeasurements(IEnumerable<Measurement> measurements)
         {
-            var orderNumber = await _dailySequenceService.GetNextSequence(DateTime.Now);
-            order_number_lb.Text = orderNumber.ToString();
+            var upperParts = new HashSet<string> { "ຄໍ", "ບ່າໄຫຼ່", "ເອິກ", "ແອວ", "ສະໂພກ", "ຄວາມຍາວແຂນ", "ຄວາມຍາວປາຍແຂນ", "ຄວາມຍາວເສື້ອ" };
+            var upperMeasurements = measurements
+                .Where(m => upperParts.Contains(m.BodyPart) && m.Unit == _MeasurementUnit)
+                .ToList();
+
+            if (upperMeasurements.Count > 0)
+            {
+                upper_body_cb.Checked = true;
+                foreach (var m in upperMeasurements)
+                {
+                    switch (m.BodyPart)
+                    {
+                        case "ຄໍ": neck_num.Value = m.Value; break;
+                        case "ບ່າໄຫຼ່": shoulder_num.Value = m.Value; break;
+                        case "ເອິກ": chest_num.Value = m.Value; break;
+                        case "ແອວ": upper_waist_num.Value = m.Value; break;
+                        case "ສະໂພກ": upper_hip_num.Value = m.Value; break;
+                        case "ຄວາມຍາວແຂນ": sleeve_length_num.Value = m.Value; break;
+                        case "ຄວາມຍາວປາຍແຂນ": sleeve_opening_num.Value = m.Value; break;
+                        case "ຄວາມຍາວເສື້ອ": shirt_length_num.Value = m.Value; break;
+                    }
+                }
+            }
+            else
+            {
+                upper_body_cb.Checked = false;
+            }
+        }
+
+        private void FillLowerBodyMeasurements(IEnumerable<Measurement> measurements)
+        {
+            var lowerParts = new HashSet<string> { "ແອວ", "ສະໂພກ", "ອ້ອງ", "ກົກຂາ", "ເຂົ່າ", "ປາຍຂາ", "ຄວາມຍາວ" };
+            var lowerMeasurements = measurements
+                .Where(m => lowerParts.Contains(m.BodyPart) && m.Unit == _MeasurementUnit)
+                .ToList();
+
+            if (lowerMeasurements.Count > 0)
+            {
+                lower_body_cb.Checked = true;
+                foreach (var m in lowerMeasurements)
+                {
+                    switch (m.BodyPart)
+                    {
+                        case "ແອວ": lower_waist_num.Value = m.Value; break;
+                        case "ສະໂພກ": lower_hip_num.Value = m.Value; break;
+                        case "ອ້ອງ": top_thigh_num.Value = m.Value; break;
+                        case "ກົກຂາ": thigh_num.Value = m.Value; break;
+                        case "ເຂົ່າ": knee_num.Value = m.Value; break;
+                        case "ປາຍຂາ": ankle_num.Value = m.Value; break;
+                        case "ຄວາມຍາວ": length_num.Value = m.Value; break;
+                    }
+                }
+            }
+            else
+            {
+                lower_body_cb.Checked = false;
+            }
         }
 
         private async Task LoadFabrics()
@@ -115,15 +205,9 @@ namespace app.Presentation
             this.Close();
         }
 
-        private async void create_order_btn_Click(object sender, EventArgs e)
+        private void create_order_btn_Click(object sender, EventArgs e)
         {
-            if (_selectedCustomer == null)
-            {
-                MessageBox.Show("Invalid customer selection.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (garment_cb.SelectedValue == null)
+            if (garment_cb.SelectedValue == null || selectedGarment == null)
             {
                 MessageBox.Show("Please select a garment.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -135,7 +219,7 @@ namespace app.Presentation
                 return;
             }
 
-            if (fabric_cb.SelectedValue == null)
+            if (fabric_cb.SelectedValue == null || selectedFabric == null)
             {
                 MessageBox.Show("Please select a fabric.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -153,97 +237,80 @@ namespace app.Presentation
                 return;
             }
 
-            if (!decimal.TryParse(subtotal_lb.Text, out decimal subtotal))
+            if (!decimal.TryParse(unitprice_lbl.Text, out decimal unitprice))
             {
-                MessageBox.Show("Invalid subtotal.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Invalid Unitprice.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!decimal.TryParse(deposit_amount_num.Text, out decimal deposit_amount))
+            if (quantity_num.Value <= 0)
             {
-                MessageBox.Show("Invalid deposit amount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Quantity must greater than 1", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            //if (deposit_amount < (subtotal) / 2)
-            //{
-            //    MessageBox.Show("Deposit amount must be at least half of the subtotal after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
-
-            if (deposit_amount <= 0)
+            if (existItem != null)
             {
-                MessageBox.Show("Deposit amount cannot be negative.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (deposit_amount > subtotal)
-            {
-                MessageBox.Show("Deposit amount cannot exceed the total amount after discount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!decimal.TryParse(total_amount_lb.Text, out decimal totalAmount))
-            {
-                MessageBox.Show("Invalid total amount.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var newOrder = new Order
-            {
-                OrderNumber = order_number_lb.Text,
-                CustomerId = _selectedCustomer.Id,
-                GarmentId = garmentId,
-                FabricId = fabricId,
-                DueDate = due_date_dpk.Value,
-                Subtotal = subtotal,
-                DepositAmount = deposit_amount_num.Value,
-                TotalAmount = totalAmount,
-                Quantity = (int)quantity_num.Value,
-                Notes = notes_txt.Text,
-                UserId = this._user.Id,
-            };
-
-            if (upper_body_cb.Checked)
-            {
-                foreach (var measurement in getUpperBodyMeasurements())
+                // Update existing item
+                existItem.GarmentId = garmentId;
+                existItem.FabricId = fabricId;
+                existItem.Quantity = (int)quantity_num.Value;
+                existItem.UnitPrice = unitprice;
+                existItem.Notes = notes_txt.Text;
+                existItem.Garment = selectedGarment;
+                existItem.Fabric = selectedFabric;
+                existItem.Measurements.Clear();
+                if (upper_body_cb.Checked)
                 {
-                    newOrder.Measurements.Add(measurement);
-                }
-            }
-
-            if (lower_body_cb.Checked)
-            {
-                foreach (var measurement in getLowerBodyMeasurements())
-                {
-                    newOrder.Measurements.Add(measurement);
-                }
-            }
-
-            if (deposit_amount > 0)
-            {
-                newOrder.Status = OrderStatus.InProgress;
-                newOrder.Payments = [
-                    new Payment
+                    foreach (var measurement in getUpperBodyMeasurements())
                     {
-                        TotalPrice = totalAmount,
-                        PaidAmount = deposit_amount,
-                        TransactionType = TransactionType.Deposit,
+                        existItem.Measurements.Add(measurement);
                     }
-                ];
+                }
+                if (lower_body_cb.Checked)
+                {
+                    foreach (var measurement in getLowerBodyMeasurements())
+                    {
+                        existItem.Measurements.Add(measurement);
+                    }
+                }
+            }
+            else
+            {
+                // Add new item
+                var newItem = new OrderItem
+                {
+                    GarmentId = garmentId,
+                    FabricId = fabricId,
+                    Quantity = (int)quantity_num.Value,
+                    UnitPrice = unitprice,
+                    Notes = notes_txt.Text,
+                    Garment = selectedGarment,
+                    Fabric = selectedFabric,
+                    Measurements = new List<Measurement>()
+                };
+
+                if (upper_body_cb.Checked)
+                {
+                    foreach (var measurement in getUpperBodyMeasurements())
+                    {
+                        newItem.Measurements.Add(measurement);
+                    }
+                }
+
+                if (lower_body_cb.Checked)
+                {
+                    foreach (var measurement in getLowerBodyMeasurements())
+                    {
+                        newItem.Measurements.Add(measurement);
+                    }
+                }
+
+                _orderForm.items.Add(newItem);
             }
 
-            try
-            {
-                await _orderService.Create(newOrder);
-                MessageBox.Show("Order created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                IsUpdate = true;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error creating order: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            _orderForm.LoadOrderItemsToList();
+            this.Close();
         }
 
         private void fabric_qty_num_ValueChanged(object sender, EventArgs e)
@@ -253,38 +320,31 @@ namespace app.Presentation
 
         private void CalculateTotal()
         {
-            //if (fabric_cb.SelectedIndex == -1 && garment_cb.SelectedIndex == -1)
-            //{
-            //    // Avoid calculation if called too early before selections are definitely made by Form_Activated
-            //    return;
-            //}
 
             if (garment_cb.SelectedItem is Garment selectedGarment)
             {
                 var garmentBasePrice = selectedGarment.BasePrice ?? 0m;
 
                 var subtotal = (garmentBasePrice) * quantity_num.Value;
-                var totalAmount = subtotal;
 
-                subtotal_lb.Text = $"{subtotal:N0}"; // "N2" for number with 2 decimal places
-                total_amount_lb.Text = $"{totalAmount:N0}";
-            } else
+                quantity_lbl.Text = quantity_num.Value.ToString();
+                unitprice_lbl.Text = $"{garmentBasePrice:N0}"; // "N2" for number with 2 decimal places
+                total_lbl.Text = $"{subtotal:N0}";
+            }
+            else
             {
-                subtotal_lb.Text = "0"; // "N2" for number with 2 decimal places
-                total_amount_lb.Text = "0";
+                quantity_lbl.Text = quantity_num.Value.ToString();
+                unitprice_lbl.Text = "0"; // "N2" for number with 2 decimal places
+                total_lbl.Text = "0";
             }
         }
 
         private void garment_cb_SelectedValueChanged(object sender, EventArgs e)
         {
-            //if (garment_cb.SelectedItem is Garment selectedGarment)
-            //{
-            //    _garment = selectedGarment;
-            //}
-            //else
-            //{
-            //    _garment = null;
-            //}
+            if (garment_cb.SelectedItem is Garment selectedGarment)
+            {
+                this.selectedGarment = selectedGarment;
+            }
 
             CalculateTotal();
         }
@@ -298,7 +358,7 @@ namespace app.Presentation
         {
             if (fabric_cb.SelectedItem is Fabric selectedFabric)
             {
-                //_fabric = selectedFabric;
+                this.selectedFabric = selectedFabric;
                 if (selectedFabric.Image != null)
                 {
                     using (var ms = new MemoryStream(selectedFabric.Image))
@@ -435,32 +495,6 @@ namespace app.Presentation
         private void close_btn_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void choose_customer_btn_Click(object sender, EventArgs e)
-        {
-            var modal = new ListCustomerModal();
-            modal.ShowDialog();
-
-            if (modal.selectedCustomer != null)
-            {
-                _selectedCustomer = modal.selectedCustomer;
-                customer_lbl.Text = modal.selectedCustomer.Name;
-            }
-        }
-
-        private void upper_body_cb_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void bottom_pn_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void fabric_cb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

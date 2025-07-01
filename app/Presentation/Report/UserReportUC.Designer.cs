@@ -62,6 +62,7 @@
             to_date_dpk = new DateTimePicker();
             label3 = new Label();
             from_date_dpk = new DateTimePicker();
+            back_btn = new Button();
             panel1.SuspendLayout();
             aov_pn.SuspendLayout();
             total_orders_pn.SuspendLayout();
@@ -78,6 +79,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(back_btn);
             panel1.Controls.Add(aov_pn);
             panel1.Controls.Add(total_orders_pn);
             panel1.Controls.Add(net_sales_pn);
@@ -516,6 +518,19 @@
             from_date_dpk.TabIndex = 1;
             from_date_dpk.ValueChanged += from_date_dpk_ValueChanged;
             // 
+            // back_btn
+            // 
+            back_btn.Cursor = Cursors.Hand;
+            back_btn.FlatStyle = FlatStyle.Flat;
+            back_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            back_btn.Location = new Point(30, 27);
+            back_btn.Name = "back_btn";
+            back_btn.Size = new Size(94, 45);
+            back_btn.TabIndex = 11;
+            back_btn.Text = "ກັບຄືນ";
+            back_btn.UseVisualStyleBackColor = true;
+            back_btn.Click += back_btn_Click;
+            // 
             // UserReportUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -577,5 +592,6 @@
         private DateTimePicker to_date_dpk;
         private Label label3;
         private DateTimePicker from_date_dpk;
+        private Button back_btn;
     }
 }

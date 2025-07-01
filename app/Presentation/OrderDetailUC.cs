@@ -24,7 +24,8 @@ namespace app.Presentation
         public OrderService _orderService;
         public Order _order;
         private string _orderNumber;
-        private List<Measurement> _measurements;
+        public List<OrderItem> _orderItems;
+
         public bool IsChanged { get; set; } = false;
 
         public OrderDetailUC(OrderUC orderUC, string orderNumber)
@@ -49,15 +50,128 @@ namespace app.Presentation
 
         private void InitializeDataGridView()
         {
-            measurement_dgv.AutoGenerateColumns = false;
-            measurement_dgv.Columns.Clear();
+            order_items_dgv.AutoGenerateColumns = false;
+            order_items_dgv.Columns.Clear();
+            order_items_dgv.DefaultCellStyle.SelectionBackColor = order_items_dgv.DefaultCellStyle.BackColor;
+            order_items_dgv.DefaultCellStyle.SelectionForeColor = order_items_dgv.DefaultCellStyle.ForeColor;
 
-            measurement_dgv.Columns.AddRange(
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "BodyPart", headerText: "ສ່ວນຮ່າງກາຍ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Value", headerText: "ຄ່າວັດແທກ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Unit", headerText: "ຫົວໜ່ວຍ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50)
+
+
+            order_items_dgv.Columns.AddRange(
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ລະຫັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 30),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "ປະເພດເສື້ອຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Fabric", headerText: "ປະເພດຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Quantity", headerText: "ຈຳນວນ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "UnitPrice", headerText: "ລາຄາຕໍ່ໜ່ວຍ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, fillWeight: 80),
+                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Total", headerText: "ລວມ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, fillWeight: 100)
             );
+
+            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn
+            {
+                Name = "View",
+                HeaderText = "",
+                Text = "ລາຍການວັດແທກ",
+                UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Padding = new Padding(8, 4, 8, 4),
+                    BackColor = Color.FromArgb(78, 184, 206),
+                    ForeColor = Color.White,
+                    Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    SelectionBackColor = Color.FromArgb(60, 140, 160),
+                    SelectionForeColor = Color.White
+                },
+            };
+            //DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn
+            //{
+            //    Name = "Delete",
+            //    HeaderText = "",
+            //    Text = "ລຶບ",
+            //    UseColumnTextForButtonValue = true,
+            //    FlatStyle = FlatStyle.Flat,
+            //    DefaultCellStyle = new DataGridViewCellStyle
+            //    {
+            //        Padding = new Padding(2),
+            //        BackColor = Color.Red, // Button background color set to red
+            //        ForeColor = Color.White,
+            //        Font = new Font("Noto Sans Lao", 9F, FontStyle.Bold),
+            //        Alignment = DataGridViewContentAlignment.MiddleCenter,
+            //        SelectionBackColor = Color.Red, // Selection background color also set to red
+            //        SelectionForeColor = Color.White
+            //    }
+            //};
+
+            order_items_dgv.Columns.Add(editColumn);
+
+            order_items_dgv.CellFormatting += OrderItemDgv_CellFormatting;
+            order_items_dgv.CellContentClick += OrderItemDvg_CellContentClick;
+        }
+
+        private void OrderItemDgv_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (order_items_dgv.Columns[e.ColumnIndex].DataPropertyName == "Index")
+            {
+                e.Value = (e.RowIndex + 1).ToString();
+                e.FormattingApplied = true;
+            }
+
+            if (order_items_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
+            {
+                if (order_items_dgv.Rows[e.RowIndex].DataBoundItem is OrderItem item && item.Garment != null)
+                {
+                    e.Value = item.Garment.Name;
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (order_items_dgv.Columns[e.ColumnIndex].DataPropertyName == "Fabric")
+            {
+                if (order_items_dgv.Rows[e.RowIndex].DataBoundItem is OrderItem item && item.Fabric != null)
+                {
+                    e.Value = item.Fabric.MaterialType;
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (order_items_dgv.Columns[e.ColumnIndex].DataPropertyName == "UnitPrice" || order_items_dgv.Columns[e.ColumnIndex].DataPropertyName == "Total")
+            {
+                if (order_items_dgv.Rows[e.RowIndex].DataBoundItem is OrderItem item && item.Garment != null)
+                {
+                    e.Value = (item.Garment.BasePrice * item.Quantity)?.ToString("N0") ?? "0";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private async void OrderItemDvg_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (order_items_dgv.Columns[e.ColumnIndex].Name == "View")
+                {
+                    if (order_items_dgv.Rows[e.RowIndex].DataBoundItem is OrderItem selectedItem)
+                    {
+                        var frm = new MeasurementsForm(selectedItem.Id);
+                        frm.ShowDialog();
+                    }
+                }
+
+                //if (order_items_dgv.Columns[e.ColumnIndex].Name == "Delete")
+                //{
+                //    if (order_items_dgv.Rows[e.RowIndex].DataBoundItem is OrderItem selectedItem)
+                //    {
+                //        using (var context = new AppDbContext())
+                //        {
+                //            var orderService = new OrderService(context);
+                //            await orderService.DeleteOrderItem(selectedItem); // Corrected: DeleteOrderItem returns void
+
+                //            await LoadOrderItems();
+                //        }
+                //    }
+                //}
+            }
         }
 
         public async Task LoadOrder()
@@ -72,9 +186,9 @@ namespace app.Presentation
                 order_number_lbl.Text = _order.OrderNumber;
                 customer_name_lbl.Text = _order.Customer.Name;
                 customer_phone_lbl.Text = _order.Customer.Phone;
-                garment_lbl.Text = _order.Garment.Name;
-                fabric_lbl.Text = $"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}";
-                quantity_lbl.Text = _order.Quantity.ToString();
+                //garment_lbl.Text = _order.Garment.Name;
+                //fabric_lbl.Text = $"#{_order.Fabric.ColorCode} {_order.Fabric.MaterialType}";
+                //quantity_lbl.Text = _order.Quantity.ToString();
                 order_date_lbl.Text = _order.CreatedAt.ToString("dd/MM/yyyy");
                 due_date_lbl.Text = _order.DueDate?.ToString("dd/MM/yyyy") ?? "-";
                 pick_up_date_lbl.Text = _order.PickUpDate?.ToString("dd/MM/yyyy") ?? "-";
@@ -112,20 +226,21 @@ namespace app.Presentation
                     print_invoice_btn.BackColor = Color.FromArgb(200, 200, 200);
 
                 }
+
+                await LoadOrderItems();
             }
         }
-        private async Task LoadMeasurements()
-        {
-            using (var context = new AppDbContext())
-            {
-                _measurements = await context.Measurements
-                    .Where(m => m.OrderId == _order.Id)
-                    .ToListAsync();
-            }
 
-            if (_measurements.Count > 0)
+
+        private async Task LoadOrderItems()
+        {
+            using var context = new AppDbContext();
+            var orderService = new OrderService(context);
+            _orderItems = await orderService.GetOrderItems(_orderNumber);
+
+            if (_orderItems != null)
             {
-                measurement_dgv.DataSource = _measurements;
+                order_items_dgv.DataSource = _orderItems;
             }
         }
 
@@ -150,7 +265,6 @@ namespace app.Presentation
 
             if (_order != null)
             {
-                await LoadMeasurements();
                 status_cbb.SelectedValue = _order.Status;
             }
 
@@ -220,12 +334,20 @@ namespace app.Presentation
                     DepositAmount = _order.DepositAmount,
                     Subtotal = _order.Subtotal,
                     TotalAmount = _order.TotalAmount,
-                    Items = new List<InvoiceItem>
-                        {
-                            new InvoiceItem { Description = _order.Garment.Name, Quantity = _order.Quantity, UnitPrice = _order.Garment.BasePrice ?? 0 },
-                            new InvoiceItem { Description = $"{_order.Fabric.MaterialType} #{_order.Fabric.ColorCode}", Quantity = 1, UnitPrice = 0 }
-                        }
+                    Items = new List<InvoiceItem>()
                 };
+
+                foreach(var item in _orderItems)
+                {
+                    var _item = new InvoiceItem
+                    {
+                        Description = $"{item.Garment.Name} {item.Fabric.MaterialType} {item.Fabric.ColorCode}",
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                    };
+
+                    invoiceModel.Items.Add(_item);
+                }
 
                 // Create the document
                 var document = new InvoiceDocument(invoiceModel, DocumentType.Invoice);

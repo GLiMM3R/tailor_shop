@@ -156,7 +156,7 @@ namespace app.Presentation
             order_dgv.Columns.AddRange(
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Id", headerText: "ID", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 20),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "ເລກທີສັ່ງຕັດ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 38),
-                DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "ປະເພດເສື້ອຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Garment", headerText: "ປະເພດເສື້ອຜ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Customer", headerText: "ຊື່ລູກຄ້າ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "User", headerText: "ຊື່ຜູ້ໃຊ້ລະບົບ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleLeft, fillWeight: 50),
                 DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 30),
@@ -189,15 +189,15 @@ namespace app.Presentation
                 }
             }
 
-            if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
-            {
-                var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
-                if (order != null && order.Garment != null)
-                {
-                    e.Value = order.Garment.Name;
-                    e.FormattingApplied = true;
-                }
-            }
+            //if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Garment")
+            //{
+            //    var order = order_dgv.Rows[e.RowIndex].DataBoundItem as Order;
+            //    if (order != null && order.Garment != null)
+            //    {
+            //        e.Value = order.Garment.Name;
+            //        e.FormattingApplied = true;
+            //    }
+            //}
 
             if (order_dgv.Columns[e.ColumnIndex].DataPropertyName == "Status")
             {

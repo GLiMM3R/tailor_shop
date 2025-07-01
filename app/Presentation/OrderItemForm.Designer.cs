@@ -1,6 +1,6 @@
 ﻿namespace app.Presentation
 {
-    partial class OrderForm
+    partial class OrderItemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,24 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderItemForm));
             main_layout = new TableLayoutPanel();
             bottom_pn = new Panel();
             summary_pn = new Panel();
-            label9 = new Label();
-            label3 = new Label();
-            panel6 = new Panel();
-            deposit_amount_num = new NumericUpDown();
-            label8 = new Label();
-            label7 = new Label();
-            total_amount_lb = new Label();
             label5 = new Label();
-            line = new Panel();
-            subtotal_lb = new Label();
+            total_lbl = new Label();
+            label8 = new Label();
+            quantity_lbl = new Label();
+            label4 = new Label();
+            label7 = new Label();
+            unitprice_lbl = new Label();
             subtotal_title_lb = new Label();
             label2 = new Label();
             notes_txt = new TextBox();
-            summary_and_note_lb = new Label();
             middle_pn = new Panel();
             lower_body_cb = new CheckBox();
             upper_body_cb = new CheckBox();
@@ -88,20 +84,12 @@
             panel7 = new Panel();
             quantity_num = new NumericUpDown();
             label10 = new Label();
-            due_date_dpk = new DateTimePicker();
             panel5 = new Panel();
             fabric_cb = new ComboBox();
             panel4 = new Panel();
             garment_cb = new ComboBox();
-            panel3 = new Panel();
-            customer_lbl = new Label();
-            choose_customer_btn = new Button();
             garment_lb = new Label();
-            due_date_lb = new Label();
             fabric_lb = new Label();
-            customer_lb = new Label();
-            order_number_lb = new Label();
-            label1 = new Label();
             header_pn = new Panel();
             close_btn = new Button();
             footer_pn = new Panel();
@@ -110,8 +98,6 @@
             main_layout.SuspendLayout();
             bottom_pn.SuspendLayout();
             summary_pn.SuspendLayout();
-            panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)deposit_amount_num).BeginInit();
             middle_pn.SuspendLayout();
             lower_body_form_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)length_num).BeginInit();
@@ -137,7 +123,6 @@
             ((System.ComponentModel.ISupportInitialize)quantity_num).BeginInit();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
-            panel3.SuspendLayout();
             header_pn.SuspendLayout();
             footer_pn.SuspendLayout();
             root_pn.SuspendLayout();
@@ -156,10 +141,10 @@
             main_layout.Margin = new Padding(0);
             main_layout.Name = "main_layout";
             main_layout.RowCount = 3;
-            main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
             main_layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
-            main_layout.Size = new Size(1421, 728);
+            main_layout.Size = new Size(1421, 654);
             main_layout.TabIndex = 0;
             // 
             // bottom_pn
@@ -167,136 +152,97 @@
             bottom_pn.Controls.Add(summary_pn);
             bottom_pn.Controls.Add(label2);
             bottom_pn.Controls.Add(notes_txt);
-            bottom_pn.Controls.Add(summary_and_note_lb);
             bottom_pn.Dock = DockStyle.Fill;
-            bottom_pn.Location = new Point(0, 480);
+            bottom_pn.Location = new Point(0, 440);
             bottom_pn.Margin = new Padding(0);
             bottom_pn.Name = "bottom_pn";
-            bottom_pn.Size = new Size(1421, 248);
+            bottom_pn.Size = new Size(1421, 214);
             bottom_pn.TabIndex = 2;
-            bottom_pn.Paint += bottom_pn_Paint;
             // 
             // summary_pn
             // 
-            summary_pn.Controls.Add(label9);
-            summary_pn.Controls.Add(label3);
-            summary_pn.Controls.Add(panel6);
-            summary_pn.Controls.Add(label8);
-            summary_pn.Controls.Add(label7);
-            summary_pn.Controls.Add(total_amount_lb);
             summary_pn.Controls.Add(label5);
-            summary_pn.Controls.Add(line);
-            summary_pn.Controls.Add(subtotal_lb);
+            summary_pn.Controls.Add(total_lbl);
+            summary_pn.Controls.Add(label8);
+            summary_pn.Controls.Add(quantity_lbl);
+            summary_pn.Controls.Add(label4);
+            summary_pn.Controls.Add(label7);
+            summary_pn.Controls.Add(unitprice_lbl);
             summary_pn.Controls.Add(subtotal_title_lb);
-            summary_pn.Location = new Point(867, 48);
+            summary_pn.Location = new Point(867, 34);
             summary_pn.Name = "summary_pn";
-            summary_pn.Size = new Size(520, 191);
-            summary_pn.TabIndex = 10;
+            summary_pn.Size = new Size(520, 154);
+            summary_pn.TabIndex = 11;
             // 
-            // label9
+            // label5
             // 
-            label9.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label9.ForeColor = Color.Gray;
-            label9.Location = new Point(459, 46);
-            label9.Name = "label9";
-            label9.Size = new Size(61, 44);
-            label9.TabIndex = 21;
-            label9.Text = "LAK";
-            label9.TextAlign = ContentAlignment.MiddleRight;
+            label5.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
+            label5.Location = new Point(458, 99);
+            label5.Name = "label5";
+            label5.Size = new Size(61, 44);
+            label5.TabIndex = 22;
+            label5.Text = "LAK";
+            label5.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label3
+            // total_lbl
             // 
-            label3.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label3.ForeColor = Color.Gray;
-            label3.Location = new Point(3, 47);
-            label3.Name = "label3";
-            label3.Size = new Size(177, 37);
-            label3.TabIndex = 19;
-            label3.Text = "ຈ່າຍມັດຈຳ (LAK):";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel6
-            // 
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(deposit_amount_num);
-            panel6.Location = new Point(202, 47);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(253, 38);
-            panel6.TabIndex = 18;
-            // 
-            // deposit_amount_num
-            // 
-            deposit_amount_num.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            deposit_amount_num.BorderStyle = BorderStyle.None;
-            deposit_amount_num.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            deposit_amount_num.Increment = new decimal(new int[] { 1000, 0, 0, 0 });
-            deposit_amount_num.Location = new Point(11, 7);
-            deposit_amount_num.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            deposit_amount_num.Name = "deposit_amount_num";
-            deposit_amount_num.Size = new Size(235, 23);
-            deposit_amount_num.TabIndex = 10;
-            deposit_amount_num.TextAlign = HorizontalAlignment.Right;
+            total_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
+            total_lbl.Location = new Point(139, 99);
+            total_lbl.Name = "total_lbl";
+            total_lbl.Size = new Size(297, 44);
+            total_lbl.TabIndex = 21;
+            total_lbl.Text = "0";
+            total_lbl.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label8
             // 
-            label8.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.RoyalBlue;
-            label8.Location = new Point(443, 109);
+            label8.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(2, 99);
             label8.Name = "label8";
-            label8.Size = new Size(77, 44);
-            label8.TabIndex = 17;
-            label8.Text = "LAK";
-            label8.TextAlign = ContentAlignment.MiddleRight;
+            label8.Size = new Size(143, 44);
+            label8.TabIndex = 20;
+            label8.Text = "ລວມ:";
+            label8.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // quantity_lbl
+            // 
+            quantity_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
+            quantity_lbl.Location = new Point(139, 55);
+            quantity_lbl.Name = "quantity_lbl";
+            quantity_lbl.Size = new Size(297, 44);
+            quantity_lbl.TabIndex = 18;
+            quantity_lbl.Text = "0";
+            quantity_lbl.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(2, 55);
+            label4.Name = "label4";
+            label4.Size = new Size(143, 44);
+            label4.TabIndex = 17;
+            label4.Text = "ຈຳນວນ:";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
             label7.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            label7.Location = new Point(459, 3);
+            label7.Location = new Point(456, 3);
             label7.Name = "label7";
             label7.Size = new Size(61, 44);
             label7.TabIndex = 16;
             label7.Text = "LAK";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // total_amount_lb
+            // unitprice_lbl
             // 
-            total_amount_lb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            total_amount_lb.ForeColor = Color.RoyalBlue;
-            total_amount_lb.Location = new Point(191, 108);
-            total_amount_lb.Name = "total_amount_lb";
-            total_amount_lb.Size = new Size(259, 44);
-            total_amount_lb.TabIndex = 14;
-            total_amount_lb.Text = "0";
-            total_amount_lb.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            label5.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.RoyalBlue;
-            label5.Location = new Point(0, 108);
-            label5.Name = "label5";
-            label5.Size = new Size(207, 44);
-            label5.TabIndex = 13;
-            label5.Text = "ຍອດລວມສຸດທິ:";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // line
-            // 
-            line.BackColor = Color.LightGray;
-            line.Location = new Point(0, 94);
-            line.Name = "line";
-            line.Size = new Size(519, 3);
-            line.TabIndex = 12;
-            // 
-            // subtotal_lb
-            // 
-            subtotal_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
-            subtotal_lb.Location = new Point(140, 3);
-            subtotal_lb.Name = "subtotal_lb";
-            subtotal_lb.Size = new Size(297, 44);
-            subtotal_lb.TabIndex = 1;
-            subtotal_lb.Text = "0";
-            subtotal_lb.TextAlign = ContentAlignment.MiddleRight;
+            unitprice_lbl.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold);
+            unitprice_lbl.Location = new Point(140, 3);
+            unitprice_lbl.Name = "unitprice_lbl";
+            unitprice_lbl.Size = new Size(297, 44);
+            unitprice_lbl.TabIndex = 1;
+            unitprice_lbl.Text = "0";
+            unitprice_lbl.TextAlign = ContentAlignment.MiddleRight;
             // 
             // subtotal_title_lb
             // 
@@ -305,13 +251,13 @@
             subtotal_title_lb.Name = "subtotal_title_lb";
             subtotal_title_lb.Size = new Size(143, 44);
             subtotal_title_lb.TabIndex = 0;
-            subtotal_title_lb.Text = "ຍອດລວມ:";
+            subtotal_title_lb.Text = "ລາຄາຕໍ່ໜ່ວຍ:";
             subtotal_title_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
             label2.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(37, 51);
+            label2.Location = new Point(37, 0);
             label2.Name = "label2";
             label2.Size = new Size(114, 31);
             label2.TabIndex = 9;
@@ -321,20 +267,11 @@
             // notes_txt
             // 
             notes_txt.BorderStyle = BorderStyle.FixedSingle;
-            notes_txt.Location = new Point(37, 85);
+            notes_txt.Location = new Point(37, 34);
             notes_txt.Multiline = true;
             notes_txt.Name = "notes_txt";
-            notes_txt.Size = new Size(522, 157);
+            notes_txt.Size = new Size(522, 172);
             notes_txt.TabIndex = 0;
-            // 
-            // summary_and_note_lb
-            // 
-            summary_and_note_lb.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            summary_and_note_lb.Location = new Point(11, 0);
-            summary_and_note_lb.Name = "summary_and_note_lb";
-            summary_and_note_lb.Size = new Size(83, 53);
-            summary_and_note_lb.TabIndex = 8;
-            summary_and_note_lb.Text = "ສະຫຼຸບ";
             // 
             // middle_pn
             // 
@@ -344,7 +281,7 @@
             middle_pn.Controls.Add(lower_body_form_layout);
             middle_pn.Controls.Add(upper_body_form_layout);
             middle_pn.Dock = DockStyle.Fill;
-            middle_pn.Location = new Point(0, 200);
+            middle_pn.Location = new Point(0, 160);
             middle_pn.Margin = new Padding(0);
             middle_pn.Name = "middle_pn";
             middle_pn.Size = new Size(1421, 280);
@@ -371,7 +308,6 @@
             upper_body_cb.TabIndex = 10;
             upper_body_cb.Text = "ຮ່າງກາຍສ່ວນເທິງ";
             upper_body_cb.UseVisualStyleBackColor = true;
-            upper_body_cb.CheckedChanged += upper_body_cb_CheckedChanged;
             // 
             // measurements_title_lb
             // 
@@ -797,29 +733,24 @@
             top_pn.Controls.Add(panel1);
             top_pn.Controls.Add(panel7);
             top_pn.Controls.Add(label10);
-            top_pn.Controls.Add(due_date_dpk);
             top_pn.Controls.Add(panel5);
             top_pn.Controls.Add(panel4);
-            top_pn.Controls.Add(panel3);
-            top_pn.Controls.Add(choose_customer_btn);
             top_pn.Controls.Add(garment_lb);
-            top_pn.Controls.Add(due_date_lb);
             top_pn.Controls.Add(fabric_lb);
-            top_pn.Controls.Add(customer_lb);
             top_pn.Dock = DockStyle.Fill;
             top_pn.Location = new Point(0, 0);
             top_pn.Margin = new Padding(0);
             top_pn.Name = "top_pn";
-            top_pn.Size = new Size(1421, 200);
+            top_pn.Size = new Size(1421, 160);
             top_pn.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(fabric_image_pb);
-            panel1.Location = new Point(325, 87);
+            panel1.Location = new Point(22, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(175, 110);
+            panel1.Size = new Size(175, 151);
             panel1.TabIndex = 20;
             // 
             // fabric_image_pb
@@ -827,7 +758,7 @@
             fabric_image_pb.Dock = DockStyle.Fill;
             fabric_image_pb.Location = new Point(0, 0);
             fabric_image_pb.Name = "fabric_image_pb";
-            fabric_image_pb.Size = new Size(173, 108);
+            fabric_image_pb.Size = new Size(173, 149);
             fabric_image_pb.SizeMode = PictureBoxSizeMode.StretchImage;
             fabric_image_pb.TabIndex = 0;
             fabric_image_pb.TabStop = false;
@@ -836,7 +767,7 @@
             // 
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.Controls.Add(quantity_num);
-            panel7.Location = new Point(693, 121);
+            panel7.Location = new Point(1057, 73);
             panel7.Name = "panel7";
             panel7.Size = new Size(290, 46);
             panel7.TabIndex = 19;
@@ -856,30 +787,18 @@
             // label10
             // 
             label10.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label10.Location = new Point(693, 87);
+            label10.Location = new Point(1057, 39);
             label10.Name = "label10";
             label10.Size = new Size(127, 31);
             label10.TabIndex = 18;
             label10.Text = "ຈຳນວນ";
             label10.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // due_date_dpk
-            // 
-            due_date_dpk.CalendarFont = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            due_date_dpk.CustomFormat = "dd/MM/yyyy";
-            due_date_dpk.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            due_date_dpk.Format = DateTimePickerFormat.Custom;
-            due_date_dpk.Location = new Point(1157, 35);
-            due_date_dpk.MinDate = new DateTime(2025, 5, 18, 0, 0, 0, 0);
-            due_date_dpk.Name = "due_date_dpk";
-            due_date_dpk.Size = new Size(182, 34);
-            due_date_dpk.TabIndex = 7;
-            // 
             // panel5
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(fabric_cb);
-            panel5.Location = new Point(27, 121);
+            panel5.Location = new Point(219, 72);
             panel5.Name = "panel5";
             panel5.Size = new Size(290, 46);
             panel5.TabIndex = 16;
@@ -894,14 +813,13 @@
             fabric_cb.Size = new Size(269, 41);
             fabric_cb.TabIndex = 12;
             fabric_cb.Text = "Select Fabric";
-            fabric_cb.SelectedIndexChanged += fabric_cb_SelectedIndexChanged;
             fabric_cb.SelectedValueChanged += fabric_cb_SelectedValueChanged;
             // 
             // panel4
             // 
             panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(garment_cb);
-            panel4.Location = new Point(693, 35);
+            panel4.Location = new Point(634, 72);
             panel4.Name = "panel4";
             panel4.Size = new Size(290, 46);
             panel4.TabIndex = 15;
@@ -918,111 +836,30 @@
             garment_cb.Text = "Select Garment";
             garment_cb.SelectedValueChanged += garment_cb_SelectedValueChanged;
             // 
-            // panel3
-            // 
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(customer_lbl);
-            panel3.Location = new Point(27, 35);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(290, 46);
-            panel3.TabIndex = 14;
-            // 
-            // customer_lbl
-            // 
-            customer_lbl.Dock = DockStyle.Fill;
-            customer_lbl.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            customer_lbl.Location = new Point(0, 0);
-            customer_lbl.Name = "customer_lbl";
-            customer_lbl.Size = new Size(288, 44);
-            customer_lbl.TabIndex = 20;
-            customer_lbl.Text = "ກະລຸນາເລືອກລູກຄ້າ";
-            customer_lbl.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // choose_customer_btn
-            // 
-            choose_customer_btn.BackColor = Color.FromArgb(33, 52, 72);
-            choose_customer_btn.Cursor = Cursors.Hand;
-            choose_customer_btn.FlatStyle = FlatStyle.Flat;
-            choose_customer_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            choose_customer_btn.ForeColor = Color.White;
-            choose_customer_btn.Location = new Point(325, 35);
-            choose_customer_btn.Margin = new Padding(0);
-            choose_customer_btn.Name = "choose_customer_btn";
-            choose_customer_btn.Size = new Size(175, 46);
-            choose_customer_btn.TabIndex = 13;
-            choose_customer_btn.Text = "ເລືອກລູກຄ້າ";
-            choose_customer_btn.UseVisualStyleBackColor = false;
-            choose_customer_btn.Click += choose_customer_btn_Click;
-            // 
             // garment_lb
             // 
             garment_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            garment_lb.Location = new Point(693, 3);
+            garment_lb.Location = new Point(634, 40);
             garment_lb.Name = "garment_lb";
             garment_lb.Size = new Size(114, 31);
             garment_lb.TabIndex = 11;
             garment_lb.Text = "ປະເພດເສື້ອຜ້າ";
             garment_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // due_date_lb
-            // 
-            due_date_lb.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            due_date_lb.Location = new Point(1157, 3);
-            due_date_lb.Name = "due_date_lb";
-            due_date_lb.Size = new Size(114, 31);
-            due_date_lb.TabIndex = 8;
-            due_date_lb.Text = "ວັນທີນັດຮັບ";
-            due_date_lb.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // fabric_lb
             // 
             fabric_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            fabric_lb.Location = new Point(27, 87);
+            fabric_lb.Location = new Point(219, 38);
             fabric_lb.Name = "fabric_lb";
             fabric_lb.Size = new Size(114, 31);
             fabric_lb.TabIndex = 6;
             fabric_lb.Text = "ຜ້າ";
             fabric_lb.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // customer_lb
-            // 
-            customer_lb.Font = new Font("Noto Sans Lao", 10.1999989F);
-            customer_lb.Location = new Point(27, 3);
-            customer_lb.Name = "customer_lb";
-            customer_lb.Size = new Size(114, 31);
-            customer_lb.TabIndex = 4;
-            customer_lb.Text = "ລູກຄ້າ";
-            customer_lb.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // order_number_lb
-            // 
-            order_number_lb.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            order_number_lb.ForeColor = Color.White;
-            order_number_lb.Location = new Point(168, 9);
-            order_number_lb.Name = "order_number_lb";
-            order_number_lb.Size = new Size(283, 46);
-            order_number_lb.TabIndex = 3;
-            order_number_lb.Text = "0";
-            order_number_lb.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Noto Sans Lao", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(22, 8);
-            label1.Name = "label1";
-            label1.Size = new Size(152, 44);
-            label1.TabIndex = 2;
-            label1.Text = "ເລກທີສັ່ງຕັດ:";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // header_pn
             // 
             header_pn.BackColor = Color.FromArgb(33, 52, 72);
             header_pn.Controls.Add(close_btn);
-            header_pn.Controls.Add(order_number_lb);
-            header_pn.Controls.Add(label1);
             header_pn.Dock = DockStyle.Top;
             header_pn.Location = new Point(0, 0);
             header_pn.Name = "header_pn";
@@ -1045,9 +882,9 @@
             footer_pn.BackColor = Color.White;
             footer_pn.Controls.Add(create_order_btn);
             footer_pn.Dock = DockStyle.Bottom;
-            footer_pn.Location = new Point(0, 789);
+            footer_pn.Location = new Point(0, 715);
             footer_pn.Name = "footer_pn";
-            footer_pn.Size = new Size(1421, 103);
+            footer_pn.Size = new Size(1421, 87);
             footer_pn.TabIndex = 4;
             // 
             // create_order_btn
@@ -1062,7 +899,7 @@
             create_order_btn.Name = "create_order_btn";
             create_order_btn.Size = new Size(155, 66);
             create_order_btn.TabIndex = 2;
-            create_order_btn.Text = "ບັນທຶກການສັ່ງຕັດ";
+            create_order_btn.Text = "ບັນທຶກ";
             create_order_btn.UseVisualStyleBackColor = false;
             create_order_btn.Click += create_order_btn_Click;
             // 
@@ -1075,18 +912,18 @@
             root_pn.Dock = DockStyle.Fill;
             root_pn.Location = new Point(0, 0);
             root_pn.Name = "root_pn";
-            root_pn.Size = new Size(1423, 894);
+            root_pn.Size = new Size(1423, 804);
             root_pn.TabIndex = 7;
             // 
-            // OrderForm
+            // OrderItemForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1423, 894);
+            ClientSize = new Size(1423, 804);
             Controls.Add(root_pn);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "OrderForm";
+            Name = "OrderItemForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OrderForm";
             Load += OrderForm_Load;
@@ -1094,8 +931,6 @@
             bottom_pn.ResumeLayout(false);
             bottom_pn.PerformLayout();
             summary_pn.ResumeLayout(false);
-            panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)deposit_amount_num).EndInit();
             middle_pn.ResumeLayout(false);
             middle_pn.PerformLayout();
             lower_body_form_layout.ResumeLayout(false);
@@ -1122,9 +957,7 @@
             ((System.ComponentModel.ISupportInitialize)quantity_num).EndInit();
             panel5.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            panel3.ResumeLayout(false);
             header_pn.ResumeLayout(false);
-            header_pn.PerformLayout();
             footer_pn.ResumeLayout(false);
             root_pn.ResumeLayout(false);
             ResumeLayout(false);
@@ -1137,8 +970,6 @@
         private Panel middle_pn;
         private Panel top_pn;
         private Button button1;
-        private Label order_number_lb;
-        private Label label1;
         private Label neck_lb;
         private NumericUpDown neck_num;
         private TableLayoutPanel upper_body_form_layout;
@@ -1165,30 +996,16 @@
         private Label measurements_title_lb;
         private ComboBox garment_cb;
         private Label label29;
-        private DateTimePicker due_date_dpk;
         private Label fabric_lb;
         private ComboBox comboBox3;
         private Label label31;
         private Button button2;
-        private Label customer_lb;
-        private Label due_date_lb;
         private Label label2;
         private TextBox notes_txt;
-        private Label summary_and_note_lb;
         private ComboBox fabric_cb;
         private Label garment_lb;
-        private Button choose_customer_btn;
-        private Panel summary_pn;
-        private Label subtotal_title_lb;
-        private Label subtotal_lb;
-        private Label total_amount_lb;
-        private Label label5;
-        private Panel line;
-        private Label label8;
-        private Label label7;
         private Panel footer_pn;
         private Panel root_pn;
-        private Panel panel3;
         private Panel panel4;
         private Panel panel5;
         private Label sleeve_opening_lb;
@@ -1201,19 +1018,26 @@
         private NumericUpDown thigh_num;
         private NumericUpDown length_num;
         private Label length_lb;
-        private Panel panel6;
-        private NumericUpDown deposit_amount_num;
-        private Label label3;
-        private Label label9;
         private Panel panel7;
         private NumericUpDown quantity_num;
         private Label label10;
         private Button close_btn;
         private Button create_order_btn;
-        private Label customer_lbl;
         private CheckBox upper_body_cb;
         private CheckBox lower_body_cb;
         private Panel panel1;
         private PictureBox fabric_image_pb;
+        private Panel summary_pn;
+        private Label label9;
+        private Label label7;
+        private Label total_amount_lb;
+        private Panel line;
+        private Label unitprice_lbl;
+        private Label subtotal_title_lb;
+        private Label label5;
+        private Label total_lbl;
+        private Label label8;
+        private Label quantity_lbl;
+        private Label label4;
     }
 }

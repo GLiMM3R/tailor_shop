@@ -19,9 +19,12 @@ namespace app.Presentation.Report
     public partial class FabricReportUC : UserControl
     {
         private Pagination _pagination;
+        private MainForm _mainForm;
 
-        public FabricReportUC()
+        public FabricReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
+
             InitializeComponent();
             InitializeDataGridView();
 
@@ -92,7 +95,7 @@ namespace app.Presentation.Report
                     //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Color", headerText: "ຄ່າສີ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
                     //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "DisplayColor", headerText: "ສີ", autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalUsedQuantity", headerText: "ຈຳນວນຖືກໃຊ້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill, fillWeight: 50)
-                    //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
+                //DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalValue", headerText: "ລວມມູນຄ່າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill)
                 );
 
             fabric_report_dgv.RowTemplate.Height = 100; // Set row height to accommodate images
@@ -382,6 +385,12 @@ namespace app.Presentation.Report
                     MessageBox.Show("No data available to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
         }
     }
 }

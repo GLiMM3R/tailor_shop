@@ -68,6 +68,7 @@ namespace app.Model
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 
     public class OrderStatistic

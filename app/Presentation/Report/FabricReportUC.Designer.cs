@@ -47,6 +47,7 @@
             total_fabrics_lbl = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            back_btn = new Button();
             net_sales_pn = new TableLayoutPanel();
             total_used_lbl = new Label();
             gross_sales_pn = new TableLayoutPanel();
@@ -284,6 +285,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(back_btn);
             panel1.Controls.Add(net_sales_pn);
             panel1.Controls.Add(gross_sales_pn);
             panel1.Controls.Add(label1);
@@ -292,6 +294,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1472, 252);
             panel1.TabIndex = 7;
+            // 
+            // back_btn
+            // 
+            back_btn.Cursor = Cursors.Hand;
+            back_btn.FlatStyle = FlatStyle.Flat;
+            back_btn.Font = new Font("Noto Sans Lao", 10.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            back_btn.Location = new Point(30, 27);
+            back_btn.Name = "back_btn";
+            back_btn.Size = new Size(94, 45);
+            back_btn.TabIndex = 6;
+            back_btn.Text = "ກັບຄືນ";
+            back_btn.UseVisualStyleBackColor = true;
+            back_btn.Click += back_btn_Click;
             // 
             // net_sales_pn
             // 
@@ -528,5 +543,6 @@
         private Button first_page_btn;
         private Label page_lbl;
         private Label total_used_lbl;
+        private Button back_btn;
     }
 }

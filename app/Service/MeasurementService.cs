@@ -12,7 +12,7 @@ namespace app.Service
 {
     public class FilterMeasurement
     {
-        public int OrderId { get; set; }
+        public int OrderItemId { get; set; }
         public string? BodyPart { get; set; }
         public BodyType? BodyType { get; set; } = 0;
     }
@@ -30,12 +30,12 @@ namespace app.Service
         {
             IQueryable<Measurement> query = _context.Measurements.AsQueryable();
 
-            if(filter.OrderId == 0)
+            if(filter.OrderItemId == 0)
             {
                 return [];
             }
 
-            query = query.Where(c => c.OrderId == filter.OrderId);
+            query = query.Where(c => c.OrderItemId == filter.OrderItemId);
 
             if (filter != null)
             {

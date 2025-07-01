@@ -81,7 +81,8 @@ namespace app.Service
         {
             // Get all fabrics and their related orders in the date range
             var fabrics = await _context.Fabrics
-                .Include(f => f.Orders)
+                .Include(f => f.OrderItems)
+                .ThenInclude(oi => oi.Order)
                 .ToListAsync();
 
             int totalFabrics = fabrics.Count;
@@ -90,8 +91,8 @@ namespace app.Service
 
             foreach (var fabric in fabrics)
             {
-                var usedOrders = fabric.Orders
-                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate);
+                var usedOrders = fabric.OrderItems
+                    .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate);
 
                 int usedQty = usedOrders.Sum(o => o.Quantity);
                 totalUsedFabrics += usedQty;
@@ -115,7 +116,8 @@ namespace app.Service
             // - Count total garments (distinct garments with at least one valid order in range)
 
             var garments = await _context.Garments
-                .Include(g => g.Orders)
+                .Include(g => g.OrderItems)
+                .ThenInclude(oi => oi.Order)
                 .ToListAsync();
 
             int totalGarments = 0;
@@ -123,9 +125,9 @@ namespace app.Service
 
             foreach (var garment in garments)
             {
-                var validOrders = garment.Orders
-                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate
-                        && o.Status != OrderStatus.Pending && o.Status != OrderStatus.Canceled);
+                var validOrders = garment.OrderItems
+                    .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate
+                        && o.Order.Status != OrderStatus.Pending && o.Order.Status != OrderStatus.Canceled);
 
                 int orderCount = validOrders.Any() ? 1 : 0;
                 totalGarments += orderCount;

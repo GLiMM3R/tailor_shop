@@ -22,10 +22,12 @@ namespace app.Presentation.Report
         private Pagination _pagination = new Pagination(1, 10);
         private string _search = string.Empty;
         private Debouncer searchDebouncer;
+        private MainForm _mainForm;
 
 
-        public SaleReportUC()
+        public SaleReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
             InitializeDataGridView();
 
@@ -62,6 +64,7 @@ namespace app.Presentation.Report
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "OrderNumber", headerText: "ເລກທີສັ່ງຊື້", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "CustomerName", headerText: "ລູກຄ້າ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Username", headerText: "ພະນັກງານ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
+                    DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Quantity", headerText: "ຈຳນວນ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleCenter, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Subtotal", headerText: "ຍອດລວມ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "TotalAmount", headerText: "ຍອດລວມສຸດທິ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
                     DataGridViewUtils.CreateTextBoxColumn(dataPropertyName: "Status", headerText: "ສະຖານະ", dataGridViewContentAlignment: DataGridViewContentAlignment.MiddleRight, autoSizeMode: DataGridViewAutoSizeColumnMode.Fill),
@@ -300,6 +303,13 @@ namespace app.Presentation.Report
         {
             _search = search_txt.Text;
             searchDebouncer.Trigger();
+        }
+
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
+
         }
     }
 }

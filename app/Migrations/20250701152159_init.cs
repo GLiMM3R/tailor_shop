@@ -51,11 +51,9 @@ namespace app.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     MaterialType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ColorCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,11 +100,7 @@ namespace app.Migrations
                     OrderNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    GarmentId = table.Column<int>(type: "int", nullable: false),
-                    FabricId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DepositAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -126,18 +120,6 @@ namespace app.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Fabrics_FabricId",
-                        column: x => x.FabricId,
-                        principalTable: "Fabrics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Garments_GarmentId",
-                        column: x => x.GarmentId,
-                        principalTable: "Garments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
@@ -146,27 +128,40 @@ namespace app.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Measurements",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    BodyType = table.Column<int>(type: "int", nullable: false),
-                    BodyPart = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MeasurementDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    GarmentId = table.Column<int>(type: "int", nullable: false),
+                    FabricId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FarbricId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Measurements", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Measurements_Orders_OrderId",
+                        name: "FK_OrderItems_Fabrics_FabricId",
+                        column: x => x.FabricId,
+                        principalTable: "Fabrics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Garments_GarmentId",
+                        column: x => x.GarmentId,
+                        principalTable: "Garments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,30 +188,58 @@ namespace app.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Measurements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderItemId = table.Column<int>(type: "int", nullable: false),
+                    BodyType = table.Column<int>(type: "int", nullable: false),
+                    BodyPart = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Measurements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Measurements_OrderItems_OrderItemId",
+                        column: x => x.OrderItemId,
+                        principalTable: "OrderItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Password", "Role", "Salt", "Username" },
                 values: new object[] { 1, "+ME1Cq0n2uJ85+H3gHkewnzYDGM5IsRwQDfOJZ4Mly4=", 1, "VbQId3K5ZFNKRRSaL8rdvw==", "admin" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Measurements_OrderId",
+                name: "IX_Measurements_OrderItemId",
                 table: "Measurements",
+                column: "OrderItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_FabricId",
+                table: "OrderItems",
+                column: "FabricId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_GarmentId",
+                table: "OrderItems",
+                column: "GarmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_FabricId",
-                table: "Orders",
-                column: "FabricId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_GarmentId",
-                table: "Orders",
-                column: "GarmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_OrderNumber",
@@ -248,16 +271,19 @@ namespace app.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "Fabrics");
 
             migrationBuilder.DropTable(
                 name: "Garments");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Users");

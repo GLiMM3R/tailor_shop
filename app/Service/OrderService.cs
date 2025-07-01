@@ -35,8 +35,7 @@ namespace app.Service
 
             IQueryable<Order> query = _context.Orders
                 .Include(o => o.Customer)
-                .Include(o => o.Garment)
-                .Include(o => o.Fabric)
+                .Include(o => o.OrderItems)
                 .Include(o => o.User);
 
             if (filter != null)
@@ -86,8 +85,7 @@ namespace app.Service
         {
             var order = await _context.Orders
                 .Include(o => o.Customer)
-                .Include(o => o.Garment)
-                .Include(o => o.Fabric)
+                .Include(o => o.OrderItems)
                 .Include(o => o.User)
                 .Include(o => o.Payments)
                 .FirstOrDefaultAsync(c => c.OrderNumber == orderNumber);
@@ -108,6 +106,27 @@ namespace app.Service
         public async Task Update(Order order)
         {
             _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<OrderItem>> GetOrderItems(string orderNumber)
+        {
+            var items = await _context.OrderItems
+                .Include(i => i.Order)
+                .Include(i => i.Fabric)
+                .Include(i => i.Garment)
+                .Where(i => i.Order.OrderNumber == orderNumber)
+                .ToListAsync();
+
+            return items;
+        }
+
+        public async Task DeleteOrderItem(OrderItem item)
+        {
+            var existingItem = await _context.OrderItems.FirstOrDefaultAsync(i => i.Id == item.Id);
+            if (existingItem == null) { return; }
+
+            _context.OrderItems.Remove(existingItem);
             await _context.SaveChangesAsync();
         }
     }

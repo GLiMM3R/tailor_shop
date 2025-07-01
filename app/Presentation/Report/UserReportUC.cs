@@ -19,9 +19,11 @@ namespace app.Presentation.Report
     public partial class UserReportUC : UserControl
     {
         private Pagination _pagination = new Pagination(1, 10);
+        private MainForm _mainForm;
 
-        public UserReportUC()
+        public UserReportUC(MainForm mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
             InitializeDataGridView();
         }
@@ -267,5 +269,10 @@ namespace app.Presentation.Report
             }
         }
 
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            var frm = new ReportUC(_mainForm);
+            _mainForm.LoadFormIntoPanel(frm);
+        }
     }
 }

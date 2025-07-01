@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             measurement_pn = new Panel();
+            order_items_dgv = new DataGridView();
             label4 = new Label();
-            measurement_dgv = new DataGridView();
             bottom_pn = new Panel();
             label13 = new Label();
             summary_pn = new Panel();
@@ -66,13 +65,6 @@
             due_date_lbl = new Label();
             label25 = new Label();
             pick_up_date_lbl = new Label();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            label14 = new Label();
-            garment_lbl = new Label();
-            label17 = new Label();
-            fabric_lbl = new Label();
-            label19 = new Label();
-            quantity_lbl = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             label5 = new Label();
             customer_name_lbl = new Label();
@@ -83,7 +75,7 @@
             header_pn = new Panel();
             back_btn = new Button();
             measurement_pn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)measurement_dgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)order_items_dgv).BeginInit();
             bottom_pn.SuspendLayout();
             summary_pn.SuspendLayout();
             action_pn.SuspendLayout();
@@ -91,7 +83,6 @@
             order_detail_pn.SuspendLayout();
             information_gb.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             header_pn.SuspendLayout();
             SuspendLayout();
@@ -99,8 +90,8 @@
             // measurement_pn
             // 
             measurement_pn.BackColor = Color.White;
+            measurement_pn.Controls.Add(order_items_dgv);
             measurement_pn.Controls.Add(label4);
-            measurement_pn.Controls.Add(measurement_dgv);
             measurement_pn.Dock = DockStyle.Fill;
             measurement_pn.Location = new Point(0, 277);
             measurement_pn.Margin = new Padding(0);
@@ -109,34 +100,40 @@
             measurement_pn.Size = new Size(1546, 311);
             measurement_pn.TabIndex = 2;
             // 
+            // order_items_dgv
+            // 
+            order_items_dgv.AllowUserToAddRows = false;
+            order_items_dgv.AllowUserToDeleteRows = false;
+            order_items_dgv.AllowUserToResizeColumns = false;
+            order_items_dgv.AllowUserToResizeRows = false;
+            order_items_dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            order_items_dgv.BackgroundColor = Color.White;
+            order_items_dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            order_items_dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            order_items_dgv.ColumnHeadersHeight = 48;
+            order_items_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            order_items_dgv.Location = new Point(8, 52);
+            order_items_dgv.MultiSelect = false;
+            order_items_dgv.Name = "order_items_dgv";
+            order_items_dgv.ReadOnly = true;
+            order_items_dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            order_items_dgv.RowHeadersVisible = false;
+            order_items_dgv.RowHeadersWidth = 51;
+            order_items_dgv.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            order_items_dgv.RowTemplate.Height = 50;
+            order_items_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            order_items_dgv.Size = new Size(1527, 259);
+            order_items_dgv.TabIndex = 3;
+            // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(17, 16);
             label4.Name = "label4";
-            label4.Size = new Size(160, 33);
+            label4.Size = new Size(79, 33);
             label4.TabIndex = 2;
-            label4.Text = "ການວັດແທກ (cm)";
-            // 
-            // measurement_dgv
-            // 
-            measurement_dgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            measurement_dgv.BackgroundColor = Color.White;
-            measurement_dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            measurement_dgv.DefaultCellStyle = dataGridViewCellStyle1;
-            measurement_dgv.Location = new Point(17, 52);
-            measurement_dgv.Name = "measurement_dgv";
-            measurement_dgv.RowHeadersWidth = 51;
-            measurement_dgv.Size = new Size(1518, 249);
-            measurement_dgv.TabIndex = 1;
+            label4.Text = "ລາຍການ";
             // 
             // bottom_pn
             // 
@@ -432,7 +429,6 @@
             information_gb.Controls.Add(pick_up_btn);
             information_gb.Controls.Add(garment_lb);
             information_gb.Controls.Add(tableLayoutPanel3);
-            information_gb.Controls.Add(tableLayoutPanel2);
             information_gb.Controls.Add(tableLayoutPanel1);
             information_gb.Dock = DockStyle.Fill;
             information_gb.Font = new Font("Noto Sans Lao", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -473,13 +469,13 @@
             tableLayoutPanel3.Controls.Add(due_date_lbl, 1, 1);
             tableLayoutPanel3.Controls.Add(label25, 0, 2);
             tableLayoutPanel3.Controls.Add(pick_up_date_lbl, 1, 2);
-            tableLayoutPanel3.Location = new Point(803, 58);
+            tableLayoutPanel3.Location = new Point(621, 58);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 3;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel3.Size = new Size(400, 127);
+            tableLayoutPanel3.Size = new Size(479, 127);
             tableLayoutPanel3.TabIndex = 5;
             // 
             // label21
@@ -499,7 +495,7 @@
             order_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             order_date_lbl.Location = new Point(163, 0);
             order_date_lbl.Name = "order_date_lbl";
-            order_date_lbl.Size = new Size(234, 40);
+            order_date_lbl.Size = new Size(313, 40);
             order_date_lbl.TabIndex = 7;
             order_date_lbl.Text = "0";
             order_date_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -521,7 +517,7 @@
             due_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             due_date_lbl.Location = new Point(163, 40);
             due_date_lbl.Name = "due_date_lbl";
-            due_date_lbl.Size = new Size(234, 40);
+            due_date_lbl.Size = new Size(313, 40);
             due_date_lbl.TabIndex = 9;
             due_date_lbl.Text = "0";
             due_date_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -543,96 +539,10 @@
             pick_up_date_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             pick_up_date_lbl.Location = new Point(163, 80);
             pick_up_date_lbl.Name = "pick_up_date_lbl";
-            pick_up_date_lbl.Size = new Size(234, 47);
+            pick_up_date_lbl.Size = new Size(313, 47);
             pick_up_date_lbl.TabIndex = 11;
             pick_up_date_lbl.Text = "0";
             pick_up_date_lbl.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(label14, 0, 0);
-            tableLayoutPanel2.Controls.Add(garment_lbl, 1, 0);
-            tableLayoutPanel2.Controls.Add(label17, 0, 1);
-            tableLayoutPanel2.Controls.Add(fabric_lbl, 1, 1);
-            tableLayoutPanel2.Controls.Add(label19, 0, 2);
-            tableLayoutPanel2.Controls.Add(quantity_lbl, 1, 2);
-            tableLayoutPanel2.Location = new Point(400, 58);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 3;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel2.Size = new Size(400, 127);
-            tableLayoutPanel2.TabIndex = 4;
-            // 
-            // label14
-            // 
-            label14.Dock = DockStyle.Fill;
-            label14.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label14.Location = new Point(3, 0);
-            label14.Name = "label14";
-            label14.Size = new Size(154, 40);
-            label14.TabIndex = 6;
-            label14.Text = "ປະເພດເສື້ອຜ້າ:";
-            label14.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // garment_lbl
-            // 
-            garment_lbl.Dock = DockStyle.Fill;
-            garment_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
-            garment_lbl.Location = new Point(163, 0);
-            garment_lbl.Name = "garment_lbl";
-            garment_lbl.Size = new Size(234, 40);
-            garment_lbl.TabIndex = 7;
-            garment_lbl.Text = "0";
-            garment_lbl.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label17
-            // 
-            label17.Dock = DockStyle.Fill;
-            label17.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label17.Location = new Point(3, 40);
-            label17.Name = "label17";
-            label17.Size = new Size(154, 40);
-            label17.TabIndex = 8;
-            label17.Text = "ປະເພດຜ້າ:";
-            label17.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // fabric_lbl
-            // 
-            fabric_lbl.Dock = DockStyle.Fill;
-            fabric_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
-            fabric_lbl.Location = new Point(163, 40);
-            fabric_lbl.Name = "fabric_lbl";
-            fabric_lbl.Size = new Size(234, 40);
-            fabric_lbl.TabIndex = 9;
-            fabric_lbl.Text = "0";
-            fabric_lbl.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label19
-            // 
-            label19.Dock = DockStyle.Fill;
-            label19.Font = new Font("Noto Sans Lao", 10.1999989F);
-            label19.Location = new Point(3, 80);
-            label19.Name = "label19";
-            label19.Size = new Size(154, 47);
-            label19.TabIndex = 10;
-            label19.Text = "ຈຳນວນ:";
-            label19.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // quantity_lbl
-            // 
-            quantity_lbl.Dock = DockStyle.Fill;
-            quantity_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
-            quantity_lbl.Location = new Point(163, 80);
-            quantity_lbl.Name = "quantity_lbl";
-            quantity_lbl.Size = new Size(234, 47);
-            quantity_lbl.TabIndex = 11;
-            quantity_lbl.Text = "0";
-            quantity_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel1
             // 
@@ -651,7 +561,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel1.Size = new Size(381, 127);
+            tableLayoutPanel1.Size = new Size(448, 127);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // label5
@@ -671,7 +581,7 @@
             customer_name_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             customer_name_lbl.Location = new Point(163, 40);
             customer_name_lbl.Name = "customer_name_lbl";
-            customer_name_lbl.Size = new Size(215, 40);
+            customer_name_lbl.Size = new Size(282, 40);
             customer_name_lbl.TabIndex = 4;
             customer_name_lbl.Text = "0";
             customer_name_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -693,7 +603,7 @@
             order_number_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             order_number_lbl.Location = new Point(163, 0);
             order_number_lbl.Name = "order_number_lbl";
-            order_number_lbl.Size = new Size(215, 40);
+            order_number_lbl.Size = new Size(282, 40);
             order_number_lbl.TabIndex = 2;
             order_number_lbl.Text = "0";
             order_number_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -715,7 +625,7 @@
             customer_phone_lbl.Font = new Font("Noto Sans Lao", 10.1999989F);
             customer_phone_lbl.Location = new Point(163, 80);
             customer_phone_lbl.Name = "customer_phone_lbl";
-            customer_phone_lbl.Size = new Size(215, 47);
+            customer_phone_lbl.Size = new Size(282, 47);
             customer_phone_lbl.TabIndex = 5;
             customer_phone_lbl.Text = "0";
             customer_phone_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -752,7 +662,7 @@
             Load += OrderDetailUC_Load;
             measurement_pn.ResumeLayout(false);
             measurement_pn.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)measurement_dgv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)order_items_dgv).EndInit();
             bottom_pn.ResumeLayout(false);
             bottom_pn.PerformLayout();
             summary_pn.ResumeLayout(false);
@@ -761,7 +671,6 @@
             order_detail_pn.ResumeLayout(false);
             information_gb.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             header_pn.ResumeLayout(false);
             ResumeLayout(false);
@@ -770,7 +679,6 @@
         #endregion
         private Panel measurement_pn;
         private Label label4;
-        private DataGridView measurement_dgv;
         private Panel bottom_pn;
         private Label label13;
         private Panel summary_pn;
@@ -808,13 +716,6 @@
         private Label due_date_lbl;
         private Label label25;
         private Label pick_up_date_lbl;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label14;
-        private Label garment_lbl;
-        private Label label17;
-        private Label fabric_lbl;
-        private Label label19;
-        private Label quantity_lbl;
         private Panel panel4;
         private Label garment_lb;
         private Button back_btn;
@@ -822,5 +723,6 @@
         private Panel line;
         private Button print_invoice_btn;
         private ComboBox status_cbb;
+        private DataGridView order_items_dgv;
     }
 }

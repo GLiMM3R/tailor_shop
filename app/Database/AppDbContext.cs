@@ -19,6 +19,7 @@ namespace app.Database
         public DbSet<Garment> Garments { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -54,10 +55,10 @@ namespace app.Database
                 .IsUnique();
 
             modelBuilder.Entity<Order>()
-                .HasMany(u => u.Measurements)
+                .HasMany(u => u.OrderItems)
                 .WithOne(o => o.Order)
                 .HasForeignKey(o => o.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.Payments)
@@ -65,14 +66,17 @@ namespace app.Database
                 .HasForeignKey(o => o.OrderId)
                 .OnDelete(DeleteBehavior.Cascade); // or Restrict, SetNull, etc.
 
+            modelBuilder.Entity<OrderItem>()
+                .HasIndex(o => o.OrderId);
+
             modelBuilder.Entity<Fabric>()
-               .HasMany(u => u.Orders)
+               .HasMany(u => u.OrderItems)
                .WithOne(o => o.Fabric)
                .HasForeignKey(o => o.FabricId)
                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Garment>()
-               .HasMany(u => u.Orders)
+               .HasMany(u => u.OrderItems)
                .WithOne(o => o.Garment)
                .HasForeignKey(o => o.GarmentId)
                .OnDelete(DeleteBehavior.Restrict);

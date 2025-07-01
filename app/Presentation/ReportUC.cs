@@ -27,43 +27,43 @@ namespace app.Presentation
 
         private void overall_sale_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new OverallSaleReportUC();
+            var report = new OverallSaleReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void customer_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new CustomerReportUC();
+            var report = new CustomerReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void fabric_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new FabricReportUC();
+            var report = new FabricReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void garment_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new GarmentReportUC();
+            var report = new GarmentReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void payment_transaction_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new PaymentTransactionReportUC();
+            var report = new PaymentTransactionReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void sale_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new SaleReportUC();
+            var report = new SaleReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
 
         private void user_report_btn_Click(object sender, EventArgs e)
         {
-            var report = new UserReportUC();
+            var report = new UserReportUC(_mainForm);
             _mainForm.LoadFormIntoPanel(report);
         }
     }

@@ -33,12 +33,12 @@ namespace app.Service
             var skip = (pagination?.Page - 1 ?? 0) * (pagination?.PageSize ?? 10);
             if (skip < 0) skip = 0;
 
-            // Only include completed orders in the date range
+            // Only include completed orders in the date range  
             var query = _context.Orders
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
                 .Where(o => o.Status != OrderStatus.Canceled);
 
-            // Group by date (date only, ignore time)
+            // Group by date (date only, ignore time)  
             var grouped = query
                 .GroupBy(o => o.CreatedAt.Date)
                 .Select(g => new OverallSaleReport
@@ -46,7 +46,7 @@ namespace app.Service
                     OrderDate = g.Key,
                     TotalOrders = g.Count(),
                     TotalCustomers = g.Select(x => x.CustomerId).Distinct().Count(),
-                    TotalQuantity = g.Sum(x => x.Quantity),
+                    TotalQuantity = g.Sum(x => x.OrderItems.Sum(item => item.Quantity)),
                     Subtotal = g.Sum(x => x.Subtotal),
                     Discount = 0,
                     DepositAmount = g.Sum(x => x.DepositAmount),
@@ -118,7 +118,7 @@ namespace app.Service
                 Phone = c.Phone ?? "",
                 Address = c.Address ?? "",
                 OrderCount = c.Orders.Count(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate),
-                TotalQuantity = c.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.Quantity),
+                TotalQuantity = c.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.OrderItems.Sum(x => x.Quantity)),
                 TotalSpent = c.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).Sum(o => o.TotalAmount),
                 LastOrderDate = c.Orders.Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate).OrderByDescending(o => o.CreatedAt).Select(o => o.CreatedAt).FirstOrDefault(),
                 CreatedAt = c.CreatedAt,
@@ -164,7 +164,7 @@ namespace app.Service
             if (skip < 0) skip = 0;
 
             IQueryable<Fabric> query = _context.Fabrics
-                .Include(c => c.Orders);
+                .Include(c => c.OrderItems);
 
             var grouped = query.Select(c => new FabricReport
             {
@@ -172,8 +172,8 @@ namespace app.Service
                 Image = c.Image,
                 MaterialType = c.MaterialType,
                 ColorCode = c.ColorCode,
-                TotalUsedQuantity = c.Orders
-                    .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                TotalUsedQuantity = c.OrderItems
+                    .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate)
                     .Sum(o => o.Quantity),
             });
 
@@ -218,7 +218,7 @@ namespace app.Service
 
             // Only include completed orders in the date range
             IQueryable<Garment> query = _context.Garments
-                .Include(o => o.Orders);
+                .Include(o => o.OrderItems);
 
             // Group by FabricId
             var grouped = query
@@ -226,14 +226,14 @@ namespace app.Service
                 {
                     Id = g.Id,
                     Name = g.Name, // Fix: Access the Name property of the Garment entity
-                    TotalCustomers = g.Orders
-                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-                        .Select(o => o.CustomerId).Distinct().Count(),
-                    TotalOrders = g.Orders
-                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                    TotalCustomers = g.OrderItems
+                        .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate)
+                        .Select(o => o.Order.CustomerId).Distinct().Count(),
+                    TotalOrders = g.OrderItems
+                        .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate)
                         .Count(),
-                    TotalValue = (g.BasePrice ?? 0) * g.Orders
-                        .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
+                    TotalValue = (g.BasePrice ?? 0) * g.OrderItems
+                        .Where(o => o.Order.CreatedAt >= fromDate && o.Order.CreatedAt <= toDate)
                         .Sum(o => o.Quantity) // Fix: Handle nullable BasePrice with a null-coalescing operator
                 });
 
@@ -310,9 +310,8 @@ namespace app.Service
 
             IQueryable<Order> query = _context.Orders
                 .Include(o => o.Customer)
-                .Include(o => o.Garment)
-                .Include(o => o.Fabric)
                 .Include(o => o.User)
+                .Include(o => o.OrderItems)
                 .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
                 .Where(o => o.Status != OrderStatus.Canceled);
 
@@ -336,10 +335,8 @@ namespace app.Service
                     OrderNumber = o.OrderNumber,
                     CustomerName = o.Customer.Name,
                     UserName = o.User.Username,
-                    GarmentName = o.Garment.Name,
-                    FabricName = o.Fabric.MaterialType + " " + o.Fabric.ColorCode,
                     OrderDate = o.CreatedAt,
-                    Quantity = o.Quantity,
+                    Quantity = o.OrderItems.Sum(x => x.Quantity),
                     Subtotal = o.Subtotal,
                     TotalAmount = o.TotalAmount,
                     DepositAmount = o.DepositAmount,

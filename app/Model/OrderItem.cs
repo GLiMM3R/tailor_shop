@@ -30,6 +30,10 @@ namespace app.Model
         [Required]
         public int Quantity { get; set; }
 
+        public decimal UnitPrice { get; set; } = decimal.Zero;
+
+        public string? Notes { get; set; } = string.Empty;
+
         public virtual ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
     }
 }
